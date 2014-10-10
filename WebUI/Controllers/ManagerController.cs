@@ -8,7 +8,7 @@ using Domain.Models.ViewModels;
 using SRN.DAL;
 using WebUI.Helpers;
 
-namespace Web.Controllers
+namespace Web.Controllers 
 {
     public class ManagerController : CustomController
     {
@@ -59,6 +59,7 @@ namespace Web.Controllers
                         TotalStake = totalStakes,
                         Managerbalance = managerBalance,
                        TotalTellerBalance=TellerBalance,
+                       BranchBalance=managerBalance+TellerBalance,
                         BranchMaximum = 2300000,     // to check this with you
                     },
                     JsonRequestBehavior.AllowGet
