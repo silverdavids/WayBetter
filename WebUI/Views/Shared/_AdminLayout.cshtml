@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie ie9" lang="en" class="no-js"> <![endif]-->
+<!--[if !(IE)]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<head>
+    <title>NFT Consult | HRM</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="NFT Consult - Human Resource Management">
+    <meta name="author" content="Iga Kigongo Edward">
+    <!-- CSS -->
+    <link href="~/Content/master/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/master/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/master/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/master/css/custom.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <!-- WRAPPER -->
+    <div class="wrapper">
+        <!-- END TOP GENERAL ALERT -->
+        <!-- TOP BAR -->
+        <div class="top-bar navbar-fixed-top">
+            <div class="container">
+                <div class="row">
+                    <!-- end logo -->
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="top-bar-right">
+                                    <!-- responsive menu bar icon -->
+                                    <a href="#" class="hidden-md hidden-lg main-nav-toggle"><i class="fa fa-bars"></i></a>
+                                    <!-- logged user and the menu -->
+                                    <div class="logged-user">
+                                        <div class="btn-group">
+                                            <a href="#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                                @*<img src="assets/img/user-avatar.png" />*@
+                                                <span class="name">@User.Identity.Name</span> <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="fa fa-user"></i>
+                                                        <span class="text">Profile</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="fa fa-cog"></i>
+                                                        <span class="text">Settings</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="fa fa-power-off"></i>
+                                                        <span class="text">Logout</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- end logged user and the menu -->
+                                </div><!-- /top-bar-right -->
+                            </div>
+                        </div><!-- /row -->
+                    </div>
+                </div><!-- /row -->
+            </div><!-- /container -->
+        </div><!-- /top -->
+        <!-- BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT -->
+        <div class="bottom">
+            <div class="container">
+                <div class="row">
+                    <!-- left sidebar -->
+                    <div class="col-md-1 left-sidebar">
+                        <!-- main-nav -->
+                        <nav class="main-nav">
+                            <ul class="main-menu">
+                                <li><a href='@Url.Action("Index","Home")'><i class="fa fa-dashboard fa-fw fa-4x"></i><br /><span class="text">Dashboard</span></a></li>
+                                <li>
+                                    <a href="#" class="js-sub-menu-toggle">
+                                        <i class="fa fa-clipboard fa-fw fa-4x"></i><br /><span class="text">Pages</span>
+                                        @*<i class="toggle-icon fa fa-angle-left"></i>*@
+                                    </a>
+                                    @*<ul class="sub-menu">
+                                        <li><a href='#'><span class="text">Profile</span></a></li>
+                                        <li><a href='#'><span class="text">Invoice</span></a></li>
+                                        <li><a href='#'><span class="text">Knowledge Base</span></a></li>
+                                        <li><a href='#'><span class="text">Inbox</span></a></li>
+                                        <li><a href='#'><span class="text">Register</span></a></li>
+                                        <li><a href='#'><span class="text">Login</span></a></li>
+                                        <li><a href='#'><span class="text">404</span></a></li>
+                                        <li><a href='#'><span class="text">Blank Page</span></a></li>
+                                    </ul>*@
+                                </li>
+                                <li>
+                                    <a href="#" class="js-sub-menu-toggle">
+                                        <i class="fa fa-bar-chart-o fa-fw fa-4x"></i><br /><span class="text">Charts &amp; Statistics</span>
+                                        @*<i class="toggle-icon fa fa-angle-left"></i>*@
+                                    </a>
+                                    @*<ul class="sub-menu ">
+                                        <li><a href='#'><span class="text">Charts</span></a></li>
+                                        <li><a href='#'><span class="text">Interactive Charts</span></a></li>
+                                        <li><a href='#'><span class="text">Realtime Charts</span></a></li>
+                                        <li><a href='#'><span class="text">D3 Charts</span></a></li>
+                                    </ul>*@
+                                </li>
+                                @*<li>
+                                    <a href="#" class="js-sub-menu-toggle">
+                                        <i class="fa fa-edit fw"></i><span class="text">Forms</span>
+                                        <i class="toggle-icon fa fa-angle-left"></i>
+                                    </a>
+                                    <ul class="sub-menu ">
+                                        <li><a href='#'><span class="text">In-place Editing <span class="badge element-bg-color-blue">New</span></span></a></li>
+                                        <li><a href='#'><span class="text">Form Elements <span class="badge element-bg-color-blue">Updated</span></span></a></li>
+                                        <li><a href='#'><span class="text">Form Layouts <span class="badge element-bg-color-blue">New</span></span></a></li>
+                                        <li><a href='#'><span class="text">Bootstrap Elements <span class="badge element-bg-color-blue">New</span></span></a></li>
+                                        <li><a href='#'><span class="text">Validation</span></a></li>
+                                        <li><a href='#'><span class="text">File Upload</span></a></li>
+                                        <li><a href='#'><span class="text">Text Editor <span class="badge element-bg-color-blue">New</span></span></a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="js-sub-menu-toggle">
+                                        <i class="fa fa-list-alt fw"></i><span class="text">UI Elements</span>
+                                        <i class="toggle-icon fa fa-angle-left"></i>
+                                    </a>
+                                    <ul class="sub-menu ">
+                                        <li><a href='#'><span class="text">General Elements</span></a></li>
+                                        <li><a href='#'><span class="text">Buttons <span class="badge element-bg-color-blue">Updated</span></span></a></li>
+                                        <li><a href='#'><span class="text">Icons</span></a></li>
+                                        <li><a href='#'><span class="text">Flash Message</span></a></li>
+                                    </ul>
+                                </li>
+                                <li><a href='#'><i class="fa fa-puzzle-piece fa-fw"></i><span class="text">Widgets</span></a></li>
+                                <li>
+                                        <a href="#" class="js-sub-menu-toggle">
+                                            <i class="fa fa-gears fw"></i><span class="text">Components</span>
+                                            <i class="toggle-icon fa fa-angle-left"></i>
+                                        </a>
+                                        <ul class="sub-menu open">
+                                            <li><a href="components-wizard.html"><span class="text">Wizard (with validation)</span></a></li>
+                                            <li><a href="components-calendar.html"><span class="text">Calendar</span></a></li>
+                                            <li><a href="components-maps.html"><span class="text">Maps</span></a></li>
+                                            <li><a href="components-gallery.html"><span class="text">Gallery</span></a></li>
+                                        </ul>
+                                    </li>
+                                <li>
+                                    <a href="#" class="js-sub-menu-toggle">
+                                        <i class="fa fa-table fw"></i><span class="text">Tables</span>
+                                        <i class="toggle-icon fa fa-angle-left"></i>
+                                    </a>
+                                    <ul class="sub-menu ">
+                                        <li><a href='#'><span class="text">Static Table</span></a></li>
+                                        <li><a href='#'><span class="text">Dynamic Table</span></a></li>
+                                    </ul>
+                                </li>
+                                <li><a href='#'><i class="fa fa-font fa-fw"></i><span class="text">Typography</span></a></li>*@
+                            </ul>
+                        </nav><!-- /main-nav -->
+                        @*<div class="sidebar-minified js-toggle-minified">
+                            <i class="fa fa-angle-left fa-angle-right"></i>
+                        </div>*@
+                        <!-- sidebar content -->
+                        @*<div class="sidebar-content">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"><h5><i class="fa fa-lightbulb-o"></i> Tips</h5></div>
+                                <div class="panel-body">
+                                    <p>You can do live search to the widget at search box located at top bar. It's very useful if your dashboard is full of widget.</p>
+                                </div>
+                            </div>
+
+                            <h5 class="label label-default"><i class="fa fa-info-circle"></i> Server Info</h5>
+                            <ul class="list-unstyled list-info-sidebar bottom-30px">
+                                <li class="data-row">
+                                    <span class="data-name">Disk Space Usage</span>
+                                    <span class="data-value">
+                                        274.43 / 2 GB
+                                        <div class="progress progress-xs">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
+                                                <span class="sr-only">10%</span>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </li>
+                                <li class="data-row">
+                                    <span class="data-name">Monthly Bandwidth Transfer</span>
+                                    <span class="data-value">
+                                        230 / 500 GB
+                                        <div class="progress progress-xs">
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100" style="width: 46%">
+                                                <span class="sr-only">46%</span>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </li>
+                                <li class="data-row">
+                                    <span class="data-name">Database Disk Space</span>
+                                    <span class="data-value">219.45 MB</span>
+                                </li>
+                                <li class="data-row">
+                                    <span class="data-name">Operating System</span>
+                                    <span class="data-value">Linux</span>
+                                </li>
+                                <li class="data-row">
+                                    <span class="data-name">Apache Version</span>
+                                    <span class="data-value">2.4.6</span>
+                                </li>
+                                <li class="data-row">
+                                    <span class="data-name">PHP Version</span>
+                                    <span class="data-value">5.3.27</span>
+                                </li>
+                                <li class="data-row">
+                                    <span class="data-name">MySQL Version</span>
+                                    <span class="data-value">5.5.34-cll</span>
+                                </li>
+                                <li class="data-row">
+                                    <span class="data-name">Architecture</span>
+                                    <span class="data-value">x86_64</span>
+                                </li>
+                            </ul>
+                        </div>*@
+                        <!-- end sidebar content -->
+                    </div>
+                    <!-- end left sidebar -->
+                    <!-- content-wrapper -->
+                    <div class="col-md-11 content-wrapper">
+                        <!-- main -->
+                        <div class="content">
+                            <div class="main-header">
+                                <h2>@ViewBag.PageTitle</h2>
+                                <em>@ViewBag.PageSubTitle</em>
+                            </div>
+                            <div class="main-content">
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT -->
+        <div class="push-sticky-footer"></div>
+    </div><!-- /wrapper -->
+    <!-- FOOTER -->
+    <footer class="footer">
+        &copy; @DateTime.Now.Year Betway Uganda Limited
+    </footer>
+    <!-- END FOOTER -->
+    <!-- Javascript -->
+    <script src="~/Scripts/master/jquery-2.1.0.js"></script>
+    <script src="~/Scripts/master/bootstrap.js"></script>
+    <script src="~/Scripts/master/bootstrap-tour.custom.js"></script>
+    <script src="~/Scripts/master/king-common.js"></script>
+    @RenderSection("scripts", false)
+</body>
+</html>

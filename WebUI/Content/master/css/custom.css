@@ -1,0 +1,161 @@
+﻿.wrapper {
+    /*position: absolute;
+    width: 100%;
+    height: 100%;*/
+    background: url(../img/pattern2.png) repeat left top;
+}
+
+body {
+    background-image: url(../img/uefa2.jpg);
+    background-position-x: 50%;
+    background-position-y: 50%;
+    background-size: cover;
+    background-attachment: fixed;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(37, 37, 37);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: #ffffff;
+    font-family: 'latoregular';
+}
+
+.btn-login-facebook {
+    background-color: #00008b;
+    color: #ffffff;
+    font-weight: bold;
+    border-color: #00008b;
+}
+
+.btn-login-facebook::before {
+    background-color: #00008b;
+    border-color: #00008b;
+    color: #ffffff;
+    content: "\f023";
+    font-size: 2.2em;
+    vertical-align: middle;
+}
+
+.btn-login-facebook:hover, .btn-login-facebook:focus {
+    color: #ffffff;
+    background-color: #00008b;
+    border-color: #00008b;
+}
+
+.btn-login {
+    color: #ffffff;
+    background-color: #00008b;
+    border-color: #00008b;
+}
+
+.logo {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.footer {
+    /*background-color: #d1ee0c;*/
+    background-color: #ff4500;
+    color: #000000;
+}
+
+/* Top Bar Custom Styles */
+.top-bar {
+    border-bottom: 1px solid #ff4500;
+    background-color: #ff4500;
+    color: #000000;
+}
+
+ul.main-menu {
+    padding-top: 20px;
+    opacity: 0.5;
+}
+
+ul.main-menu > li a {
+display: block;
+position: relative;
+padding: 10px 0 10px 15px;
+
+color: #ffffff;
+background-color: #191970;
+border-top: 1px solid #191970;
+}
+
+ul.main-menu > li.active a {
+    background-color: #4ba84b;
+    color:  #304a54;
+}
+
+.main-header {
+    margin-bottom: 5px;
+}
+
+.top-bar .notifications .count {
+    border-color: #4ba84b;
+}
+
+
+.content-wrapper {
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.bottom .container .content-wrapper {
+    background-color: #ffffff;
+    border-left: 1px solid #e4e4e4;
+}
+
+#form1 .form-group {
+    padding-left: 15px;
+}
+
+.col-lg-12 {
+    padding-left: 0;
+}
+
+
+/*  Wizard Styles */
+.step-content {
+    margin-top: 5px;
+    padding-left: 0;
+}
+
+.step-pane input[type="text"] {
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: #000000;
+}
+
+.step-pane .form-group {
+    padding-bottom: 10px;
+}
+
+.wizard ul li {
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.col-md-4 .form-group {
+    padding-left: 0;
+}
+
+.widget-content {
+    background-color: #ffffff;
+}
+
+legend {
+    font-size: 1.0em;
+    font-weight: bold;
+}
+
+fieldset .form-group {
+    padding-left: 15px;
+}
+
+.col-md-1 .left-sidebar {
+    width: 3.5%;
+}

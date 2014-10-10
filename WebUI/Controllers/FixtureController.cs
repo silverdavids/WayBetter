@@ -26,9 +26,9 @@ namespace WebUI.Controllers
         // GET: Fixture
         private readonly string[] _urls =
         {
-             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/eurocups_shedule?odds=bet365",
-            " http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/qatar_shedule?odds=bet365",
-            " http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/malta_shedule?odds=bet365",
+            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/eurocups_shedule?odds=bet365",
+            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/qatar_shedule?odds=bet365",
+            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/malta_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/iran_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/africa_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/argentina_shedule?odds=bet365",
@@ -68,14 +68,13 @@ namespace WebUI.Controllers
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/lithuania_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/malta_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/mexico_shedule?odds=bet365",
-              "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/moldova_shedule?odds=bet365",
-              "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/Iran_shedule?odds=bet365",
+            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/moldova_shedule?odds=bet365",
+            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/Iran_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/norway_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/paraguay_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/peru_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/poland_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/portugal_shedule?odds=bet365",
-         
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/romania_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/russia_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/saudi_arabia_shedule?odds=bet365",
@@ -652,7 +651,6 @@ namespace WebUI.Controllers
         }
         public void AddOdd(MatchOddsVm odds)
         {
-         
             Match match = BetDatabase.Matches.Find(odds.Mat);
             MatchOdd matchOdd = null;
             int Matno = Convert.ToInt32(odds.Mat);

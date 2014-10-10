@@ -25,9 +25,8 @@
             <div class="container">
                 <div class="row">
                     <!-- logo -->
-                    
                     <div class="col-md-4 logo">
-                            <a href="#"><img src="~/Content/Images/betway1.png" height="50px" width="100px" /></a>
+                            <a href="#"><img src="~/Content/Images/betway1.png" height="30" width="100" alt="BetWay Uganda" /></a>
                             <h1 class="sr-only">BETWAY Sports Betting</h1>
                         </div>@**@
                     <!-- end logo -->
@@ -74,82 +73,8 @@
         <div class="bottom" style="margin-top: 52px">
             <div class="container">
                 <div class="row">
-                    @*<!-- left sidebar -->
-                    <div class="col-md-2 left-sidebar">
-                        <!-- main-nav -->
-                        @*<nav class="main-nav">
-                            <ul class="main-menu">
-                                <li class="active"><a href="#"><i class="fa fa-dashboard fa-fw"></i><span class="text">Dashboard</span></a></li>
-                                <li class="active">
-                                    <a href="#" class="js-sub-menu-toggle">
-                                        <i class="fa fa-lock fa-fw"></i><span class="text">Account Management</span>
-                                        <i class="toggle-icon fa fa-angle-left"></i>
-                                    </a>
-                                    <ul class="sub-menu open">
-                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-                                        {
-                                            @Html.AntiForgeryToken()
-                                            <li><a href="javascript:document.getElementById('logoutForm').submit()"><span class="text">Log off</span></a></li>
-                                        }
-                                        <li><a href='@Url.Action("Manage", "Account")'><span class="text">Manage Account</span></a></li>
-                                    </ul>
-                                </li>
-                                <li class="active">
-                                    <a href="#" class="js-sub-menu-toggle">
-                                        <i class="fa fa-user fa-fw"></i><span class="text">Profile Management</span>
-                                        <i class="toggle-icon fa fa-angle-left"></i>
-                                    </a>
-                                    <ul class="sub-menu">
-                                        <li><a href='#'><span class="text">Basic Information</span></a></li>
-                                        <li><a href="#"><span class="text">Bank Account</span></a></li>
-                                        <li><a href='#'><span class="text">Academic Qualifications</span></a></li>
-                                        <li><a href="#"><span class="text">Employment History</span></a></li>
-                                        <li><a href="#"><span class="text">Emergency Contact</span></a></li>
-                                        <li><a href="#"><span class="text">Parents Information</span></a></li>
-                                        <li><a href="#"><span class="text">Spouse Information</span></a></li>
-                                        <li><a href="#"><span class="text">Biological Children</span></a></li>
-                                        <li><a href="#"><span class="text">Siblings</span></a></li>
-                                    </ul>
-                                </li>
-                                @if (User.IsInRole("Administrator"))
-                                {
-                                    <li class="active">
-                                        <a href="#" class="js-sub-menu-toggle">
-                                            <i class="fa fa-cogs fa-fw"></i><span class="text">System Administrator</span>
-                                            <i class="toggle-icon fa fa-angle-left"></i>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li><a href='@Url.Action("Index","Organization")'><span class="text">Organizations List</span></a></li>
-                                            <li><a href='@Url.Action("Index", "Account")'><span class="text">Employee Accounts List</span></a></li>
-                                            <li><a href='@Url.Action("Register", "Account")'><span class="text">Register User Account</span></a></li>
-                                            <li><a href='@Url.Action("Create", "Organization")'><span class="text">Register Organization</span></a></li>
-                                        </ul>
-                                    </li>
-                                }
-                                @if (User.IsInRole("HumanResource"))
-                                {
-                                    <li>
-                                        <a href="#" class="js-sub-menu-toggle">
-                                            <i class="fa fa-bar-chart-o"></i><span class="text">HR Functions</span>
-                                            <i class="toggle-icon fa fa-angle-left"></i>
-                                        </a>
-                                        <ul class="sub-menu ">
-                                            <li><a href='@Url.Action("Create", "Employee")'><span class="text">Register User</span></a></li>
-                                            <li><a href='@Url.Action("DummyCreate", "Employee")'><span class="text">Register User 2</span></a></li>
-                                            <li><a href='@Url.Action("Index", "EmployeeBankDetails")'><span class="text">Bank Accounts</span></a></li>
-                                        </ul>
-                                    </li>
-                                }
-                            </ul>
-                        </nav>
-                    </div>
-                    <!-- content-wrapper -->*@
                     <div class="col-md-12 content-wrapper">
                         <div class="content">
-                            @*<div class="main-header">
-                                <h2>@ViewBag.PageTitle</h2>
-                                <em>@ViewBag.PageSubTitle</em>
-                            </div>*@
                             <div class="main-content" style="border-radius: 8px;border-bottom:1px solid darkblue">
                                 @RenderBody()
                             </div><!-- /main-content -->
