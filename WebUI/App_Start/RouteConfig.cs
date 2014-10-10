@@ -9,7 +9,8 @@ namespace WebUI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             //routes.MapPageRoute("Tickets", "Reports/Tickets", "~/gbl/Uploadxml.aspx?process=1");
-            routes.MapRoute("Default", "{controller}/{action}/{id}/{flag}", new { controller = "Account", action = "Login", id = UrlParameter.Optional, flag = UrlParameter.Optional }
+                routes.MapRoute("Default", "{controller}/{action}/{id}/{flag}", new { controller = "Account", action = "Login", id = UrlParameter.Optional, flag = UrlParameter.Optional }
+                //routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "BetService", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
