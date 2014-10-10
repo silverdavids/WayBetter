@@ -1,0 +1,191 @@
+﻿@{
+    ViewBag.Title = "SummaryReport";
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-12" ng-controller="summaryReportController" ng-init="loadSummary()">
+        <h1><small>SummaryReport</small></h1>
+        <div>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <table class="table">
+                <thead><tr>
+                    <td> Day</td>
+                    <td>Sales</td>
+                           <td>Total Winnings</td>
+                           <td>Total PayOut</td>
+                           <td>Cash</td>
+                    <td>Total OutStanding Winnings</td>
+                    <td>Profits</td>
+                    <td>Cancelled Tickets</td>
+                    </tr></thead>
+                <tbody>
+                    <tr ng-repeat="item in Summary">
+                        <td>{{item.BusinessDay}}</td>
+                        <td ng-click="Details(item.BusinessDay,1)">
+                            {{item.Sales|number}}
+
+                            <a style="color:blue;cursor: pointer;">({{item.TicketSold}})</a>
+                        </td>                                 
+                        <td ng-click="Details(item.BusinessDay,3)">
+                            {{item.TotalWins|number}}
+                            <a style=" color:blue;cursor: pointer;">({{item.WinCount}})</a>
+                        </td>
+                        <td  ng-click="Details(item.BusinessDay,4)">
+                            {{item.PaidOrders|number}}      <a  style="color:blue;cursor: pointer">({{item.TicketsPaid}})</a>
+
+</td>
+                        <td>
+                            {{item.Cash|number}}
+                        </td>
+                        <td>{{item.Outstanding|number}}</td>
+                        <td>{{item.Profit|number}}</td>
+                        <td ng-click="Details(item.BusinessDay,-1)">
+                            {{item.Canceled|number}}
+                            <a style="color:blue;cursor: pointer"> ({{item.CanceledNumber}})</a>
+
+</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>{{Summary|sumByKey:'Sales'|number}} &nbsp({{Summary|sumByKey:'TicketSold'|number}})</th>
+                        <th>{{Summary|sumByKey:'TotalWins'|number}}&nbsp(){{Summary|sumByKey:'WinCount'|number}})</th>
+                        <th>{{Summary|sumByKey:'PaidOrders'|number}}&nbsp({{Summary|sumByKey:'TicketsPaid'|number}})</th>
+                        <th>{{Summary|sumByKey:'Outstanding'|number}}</th>
+                        <th>{{Summary|sumByKey:'Profit'|number}}</th>
+                        <th>{{Summary|sumByKey:'Canceled'|number}}&nbsp({{Summary|sumByKey:'CanceledNumber'|number}})</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-lg-2 " ng-controller="summaryReportController" ng-init="LoadBranches()">
+    <h4>View Shops</h4>
+    <ul>
+        <div class="" data-ng-repeat="customer in Branches">
+            <li>
+                <a class="btn-success" href="~/Admin/BranchSummary/{{customer.BranchId}}">
+                    {{ customer.BranchName}}
+                </a>
+            </li>
+
+        </div>
+    </ul>
+</div>
+
+
+
+
+<script src="~/Scripts/jscontrollers/summaryReportController.js"></script>
+<script src="~/Scripts/jquery.min.js"></script>
+<style type="text/css">
+    $ {
+        demo .css;
+    }
+</style>
+<script type="text/javascript">
+    function updateAuctionInfo(auctionId) {
+        $.ajax({
+            // url: "/LandLord/unitsGraphData/" + auctionId,
+            // url: '<%= Url.Action("LandLord", "unitsGraphData") %>',
+            url: '@Url.Action("SummaryReports", "Admin")',
+            success: function (response) {
+            
+                var jsonArr = [];
+                var str = "[ ";
+                var Target = "[";
+                var Actual = "[";
+                var size = 0;
+                for (var i in response) {
+                   
+                    str += response[i].BusinessDay + ",";
+                    Target += response[i].Sales + ",";
+                    Actual += response[i].TotalWins + ",";
+                    //alert(Target);
+                    jsonArr.push({
+                        Key: response[i].BusinessDay
+                    });
+                    size += 1;
+                }
+               
+
+                str = str.substring(0, str.length - 1);
+                str += " ]";
+
+                Target = Target.substring(0, Target.length - 1);
+
+                Actual = Actual.substring(0, Actual.length - 1);
+           
+                Target += "]";
+                Actual += "]";
+              
+                var obj = JSON.parse(Target);
+                var obj1 = JSON.parse(Actual);
+
+                var per = [];
+                for (var x = 0; x < size; x++) {
+                    per[x] = jsonArr[x].Key;
+                }
+
+              
+                $('#container').highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'TICKET SALES VS WINNINGS'
+                    },
+                    xAxis: {
+                        categories: per
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Period'
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} UGX</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                      series: [{
+		                name: 'SALES',
+		                data: obj
+		            },
+
+                    {
+                        name: 'WINNINGS',
+                        data: obj1
+                    }
+		            ]
+                });
+                
+                //$('#billdata').html(html);
+            }
+        });
+    }
+    window.onload = updateAuctionInfo();
+</script>
+<script src="~/Scripts/charts/highcharts.js"></script>
+
+
+
+<div id="container" style="min-width: 310px; max-width: 800px; height: 500px; margin: 0 auto"></div>
+

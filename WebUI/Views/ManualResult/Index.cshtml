@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "SummaryReport";
+  
+        Layout = "~/Views/Shared/Scores.cshtml";
+    
+
+
+    var jTableStyle = "metro/blue/jtable.css";
+
+
+}
+
+
+<link href="@Url.Content("~/Scripts/jtable/themes/" + jTableStyle)" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/themes/jquery-ui-1.8.16.custom.css")" rel="stylesheet" type="text/css" />
+<div id="MatchTable" style="width: 880px; margin: auto;"></div>
+<script src="~/Scripts/jquery/jquery.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/jquery/jquery.jtable.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+       
+      
+        $('#MatchTable').jtable({
+            title: 'Match List',
+            actions: {
+                listAction: '/ManualResult/MatchList',
+                updateAction: '/ManualResult/UpdateMatch',
+           
+            },
+            fields: {
+                MatchNo: {
+                    key: true,
+                    create: false,
+                    edit: false,
+                    list: true
+                },
+                League: {
+                    title: 'League',
+                    list: true
+                },
+               HomeTeam: {
+                    title: 'HomeTeam ',
+                    list: true
+                },
+                AwayTeam: {
+                    title: 'AwayTeam ',
+                    list: true
+                },
+             
+                HomeScore: {
+                    title: 'HomeScore',
+                    list: false
+                },
+               AwayScore: {
+                    title: 'AwayScore',
+                    list: false
+                },
+               HalfTimeHomeScore: {
+                   title: 'HalfTimeHomeScore',
+                   list: false
+               },
+               HalfTimeAwayScore: {
+                   title: 'HalfTimeAwayScore',
+                   list: false
+               },
+               StartTime: {
+                   title: 'StartTime',
+                   list:true,
+               },
+            }
+        });
+
+        //Load person list from server
+        $('#MatchTable').jtable('load');
+    });
+
+    </script>

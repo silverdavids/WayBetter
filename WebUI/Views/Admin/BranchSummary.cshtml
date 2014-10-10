@@ -1,0 +1,45 @@
+﻿   @{
+ViewBag.Title = "SummaryReport";
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+
+
+<table class="table table-hover table-striped table-condensed table-bordered ordersTable" data-ng-controller="summaryReportController" ng-init="BranchReport(@ViewBag.Id)">
+    <thead>
+        <tr>
+            <td data-ng-click="setOrder('product')">Business Day</td>
+            <td data-ng-click="setOrder('quantity')">Ticket Sales</td>
+            <td>Total Winnings</td>
+            <td>Ticket Payments</td>      
+            <td>Total OutStanding Winnings</td>
+            <td>Profits</td>
+            <td>Cancelled Tickets</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="animate-repeat" ng-repeat="item in BranchSummary">      
+            <td>{{item.BusinessDay}}</td>
+            <td>
+                <a href="~//{{item.Sales}}"><i class="icon-eye-open">{{item.Sales|number}}</i></a>({{item.TicketSold}})
+            </td>
+            <td>{{item.TotalWins|number}}</td>
+            <td>{{item.PaidOrders|number}}({{item.TicketsPaid}})</td>               
+            <td>{{item.Outstanding|number}}</td> 
+            <td>{{item.Profit|number}}</td> 
+            <td>{{item.Canceled|number}}({{item.CanceledNumber}})</td>
+        </tr>
+       
+    </tbody>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th>{{BranchSummary|sumByKey:'Sales'|number}}</th>
+            <th>{{BranchSummary|sumByKey:'TotalWins'|number}}</th>
+            <th>{{BranchSummary|sumByKey:'PaidOrders'|number}}</th>
+            <th>{{BranchSummary|sumByKey:'Outstanding'|number}}</th>
+            <th>{{BranchSummary|sumByKey:'Profit'|number}}</th>
+            <th>{{BranchSummary|sumByKey:'Canceled'|number}}</th>
+        </tr>
+    </tfoot>
+</table>
+<script src="~/Scripts/jscontrollers/summaryReportController.js"></script>

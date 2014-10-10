@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "SummaryReport";
+    Layout = "";
+}
+
+<link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+
+<link href="~/Content/themes/icon.css" rel="stylesheet" />
+<link href="~/Content/themes/demo.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery/jquery.min.js"></script>
+
+<script src="~/Scripts/jquery/jquery.easyui.min.js"></script>
+
+<table id="dg" class="easyui-datagrid" title="Cell Editing in DataGrid" style="width:1000px;height:auto"
+       data-options="
+				iconCls: 'icon-edit',
+				singleSelect: true,
+				method:'get',
+				onClickCell: onClickCell
+			">
+    <thead>
+        <tr>
+            <th data-options="field:'itemid',width:80">MatchNo</th>
+            <th data-options="field:'productid',width:100,editor:'text'">League</th>
+            <th data-options="field:'listprice',width:80,align:'right',editor:{type:'numberbox',options:{precision:1}}">Home</th>
+            <th data-options="field:'unitcost',width:60,align:'right',editor:'numberbox'">FT Home</th>
+            <th data-options="field:'unitcost',width:60,align:'right',editor:'numberbox'">Ft Away</th>
+            <th data-options="field:'unitcost',width:60,align:'right',editor:'numberbox'">Ht Home</th>
+            <th data-options="field:'unitcost',width:60,align:'right',editor:'numberbox'">Ht Away</th>
+            <th data-options="field:'attr1',width:100,editor:'text'">Away</th>
+            <th data-options="field:'status',width:60,align:'center',editor:{type:'checkbox',options:{on:'P',off:''}}">Status</th>
+        </tr>
+    </thead>
+    <tbody><tr><td>David</td>
+               <td>Silver</td>
+               <td>Craig</td>
+               <td>davids</td>
+               <td>Silver</td>
+               <td>Craig</td>
+               <td>Craig</td>
+               <td>davids</td>
+              <td>Craig</td>
+<td>davids</td>
+               <td>davids</td>
+        </tr></tbody>
+</table>
+
+<script type="text/javascript">
+    $.extend($.fn.datagrid.methods, {
+        editCell: function (jq, param) {
+            return jq.each(function () {
+                var opts = $(this).datagrid('options');
+                var fields = $(this).datagrid('getColumnFields', true).concat($(this).datagrid('getColumnFields'));
+                for (var i = 0; i < fields.length; i++) {
+                    var col = $(this).datagrid('getColumnOption', fields[i]);
+                    col.editor1 = col.editor;
+                    if (fields[i] != param.field) {
+                        col.editor = null;
+                    }
+                }
+                $(this).datagrid('beginEdit', param.index);
+                for (var i = 0; i < fields.length; i++) {
+                    var col = $(this).datagrid('getColumnOption', fields[i]);
+                    col.editor = col.editor1;
+                }
+            });
+        }
+    });
+
+    var editIndex = undefined;
+    function endEditing() {
+        if (editIndex == undefined) { return true }
+        if ($('#dg').datagrid('validateRow', editIndex)) {
+            $('#dg').datagrid('endEdit', editIndex);
+            editIndex = undefined;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function onClickCell(index, field) {
+        if (endEditing()) {
+            $('#dg').datagrid('selectRow', index)
+                    .datagrid('editCell', { index: index, field: field });
+            editIndex = index;
+        }
+    }
+</script>

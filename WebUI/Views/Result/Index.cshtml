@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+<h2>Scores Loading</h2>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+           
+            // Hide the "busy" Gif at load:
+            $("#divProcessing").hide();
+
+            // Attach click handler to the submit button:
+            $('#Save').click(function () {
+                $('#resultForm').submit();
+            });
+
+            // Handle the form submit event, and make the Ajax request:
+            $("#resultForm").on("submit", function (event) {
+                event.preventDefault();
+
+                // Show the "busy" Gif:
+                $("#divProcessing").show();
+                var url = $(this).attr("action");
+                var formData = $(this).serialize();
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: formData,
+                    dataType: "json",
+                    success: function (resp) {
+
+                        // Hide the "busy" gif:
+                        $("#divProcessing").hide();
+
+                        // Do something useful with the data:
+                        $("<h5>" + resp.Resp + "Scores added </h5>").appendTo("#divResult");
+                    }
+                })
+            });
+        });
+
+        </script>
+}
+
+<form id="resultForm" action="/Result/ResultProcess" method="post">
+
+
+    <input type="button" class="btn-success" value="Update Auto Scores" id="Save" />
+    <span id="msg" style="color:red;" />
+    <li> @Html.ActionLink("Add Scores", "Index", "ManualResult")</li>
+</form>
+
+
+<div id="divProcessing">
+    <p>
+        Loading Scores, please wait . . .
+        <img src="~/Content/Images/loadingAnim.gif" />
+    </p>
+</div>
+
+
+<div id="divResult">
+
+</div>

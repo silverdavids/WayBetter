@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_admin.cshtml";
+}
+<style>
+    a, button {
+        font: 14px 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+        display: block;
+        color: #333;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div ng-controller="popupController">
+
+    <script type="text/ng-template" id="modalDialogId">
+        <div class="ngdialog-message" ng-controller="popupController">
+            Are you Sure you want to Cancel this receipt
+        </div>
+       
+    </script>
+    <script type="text/ng-template" id="firstDialogId">
+        <div class="ngdialog-message" ng-o>
+            <h3>ngDialog template</h3>
+            <p ng-show="theme"> <code>{{theme}}</code></p>
+
+        </div>
+        <div class="ngdialog-buttons">
+            <button type="button" class="ngdialog-button ngdialog-button-secondary"
+                    ng-dialog="secondDialogId"
+                    ng-dialog-class="ngdialog-theme-default"
+                    ng-dialog-controller="SecondModalCtrl"
+                    ng-dialog-close-previous>
+                Close and open
+            </button>
+            <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="openSecond()">Open next</button>
+        </div>
+    </script>
+
+
+    <div class="row">
+        <div class="col-lg-12" ng-controller="adminRecieptController" ng-init="loadReciepts('@ViewBag.BusinessDay',@ViewBag.Status)">
+            <div class="span12">
+
+                <div id="Person-1" class="box">
+                    <div class="box-header">
+                        <i class="icon-user icon-large"></i>
+                        <h5>Reciepts</h5>
+                        <div class="btn-group">
+
+                            <select ng-model="StatusId" class="btn btn-info dropdown-toggle" data-toggle="dropdown" ng-change="selectReceipts()">
+                                <option value="">-- Select Tickets --</option>
+                                <option ng-repeat="c in ReceiptStatus" value="{{c.StateId}}">{{c.StateName}}</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+
+                    <table class="table table-hover table-striped table-condensed table-bordered" style="width:1000px">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #006dcc; color:white">Ticket</th>
+                                <th style="background-color: #006dcc; color:white">Stake</th>
+                                <th style="background-color: #006dcc; color:white">Time</th>
+                                <th style="background-color: #006dcc; color:white">Total Odd</th>
+                                <th style="background-color: #006dcc; color:white">Teller</th>
+                                <th style="background-color: #006dcc; color:white"></th>
+                                <th style="background-color: #006dcc; color:white"></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in Reciepts">
+                                <td>
+                                    <input type="button" class="btn btn-primary  Details" value="{{item.ReceiptId}}" />
+                                </td>
+                                <td>{{item.Stake|number}}</td>
+                                <td ng-bind="item.ReceiptDate"></td>
+                                <td ng-bind="item.TotalOdds"></td>
+                                <td ng-bind="item.UserId"></td>
+                                <td ng-bind="item.Status"></td>
+
+
+                            </tr>
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th>{{Reciepts|sumByKey:'Stake'}}</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/Scripts/jscontrollers/popupController.js"></script>
+<script src="~/Scripts/jscontrollers/adminRecieptController.js"></script>
+<script src="~/Scripts/jscontrollers/InsideCtrl.js"></script>
+<script src="~/Scripts/jscontrollers/SecondModalCtrl.js"></script>
+
+<script src="~/Scripts/jquery/jquery.min.js"></script>
+
+<script src="~/Scripts/jquery-ui.js"></script>
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+
+
+
+<div id="dialog">
+    Reciept Details
+</div>
