@@ -69,7 +69,7 @@ namespace WebUI.Controllers
                 SetNo = g.SetNo,
                 OldDateTime = g.Match.StartTime,
                 StartTime = String.Format("{0:dd/M/yyyy}", g.Match.StartTime)
-            }).Where(x => x.OldDateTime > startTime).OrderBy(s => s.StartTime); 
+            });//.Where(x => x.OldDateTime > startTime).OrderBy(s => s.StartTime); 
            // .Where(x => x.OldDateTime>startTime)
             return Json(filteredgames, JsonRequestBehavior.AllowGet);
          }

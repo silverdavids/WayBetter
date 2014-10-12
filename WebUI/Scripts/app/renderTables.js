@@ -4,7 +4,7 @@
     // var path = betUrl.host + betUrl.pathname;
     this.startRenderingTables = function () {
         $.ajax({
-            url: betUrl,
+            url: "../Match/Index",
             dataType: 'json',
             type: 'GET'
         }).done(function (data) {

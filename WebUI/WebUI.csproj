@@ -328,6 +328,10 @@
     <Compile Include="Migrations\201409300018243_reciepts.Designer.cs">
       <DependentUpon>201409300018243_reciepts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410110532388_FromRepo.cs" />
+    <Compile Include="Migrations\201410110532388_FromRepo.Designer.cs">
+      <DependentUpon>201410110532388_FromRepo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -1768,6 +1772,9 @@
     <EmbeddedResource Include="Migrations\201409300018243_reciepts.resx">
       <DependentUpon>201409300018243_reciepts.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410110532388_FromRepo.resx">
+      <DependentUpon>201410110532388_FromRepo.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1787,7 +1794,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49193</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:49193/</IISUrl>
+          <IISUrl>http://localhost:49195/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
