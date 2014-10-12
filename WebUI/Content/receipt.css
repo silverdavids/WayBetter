@@ -24,6 +24,7 @@ button{
     background-color: #ffffff;
     max-height: 450px;
     overflow-y: auto;
+    z-index: 1000;
 }
 #app>header{
     padding: 0 0.5px;

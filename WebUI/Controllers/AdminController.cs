@@ -62,7 +62,7 @@ namespace WebUI.Controllers
                    "   [dbo].[ReturnTotalCanceledAmount](CONVERT(VARCHAR(19),month(ReceiptDate))+'/' +CONVERT(VARCHAR(19),day(ReceiptDate))+'/'  +CONVERT(VARCHAR(19),Year(ReceiptDate))) as TotalCanceled ," +
                       "  [dbo].[ReturnTotalPaidNumber](CONVERT(VARCHAR(19),month(ReceiptDate))+'/' +CONVERT(VARCHAR(19),day(ReceiptDate))+'/'  +CONVERT(VARCHAR(19),Year(ReceiptDate))) as PaidNumber," +
                                  " [dbo].[ReturnTicketByStatus](CONVERT(VARCHAR(19),month(ReceiptDate))+'/' +CONVERT(VARCHAR(19),day(ReceiptDate))+'/'  +CONVERT(VARCHAR(19),Year(ReceiptDate)),3) as WinNumber  " +
-                 "from Receipts where ReceiptDate is not null and ReceiptStatus<> -1 group by day(ReceiptDate) ,month(ReceiptDate),year(ReceiptDate) order by businessday asc";
+                 "from Receipts where ReceiptDate is not null  and ReceiptDate > dateadd(day,-8,getdate()) and ReceiptStatus<> -1 group by day(ReceiptDate) ,month(ReceiptDate),year(ReceiptDate) order by month(ReceiptDate) desc,day(ReceiptDate) desc";
 
             var report = new List<SummaryReportVm>();
             try
