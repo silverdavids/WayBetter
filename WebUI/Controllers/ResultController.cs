@@ -456,7 +456,7 @@ namespace WebUI.Controllers
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 4).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges();
+                                             //   BetDatabase.SaveChanges();
                                                 resultList.Add(result);
                                             }
                                             if (FullTimeTotalGoals > 2.5)
@@ -465,7 +465,7 @@ namespace WebUI.Controllers
                                                 result.MatchId = mtc.MatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 7).FirstOrDefault().BetOptionId;
-                                                BetDatabase.Results.Add(result);
+                                                //BetDatabase.Results.Add(result);
                                                 resultList.Add(result);
                                             }
                                             else if (FullTimeTotalGoals < 2.5)
@@ -475,7 +475,7 @@ namespace WebUI.Controllers
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 6).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges(); 
+                                               // BetDatabase.SaveChanges(); 
                                                 resultList.Add(result);
                                             }
                                             if (FullTimeTotalGoals > 3.5)
@@ -484,7 +484,7 @@ namespace WebUI.Controllers
                                                 result.MatchId = mtc.MatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 9).FirstOrDefault().BetOptionId;
-                                                BetDatabase.Results.Add(result);
+                                               // BetDatabase.Results.Add(result);
                                                 resultList.Add(result);
                                             }
                                             else if (FullTimeTotalGoals < 3.5)
@@ -494,7 +494,7 @@ namespace WebUI.Controllers
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 8).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges();
+                                               // BetDatabase.SaveChanges();
                                                 resultList.Add(result);
                                             }
                                             if (FullTimeTotalGoals > 4.5)
@@ -503,7 +503,7 @@ namespace WebUI.Controllers
                                                 result.MatchId = mtc.MatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 11).FirstOrDefault().BetOptionId;
-                                                BetDatabase.Results.Add(result);
+                                               // BetDatabase.Results.Add(result);
                                                 resultList.Add(result);
                                             }
                                             else if (FullTimeTotalGoals < 4.5)
@@ -513,7 +513,7 @@ namespace WebUI.Controllers
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 12).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges();
+                                              //  BetDatabase.SaveChanges();
                                                 resultList.Add(result);
                                             }
                                             if (FullTimeTotalGoals > 5.5)
@@ -522,7 +522,7 @@ namespace WebUI.Controllers
                                                 result.MatchId = mtc.MatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 35).FirstOrDefault().BetOptionId;
-                                                BetDatabase.Results.Add(result);
+                                               // BetDatabase.Results.Add(result);
                                                 resultList.Add(result);
                                             }
                                             else if (FullTimeTotalGoals < 5.5)
@@ -532,7 +532,7 @@ namespace WebUI.Controllers
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 34).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges();
+                                                //BetDatabase.SaveChanges();
                                                 resultList.Add(result);
                                             }
                                             /*End FullTime U/O/
@@ -547,7 +547,7 @@ namespace WebUI.Controllers
                                                 result.MatchId = mtc.MatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 4).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 16).FirstOrDefault().BetOptionId;
-                                                BetDatabase.Results.Add(result);
+                                               // BetDatabase.Results.Add(result);
                                                 resultList.Add(result);
                                             }
                                             else if (HalfTimeTotalGoals < 0.5)
@@ -557,7 +557,7 @@ namespace WebUI.Controllers
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 15).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges();
+                                               // BetDatabase.SaveChanges();
                                                 resultList.Add(result);
                                             }
                                             /* 0.5*/
@@ -579,7 +579,7 @@ namespace WebUI.Controllers
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 4).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 17).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges();
+                                               // BetDatabase.SaveChanges();
                                                 resultList.Add(result);
                                             }
                                             /*1.5*/
@@ -600,7 +600,7 @@ namespace WebUI.Controllers
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 4).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 19).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges();
+                                                //BetDatabase.SaveChanges();
                                                 resultList.Add(result);
                                             }
                                             /* HT2.5*/
@@ -644,24 +644,17 @@ namespace WebUI.Controllers
                                                         continue;
                                                     }
                                                     rec.SubmitedSize = rec.SubmitedSize + 1;
-                                                    //if (score.OptionId == 30)
-                                                    //{
-                                                    //    betted = BetDatabase.Bets.Where(s => s.MatchId == score.MatchId).Where(j => j.BetOption.BetCategoryId == score.CategoryId).ToList();
-                                                    //    foreach (var bet in betted)
-                                                    //    {
-                                                    //           Receipt betReciept = BetDatabase.Receipts.Where(rc => rc.ReceiptId == bm.RecieptId).Where(rc => rc.ReceiptStatus == 1).SingleOrDefault();
-                                                    //           Double Divider =Convert.ToDouble( betReciept.TotalOdds);
-                                                    //          // betReciept.TotalOdds =Convert.ToDecimal(betReciept.TotalOdds/(Divider));
-
-                                                    //    }
-                                                    //}
+                                  
                                                     if ((bm.BetOptionId == score.OptionId) && (bm.BetOption.BetCategoryId == score.CategoryId))
                                                     {
                                                         rec.WonSize = rec.WonSize + 1;
                                                         bm.GameBetStatus = 2;
-
                                                     }
-
+                                                    else if (( score.CategoryId==2)||( score.CategoryId==3))
+                                                    {
+                                                        rec.ReceiptStatus = 2;
+                                                        bm.GameBetStatus = 1;
+                                                    }
                                                     else
                                                     {
                                                         rec.ReceiptStatus = 2;
