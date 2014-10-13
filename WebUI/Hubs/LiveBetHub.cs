@@ -138,27 +138,39 @@ namespace WebUI.Hubs
                     var match = category;
                     var teams = match.ChildNodes;
                     var testGame = new Game();
+
                     if (match.Attributes != null)
                     {
                         testGame.MatchNo = match.Attributes["id"].InnerText;
                         testGame.Minutes = match.Attributes["minute"].InnerText;
                     }
 
-                    var localTeamAttributes = teams[0].Attributes;
-                    if (localTeamAttributes != null)
+                    foreach (XmlNode team in teams)
                     {
-                        testGame.LocalTeam = localTeamAttributes["name"].InnerText;
-                        testGame.LocalTeamScore = localTeamAttributes["score"].InnerText == "" ? "?" : localTeamAttributes["score"].InnerText;
-                    }
+                        var local = team.Name;
+                        if (team.Name=="localteam")
+                        {
 
-                    var awayTeamattributes = teams[1].Attributes;
-                    if (awayTeamattributes != null)
-                    {
-                        testGame.AwayTeam = awayTeamattributes["name"].InnerText;
-                        testGame.AwayTeamScore = awayTeamattributes["score"].InnerText == "" ? "?" : awayTeamattributes["score"].InnerText;
-                    }
+                            var localTeamAttributes = team.Attributes;
+                            if (localTeamAttributes != null)
+                            {
+                                testGame.LocalTeam = localTeamAttributes["name"].InnerText;
+                                testGame.LocalTeamScore = localTeamAttributes["score"].InnerText == "" ? "?" : localTeamAttributes["score"].InnerText;
+                            }
+                        }
+                        else
+                        {
+                            var awayTeamattributes = team.Attributes;
+                            if (awayTeamattributes != null)
+                            {
+                                testGame.AwayTeam = awayTeamattributes["name"].InnerText;
+                                testGame.AwayTeamScore = awayTeamattributes["score"].InnerText == "" ? "?" : awayTeamattributes["score"].InnerText;
+                            }
+                        }
 
-                    _gamesforLiveScore.TryAdd(testGame.MatchNo, testGame);
+                        _gamesforLiveScore.TryAdd(testGame.MatchNo, testGame);
+                    }
+                    
 
                 }
             return _gamesforLiveScore.Values;
@@ -213,41 +225,48 @@ namespace WebUI.Hubs
                                 switch (odd.Attributes["name"].InnerText)
                                 {
                                     case "Fulltime Result":
-                                        var homeWinAttributes = odd.ChildNodes[0].Attributes;
                                         testGame.FullTimeOdds = new FullTimeOdds();
-                                        if (homeWinAttributes != null)
+                                        foreach (XmlNode FTO in odd.ChildNodes)
                                         {
-                                            var homeWin = homeWinAttributes["odd"].InnerText;
-                                            testGame.FullTimeOdds.HomeWins = homeWin;
-                                        }
-                                        var drawAttributes = odd.ChildNodes[1].Attributes;
-                                        if (drawAttributes != null)
-                                        {
-                                            var draw = drawAttributes["odd"].InnerText;
-                                            testGame.FullTimeOdds.Draw = draw;
-                                        }
-                                        var awayWinAttributes = odd.ChildNodes[2].Attributes;
-                                        if (awayWinAttributes != null)
-                                        {
-                                            var awayWin = awayWinAttributes["odd"].InnerText;
-                                            testGame.FullTimeOdds.AwayWins = awayWin;
+                                            if (FTO.Attributes!=null)
+                                            {
+                                                if (FTO.Attributes["extravalue"].InnerText == "1")
+                                                {
+                                                    var homeWin = FTO.Attributes["odd"].InnerText;
+                                                    testGame.FullTimeOdds.HomeWins = homeWin;
+                                                }
+                                                if (FTO.Attributes["extravalue"].InnerText == "X")
+                                                {
+                                                    var draw = FTO.Attributes["odd"].InnerText;
+                                                    testGame.FullTimeOdds.Draw = draw;
+                                                }
+                                                if (FTO.Attributes["extravalue"].InnerText == "2")
+                                                {
+                                                    var awayWin = FTO.Attributes["odd"].InnerText;
+                                                    testGame.FullTimeOdds.AwayWins = awayWin;
+                                                }
+                                            }
                                         }
                                         break;
                                     case "Match Goals":
-                                        var matchGoalsOver = odd.ChildNodes[0].Attributes;
                                         testGame.UnderOverOdds = new UnderOverOdds();
-                                        if (matchGoalsOver != null)
+                                        foreach (XmlNode game in odd.ChildNodes)
                                         {
-                                            var over = matchGoalsOver["odd"].InnerText;
-                                            testGame.UnderOverOdds.Over = over;
-                                            testGame.UnderOverOdds.ExtraValue = matchGoalsOver["extravalue"].InnerText;
-                                        }
-                                        var matchGoalsUnder = odd.ChildNodes[1].Attributes;
-                                        if (matchGoalsUnder != null)
-                                        {
-                                            var under = matchGoalsUnder["odd"].InnerText;
-                                            testGame.UnderOverOdds.Under = under;
-                                            testGame.UnderOverOdds.ExtraValue = matchGoalsUnder["extravalue"].InnerText;
+                                            if (game.Attributes != null)
+                                            {
+                                                if (game.Attributes["name"].InnerText.Contains("Over"))
+                                                {
+                                                    var over = game.Attributes["odd"].InnerText;
+                                                    testGame.UnderOverOdds.Over = over;
+                                                    testGame.UnderOverOdds.ExtraValue = game.Attributes["extravalue"].InnerText;
+                                                }
+                                                if (game.Attributes["name"].InnerText.Contains("Under"))
+                                                {
+                                                    var under = game.Attributes["odd"].InnerText;
+                                                    testGame.UnderOverOdds.Under = under;
+                                                    testGame.UnderOverOdds.ExtraValue = game.Attributes["extravalue"].InnerText;
+                                                }
+                                            }
                                         }
                                         break;
 
