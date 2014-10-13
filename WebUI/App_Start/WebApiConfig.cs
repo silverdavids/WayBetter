@@ -1,6 +1,4 @@
-﻿using System.Runtime.Remoting.Messaging;
-using System.Web.Http;
-using System.Web.Http.Cors;
+﻿using System.Web.Http;
 
 namespace WebUI
 {
