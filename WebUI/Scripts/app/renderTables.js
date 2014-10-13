@@ -295,7 +295,7 @@
                         htmlstring += '<td><input type="button" class="' + self.getMatchClassIfMatchIsSelected(item.MatchNo, oddFtOver55.BetOption) + '" value="' + (oddFtOver55.Odd).toFixed(2) + '" data-odd-type="' + oddFtOver55.BetOptionId + '" data-option-id="' + oddFtOver55.BetOptionId + '" data-option-name="' + oddFtOver55.BetOption + '"  data-bet-category="' + oddFtOver55.BetCategory + '" /></td>';
                     } else {
                         htmlstring += '<td><input type="button" class="btn btn-default btn-xs odd" value="N/A" data-odd-type="" data-option-id="" data-option-name=""  data-bet-category="" disabled /></td>';
-                        
+                         
                     }
 
                     htmlstring += '<td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+' + item.GameOdds.length + '" /></td></tr>';

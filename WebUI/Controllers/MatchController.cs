@@ -82,33 +82,33 @@ namespace WebUI.Controllers
          const string query = "select M.MatchNo as MatchNo,sm.shortcode as ShortCode,[dbo].[ReturnTeamName](HomeTeamId) as HomeTeam,M.Champ as League, " +
                                    "[dbo].[ReturnTeamName](AwayTeamId) as AwayTeam," +
                                    "convert(varchar(10),(DATEPART(HH,M.starttime)))+':'+Convert(varchar(10),DATEPART(mi,M.starttime)) as starttime ," +
-                                   "[dbo].[Getodd]('FT 1x2','FT1',M.MatchNo) as FT1," +
-                                   "[dbo].[Getodd]('FT 1x2','FTX',M.MatchNo) as FTX," +
-                                   "[dbo].[Getodd]('FT 1x2','FT2',M.MatchNo) as FT2," +
-                                   "[dbo].[Getodd]('Double Chance','1X',M.MatchNo) as [1X]," +
-                                   "[dbo].[Getodd]('Double Chance','12',M.MatchNo) as [12]," +
-                                   "[dbo].[Getodd]('Double Chance','X2',M.MatchNo) as [X2]," +
-                                   "[dbo].[Getodd]('FT U/O','FTOver2.5',M.MatchNo) as [FTOver2.5]," +
-                                   "[dbo].[Getodd]('FT U/O','FTUnder2.5',M.MatchNo) as [FTUnder2.5]," +
-                                   "[dbo].[Getodd]('FT U/O','FTOver1.5',M.MatchNo) as [FTOver1.5]," +
-                                   "[dbo].[Getodd]('FT U/O','FTUnder1.5',M.MatchNo) as [FTUnder1.5]," +
-                                   "[dbo].[Getodd]('HT 1x2','HT1',M.MatchNo) as HT1," +
-                                   "[dbo].[Getodd]('HT 1x2','HTX',M.MatchNo) as HTX," +
-                                   "[dbo].[Getodd]('HT 1x2','HT2',M.MatchNo) as HT2," +
-                                   "[dbo].[Getodd]('HT U/O','HTOver0.5',M.MatchNo) as [HTOver0.5]," +
-                                   "[dbo].[Getodd]('HT U/O','HTUnder0.5',M.MatchNo) as [HTUnder0.5]," +
-                                   "[dbo].[Getodd]('HT U/O','HTOver1.5',M.MatchNo) as [HTOver1.5]," +
-                                   "[dbo].[Getodd]('HT U/O','HTUnder1.5',M.MatchNo) as [HTUnder1.5]," +
-                                    "[dbo].[Getodd]('HT U/O','HTOver2.5',M.MatchNo) as [HTOver2.5]," +
-                                   "[dbo].[Getodd]('HT U/O','HTUnder2.5',M.MatchNo) as [HTUnder2.5]," +
-                                   "[dbo].[Getodd]('Both Teams To Score','GG',M.MatchNo) as BTYes," +
-                                   "[dbo].[Getodd]('Both Teams To Score','NG',M.MatchNo) as BTNo," +
-                                   "[dbo].[Getodd]('Handicap','HC1',M.MatchNo) as Handicap1," +
-                                   "[dbo].[Getodd]('Handicap','HCX',M.MatchNo) as HandicapX," +
-                                     "[dbo].[Getodd]('Handicap','HC2',M.MatchNo) as Handicap2," +
+                                   "[dbo].[GetOdd]('FT 1x2','FT1',M.MatchNo) as FT1," +
+                                   "[dbo].[GetOdd]('FT 1x2','FTX',M.MatchNo) as FTX," +
+                                   "[dbo].[GetOdd]('FT 1x2','FT2',M.MatchNo) as FT2," +
+                                   "[dbo].[GetOdd]('Double Chance','1X',M.MatchNo) as [1X]," +
+                                   "[dbo].[GetOdd]('Double Chance','12',M.MatchNo) as [12]," +
+                                   "[dbo].[GetOdd]('Double Chance','X2',M.MatchNo) as [X2]," +
+                                   "[dbo].[GetOdd]('FT U/O','FTOver2.5',M.MatchNo) as [FTOver2.5]," +
+                                   "[dbo].[GetOdd]('FT U/O','FTUnder2.5',M.MatchNo) as [FTUnder2.5]," +
+                                   "[dbo].[GetOdd]('FT U/O','FTOver1.5',M.MatchNo) as [FTOver1.5]," +
+                                   "[dbo].[GetOdd]('FT U/O','FTUnder1.5',M.MatchNo) as [FTUnder1.5]," +
+                                   "[dbo].[GetOdd]('HT 1x2','HT1',M.MatchNo) as HT1," +
+                                   "[dbo].[GetOdd]('HT 1x2','HTX',M.MatchNo) as HTX," +
+                                   "[dbo].[GetOdd]('HT 1x2','HT2',M.MatchNo) as HT2," +
+                                   "[dbo].[GetOdd]('HT U/O','HTOver0.5',M.MatchNo) as [HTOver0.5]," +
+                                   "[dbo].[GetOdd]('HT U/O','HTUnder0.5',M.MatchNo) as [HTUnder0.5]," +
+                                   "[dbo].[GetOdd]('HT U/O','HTOver1.5',M.MatchNo) as [HTOver1.5]," +
+                                   "[dbo].[GetOdd]('HT U/O','HTUnder1.5',M.MatchNo) as [HTUnder1.5]," +
+                                    "[dbo].[GetOdd]('HT U/O','HTOver2.5',M.MatchNo) as [HTOver2.5]," +
+                                   "[dbo].[GetOdd]('HT U/O','HTUnder2.5',M.MatchNo) as [HTUnder2.5]," +
+                                   "[dbo].[GetOdd]('Both Teams To Score','GG',M.MatchNo) as BTYes," +
+                                   "[dbo].[GetOdd]('Both Teams To Score','NG',M.MatchNo) as BTNo," +
+                                   "[dbo].[GetOdd]('Handicap','HC1',M.MatchNo) as Handicap1," +
+                                   "[dbo].[GetOdd]('Handicap','HCX',M.MatchNo) as HandicapX," +
+                                     "[dbo].[GetOdd]('Handicap','HC2',M.MatchNo) as Handicap2," +
                                      "[dbo].[GetHandicapGoals] (M.MatchNo) as Goals," +                                
-                                   "[dbo].[Getodd]('Draw No Bet','DNB1',M.MatchNo) as DNB1," +
-                                   "[dbo].[Getodd]('Draw No Bet','DNB2',M.MatchNo) as DNB2 from Matches M inner join dbo.ShortMatchCodes sm on sm.MatchNo=m.MatchNo "
+                                   "[dbo].[GetOdd]('Draw No Bet','DNB1',M.MatchNo) as DNB1," +
+                                   "[dbo].[GetOdd]('Draw No Bet','DNB2',M.MatchNo) as DNB2 from Matches M inner join dbo.ShortMatchCodes sm on sm.MatchNo=m.MatchNo "
                                    + " where starttime>getdate()  order by sm.shortcode asc";
           //  where starttime>getdate()
                  var dt = new DataTable();
