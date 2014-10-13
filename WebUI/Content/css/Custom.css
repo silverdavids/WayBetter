@@ -11,3 +11,12 @@
      padding-left: 15px;
      padding-right: 15px;
 }
+
+body {
+    font-size: 12px !important;
+}
+
+.heading {
+    margin-top: 80px;
+    margin-bottom: -15px;
+}

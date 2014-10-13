@@ -5,9 +5,9 @@
 }
 <div>
     <div class="row">
-
+       
         <div class="col-lg-9">
-            <h2>Live </h2>
+            <h2 class="heading">Live </h2>
             <div id="gameTable">
                 <table class="table table-condensed">
                     <thead>
@@ -36,36 +36,8 @@
                         </tr>
                     </thead>
                     <tbody id="tbody">
-                        <tr class="loading"><td colspan="5">loading...</td></tr>
-                        @*<tr data-ng-repeat="match in LiveMatches" data-symbol="match.MatchNo">
-                                <td>{{match.MatchNo}}</td>
-                                <td>{{match.Minutes}}</td>
-                                <td>{{match.LocalTeam}}</td>
-                                <td>{{match.AwayTeamScore }} + - + {{match.LocalTeamScore}}</td>
-                                <td>{{match.AwayTeam}}</td>
-                                <td style="padding-bottom: 0px;">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td style="border-top-width: 0px;">{{match.FullTimeOdds.HomeWins}}</td>
-                                                <td style="border-top-width: 0px;">{{match.FullTimeOdds.Draw}}</td>
-                                                <td style="border-top-width: 0px;">{{match.FullTimeOdds.AwayWins}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                                <td style="padding-bottom: 0px;">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td style="border-top-width: 0px;">{{match.UnderOverOdds.Under}}</td>
-                                                <td style="border-top-width: 0px;">{{match.UnderOverOdds.ExtraValue}}</td>
-                                                <td style="border-top-width: 0px;"> {{match.UnderOverOdds.Over }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>*@
+                        @*<tr class="loading text-center"><td colspan="11">loading...</td></tr>*@
+                       
                     </tbody>
                 </table>
             </div>
