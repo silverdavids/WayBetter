@@ -71,23 +71,32 @@ namespace WebUI.Hubs
         private async void UpdateGames(object state)
         {
 
-            var updatedGames = await GetAllGames();
-            lock (_updateGameLock)
+            try
             {
-                if (!_updatingGame)
+                var updatedGames = await GetAllGames();
+                lock (_updateGameLock)
                 {
-                    _updatingGame = true;
-                    foreach (var game in updatedGames)
+                    if (!_updatingGame)
                     {
-                        if (TryUpdateGame(game))
+                        _updatingGame = true;
+                        foreach (var game in updatedGames)
                         {
-                            //broadcast on the UI
-                            BroadcastLiveGame(game);
+                            if (TryUpdateGame(game))
+                            {
+                                //broadcast on the UI
+                                BroadcastLiveGame(game);
+                            }
                         }
+                        _updatingGame = false;
                     }
-                    _updatingGame = false;
                 }
             }
+            catch (Exception e)
+            {
+                
+                
+            }
+            
 
         }
 

@@ -132,7 +132,7 @@
                                     ExtraValue: "N/A"
                                 };
                             }
-                            var rowTemplate = '<tr data-symbol="' + game.MatchNo + '"><td>' + game.MatchNo + '</td><td>' + game.Minutes + '</td><td>' + game.LocalTeam + '</td><td>' + game.AwayTeamScore + ' - ' + game.LocalTeamScore + '</td><td>' + game.AwayTeam + '</td><td style="padding-bottom: 0px;"><table><tbody><tr><td style="border-top-width: 0px;" > <input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.HomeWins + '"/>' + '</td><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.Draw + '"/></td><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.AwayWins + '"/></td></tr></tbody></table></td><td style="padding-bottom: 0px;"><table><tbody><tr><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Under + '"/></td><td style="border-top-width: 0px;">  <span class="text-info">' + game.UnderOverOdds.ExtraValue + '</span></td><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Over + '"/></td></tr></tbody></table></td></tr>';
+                            var rowTemplate = '<tr data-symbol="' + game.MatchNo + '"><td>' + game.MatchNo + '</td><td>' + game.Minutes + '</td><td>' + game.LocalTeam + '</td><td>' + game.AwayTeamScore + ' - ' + game.LocalTeamScore + '</td><td>' + game.AwayTeam + '</td><td style="padding-bottom: 0px;"><table><tbody><tr><td style="border-top-width: 0px;" > <input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.HomeWins + '"/>' + '</td><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.Draw + '"/></td><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.AwayWins + '"/></td></tr></tbody></table></td><td style="padding-bottom: 0px;"><table><tbody><tr><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Under + '"/></td><td style="border-top-width: 0px;padding-top: 10px;">  <span class="text-info">' + game.UnderOverOdds.ExtraValue + '</span></td><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Over + '"/></td></tr></tbody></table></td></tr>';
                             $gamesTableBody.append(rowTemplate);
                         });
                     });
@@ -144,20 +144,20 @@
                     console.log(game);
                     if (game.FullTimeOdds == null) {
                         game.FullTimeOdds = {
-                            AwayWins: "",
-                            Draw: "",
-                            HomeWins: ""
+                            AwayWins: "N/A",
+                            Draw: "N/A",
+                            HomeWins: "N/A"
                         };
                     }
 
                     if (game.UnderOverOdds == null) {
                         game.UnderOverOdds = {
-                            Under: "",
-                            Over: "",
-                            ExtraValue: ""
+                            Under: "N/A",
+                            Over: "N/A",
+                            ExtraValue: "N/A"
                         };
                     }
-                    var rowTemplate = '<tr data-symbol="' + game.MatchNo + '"><td>' + game.MatchNo + '</td><td>' + game.Minutes + '</td><td>' + game.LocalTeam + '</td><td>' + game.AwayTeamScore + ' - ' + game.LocalTeamScore + '</td><td>' + game.AwayTeam + '</td><td style="padding-bottom: 0px;"><table><tbody><tr><td style="border-top-width: 0px;" > <input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.HomeWins + '"/>' + '</td><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.Draw + '"/></td><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.AwayWins + '"/></td></tr></tbody></table></td><td style="padding-bottom: 0px;"><table><tbody><tr><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Under + '"/></td><td style="border-top-width: 0px;">  <span class="text-info">' + game.UnderOverOdds.ExtraValue + '</span></td><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Over + '"/></td></tr></tbody></table></td></tr>';
+                    var rowTemplate = '<tr data-symbol="' + game.MatchNo + '"><td>' + game.MatchNo + '</td><td>' + game.Minutes + '</td><td>' + game.LocalTeam + '</td><td>' + game.AwayTeamScore + ' - ' + game.LocalTeamScore + '</td><td>' + game.AwayTeam + '</td><td style="padding-bottom: 0px;"><table><tbody><tr><td style="border-top-width: 0px;" > <input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.HomeWins + '"/>' + '</td><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.Draw + '"/></td><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.AwayWins + '"/></td></tr></tbody></table></td><td style="padding-bottom: 0px;"><table><tbody><tr><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Under + '"/></td><td style="border-top-width: 0px;padding-top: 10px;">  <span class="text-info ">' + game.UnderOverOdds.ExtraValue + '</span></td><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Over + '"/></td></tr></tbody></table></td></tr>';
 
                     if ($gamesTableBody.find('tr[data-symbol=' + game.MatchNo + ']').length > 0) {
 
