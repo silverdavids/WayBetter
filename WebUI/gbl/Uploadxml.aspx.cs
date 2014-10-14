@@ -65,7 +65,7 @@ namespace WebUI.gbl
         //                    var lg = new League { Country = country, LeagueName = league};
         //                    _db.Leagues.Add(lg);
                                 
-        //                    var teamfeed = new Game();
+        //                    var teamfeed = new Match();
         //                    var teams = new Team();
         //                    var tm = new List<Team>();
         //                    if (home.Name == "localteam")
@@ -175,11 +175,11 @@ namespace WebUI.gbl
         //                        _admin.host = hostTeam;
         //                        _admin.setno = 789;
         //                        _admin.league = league;
-        //                        _admin.MatchNo = Convert.ToInt64(goalServeMatchId);
+        //                        _admin.BetServiceMatchNo = Convert.ToInt64(goalServeMatchId);
         //                        _admin.visitors = awayTeam;
         //                        _admin.stime = Convert.ToDateTime(stDateTime);
         //                        _admin.stime = _admin.stime.ToLocalTime();                                  
-        //                        //teamfeed.MatchNo = Convert.ToInt32(goalServeMatchID);
+        //                        //teamfeed.BetServiceMatchNo = Convert.ToInt32(goalServeMatchID);
         //                        teamfeed.StartTime = _admin.stime;
         //                        teamfeed.ResultStatus = 1;
         //                        _db.Games.Add(teamfeed);

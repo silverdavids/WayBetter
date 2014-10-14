@@ -12,14 +12,14 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Game</h4>
+        <h4>Match</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.MatchNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.BetServiceMatchNo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MatchNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MatchNo, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.BetServiceMatchNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetServiceMatchNo, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -32,10 +32,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Champ, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.League, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Champ, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Champ, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.League, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.League, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -48,10 +48,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.GameStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.MatchStatus, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.GameStatus, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GameStatus, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.MatchStatus, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MatchStatus, "", new { @class = "text-danger" })
             </div>
         </div>
 

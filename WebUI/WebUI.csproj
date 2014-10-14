@@ -299,33 +299,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Infrastructure\XmlHelper.cs" />
-    <Compile Include="Migrations\201409251707257_InitialCreate.cs" />
-    <Compile Include="Migrations\201409251707257_InitialCreate.Designer.cs">
-      <DependentUpon>201409251707257_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409262304178_pat1.cs" />
-    <Compile Include="Migrations\201409262304178_pat1.Designer.cs">
-      <DependentUpon>201409262304178_pat1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409262338524_lasttest.cs" />
-    <Compile Include="Migrations\201409262338524_lasttest.Designer.cs">
-      <DependentUpon>201409262338524_lasttest.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409271814396_FinalMigration.cs" />
-    <Compile Include="Migrations\201409271814396_FinalMigration.Designer.cs">
-      <DependentUpon>201409271814396_FinalMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409290923241_addbetodd.cs" />
-    <Compile Include="Migrations\201409290923241_addbetodd.Designer.cs">
-      <DependentUpon>201409290923241_addbetodd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409292347057_recieptgenerate.cs" />
-    <Compile Include="Migrations\201409292347057_recieptgenerate.Designer.cs">
-      <DependentUpon>201409292347057_recieptgenerate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409300018243_reciepts.cs" />
-    <Compile Include="Migrations\201409300018243_reciepts.Designer.cs">
-      <DependentUpon>201409300018243_reciepts.cs</DependentUpon>
+    <Compile Include="Migrations\201410141731072_InitialCreate.cs" />
+    <Compile Include="Migrations\201410141731072_InitialCreate.Designer.cs">
+      <DependentUpon>201410141731072_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -711,6 +687,7 @@
     <Content Include="gbl\england_shedule.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="gbl\GetSportEventsItalyEngland.xml" />
     <Content Include="gbl\Update.aspx" />
     <Content Include="gbl\UpdateScore.aspx" />
     <Content Include="gbl\Uploadxml.aspx" />
@@ -1751,26 +1728,8 @@
     <Folder Include="Content\Files\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201409251707257_InitialCreate.resx">
-      <DependentUpon>201409251707257_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409262304178_pat1.resx">
-      <DependentUpon>201409262304178_pat1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409262338524_lasttest.resx">
-      <DependentUpon>201409262338524_lasttest.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409271814396_FinalMigration.resx">
-      <DependentUpon>201409271814396_FinalMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409290923241_addbetodd.resx">
-      <DependentUpon>201409290923241_addbetodd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409292347057_recieptgenerate.resx">
-      <DependentUpon>201409292347057_recieptgenerate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409300018243_reciepts.resx">
-      <DependentUpon>201409300018243_reciepts.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201410141731072_InitialCreate.resx">
+      <DependentUpon>201410141731072_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

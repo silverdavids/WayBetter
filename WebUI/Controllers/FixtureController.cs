@@ -95,7 +95,8 @@ namespace WebUI.Controllers
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/venezuela_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/wales_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/worldcup_shedule?odds=bet365"
-       };
+        };
+
         public ActionResult Index()
         {
             return View();
@@ -118,6 +119,281 @@ namespace WebUI.Controllers
             var count= await UploadGames();
             ViewBag.Message = count + "games loaded";
             return View();
+        }
+
+        public async Task<int> UploadGamesFromDani()
+        {
+            var matches = new List<Match>();
+            var matchodds = new List<MatchOdd>();
+            var xmldoc = new XmlDocument();
+            xmldoc.Load(Server.MapPath("~/gbl/GetSportEventsItalyEngland.xml"));
+            var oddServiceNode = xmldoc.ChildNodes[1];
+            var resultsNode = oddServiceNode.ChildNodes[1];
+
+            foreach (XmlNode eventNode in resultsNode)
+            {
+                var eventId = eventNode.ChildNodes[0].InnerText;
+                var unformattedStartDate = eventNode.ChildNodes[1].InnerText;
+                var startDateTime = DateTime.Parse(unformattedStartDate);
+
+                //var sportIdNode = eventNode.ChildNodes[2];
+                //var sportId = sportIdNode.InnerText;
+                //var sportName = (sportIdNode.Attributes != null) ? sportIdNode.Attributes["Name"].InnerText : String.Empty;
+
+                var locationIdNode = eventNode.ChildNodes[4];
+                //var locationId = locationIdNode.InnerText;
+                var locationName = (locationIdNode.Attributes != null) ? locationIdNode.Attributes["Name"].InnerText : String.Empty;
+
+                var country = new Country
+                {
+                    CountryName = locationName
+                };
+
+                BetDatabase.Countries.AddOrUpdate(c => c.CountryName, country);
+                await BetDatabase.SaveChangesAsync();
+
+                var leagueIdNode = eventNode.ChildNodes[3];
+                //var leagueId = leagueIdNode.InnerText;
+                var leagueName = (leagueIdNode.Attributes != null) ? leagueIdNode.Attributes["Name"].InnerText : String.Empty;
+
+                var league = new League
+                {
+                    LeagueName = leagueName,
+                    CountryId = country.CountryId
+                };
+
+                BetDatabase.Leagues.AddOrUpdate(key => new { key.LeagueName }, league);
+                await BetDatabase.SaveChangesAsync();
+                
+
+                //var lastUpdateTime = eventNode.ChildNodes[6].InnerText;
+                var homeTeamNode = eventNode.ChildNodes[8];
+                var homeTeam = (homeTeamNode.Attributes != null) ? homeTeamNode.Attributes["Name"].InnerText : String.Empty;
+                var homeTeamObj = new Team
+                {
+                    TeamName = homeTeam,
+                    CountryId =  country.CountryId
+                };
+                var awayTeamNode = eventNode.ChildNodes[9];
+                var awayTeam = awayTeamNode.Attributes != null ? awayTeamNode.Attributes["Name"].InnerText : String.Empty;
+                var awayTeamObj = new Team
+                {
+                    TeamName = awayTeam,
+                    CountryId = country.CountryId
+                };
+
+                BetDatabase.Teams.AddOrUpdate(t => t.TeamName, new []{ homeTeamObj, awayTeamObj });
+                await BetDatabase.SaveChangesAsync();
+                var outcomesNode = eventNode.ChildNodes[14];
+
+                matches.Add(new Match
+                {
+                    AwayTeamId = awayTeamObj.TeamId,
+                    BetServiceMatchNo = Convert.ToInt32(eventId),
+                    GameStatus = "Not Started",
+                    HomeTeamId = homeTeamObj.TeamId,
+                    League = leagueName,
+                    RegistrationDate = DateTime.Now,
+                    ResultStatus = 0,
+                    StartTime = startDateTime
+                });
+
+                if (!outcomesNode.HasChildNodes) continue;
+                #region OutComes
+                foreach (XmlNode outcomeNode in outcomesNode.ChildNodes)
+                {
+                    if (outcomeNode.Attributes == null) continue;
+                    var outcome = outcomeNode.Attributes["name"].InnerText;
+                    //Console.WriteLine("{0} Odds", outcome);
+                    var bookmakerNode = outcomeNode.ChildNodes[0];
+                    var oddsNodes = bookmakerNode.ChildNodes;
+
+                    // Locate an out ome in the datbase with that particular name
+                    var betcategory = new BetCategory
+                    {
+                        Name = outcome
+                    };
+
+                    BetDatabase.BetCategories.AddOrUpdate(bc => bc.Name, betcategory);
+                    BetDatabase.SaveChanges();
+                    switch (outcome)
+                    {
+                        #region 1x2 Odds
+                        case "1X2":
+                            foreach (XmlNode odd in oddsNodes)
+                            {
+                                if (odd.Attributes == null) continue;
+                                var bet = odd.Attributes["bet"].InnerText;
+                                var line = odd.Attributes["line"].InnerText;
+                                var unformattedLastUpdateTime = odd.Attributes["LastUpdate"].InnerText;
+                                var betoption = new BetOption
+                                {
+                                    BetCategoryId = betcategory.CategoryId,
+                                    Option = bet,
+                                    Line = line
+                                };
+
+                                BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
+                                BetDatabase.SaveChanges();
+                                var matchodd = new MatchOdd
+                                {
+                                    BetServiceMatchNo = Convert.ToInt32(eventId),
+                                    BetOptionId = betoption.BetOptionId,
+                                    LastUpdateTime = DateTime.Parse(unformattedLastUpdateTime),
+                                    Odd = Convert.ToDecimal(odd.Attributes["currentPrice"].InnerText)
+                                };
+                                matchodds.Add(matchodd);
+                            }
+                            break;
+                        #endregion
+
+                        #region Under/Over Odds
+                        case "Under/Over":
+                            foreach (XmlNode odd in oddsNodes)
+                            {
+
+                                if (odd.Attributes == null) continue;
+                                var bet = odd.Attributes["bet"].InnerText;
+                                var line = odd.Attributes["line"].InnerText;
+                                var unformattedLastUpdateTime = odd.Attributes["LastUpdate"].InnerText;
+                                var betoption = new BetOption
+                                {
+                                    BetCategoryId = betcategory.CategoryId,
+                                    Option = bet,
+                                    Line = line
+                                };
+
+                                BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
+                                BetDatabase.SaveChanges();
+                                if (line != "0.5" && line != "1.5" && line != "2.5" && line != "3.5" &&
+                                    line != "4.5" && line != "5.5" && line != "6.5") continue;
+                                var matchodd = new MatchOdd
+                                {
+                                    BetServiceMatchNo = Convert.ToInt32(eventId),
+                                    BetOptionId = betoption.BetOptionId,
+                                    LastUpdateTime = DateTime.Parse(unformattedLastUpdateTime),
+                                    Odd = Convert.ToDecimal(odd.Attributes["currentPrice"].InnerText)
+                                };
+                                matchodds.Add(matchodd);
+                            }
+                            break;
+                        #endregion
+
+                        #region Double Chance Odds
+                        case "Double Chance":
+                            foreach (XmlNode odd in oddsNodes)
+                            {
+                                if (odd.Attributes == null) continue;
+                                var bet = odd.Attributes["bet"].InnerText;
+                                var line = odd.Attributes["line"].InnerText;
+                                var unformattedLastUpdateTime = odd.Attributes["LastUpdate"].InnerText;
+                                var betoption = new BetOption
+                                {
+                                    BetCategoryId = betcategory.CategoryId,
+                                    Option = bet,
+                                    Line = line
+                                };
+
+                                BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
+                                BetDatabase.SaveChanges();
+                                var matchodd = new MatchOdd
+                                {
+                                    BetServiceMatchNo = Convert.ToInt32(eventId),
+                                    BetOptionId = betoption.BetOptionId,
+                                    LastUpdateTime = DateTime.Parse(unformattedLastUpdateTime),
+                                    Odd = Convert.ToDecimal(odd.Attributes["currentPrice"].InnerText)
+                                };
+                                matchodds.Add(matchodd);
+                            }
+                            break;
+                        #endregion
+
+                        #region European Handicap
+                        case "European Handicap":
+                            foreach (XmlNode odd in oddsNodes)
+                            {
+                                if (odd.Attributes == null) continue;
+                                var bet = odd.Attributes["bet"].InnerText;
+                                var line = odd.Attributes["line"].InnerText;
+                                var unformattedLastUpdateTime = odd.Attributes["LastUpdate"].InnerText;
+                                var betoption = new BetOption
+                                {
+                                    BetCategoryId = betcategory.CategoryId,
+                                    Option = bet,
+                                    Line = line
+                                };
+
+                                BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line },
+                                    betoption);
+                                BetDatabase.SaveChanges();
+                                var matchodd = new MatchOdd
+                                {
+                                    BetServiceMatchNo = Convert.ToInt32(eventId),
+                                    BetOptionId = betoption.BetOptionId,
+                                    LastUpdateTime = DateTime.Parse(unformattedLastUpdateTime),
+                                    Odd = Convert.ToDecimal(odd.Attributes["currentPrice"].InnerText)
+                                };
+                                matchodds.Add(matchodd);
+                            }
+                            break;
+                        #endregion
+
+                        #region Both Teams To Score Odds
+                        case "Both Teams To Score":
+                            foreach (XmlNode odd in oddsNodes)
+                            {
+                                if (odd.Attributes == null) continue;
+                                var bet = odd.Attributes["bet"].InnerText;
+                                var line = odd.Attributes["line"].InnerText;
+                                var unformattedLastUpdateTime = odd.Attributes["LastUpdate"].InnerText;
+                                var betoption = new BetOption
+                                {
+                                    BetCategoryId = betcategory.CategoryId,
+                                    Option = bet,
+                                    Line = line
+                                };
+
+                                BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
+                                BetDatabase.SaveChanges();
+                                var matchodd = new MatchOdd
+                                {
+                                    BetServiceMatchNo = Convert.ToInt32(eventId),
+                                    BetOptionId = betoption.BetOptionId,
+                                    LastUpdateTime = DateTime.Parse(unformattedLastUpdateTime),
+                                    Odd = Convert.ToDecimal(odd.Attributes["currentPrice"].InnerText)
+                                };
+                                matchodds.Add(matchodd);
+                            }
+                            break;
+                        #endregion
+
+                    }
+                }
+                #endregion
+
+                
+            }
+            try
+            {
+                BetDatabase.Matches.AddOrUpdate(m => m.BetServiceMatchNo, matches.ToArray());
+                BetDatabase.SaveChanges();
+                Console.WriteLine("Matches Updated Successfully");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error updating games: {0}.", ex.Message);
+            }
+            try
+            {
+                BetDatabase.MatchOdds.AddOrUpdate(key => new { key.BetServiceMatchNo, key.BetOptionId }, matchodds.ToArray());
+                BetDatabase.SaveChanges();
+                Console.WriteLine("MatchOdds Updated Successfully");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error updating odds: {0}.", ex.Message);
+            }
+            return 1;
         }
 
 
@@ -181,7 +457,7 @@ namespace WebUI.Controllers
 
                                 var game = new Match();
                                 var gameodds = new List<MatchOdd>();
-                                game.Champ = league;
+                                game.League = league;
                                 game.StartTime = Convert.ToDateTime(stDateTime).ToLocalTime();
                                
                                 if (home.Name == "localteam")
@@ -328,10 +604,8 @@ namespace WebUI.Controllers
                                             });
                                             break;
                                         case "Handicap Result":
-                                            var hhome =
-                                                Convert.ToInt16(oddType.ChildNodes[0].Attributes["extravalue"].Value);
-                                            var haway =
-                                                Convert.ToInt16(oddType.ChildNodes[2].Attributes["extravalue"].Value);
+                                            //var hhome = Convert.ToInt16(oddType.ChildNodes[0].Attributes["extravalue"].Value);
+                                            //var haway = Convert.ToInt16(oddType.ChildNodes[2].Attributes["extravalue"].Value);
                                             gameodds.AddRange(new[]
                                             {
                                                 new MatchOdd
@@ -341,7 +615,7 @@ namespace WebUI.Controllers
                                                     Odd =
                                                         Convert.ToDecimal(
                                                             oddType.ChildNodes[0].Attributes["odd"].Value),
-                                                    HandicapGoals = hhome < 0 ? hhome - hhome : hhome
+                                                    //Line = hhome < 0 ? hhome - hhome : hhome
                                                 },
                                                 new MatchOdd
                                                 {
@@ -350,7 +624,7 @@ namespace WebUI.Controllers
                                                     Odd =
                                                         Convert.ToDecimal(
                                                             oddType.ChildNodes[1].Attributes["odd"].Value),
-                                                    HandicapGoals = haway < 0 ? (haway - haway) : haway
+                                                    //Line = haway < 0 ? (haway - haway) : haway
                                                 },
                                                 new MatchOdd
                                                 {
@@ -359,7 +633,7 @@ namespace WebUI.Controllers
                                                     Odd =
                                                         Convert.ToDecimal(
                                                             oddType.ChildNodes[2].Attributes["odd"].Value),
-                                                    HandicapGoals = haway < 0 ? (haway - haway) : haway
+                                                    //Line = haway < 0 ? (haway - haway) : haway
                                                 }
 
                                             });
@@ -573,10 +847,10 @@ namespace WebUI.Controllers
                                     }
                                 } 
                                 game.GameOdds = gameodds;
-                                game.MatchNo = Convert.ToInt32(goalServeMatchId);
+                                game.BetServiceMatchNo = Convert.ToInt32(goalServeMatchId);
                                 game.StartTime = Convert.ToDateTime(stDateTime).ToLocalTime();
                                 game.ResultStatus = 1;
-                                game.GameOdds.ForEach(g => g.GameId = game.MatchNo);
+                                game.GameOdds.ForEach(g => g.BetServiceMatchNo = game.BetServiceMatchNo);
                                 BetDatabase.Matches.AddOrUpdate(game);
                                 await BetDatabase.SaveChangesAsync();
                             }
@@ -596,19 +870,19 @@ namespace WebUI.Controllers
             if (odds.OddFt1 != 0)
             {
 
-                matchOdd = new MatchOdd {BetOptionId = 1, GameId = matno, Odd = Convert.ToDecimal(odds.OddFt1)};
+                matchOdd = new MatchOdd {BetOptionId = 1, BetServiceMatchNo = matno, Odd = Convert.ToDecimal(odds.OddFt1)};
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
                 BetDatabase.SaveChanges();
             }
             if (odds.OddFTX != 0)
             {
-                matchOdd = new MatchOdd {BetOptionId = 2, GameId = matno, Odd = Convert.ToDecimal(odds.OddFTX)};
+                matchOdd = new MatchOdd {BetOptionId = 2, BetServiceMatchNo = matno, Odd = Convert.ToDecimal(odds.OddFTX)};
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
                 BetDatabase.SaveChanges();
             }
             if (odds.OddFT2 != 0)
             {
-                matchOdd = new MatchOdd {BetOptionId = 3, GameId = matno, Odd = Convert.ToDecimal(odds.OddFT2)};
+                matchOdd = new MatchOdd {BetOptionId = 3, BetServiceMatchNo = matno, Odd = Convert.ToDecimal(odds.OddFT2)};
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
                     
                 BetDatabase.SaveChanges();
@@ -619,7 +893,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 4,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddFtUnder15)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -629,7 +903,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 5,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddFtOver15)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -639,7 +913,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 6,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddFtUnder25)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -649,7 +923,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 7,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddFtOver25)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -659,7 +933,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 8,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddFtUnder35)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -671,7 +945,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 9,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddFtOver35)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -682,7 +956,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 10,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddFtUnder45)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -694,24 +968,24 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 11,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddFtOver45)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
             }
             if (odds.OddHt1 != 0)
             {
-                matchOdd = new MatchOdd {BetOptionId = 12, GameId = matno, Odd = Convert.ToDecimal(odds.OddHt1)};
+                matchOdd = new MatchOdd {BetOptionId = 12, BetServiceMatchNo = matno, Odd = Convert.ToDecimal(odds.OddHt1)};
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
             }
             if (odds.OddHtx != 0)
             {
-                matchOdd = new MatchOdd {BetOptionId = 13, GameId = matno, Odd = Convert.ToDecimal(odds.OddHtx)};
+                matchOdd = new MatchOdd {BetOptionId = 13, BetServiceMatchNo = matno, Odd = Convert.ToDecimal(odds.OddHtx)};
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
             }
             if (odds.OddHt2 != 0)
             {
-                matchOdd = new MatchOdd {BetOptionId = 14, GameId = matno, Odd = Convert.ToDecimal(odds.OddHt2)};
+                matchOdd = new MatchOdd {BetOptionId = 14, BetServiceMatchNo = matno, Odd = Convert.ToDecimal(odds.OddHt2)};
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
                 BetDatabase.SaveChanges();
 
@@ -721,7 +995,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 15,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddHtUnder05)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -731,7 +1005,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 16,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddHtOver05)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -742,7 +1016,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 17,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddHtUnder15)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -752,7 +1026,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 18,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddHtOver15)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -763,7 +1037,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 19,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddHtUnder25)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -773,25 +1047,25 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 20,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddHtOver25)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
             }
             if (odds.odd1X != 0)
             {
-                matchOdd = new MatchOdd {BetOptionId = 21, GameId = matno, Odd = Convert.ToDecimal(odds.odd1X)};
+                matchOdd = new MatchOdd {BetOptionId = 21, BetServiceMatchNo = matno, Odd = Convert.ToDecimal(odds.odd1X)};
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
             }
             /*double chance*/
             if (odds.odd12 != 0)
             {
-                matchOdd = new MatchOdd {BetOptionId = 22, GameId = matno, Odd = Convert.ToDecimal(odds.odd12)};
+                matchOdd = new MatchOdd {BetOptionId = 22, BetServiceMatchNo = matno, Odd = Convert.ToDecimal(odds.odd12)};
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
             }
             if (odds.oddX2 != 0)
             {
-                matchOdd = new MatchOdd {BetOptionId = 23, GameId = matno, Odd = Convert.ToDecimal(odds.oddX2)};
+                matchOdd = new MatchOdd {BetOptionId = 23, BetServiceMatchNo = matno, Odd = Convert.ToDecimal(odds.oddX2)};
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
             }
 
@@ -800,8 +1074,8 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 24,
-                    GameId = matno,
-                    HandicapGoals = odds.HomeGoal,
+                    BetServiceMatchNo = matno,
+                    //Line = odds.HomeGoal,
                     Odd = Convert.ToDecimal(odds.oddHC1)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -812,26 +1086,26 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 25,
-                    GameId = matno,
-                    HandicapGoals = odds.AwayGoal,
+                    BetServiceMatchNo = matno,
+                    //Line = odds.AwayGoal,
                     Odd = Convert.ToDecimal(odds.oddHC2)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
             }
             if (odds.OddFT2 != 0)
             {
-                matchOdd = new MatchOdd {BetOptionId = 26, GameId = matno, Odd = Convert.ToDecimal(odds.oddGG)};
+                matchOdd = new MatchOdd {BetOptionId = 26, BetServiceMatchNo = matno, Odd = Convert.ToDecimal(odds.oddGG)};
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
             }
             if (odds.oddGG != 0)
             {
-                matchOdd = new MatchOdd {BetOptionId = 27, GameId = matno, Odd = Convert.ToDecimal(odds.oddNG)};
+                matchOdd = new MatchOdd {BetOptionId = 27, BetServiceMatchNo = matno, Odd = Convert.ToDecimal(odds.oddNG)};
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
 
             }
             if (odds.oddHCX != 0)
             {
-                matchOdd = new MatchOdd {BetOptionId = 31, GameId = matno, Odd = Convert.ToDecimal(odds.oddHCX)};
+                matchOdd = new MatchOdd {BetOptionId = 31, BetServiceMatchNo = matno, Odd = Convert.ToDecimal(odds.oddHCX)};
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
             }
             if (odds.oddFtUnder05 != 0)
@@ -839,7 +1113,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 32,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddFtUnder05)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -850,7 +1124,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 33,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddFtOver05)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -860,7 +1134,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 34,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddFtUnder55)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -870,7 +1144,7 @@ namespace WebUI.Controllers
                 matchOdd = new MatchOdd
                 {
                     BetOptionId = 35,
-                    GameId = matno,
+                    BetServiceMatchNo = matno,
                     Odd = Convert.ToDecimal(odds.oddFtOver55)
                 };
                 BetDatabase.MatchOdds.AddOrUpdate(matchOdd);
@@ -1006,29 +1280,29 @@ namespace WebUI.Controllers
                 var matchTime = Convert.ToDateTime(stDate+" "+stTime);
                 var match = new Match
                 {
-                    MatchNo = matno,
+                    BetServiceMatchNo = matno,
                     StartTime = matchTime,
-                    Champ = (ds.Tables[0].Rows[i][3]).ToString(),
+                    League = (ds.Tables[0].Rows[i][3]).ToString(),
                     GameOdds = new List<MatchOdd>
                     {
                         new MatchOdd// Full Time Results
                         {
                             BetOptionId = 1,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][6] ?? 0),
                         },
                         new MatchOdd
                         {
                             BetOptionId = 2,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][7] ?? 0),
                         },
                         new MatchOdd
                         {
                             BetOptionId = 3,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][8] ?? 0),
                         },
@@ -1037,14 +1311,14 @@ namespace WebUI.Controllers
                         new MatchOdd  //Under 2.5
                         {
                             BetOptionId = 6,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][9] ?? 0),
                         },
                         new MatchOdd
                         {
                             BetOptionId = 7,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][10] ?? 0),
                         },
@@ -1052,14 +1326,14 @@ namespace WebUI.Controllers
                         new MatchOdd  // Full Time1.5
                         {
                             BetOptionId = 4,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][11] ?? 0),
                         },
                         new MatchOdd
                         {
                             BetOptionId = 5,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][12] ?? 0),
                         },
@@ -1069,21 +1343,21 @@ namespace WebUI.Controllers
                         new MatchOdd//HalfTime
                         {
                             BetOptionId = 12,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][13] ?? 0),
                         },
                         new MatchOdd
                         {
                             BetOptionId = 13,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][14] ?? 0),
                         },
                         new MatchOdd
                         {
                             BetOptionId = 14,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][15] ?? 0),
                         },
@@ -1091,14 +1365,14 @@ namespace WebUI.Controllers
                         new MatchOdd   //HalfTime Under
                         {//1.5
                             BetOptionId = 17,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][16] ?? 0),
                         },
                         new MatchOdd
                         {
                             BetOptionId = 18,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][17] ?? 0),
                         },
@@ -1106,21 +1380,21 @@ namespace WebUI.Controllers
                         new MatchOdd //Ht 0.5
                         {
                             BetOptionId = 15,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][18] ?? 0),
                         },
                         new MatchOdd
                         {
                             BetOptionId = 16,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][19] ?? 0),
                         },
                         new MatchOdd  //double chance 1x
                         {
                             BetOptionId = 21,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][20] ?? 0),
                         },
@@ -1128,14 +1402,14 @@ namespace WebUI.Controllers
                         new MatchOdd //x2
                         {
                             BetOptionId = 23,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][21] ?? 0),
                         },
                         new MatchOdd  //Double Chance x2
                         {
                             BetOptionId = 22,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][22] ?? 0),
                         },
@@ -1144,9 +1418,9 @@ namespace WebUI.Controllers
                         new MatchOdd // hc1
                         {
                             BetOptionId = 24,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,                 
-                            HandicapGoals = Convert.ToInt16(ds.Tables[0].Rows[i][26] ?? 0),
+                            //Line = Convert.ToInt16(ds.Tables[0].Rows[i][26] ?? 0),
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][23] ?? 0),
 
                         },
@@ -1157,7 +1431,7 @@ namespace WebUI.Controllers
                         new MatchOdd
                         {
                             BetOptionId = 31,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][24] ?? 0),
                         },
@@ -1166,9 +1440,9 @@ namespace WebUI.Controllers
                         new MatchOdd
                         {
                             BetOptionId = 25,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
-                            HandicapGoals = Convert.ToInt16(ds.Tables[0].Rows[i][27] ?? 0),
+                            //Line = Convert.ToInt16(ds.Tables[0].Rows[i][27] ?? 0),
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][25] ?? 0),
                         },
 
@@ -1178,7 +1452,7 @@ namespace WebUI.Controllers
                         new MatchOdd
                         {
                             BetOptionId = 26,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][28] ?? 0),
                         },
@@ -1187,7 +1461,7 @@ namespace WebUI.Controllers
                         new MatchOdd
                         {
                             BetOptionId = 27,
-                            GameId = matno,
+                            BetServiceMatchNo = matno,
                             LastUpdateTime = DateTime.Now,
                             Odd = Convert.ToDecimal(ds.Tables[0].Rows[i][29] ?? 0),
                         },                                
@@ -1199,7 +1473,7 @@ namespace WebUI.Controllers
                     ResultStatus = 1,
                 };
                 excelmatches.Add(match);
-                match.GameOdds.ForEach(g => g.GameId = match.MatchNo);
+                match.GameOdds.ForEach(g => g.BetServiceMatchNo = match.BetServiceMatchNo);
                 BetDatabase.Matches.AddOrUpdate(match);
                 BetDatabase.SaveChanges();
             }
@@ -1238,8 +1512,8 @@ namespace WebUI.Controllers
         //public JsonResult GetMatch(string id)
         //{
         //    var matNo = Convert.ToInt32(id);
-        //    var game = BetDatabase.Matches.SingleOrDefault(x => x.MatchNo == matNo);
-        //    var odds = BetDatabase.MatchOdds.Where(g => g.GameId == game.MatchNo).ToList();
+        //    var game = BetDatabase.Matches.SingleOrDefault(x => x.BetServiceMatchNo == matNo);
+        //    var odds = BetDatabase.MatchOdds.Where(g => g.BetServiceMatchNo == game.BetServiceMatchNo).ToList();
         //    if (odds.Count > 0)
         //    {
         //        if (game != null)
@@ -1259,8 +1533,8 @@ namespace WebUI.Controllers
         //                //oddHC1 =odd.SingleOrDefault(x=>x.BetOptionId==1).Odd,
         //                //oddHCX =odd.SingleOrDefault(x=>x.BetOptionId==1).Odd,
         //                //oddHC2 =odd.SingleOrDefault(x=>x.BetOptionId==1).Odd,
-        //                //HomeGoal =odd.SingleOrDefault(x=>x.BetOptionId==1).HandicapGoals,
-        //                //AwayGoal=odd.SingleOrDefault(x=>x.BetOptionId==1).HandicapGoals,
+        //                //HomeGoal =odd.SingleOrDefault(x=>x.BetOptionId==1).Line,
+        //                //AwayGoal=odd.SingleOrDefault(x=>x.BetOptionId==1).Line,
         //                //oddHtUnder05 =odd.SingleOrDefault(x=>x.BetOptionId==1).Odd,   
         //                //oddHtOver05 =odd.SingleOrDefault(x=>x.BetOptionId==1).Odd,
         //                //oddHtOver15  =odd.SingleOrDefault(x=>x.BetOptionId==1).Odd,

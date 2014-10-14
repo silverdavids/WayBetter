@@ -227,10 +227,10 @@ namespace WebUI.Controllers
 
                             }
                             game.GameOdds = gameodds;
-                            game.MatchNo = Convert.ToInt32(goalServeMatchId);
+                            game.BetServiceMatchNo = Convert.ToInt32(goalServeMatchId);
                             game.StartTime = Convert.ToDateTime(stDateTime).ToLocalTime();
                             game.ResultStatus = 1;
-                            game.GameOdds.ForEach(g => g.GameId = game.MatchNo);
+                            game.GameOdds.ForEach(g => g.BetServiceMatchNo = game.BetServiceMatchNo);
                             BetDatabase.Matches.Add(game);
                             await BetDatabase.SaveChangesAsync();
                         }
@@ -256,7 +256,7 @@ namespace WebUI.Controllers
                 AwayScore = g.Match.AwayScore,
                 AwayTeamId = g.Match.AwayTeamId,
                 AwayTeamName = g.Match.AwayTeam.TeamName,
-                Champ = g.Match.Champ,
+                Champ = g.Match.League,
                 GameOdds = g.Match.GameOdds.Select(go => new GameOddViewModel
                 {
                     BetCategory = go.BetOption.BetCategory.Name,
@@ -309,7 +309,7 @@ namespace WebUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MatchNo,SetNo,Champ,StartTime,GameStatus,AwayTeamId,HomeTeamId,RegistrationDate,HomeScore,AwayScore,HalfTimeHomeScore,HalfTimeAwayScore,ResultStatus")] Match game)
+        public async Task<ActionResult> Create([Bind(Include = "BetServiceMatchNo,SetNo,League,StartTime,GameStatus,AwayTeamId,HomeTeamId,RegistrationDate,HomeScore,AwayScore,HalfTimeHomeScore,HalfTimeAwayScore,ResultStatus")] Match game)
         {
             if (ModelState.IsValid)
             {
@@ -345,7 +345,7 @@ namespace WebUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MatchNo,SetNo,Champ,StartTime,GameStatus,AwayTeamId,HomeTeamId,RegistrationDate,HomeScore,AwayScore,HalfTimeHomeScore,HalfTimeAwayScore,ResultStatus")] Match game)
+        public async Task<ActionResult> Edit([Bind(Include = "BetServiceMatchNo,SetNo,League,StartTime,GameStatus,AwayTeamId,HomeTeamId,RegistrationDate,HomeScore,AwayScore,HalfTimeHomeScore,HalfTimeAwayScore,ResultStatus")] Match game)
         {
             if (ModelState.IsValid)
             {

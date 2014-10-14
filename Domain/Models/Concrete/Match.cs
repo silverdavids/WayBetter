@@ -19,8 +19,8 @@ namespace Domain.Models.Concrete
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int MatchNo { get; set; }
-        public string Champ { get; set; }
+        public int BetServiceMatchNo { get; set; }
+        public string League { get; set; }
         public DateTime StartTime { get; set; }
         public string GameStatus { get; set; }
         [ForeignKey("AwayTeam")]
