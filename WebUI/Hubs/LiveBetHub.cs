@@ -158,7 +158,7 @@ namespace WebUI.Hubs
                                 testGame.LocalTeamScore = localTeamAttributes["score"].InnerText == "" ? "?" : localTeamAttributes["score"].InnerText;
                             }
                         }
-                        else
+                        if (team.Name == "awayteam")
                         {
                             var awayTeamattributes = team.Attributes;
                             if (awayTeamattributes != null)
