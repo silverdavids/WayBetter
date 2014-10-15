@@ -1,0 +1,246 @@
+<style type="text/css">
+    body.modal-open,
+    .modal-open .navbar-fixed-top,
+    .modal-open .navbar-fixed-bottom {
+        margin-right: 0;
+    }
+
+    .modal {
+        left: 50%;
+        bottom: auto;
+        right: auto;
+        padding: 0;
+        width: 500px;
+        margin-left: -250px;
+        background-color: #ffffff;
+        border: 1px solid #999999;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 6px;
+        -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+        background-clip: padding-box;
+    }
+
+        .modal.container {
+            max-width: none;
+        }
+
+
+
+
+    /* table #oddstable> thead*/
+    .selected_option {
+        background-color: goldenrod;
+    }
+
+    #categories2 {
+        position: fixed;
+        top: 60px;
+        z-index: 1000;
+        opacity: 1;
+        background-color: oldlace;
+    }
+
+    /* #categories1{
+         position: fixed;
+         top: 100px;
+         z-index: 1000;
+         opacity: 0.8;
+     }*/
+    #maindiv {
+        margin-top: 65px;
+        max-height: 700px;
+        overflow: scroll;
+    }
+
+    table #oddstable thead, table #oddstable, tbody {
+        /* display: block;
+     width: 400px;*/
+    }
+
+    table #oddstable, tbody {
+        /* overflow: auto;
+    height: 700px;
+     width: 500px;*/
+    }
+
+        table #oddstable thead th {
+            /* width: 10px;*/
+        }
+
+
+
+    .col-lg-12, .col-md-8, .col-md-offset-11, .col-sm-1 {
+        padding-left: 0;
+    }
+
+    .livebet {
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 2px;
+    }
+
+    .badge-live {
+        font-size: 10px;
+        font-weight: bold;
+        -ms-border-radius: 2px;
+        border-radius: 2px;
+        background-color: #ffff00;
+        color: #000000;
+    }
+
+    table {
+        font-size: 12px;
+        background-color: #d4e4f3;
+        color: #000000;
+    }
+
+    thead {
+        border: 0;
+        border-color: #191970;
+        background-color: #191970;
+        color: #ffffff;
+    }
+
+    tbody#oddstable > tr > td {
+        border-left: #cccccc solid 2px;
+    }
+
+    tr {
+        vertical-align: central;
+    }
+
+    .table-striped > tbody > tr:nth-child(odd) > td,
+    .table-striped > tbody > tr:nth-child(odd) > th {
+        background-color: #f2f7f9;
+    }
+
+    .selections-header {
+        background-color: #ffffff;
+    }
+
+    .odd, .moreodds {
+        font-weight: bold;
+    }
+
+    .center-text {
+        text-align: center;
+    }
+
+    .oddCategory {
+    }
+</style>
+
+<div class="container">
+
+    <!-------->
+    <tabset>
+        <tab heading="FT 1x2">
+            <table class="table-striped table-hover" id="oddstable">
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody id="match">
+                    <table class="table-striped table-hover" id="oddstable">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Time</th>
+                                <th colspan="3" style="text-align: center;">Info</th>
+                                <th><b>1</b></th>
+                                <th><b>X</b></th>
+                                <th><b>2</b></th>
+                                <th><b>More</b></th>
+                            </tr>
+                        </thead>
+                        <tbody id="match">
+                            <tr ng-repeat="item in oddCategoryRows" class="match" id=" {{ item.match.MatchNo }} ">
+                                <td data-field="matchId" class="match-code"> {{item.match.MatchNo }} </td>
+                                <td data-field="startTime" class="start-time"> {{item.match.OldDateTime|datetime}}</td>
+                                <td data-field="startDate" class="start-date hidden"> {{ item.match.StartTime|datetime }}</td>
+                                <td class="livebet"><span class="badge">Live</span></td>
+                                <td>1+</td>
+                                <td data-field="teamVersus" class="team-versus">{{ item.match.HomeTeamName }} vs  {{ item.match.AwayTeamName }}</td>
+                                <td><input type="button" class="' + oddHomeClass + '" value="{{(item.oddHome.Odd).toFixed(2)}}" data-odd-type="{{item.oddHome.BetOptionId }}" data-option-id="{{ item.oddHome.BetOptionId }}" data-option-name="{{item.oddHome.BetOption }}" data-bet-category="{{item.oddHome.BetCategory }}" /></td>
+                                <td><input type="button" class="' + oddDrawClass + '" value="{{ (item.oddDraw.Odd).toFixed(2) }}" data-odd-type="{{ item.oddDraw.BetOptionId }}" data-option-id="{{ item.oddDraw.BetOptionId }}" data-option-name="{{ item.oddDraw.BetOption }}" data-bet-category="{{ item.oddDraw.BetCategory }}" /></td>
+                                <td><input type="button" class="' + oddAwayClass }}" value="{{ (item.oddAway.Odd).toFixed(2) }}" data-odd-type="{{ item.oddAway.BetOptionId }}" data-option-id="{{ item.oddAway.BetOptionId }}" data-option-name="{{ item.oddAway.BetOption }}" data-bet-category="{{ item.oddAway.BetCategory }}" /></td>
+                                <td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+{{ item.GameOdds.length }}" /></td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+
+
+                </tbody>
+            </table>
+        </tab>
+        <tab heading="FT U/O">
+            <table class="table-striped table-hover" id="oddstable">
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody id="match"></tbody>
+            </table>
+        </tab>
+        <tab heading="HT 1x2">
+            <table class="table-striped table-hover" id="oddstable">
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody id="match"></tbody>
+            </table>
+        </tab>
+        <tab heading="HT U/O">
+            <table class="table-striped table-hover" id="oddstable">
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody id="match"></tbody>
+            </table>
+        </tab>
+        <tab heading="Double Chance">
+            <table class="table-striped table-hover" id="oddstable">
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody id="match"></tbody>
+            </table>
+        </tab>
+        <tab heading="Handicap">
+            <table class="table-striped table-hover" id="oddstable">
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody id="match"></tbody>
+            </table>
+        </tab>
+        <tab heading="Both Teams To Score">
+            <table class="table-striped table-hover" id="oddstable">
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody id="match"></tbody>
+            </table>
+        </tab>
+        <tab heading="First Team To Score">
+           
+        </tab>
+        <tab heading="Draw No Bet">
+            <table class="table-striped table-hover" id="oddstable">
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody id="match"></tbody>
+            </table>
+        </tab>
+        
+       
+
+
+
+
+        
+
+    </tabset>
+</div> <!-- container -->

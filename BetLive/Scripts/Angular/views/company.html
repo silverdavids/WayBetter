@@ -1,0 +1,53 @@
+<h2>Companies</h2>
+<span class="error" mainerror></span>
+<span class="alert alert-success"  ng-show="message!=''" ng-bind="message"></span>
+<hr />
+
+
+<table class="table table-collapse table-striped">
+    <thead>
+    <tr>
+        <th colspan="3">
+            <input type="button"   class="btn btn-primary" ng-click="promptToCreateCompany()" value="NEW COMPANY"/>
+        </th>
+        <th colspan="3">
+            <label for="search" class="badge btn-info">Search:</label><input type="text" id="search" class="form-input" ng-model="query">
+        </th>
+
+    </tr>
+    <tr>
+        <th > <a href="" ng-click="sortField='companyId';reverse=!reverse">ID</a></th>
+        <th ><a  href="" ng-click="sortField='companyName';reverse=!reverse"> Company Name</a></th>
+        <th > <a href=""  ng-click="sortField='companyLocation';reverse=!reverse"> Company Location</a></th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    </thead>
+    <tbody>
+
+    <tr ng-show="showCreate">
+        <th>0 </th>
+        <th>
+            <input type="text" class="form-input" ng-model="company.companyName" />
+            <span class="error" errorkey="company.companyName"></span>
+        </th>
+        <th>
+            <input type="text" class="form-input" ng-model="company.companyLocation" />
+            <span class="error" errorkey="company.companyLocation"></span>
+        </th>
+        <th><input type="button" ng-click="onSave()" ng-show="company.companyLocation!=''&& company.companyLocation!=''" value="Save" /></th>
+        <th><input type="button" ng-click="promptToCreateCompany()" value="Cancel" /></th>
+        <th></th>
+    </tr>
+    <tr ng-repeat="company in companyRows |filter:query| orderBy:sortField:reverse ">
+        <td ng-bind=" company.companyId"></td>
+        <td ng-bind=" company.companyName"></td>
+        <td ng-bind=" company.companyLocation"></td>
+        <td><input type="button" ng-click="onDeleteCompany(company.companyId,company)" value="Delete"></a></td>
+        <td><a ng-href="#/company/branches/{{company.companyId}}">Branches</a> </td>
+
+    </tr>
+    </tbody>
+</table>

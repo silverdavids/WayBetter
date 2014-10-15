@@ -35,11 +35,11 @@ namespace WebUI.Controllers
                     a.AmountE
                 }).SingleOrDefaultAsync(t => t.UserId == User.Identity.Name);
                 ViewBag.Balance = account.AmountE;
-                return View();
+               return View();
             }
         
             var currentSetNo = SetNumberGenerator.GetCurrentSetNumber;
-            var games = await BetDatabase.ShortMatchCodes.Include(s => s.Match).OrderBy(x=>x.ShortCode).ToListAsync();
+            var games = await BetDatabase.ShortMatchCodes.Include(s => s.Match).Include(mo=>mo.Match.GameOdds.Select(m=>m.BetOption)).OrderBy(x=>x.ShortCode).ToListAsync();
             var startTime = DateTime.Now;
             
             var filteredgames = games.Select(g => new GameViewModel
@@ -69,7 +69,7 @@ namespace WebUI.Controllers
                 SetNo = g.SetNo,
                 OldDateTime = g.Match.StartTime,
                 StartTime = String.Format("{0:dd/M/yyyy}", g.Match.StartTime)
-            });//.Where(x => x.OldDateTime > startTime).OrderBy(s => s.StartTime); 
+            }).Where(x => x.OldDateTime > startTime).OrderBy(s => s.StartTime); 
            // .Where(x => x.OldDateTime>startTime)
             return Json(filteredgames, JsonRequestBehavior.AllowGet);
          }
@@ -259,16 +259,16 @@ namespace WebUI.Controllers
             var account = await BetDatabase.Accounts.SingleOrDefaultAsync(x => x.UserId == User.Identity.Name);
             var branchId = Convert.ToInt32(account.AdminE);
             var branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
-            var receiptid = bcg.GenerateRandomString(16);
+            var receiptid = bcg.GenerateRandomString(9);
             var receipt = new Receipt
             {
                 UserId = User.Identity.Name,
                 BranchId =Convert.ToInt16(account.AdminE),
                 ReceiptStatus = 0,
-                SetNo = 2014927,
-               // ReceiptId = Convert.ToInt32(receiptid)
+                SetNo = 20141011,
+                ReceiptId = int.Parse(receiptid)
             }; //Start New Reciept
-
+            receipt.ReceiptId = int.Parse(receiptid);
             var betStake = receipts.TotalStake.ToString(CultureInfo.InvariantCulture);
             string response;        
             BetDatabase.Receipts.Add(receipt);

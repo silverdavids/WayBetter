@@ -69,8 +69,18 @@ function BettingApp() {
 
     };
 
+    function manageLogins($controlButtons) {
+        if ($.trim($("p#userName").text()) == "" || $.trim($("p#userName").text()) == 'Anonymous') {
+            $(".print-receipt", $controlButtons).val("Login In To Bet ")
+            alert("user nane is null");
+        } else {
+            $(".print-receipt", $controlButtons).val("Print Receipt");
+            alert("user name  is  not null " + $.trim($("p#userName").text()));
+        }
+    }
     function bindControlButtons(betList) {
         var $controlButtons = $("#controlButtons");
+        manageLogins($controlButtons);
         $(".cancel-receipt", $controlButtons).on("click", function () {
 
             betList.removeBets();
@@ -92,31 +102,36 @@ function BettingApp() {
              windowToPrint.close();*/
             //check if the receipt contains atleast a game
 
-            var _validateReceipt = validateReceipt(betList, betList.getTotalBettedAmount());
-            if (_validateReceipt.isValid) {
 
-                //logToConsole(betList.getBets());
-                var sendReceipt = new SendReceipt();
 
-                sendReceipt.postReceipt(betList).done(function(response){
-                    //the code for printing recept is in the receipt sender
-                    autoNumericInitializer.initAutoNumberOnField($("#tellerBalance"), response.Balance, 0, ' Teller Balance is Ugx');
-                   // $("#tellerBalance").text("Teller Balance is Ugx " + response.Balance);
-                    clearReceiptAfterPrint();
-                    var $oddsTable = $("table#oddstable");
-                    $(".odd", $oddsTable).each(function () {
-                        $(this).removeClass("selected_option");
 
-                    });
-                }).fail(function (error) {
-                    //$("#tellerBalance").text("Teller Balance is Ugx " + response.Balance);
-                    alert(error);
-                });
+            $("#loginForm").modal();
+
+        //    var _validateReceipt = validateReceipt(betList, betList.getTotalBettedAmount());
+        //    if (_validateReceipt.isValid) {
+
+        //        //logToConsole(betList.getBets());
+        //        var sendReceipt = new SendReceipt();
+
+        //        sendReceipt.postReceipt(betList).done(function(response){
+        //            //the code for printing recept is in the receipt sender
+        //            autoNumericInitializer.initAutoNumberOnField($("#tellerBalance"), response.Balance, 0, ' Teller Balance is Ugx');
+        //           // $("#tellerBalance").text("Teller Balance is Ugx " + response.Balance);
+        //            clearReceiptAfterPrint();
+        //            var $oddsTable = $("table#oddstable");
+        //            $(".odd", $oddsTable).each(function () {
+        //                $(this).removeClass("selected_option");
+
+        //            });
+        //        }).fail(function (error) {
+        //            //$("#tellerBalance").text("Teller Balance is Ugx " + response.Balance);
+        //            alert(error);
+        //        });
                 
-                return false;
-            } else {
-                printErrorDetails(_validateReceipt.errMessageArr);
-            }
+        //        return false;
+        //    } else {
+        //        printErrorDetails(_validateReceipt.errMessageArr);
+        //    }
 
         });
     };

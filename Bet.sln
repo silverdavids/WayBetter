@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUI", "WebUI\WebUI.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.Tests", "UnitTests.Tests\UnitTests.Tests.csproj", "{F6CB37E4-4C91-47A3-B14E-3E9D4CB678CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetLive", "BetLive\BetLive.csproj", "{D98848C7-70DB-4033-ABD9-AA76A78BFDC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetLive.Tests", "BetLive.Tests\BetLive.Tests.csproj", "{EF5E9D9D-D71A-4422-80FB-D68E4C3BBEE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{F6CB37E4-4C91-47A3-B14E-3E9D4CB678CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6CB37E4-4C91-47A3-B14E-3E9D4CB678CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6CB37E4-4C91-47A3-B14E-3E9D4CB678CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D98848C7-70DB-4033-ABD9-AA76A78BFDC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D98848C7-70DB-4033-ABD9-AA76A78BFDC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D98848C7-70DB-4033-ABD9-AA76A78BFDC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D98848C7-70DB-4033-ABD9-AA76A78BFDC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF5E9D9D-D71A-4422-80FB-D68E4C3BBEE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF5E9D9D-D71A-4422-80FB-D68E4C3BBEE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF5E9D9D-D71A-4422-80FB-D68E4C3BBEE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF5E9D9D-D71A-4422-80FB-D68E4C3BBEE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

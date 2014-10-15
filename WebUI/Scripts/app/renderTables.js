@@ -165,8 +165,7 @@
 
 
                 if (category === 'FT 1x2') {
-                    var oddHome = getOddOptionInBetCategory(requiredOdds, item.MatchNo, 1);
-                    var oddDraw = getOddOptionInBetCategory(requiredOdds, item.MatchNo, 2);
+                    var oddHome = getOddOptionInBetCategory(requiredOdds, item.MatchNo, 1); 
                     var oddAway = getOddOptionInBetCategory(requiredOdds, item.MatchNo, 3);
                     var oddHomeClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddHome.BetOption),
                         oddDrawClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddDraw.BetOption),
@@ -437,7 +436,7 @@
         var mins = (dt.getMinutes() < 10) ? '0' + dt.getMinutes() : dt.getMinutes();
         return (hours + ':' + mins);
     }
-
+     
     function appendHeaderRow($headerRow, $headerRowStatic, strheaderRowString) {
 
         $headerRow.append(strheaderRowString);

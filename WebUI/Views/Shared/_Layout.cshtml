@@ -37,17 +37,28 @@
                                 <div class=""><span id="tellerBalance" class="badge btn-large btn-primary pull-right">Balance: @ViewBag.Balance</span></div>
                             </div>
                             <div class="col-md-8">
+
+
+ 
                                 <div class="top-bar-right">
                                     Hello, 
                                     <!-- logged user and the menu -->
                                     <div class="logged-user">
                                         <div class="btn-group">
-                                            <a href="#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                                                <i class="fa fa-user">@User.Identity.Name
+                                            <a href="#loginForm" class="btn btn-primary" data-toggle="modal">Login</a>
+                                                <a href="#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                                                    <p id="userName" class="hidden">
+                                                        @{if (@User.Identity.Name != null)
+                                                        { @User.Identity.Name ;
+                                                        }
+                                                        else { string.Format("{0}", "Anonymous"); }}
+                                                    </p>
+                                                    <i class="fa fa-user">
+                                                        @User.Identity.Name
                                                 </i>
                                                 <span class="name"></span> <span class="caret"></span>
-                                            </a>                      
-                                        </div>
+                                            </a>
+</div>
 
                                         <div class="btn-group">
                                             <span class="text">
@@ -151,6 +162,7 @@
                                 <em>@ViewBag.PageSubTitle</em>
                             </div>*@
                             <div class="main-content" style="border-radius: 8px;border-bottom:1px solid darkblue">
+                               
                                 @RenderBody()
                             </div><!-- /main-content -->
                         </div><!-- /main -->

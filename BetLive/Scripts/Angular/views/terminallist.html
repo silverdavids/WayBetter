@@ -1,0 +1,71 @@
+<h2>Terminals</h2>
+<span class="error" mainerror></span>
+<span class="alert alert-success"  ng-show="message!=''" ng-bind="message"></span>
+<hr />
+
+
+<table class="table table-collapse table-striped">
+    <thead>
+    <tr>
+        <th colspan="6">
+            <input type="button"   class="btn btn-primary" ng-click="promptToCreateTerminal()" value="NEW TERMINAL"/>
+            <input type="date" name="dateFrom" ng-model="dateFrom" required/><input type="date" name="dateTo" ng-model="dateTo"/>
+            <a class="btn btn-primary"  ng-href="#/terminal/shifts/{{branchId}}/{{dateFrom}}/{{dateTo}}">Shifts</a>
+        </th>
+        <th colspan="6">
+            <label for="search" class="badge btn-info">Search:</label><input type="text" id="search" class="form-input" ng-model="query">
+        </th>
+
+    </tr>
+    <tr>
+        <th > <a href="" ng-click="sortField='terminalId';reverse=!reverse">ID</a></th>
+        <th ><a  href="" ng-click="sortField='terminalName';reverse=!reverse"> Terminal Name</a></th>
+        <th > <a href=""  ng-click="sortField='ipAddress';reverse=!reverse"> Ip</a></th>
+        <th > <a href=""  ng-click="sortField='dateCreated';reverse=!reverse"> Created</a></th>
+        <th > <a href=""  ng-click="sortField='isActive';reverse=!reverse">Active</a></th>
+
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    </thead>
+    <tbody>
+
+    <tr ng-show="showCreate">
+        <th>0 </th>
+        <th>
+            <input type="text" class="form-input" ng-model="terminal.terminalName"  />
+            <span class="error" errorkey="terminal.terminalName"></span>
+        </th>
+
+        <th>
+            <input type="text" class="form-input" ng-model="terminal.ipAddress" />
+            <span class="error" errorkey="terminal.ipAddress"></span>
+        </th>
+        <th>
+            <input type="date" class="form-input" ng-model="terminal.dateCreated" />
+            <span class="error" errorkey="terminal.dateCreated"></span>
+        </th>
+        <th>
+            <input type="checkbox" class="form-input" ng-model="terminal.isActive" />
+            <span class="error" errorkey="terminal.isActive"></span>
+        </th>
+
+        <th><input type="button" ng-click="onSave()" ng-show="terminal.terminalName!=''" value="Save" /></th>
+        <th><input type="button" ng-click="promptToCreateTerminal()" value="Cancel" /></th>
+        <th></th>
+    </tr>
+    <tr ng-repeat="terminal in terminalRows |filter:query| orderBy:sortField:reverse ">
+        <td ng-bind=" terminal.terminalId"></td>
+        <td ng-bind=" terminal.terminalName"></td>
+        <td ng-bind=" terminal.ipAddress"></td>
+        <td ng-bind=" terminal.dateCreated|datetime"></td>
+        <td ng-bind=" terminal.isActive"></td>
+
+        <td><input type="button" ng-click="onDeleteTerminal(terminal.terminalId,terminal)" value="Delete"></a></td>
+        <td><a href="#/terminal/shifts/{{terminal.terminalId}}">Shifts</a> </td>
+
+    </tr>
+    </tbody>
+</table>

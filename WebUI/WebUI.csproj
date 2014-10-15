@@ -90,9 +90,9 @@
     <Reference Include="System.Web.Http.Cors">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.2\lib\net45\System.Web.Http.Cors.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
@@ -331,6 +331,18 @@
     <Compile Include="Migrations\201410110532388_FromRepo.cs" />
     <Compile Include="Migrations\201410110532388_FromRepo.Designer.cs">
       <DependentUpon>201410110532388_FromRepo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410120854486_changed_the_recipt_id_to_long_data_type.cs" />
+    <Compile Include="Migrations\201410120854486_changed_the_recipt_id_to_long_data_type.Designer.cs">
+      <DependentUpon>201410120854486_changed_the_recipt_id_to_long_data_type.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410120957036_changed_the_recipt_id_to_long_data_type1.cs" />
+    <Compile Include="Migrations\201410120957036_changed_the_recipt_id_to_long_data_type1.Designer.cs">
+      <DependentUpon>201410120957036_changed_the_recipt_id_to_long_data_type1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410130820345_Included_CoampanyStructure.cs" />
+    <Compile Include="Migrations\201410130820345_Included_CoampanyStructure.Designer.cs">
+      <DependentUpon>201410130820345_Included_CoampanyStructure.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -740,6 +752,7 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angularjs\ui-bootstrap-tpls-0.11.2.min.js" />
+    <Content Include="Scripts\bootstrap\modal.js" />
     <Content Include="Scripts\charts\exporting.js" />
     <Content Include="Scripts\charts\highcharts-3d.js" />
     <Content Include="Scripts\charts\highcharts-3d.src.js" />
@@ -1775,6 +1788,15 @@
     <EmbeddedResource Include="Migrations\201410110532388_FromRepo.resx">
       <DependentUpon>201410110532388_FromRepo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410120854486_changed_the_recipt_id_to_long_data_type.resx">
+      <DependentUpon>201410120854486_changed_the_recipt_id_to_long_data_type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410120957036_changed_the_recipt_id_to_long_data_type1.resx">
+      <DependentUpon>201410120957036_changed_the_recipt_id_to_long_data_type1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410130820345_Included_CoampanyStructure.resx">
+      <DependentUpon>201410130820345_Included_CoampanyStructure.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1794,7 +1816,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49193</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:49195/</IISUrl>
+          <IISUrl>http://localhost:49193/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

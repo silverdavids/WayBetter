@@ -63,11 +63,13 @@
     <Compile Include="Models\Concrete\CanceledReceipt.cs" />
     <Compile Include="Models\Concrete\Company.cs" />
     <Compile Include="Models\Concrete\Document.cs" />
+    <Compile Include="Models\Concrete\Employee.cs" />
     <Compile Include="Models\Concrete\Match.cs" />
     <Compile Include="Models\Concrete\Bet.cs" />
     <Compile Include="Models\Concrete\League.cs" />
     <Compile Include="Models\Concrete\MatchOdd.cs" />
     <Compile Include="Models\Concrete\MatchTest.cs" />
+    <Compile Include="Models\Concrete\Person.cs" />
     <Compile Include="Models\Concrete\Receipt.cs" />
     <Compile Include="Models\Concrete\ReceiptStatus.cs" />
     <Compile Include="Models\Concrete\Result.cs" />

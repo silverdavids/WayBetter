@@ -1,0 +1,89 @@
+<h2>Companies</h2>
+<span class="error" mainerror></span>
+<span class="alert alert-success"  ng-show="message!=''" ng-bind="message"></span>
+<hr />
+
+
+<table class="table table-collapse table-striped">
+    <thead>
+    <tr>
+        <th colspan="6">
+            <input type="button"   class="btn btn-primary" ng-click="promptToCreateBranch()" value="NEW BRANCH"/>
+        </th>
+        <th colspan="6">
+            <label for="search" class="badge btn-info">Search:</label><input type="text" id="search" class="form-input" ng-model="query">
+        </th>
+
+    </tr>
+    <tr>
+        <th > <a href="" ng-click="sortField='branchId';reverse=!reverse">ID</a></th>
+        <th ><a  href="" ng-click="sortField='branchName';reverse=!reverse"> Branch Name</a></th>
+        <th > <a href=""  ng-click="sortField='branchCode';reverse=!reverse"> Branch Code</a></th>
+        <th > <a href=""  ng-click="sortField='branchLocation';reverse=!reverse"> Location</a></th>
+        <th > <a href=""  ng-click="sortField='dateCreated';reverse=!reverse">Created</a></th>
+        <th > <a href=""  ng-click="sortField='maxCash';reverse=!reverse"> Max Cash</a></th>
+        <th > <a href=""  ng-click="sortField='minStake';reverse=!reverse"> Min Stake</a></th>
+        <th > <a href=""  ng-click="sortField='noOfTerminals';reverse=!reverse"> #Terminals</a></th>
+        <th > <a href=""  ng-click="sortField='manager';reverse=!reverse">Manager</a></th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    </thead>
+    <tbody>
+
+    <tr ng-show="showCreate">
+        <th>0 </th>
+        <th>
+            <input type="text" class="form-input" ng-model="branch.branchName" />
+            <span class="error" errorkey="branch.branchName"></span>
+        </th>
+        <th>
+            <input type="text" class="form-input" ng-model="branch.branchCode" />
+            <span class="error" errorkey="branch.branchCode"></span>
+        </th>
+        <th>
+            <input type="text" class="form-input" ng-model="branch.branchLocation" />
+            <span class="error" errorkey="branch.branchLocation"></span>
+        </th>
+        <th>
+            <input type="date" class="form-input" ng-model="branch.dateCreated" />
+            <span class="error" errorkey="branch.dateCreated"></span>
+        </th>
+        <th>
+            <input type="text" class="form-input" ng-model="branch.maxCash" />
+            <span class="error" errorkey="branch.maxCash"></span>
+        </th>
+        <th>
+            <input type="text" class="form-input" ng-model="branch.minStake" />
+            <span class="error" errorkey="branch.minStake"></span>
+        </th>
+        <th>
+            <input type="text" class="form-input" ng-model="branch.noOfTerminals" />
+            <span class="error" errorkey="branch.noOfTerminals"></span>
+        </th>
+        <th>
+            <input type="text" class="form-input" ng-model="branch.personId" />
+            <span class="error" errorkey="branch.personId"></span>
+        </th>
+        <th><input type="button" ng-click="onSave()" ng-show="branch.branchName!=''&& branch.branchLocation!=''" value="Save" /></th>
+        <th><input type="button" ng-click="promptToCreateBranch()" value="Cancel" /></th>
+        <th></th>
+    </tr>
+    <tr ng-repeat="branch in branchRows |filter:query| orderBy:sortField:reverse ">
+        <td ng-bind=" branch.branchId"></td>
+        <td ng-bind=" branch.branchName"></td>
+        <td ng-bind=" branch.branchCode"></td>
+        <td ng-bind=" branch.branchLocation"></td>
+        <td ng-bind=" branch.dateCreated|datetime"></td>
+        <td ng-bind=" branch.maxCash"></td>
+        <td ng-bind=" branch.minStake"></td>
+        <td ng-bind=" branch.noOfTerminals"></td>
+        <td ng-bind=" branch.personId"></td>
+        <td><input type="button" ng-click="onDeleteBranch(branch.branchId,branch)" value="Delete"></a></td>
+        <td><a href="#/branch/terminals/{{branch.branchId}}">Terminals</a> </td>
+
+    </tr>
+    </tbody>
+</table>

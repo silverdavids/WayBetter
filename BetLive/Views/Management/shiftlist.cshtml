@@ -1,0 +1,140 @@
+<h2>SHIFTS</h2>
+<span class="error" mainerror></span>
+<span class="alert alert-success"  ng-show="message!=''" ng-bind="message"></span>
+<hr />
+
+
+<table class="table table-collapse table-striped table-bordered">
+    <thead>
+    <tr>
+        <th colspan="6">
+
+            <input type="button"   class="btn btn-primary" ng-click="promptToCreateShift()" value="NEW SHIFT"/>
+        </th>
+        <th colspan="6">
+            <label for="search" class="badge btn-info">Search:</label><input type="text" id="search" class="form-input" ng-model="query">
+        </th>
+
+    </tr>
+    <tr>
+        <th > <a href="" ng-click="sortField='terminalId';reverse=!reverse">ID</a></th>
+        <th ><a  href="" ng-click="sortField='terminalName';reverse=!reverse"> Terminal Name</a></th>
+        <th ><a  href="" ng-click="sortField='cashier';reverse=!reverse">Cashier</a></th>
+        <th > <a href=""  ng-click="sortField='startTime';reverse=!reverse"> Start</a></th>
+        <th > <a href=""  ng-click="sortField='endTime';reverse=!reverse"> End</a></th>
+        <th > <a href=""  ng-click="sortField='assignedBy';reverse=!reverse">Assigned By</a></th>
+        <th > <a href="" ng-click="sortField='isClosed';reverse=!reverse">Closed?</a></th>
+        <th ><a  href="" ng-click="sortField='startCash';reverse=!reverse"> Start Cash</a></th>
+        <th > <a href=""  ng-click="sortField='cashIn';reverse=!reverse">Cash In</a></th>
+        <th > <a href=""  ng-click="sortField='cashOut';reverse=!reverse"> Cash Out</a></th>
+
+        <th > <a href=""  ng-click="sortField='balance';reverse=!reverse"> Balance</a></th>
+        <th > <a href=""  ng-click="sortField='netCash';reverse=!reverse">Net Cash</a></th>
+        <th colspan="5" style="text-align:center;font-weight:bolder; ">Current Shift
+
+        </th>
+
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>Transfers</th>
+        <th>Ug Shs</th>
+        <th>from</th>
+        <th>To</th>
+    </tr>
+    </thead>
+    <tbody>
+
+  <!--  <tr ng-show="showCreate">
+        <th><label  class="form-input" ng-bind="shift.terminalName"></label></th>
+        <th>
+            <label  class="form-input" ng-bind="shift.terminalName"></label>
+            <span class="error" errorkey="shift.terminalName"></span>
+        </th>
+
+        <th>
+            <input type="text" class="form-input" ng-model="terminal.ipAddress" />
+            <span class="error" errorkey="terminal.ipAddress"></span>
+        </th>
+        <th>
+            <input type="date" class="form-input" ng-model="terminal.dateCreated" />
+            <span class="error" errorkey="terminal.dateCreated"></span>
+        </th>
+        <th>
+            <input type="checkbox" class="form-input" ng-model="terminal.isActive" />
+            <span class="error" errorkey="terminal.isActive"></span>
+        </th>
+
+        <th><input type="button" ng-click="onSave()" ng-show="terminal.terminalName!=''" value="Save" /></th>
+        <th><input type="button" ng-click="promptToCreateTerminal()" value="Cancel" /></th>
+        <th></th>
+    </tr>-->
+    <tr ng-repeat="terminal in shiftRows |filter:query| orderBy:sortField:reverse ">
+        <td ng-bind=" terminal.terminalId"></td>
+        <td ng-bind=" terminal.terminalName"></td>
+        <td ng-bind=" terminal.cashier"></td>
+        <td >
+           <span ng-bind="terminal.startTime|datetime" ng-show="terminal.cashier!=null"></span>
+            <input type="datetime-local" class="form-input" ng-model="terminal.shiftToSave.startTime" ng-show="terminal.cashier==null"/>
+        </td>
+        <td >
+            <span ng-bind="terminal.endTime|datetime" ng-show="terminal.cashier!=null"></span>
+            <input type="datetime-local" class="form-input" ng-model="terminal.shiftToSave.endTime" ng-show="terminal.cashier==null"/>
+        </td>
+        <td ng-bind=" terminal.assignedBy"></td>
+        <td ng-bind=" terminal.isClosed"></td>
+        <td >
+            {{terminal.startCash}}
+            <input type="number" class="form-input" ng-model="terminal.shiftToSave.startCash" ng-show="terminal.cashier==null"/>
+        </td>
+        <td ng-bind=" terminal.cashIn"></td>
+        <td ng-bind=" terminal.cashOut"></td>
+
+        <td ng-bind=" terminal.balance"></td>
+        <td ng-bind=" terminal.netCash"></td>
+            <td>
+                <button  class="btn-xs" ng-show="terminal.cashier==null" ng-click="onSave(terminal)">Start Shift</button>
+                <button class="btn-xs" data-ng-class="(stopShiftMessage)==null?'btn btn-primary':(stopShiftMessage)?'alert alert-success':'alert alert-danger'" type="button" ng-show="terminal.cashier!=null" ng-click="onCloseShift(terminal.shiftId,terminal)">Close Shift</button>
+            </td>
+
+        <td>
+            <select ng-show="terminal.cashier==null" ng-model="terminal.shiftToSave.personId">
+                <option value="">Cashier</option>
+                <option value="{{cashier.personId}}" ng-repeat="cashier in cashiers">
+                    {{cashier.name}}
+                </option>
+            </select>
+            <label ng-show="terminal.cashier!=null">Amount</label>
+        </td>
+        <td>
+                <input type="text" class="form-input" ng-show="terminal.cashier!=null"/>
+        </td>
+
+        <td>
+            <button  class="btn-xs" ng-show="terminal.cashier!=null">From</button>
+        </td>
+        <td>
+            <button  class=" btn-xs"  ng-show="terminal.cashier!=null">To</button>
+        </td>
+
+       <!-- <td><input type="button" ng-click="onDeleteTerminal(terminal.shiftId,terminal)" value="Delete"></a></td>-->
+        <!--<td><a href="#/terminal/shifts/{{terminal.terminalId}}">Shifts</a> </td>-->
+
+    </tr>
+    </tbody>
+</table>
