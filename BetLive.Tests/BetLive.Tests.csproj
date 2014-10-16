@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EF5E9D9D-D71A-4422-80FB-D68E4C3BBEE2}</ProjectGuid>
+    <ProjectGuid>{245A1D56-9168-40C0-8B7B-28F7EE61C39C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BetLive.Tests</RootNamespace>
@@ -124,7 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BetLive\BetLive.csproj">
-      <Project>{D98848C7-70DB-4033-ABD9-AA76A78BFDC0}</Project>
+      <Project>{376AC5F6-6C0E-4C46-A3FD-F16CA5448A81}</Project>
       <Name>BetLive</Name>
     </ProjectReference>
   </ItemGroup>

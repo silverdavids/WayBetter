@@ -198,8 +198,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Areas\Game\GameAreaRegistration.cs" />
-    <Compile Include="Areas\Management\ManagementAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BranchController.cs" />
@@ -1153,8 +1151,6 @@
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\errors.json" />
-    <Content Include="Areas\Management\Views\web.config" />
-    <Content Include="Areas\Game\Views\web.config" />
     <Content Include="Scripts\app\BackUpFiles\Receipt.cshtml" />
     <Content Include="Content\themes\blue\jtable.less" />
     <None Include="Properties\PublishProfiles\BetWay.pubxml" />
@@ -1759,12 +1755,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Game\Controllers\" />
-    <Folder Include="Areas\Game\Models\" />
-    <Folder Include="Areas\Game\Views\Shared\" />
-    <Folder Include="Areas\Management\Controllers\" />
-    <Folder Include="Areas\Management\Models\" />
-    <Folder Include="Areas\Management\Views\Shared\" />
     <Folder Include="Content\Files\" />
   </ItemGroup>
   <ItemGroup>
