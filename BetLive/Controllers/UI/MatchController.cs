@@ -11,17 +11,15 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using Domain.Models.Concrete;
 using Domain.Models.ViewModels;
 using WebUI.Helpers;
+using System.Web.UI.WebControls;
 
-namespace WebUI.Controllers
+namespace BetLive.Controllers.UI
 {
-    
-    public class MatchController : CustomController
+    public class MatchesController : CustomController
     {
-        // GET: Match
         public async Task<ActionResult> Index()
         {
 
@@ -33,13 +31,13 @@ namespace WebUI.Controllers
                     a.AmountE
                 }).SingleOrDefaultAsync(t => t.UserId == User.Identity.Name);
                 ViewBag.Balance = account.AmountE;
-               return View();
+                return View();
             }
-        
+
             var currentSetNo = SetNumberGenerator.GetCurrentSetNumber;
-            var games = await BetDatabase.ShortMatchCodes.Include(s => s.Match).Include(mo=>mo.Match.GameOdds.Select(m=>m.BetOption)).OrderBy(x=>x.ShortCode).ToListAsync();
+            var games = await BetDatabase.ShortMatchCodes.Include(s => s.Match).Include(mo => mo.Match.GameOdds.Select(m => m.BetOption)).OrderBy(x => x.ShortCode).ToListAsync();
             var startTime = DateTime.Now;
-            
+
             var filteredgames = games.Select(g => new GameViewModel
             {
                 AwayScore = g.Match.AwayScore,
@@ -67,73 +65,73 @@ namespace WebUI.Controllers
                 SetNo = g.SetNo,
                 OldDateTime = g.Match.StartTime,
                 StartTime = String.Format("{0:dd/M/yyyy}", g.Match.StartTime)
-            }).Where(x => x.OldDateTime > startTime).OrderBy(s => s.StartTime); 
-           // .Where(x => x.OldDateTime>startTime)
+            }).Where(x => x.OldDateTime > startTime).OrderBy(s => s.StartTime);
+            // .Where(x => x.OldDateTime>startTime)
             return Json(filteredgames, JsonRequestBehavior.AllowGet);
-         }
+        }
 
 
         public ViewResult Fixtures()
         {
-             var constring = ConfigurationManager.ConnectionStrings["BetConnection"].ConnectionString;
-         var con = new SqlConnection(constring);
-         const string query = "select M.MatchNo as MatchNo,sm.shortcode as ShortCode,[dbo].[ReturnTeamName](HomeTeamId) as HomeTeam,M.Champ as League, " +
-                                   "[dbo].[ReturnTeamName](AwayTeamId) as AwayTeam," +
-                                   "convert(varchar(10),(DATEPART(HH,M.starttime)))+':'+Convert(varchar(10),DATEPART(mi,M.starttime)) as starttime ," +
-                                   "[dbo].[GetOdd]('FT 1x2','FT1',M.MatchNo) as FT1," +
-                                   "[dbo].[GetOdd]('FT 1x2','FTX',M.MatchNo) as FTX," +
-                                   "[dbo].[GetOdd]('FT 1x2','FT2',M.MatchNo) as FT2," +
-                                   "[dbo].[GetOdd]('Double Chance','1X',M.MatchNo) as [1X]," +
-                                   "[dbo].[GetOdd]('Double Chance','12',M.MatchNo) as [12]," +
-                                   "[dbo].[GetOdd]('Double Chance','X2',M.MatchNo) as [X2]," +
-                                   "[dbo].[GetOdd]('FT U/O','FTOver2.5',M.MatchNo) as [FTOver2.5]," +
-                                   "[dbo].[GetOdd]('FT U/O','FTUnder2.5',M.MatchNo) as [FTUnder2.5]," +
-                                   "[dbo].[GetOdd]('FT U/O','FTOver1.5',M.MatchNo) as [FTOver1.5]," +
-                                   "[dbo].[GetOdd]('FT U/O','FTUnder1.5',M.MatchNo) as [FTUnder1.5]," +
-                                   "[dbo].[GetOdd]('HT 1x2','HT1',M.MatchNo) as HT1," +
-                                   "[dbo].[GetOdd]('HT 1x2','HTX',M.MatchNo) as HTX," +
-                                   "[dbo].[GetOdd]('HT 1x2','HT2',M.MatchNo) as HT2," +
-                                   "[dbo].[GetOdd]('HT U/O','HTOver0.5',M.MatchNo) as [HTOver0.5]," +
-                                   "[dbo].[GetOdd]('HT U/O','HTUnder0.5',M.MatchNo) as [HTUnder0.5]," +
-                                   "[dbo].[GetOdd]('HT U/O','HTOver1.5',M.MatchNo) as [HTOver1.5]," +
-                                   "[dbo].[GetOdd]('HT U/O','HTUnder1.5',M.MatchNo) as [HTUnder1.5]," +
-                                    "[dbo].[GetOdd]('HT U/O','HTOver2.5',M.MatchNo) as [HTOver2.5]," +
-                                   "[dbo].[GetOdd]('HT U/O','HTUnder2.5',M.MatchNo) as [HTUnder2.5]," +
-                                   "[dbo].[GetOdd]('Both Teams To Score','GG',M.MatchNo) as BTYes," +
-                                   "[dbo].[GetOdd]('Both Teams To Score','NG',M.MatchNo) as BTNo," +
-                                   "[dbo].[GetOdd]('Handicap','HC1',M.MatchNo) as Handicap1," +
-                                   "[dbo].[GetOdd]('Handicap','HCX',M.MatchNo) as HandicapX," +
-                                     "[dbo].[GetOdd]('Handicap','HC2',M.MatchNo) as Handicap2," +
-                                     "[dbo].[GetHandicapGoals] (M.MatchNo) as Goals," +                                
-                                   "[dbo].[GetOdd]('Draw No Bet','DNB1',M.MatchNo) as DNB1," +
-                                   "[dbo].[GetOdd]('Draw No Bet','DNB2',M.MatchNo) as DNB2 from Matches M inner join dbo.ShortMatchCodes sm on sm.MatchNo=m.MatchNo "
-                                   + " where starttime>getdate()  order by sm.shortcode asc";
-          //  where starttime>getdate()
-                 var dt = new DataTable();
-                 con.Open();
-                  var da = new SqlDataAdapter(query, con);
-                  da.Fill(dt);
-                  con.Close();
+            var constring = ConfigurationManager.ConnectionStrings["BetConnection"].ConnectionString;
+            var con = new SqlConnection(constring);
+            const string query = "select M.MatchNo as MatchNo,sm.shortcode as ShortCode,[dbo].[ReturnTeamName](HomeTeamId) as HomeTeam,M.Champ as League, " +
+                                      "[dbo].[ReturnTeamName](AwayTeamId) as AwayTeam," +
+                                      "convert(varchar(10),(DATEPART(HH,M.starttime)))+':'+Convert(varchar(10),DATEPART(mi,M.starttime)) as starttime ," +
+                                      "[dbo].[GetOdd]('FT 1x2','FT1',M.MatchNo) as FT1," +
+                                      "[dbo].[GetOdd]('FT 1x2','FTX',M.MatchNo) as FTX," +
+                                      "[dbo].[GetOdd]('FT 1x2','FT2',M.MatchNo) as FT2," +
+                                      "[dbo].[GetOdd]('Double Chance','1X',M.MatchNo) as [1X]," +
+                                      "[dbo].[GetOdd]('Double Chance','12',M.MatchNo) as [12]," +
+                                      "[dbo].[GetOdd]('Double Chance','X2',M.MatchNo) as [X2]," +
+                                      "[dbo].[GetOdd]('FT U/O','FTOver2.5',M.MatchNo) as [FTOver2.5]," +
+                                      "[dbo].[GetOdd]('FT U/O','FTUnder2.5',M.MatchNo) as [FTUnder2.5]," +
+                                      "[dbo].[GetOdd]('FT U/O','FTOver1.5',M.MatchNo) as [FTOver1.5]," +
+                                      "[dbo].[GetOdd]('FT U/O','FTUnder1.5',M.MatchNo) as [FTUnder1.5]," +
+                                      "[dbo].[GetOdd]('HT 1x2','HT1',M.MatchNo) as HT1," +
+                                      "[dbo].[GetOdd]('HT 1x2','HTX',M.MatchNo) as HTX," +
+                                      "[dbo].[GetOdd]('HT 1x2','HT2',M.MatchNo) as HT2," +
+                                      "[dbo].[GetOdd]('HT U/O','HTOver0.5',M.MatchNo) as [HTOver0.5]," +
+                                      "[dbo].[GetOdd]('HT U/O','HTUnder0.5',M.MatchNo) as [HTUnder0.5]," +
+                                      "[dbo].[GetOdd]('HT U/O','HTOver1.5',M.MatchNo) as [HTOver1.5]," +
+                                      "[dbo].[GetOdd]('HT U/O','HTUnder1.5',M.MatchNo) as [HTUnder1.5]," +
+                                       "[dbo].[GetOdd]('HT U/O','HTOver2.5',M.MatchNo) as [HTOver2.5]," +
+                                      "[dbo].[GetOdd]('HT U/O','HTUnder2.5',M.MatchNo) as [HTUnder2.5]," +
+                                      "[dbo].[GetOdd]('Both Teams To Score','GG',M.MatchNo) as BTYes," +
+                                      "[dbo].[GetOdd]('Both Teams To Score','NG',M.MatchNo) as BTNo," +
+                                      "[dbo].[GetOdd]('Handicap','HC1',M.MatchNo) as Handicap1," +
+                                      "[dbo].[GetOdd]('Handicap','HCX',M.MatchNo) as HandicapX," +
+                                        "[dbo].[GetOdd]('Handicap','HC2',M.MatchNo) as Handicap2," +
+                                        "[dbo].[GetHandicapGoals] (M.MatchNo) as Goals," +
+                                      "[dbo].[GetOdd]('Draw No Bet','DNB1',M.MatchNo) as DNB1," +
+                                      "[dbo].[GetOdd]('Draw No Bet','DNB2',M.MatchNo) as DNB2 from Matches M inner join dbo.ShortMatchCodes sm on sm.MatchNo=m.MatchNo "
+                                      + " where starttime>getdate()  order by sm.shortcode asc";
+            //  where starttime>getdate()
+            var dt = new DataTable();
+            con.Open();
+            var da = new SqlDataAdapter(query, con);
+            da.Fill(dt);
+            con.Close();
             var model = new List<FixtureVm>();
-            for (var i = 0; i <dt.Rows.Count; i++)
+            for (var i = 0; i < dt.Rows.Count; i++)
+            {
+                model.Add(
+                    new FixtureVm
                     {
-            model.Add(
-                new FixtureVm
-                {
-                    MatchNo = Convert.ToInt32(dt.Rows[i]["MatchNo"]),
-                    HomeTeam = dt.Rows[i]["HomeTeam"].ToString(),
-                    AwayTeam = dt.Rows[i]["AwayTeam"].ToString(),
-                
-                });
+                        MatchNo = Convert.ToInt32(dt.Rows[i]["MatchNo"]),
+                        HomeTeam = dt.Rows[i]["HomeTeam"].ToString(),
+                        AwayTeam = dt.Rows[i]["AwayTeam"].ToString(),
+
+                    });
             }
-            var gv = new GridView {DataSource = dt};
+            var gv = new GridView { DataSource = dt };
             gv.DataBind();
-            Session["Doc"] = gv; 
+            Session["Doc"] = gv;
 
             return View(model);
         }
-     
-        
+
+
         public ActionResult Download()
         {
             if (Session["Doc"] != null)
@@ -162,7 +160,7 @@ namespace WebUI.Controllers
             }
             return View(match);
         }
-        public ActionResult AddOdds(int ?id=0)
+        public ActionResult AddOdds(int? id = 0)
         {
             ViewBag.MatId = id;
             return View();
@@ -251,26 +249,26 @@ namespace WebUI.Controllers
 
 
         [HttpPost]
-        public  async Task<JsonResult> ReceiveReceipt(Receipt1 receipts)
-        {  
+        public async Task<JsonResult> ReceiveReceipt(Receipt1 receipts)
+        {
             var bcg = new BarCodeGenerator();
             var account = await BetDatabase.Accounts.SingleOrDefaultAsync(x => x.UserId == User.Identity.Name);
             var branchId = Convert.ToInt32(account.AdminE);
             var branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
-            var receiptid = bcg.GenerateRandomString(8);
+            var receiptid = bcg.GenerateRandomString(9);
             var receipt = new Receipt
             {
                 UserId = User.Identity.Name,
-                BranchId =Convert.ToInt16(account.AdminE),
+                BranchId = Convert.ToInt16(account.AdminE),
                 ReceiptStatus = 0,
                 SetNo = 20141011,
                 ReceiptId = int.Parse(receiptid)
             }; //Start New Reciept
-            receipt.ReceiptId = int.Parse(receiptid);
+            receipt.ReceiptId =int.Parse(receiptid);
             var betStake = receipts.TotalStake.ToString(CultureInfo.InvariantCulture);
-            string response;        
+            string response;
            // BetDatabase.Receipts.Add(receipt);
-            // BetDatabase.SaveChangesAsync();
+           // await BetDatabase.SaveChangesAsync();
 
             var ttodd = receipts.TotalOdd;
             const float bettingLimit = 8000000;
@@ -278,14 +276,14 @@ namespace WebUI.Controllers
             if ((cost >= 1000) && (cost <= bettingLimit))//betting limit
             {
 
-            foreach(var betData in receipts.BetData)
-                {            
+                foreach (var betData in receipts.BetData)
+                {
                     try
                     {
                         var tempMatchId = Convert.ToInt32(betData.MatchId);
                         var _matchid = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo;
                         Match _match = BetDatabase.Matches.Single(h => h.MatchNo == _matchid);
-                        DateTime  _matchTime = _match.StartTime;
+                        DateTime _matchTime = _match.StartTime;
                         DateTime timenow = DateTime.Now;
                         if (_matchTime < timenow)
                         {
@@ -296,32 +294,32 @@ namespace WebUI.Controllers
                         {
                             BetOptionId = Int32.Parse(betData.OptionId),
                             RecieptId = receipt.ReceiptId,
-                            MatchId = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo,  
+                            MatchId = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo,
                             BetOdd = Convert.ToDecimal(betData.Odd),
                         };
-                        //BetDatabase.Bets.Add(bm);
-                        //BetDatabase.SaveChanges();
+                        BetDatabase.Bets.Add(bm);
+                        BetDatabase.SaveChanges();
                     }
                     catch (Exception er)
                     {
-                        response = (" An error  has occured:"+er.Message);
+                        response = (" An error  has occured:" + er.Message);
                         return new JsonResult { Data = new { message = response } };
                         var msg = er.Message;
                     }
                 }
                 // Requires Quick Attention
-              
-                receipt.TotalOdds= Convert.ToDouble(ttodd);
+
+                receipt.TotalOdds = Convert.ToDouble(ttodd);
                 receipt.ReceiptStatus = 1;
                 receipt.SetSize = receipts.ReceiptSize;
                 receipt.Stake = cost;
                 receipt.WonSize = 0;
                 receipt.SubmitedSize = 0;
                 receipt.ReceiptDate = DateTime.Now;
-                receipt.Serial = Int2Guid(receiptid);    
-                account.DateE  = DateTime.Now;
+                receipt.Serial = Int2Guid(receiptid);
+                account.DateE = DateTime.Now;
                 // receipt.RecieptID = 34;                    
-                //BetDatabase.Entry(receipt).State = EntityState.Modified;
+                BetDatabase.Entry(receipt).State = EntityState.Modified;
                 var statement = new Statement
                 {
                     Account = receipt.UserId,
@@ -330,18 +328,18 @@ namespace WebUI.Controllers
                     StatetmentDate = DateTime.Now,
                     BalBefore = account.AmountE,
                     BalAfter = account.AmountE + receipt.Stake,
-                    Comment ="Bet Transaction for Ticket No"+receiptid
+                    Comment = "Bet Transaction for Ticket No" + receiptid
                 };
                 account.AmountE = account.AmountE + receipt.Stake;
                 statement.Transcation = "Teller Bet";
                 statement.Method = "Online";
                 statement.Serial = receiptid;
-            
-                branch.Balance = branch.Balance +Convert.ToDecimal( receipt.Stake);
-                //BetDatabase.Entry(branch).State = EntityState.Modified;
-               // BetDatabase.Accounts.AddOrUpdate(account);
-                //BetDatabase.Statements.Add(statement);
-                //BetDatabase.SaveChanges();
+
+                branch.Balance = branch.Balance + Convert.ToDecimal(receipt.Stake);
+                BetDatabase.Entry(branch).State = EntityState.Modified;
+                BetDatabase.Accounts.AddOrUpdate(account);
+                BetDatabase.Statements.Add(statement);
+                BetDatabase.SaveChanges();
                 var barcodeImage = bcg.CreateBarCode(receiptid);
                 var tempPath = Server.MapPath("~/Content/BarCodes/" + receiptid.Trim() + ".png");
                 try
@@ -367,21 +365,21 @@ namespace WebUI.Controllers
             return new JsonResult { Data = new { message = response, ReceiptNumber = receipt.ReceiptId, ReceiptTime = String.Format("{0:dd/MM/yyyy}", DateTime.Now) + " - " + toJavaScriptDate(DateTime.Now), TellerName = account.UserId, BranchName = branch.BranchName, Balance = account.AmountE, Serial = receiptid, FormatedSerial = GetSerialNumber(receiptid) } };
         }
 
-  
-          public  string toJavaScriptDate(DateTime value)
-          {
-              var time = value.ToLongTimeString();
-             var ReceiptTime = (value.ToString("HH:mm"));
-             return ReceiptTime;
-          }
+
+        public string toJavaScriptDate(DateTime value)
+        {
+            var time = value.ToLongTimeString();
+            var ReceiptTime = (value.ToString("HH:mm"));
+            return ReceiptTime;
+        }
 
         public string BarcodeFormart(string barcode)
         {
-            string[] arr=null;
+            string[] arr = null;
             string code = "";
             for (int i = 0; i < 12; i++)
             {
-                if (i%3 == 0)
+                if (i % 3 == 0)
                 {
                     arr[i] = barcode.Substring(i + 4);
                 }
@@ -396,7 +394,7 @@ namespace WebUI.Controllers
 
 
 
-        public static Guid Int2Guid(string  serial)
+        public static Guid Int2Guid(string serial)
         {
             long value = Convert.ToInt64(serial);
             byte[] bytes = new byte[16];
@@ -404,36 +402,36 @@ namespace WebUI.Controllers
             return new Guid(bytes);
         }
 
-          public string GetSerialNumber(  string serialGuid)
-          {
+        public string GetSerialNumber(string serialGuid)
+        {
 
-              var serialArray = serialGuid.ToCharArray();
-              var finalSerialNumber = "";
-              var j = 0;
-              for (var i = 0; i < 8; i++)
-              {
-                  for (j = i; j < 4 + i; j++)
-                  {
-                      finalSerialNumber += serialArray[j];
-                  }
-                  if (j == 8)
-                  {
-                      break;
-                  }
-                  else
-                  {
-                      i = (j) - 1;
-                      finalSerialNumber += "-";
-                  }
-              }
+            var serialArray = serialGuid.ToCharArray();
+            var finalSerialNumber = "";
+            var j = 0;
+            for (var i = 0; i < 16; i++)
+            {
+                for (j = i; j < 4 + i; j++)
+                {
+                    finalSerialNumber += serialArray[j];
+                }
+                if (j == 16)
+                {
+                    break;
+                }
+                else
+                {
+                    i = (j) - 1;
+                    finalSerialNumber += "-";
+                }
+            }
 
-              return finalSerialNumber;
-          }
-          public Guid GetSerialGuid()
-          {
-              var serialGuid = Guid.NewGuid();
-              return serialGuid;
-          }
+            return finalSerialNumber;
+        }
+        public Guid GetSerialGuid()
+        {
+            var serialGuid = Guid.NewGuid();
+            return serialGuid;
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -443,7 +441,7 @@ namespace WebUI.Controllers
             }
             base.Dispose(disposing);
         }
-       
+
     }
     public class Receipt1
     {
@@ -467,6 +465,7 @@ namespace WebUI.Controllers
         public string OptionId { get; set; }
         public double Odd { get; set; }
         public long BetAmount { get; set; }
+
+
     }
 }
- 
