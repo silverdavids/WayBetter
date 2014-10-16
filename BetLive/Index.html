@@ -8,13 +8,17 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->    
+   
     <link href="Content/bootstrap.css" rel="stylesheet" />      
     <link href="Content/yetiBootstrapTheme.css" rel="stylesheet" />
-    <link href="Content/loading-bar.css" rel="stylesheet" />    
+    <link href="Content/loading-bar.css" rel="stylesheet" /> 
+    <link href="Content/receipt.css" rel="stylesheet" />
+    <link href="Content/printReceipt.css" rel="stylesheet" /> 
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+   
     <!-- endbuild -->
 </head>
 <body data-ng-app="bettingApp">
@@ -32,7 +36,7 @@
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
-                    <li data-ng-hide="!authentication.isAuth"><a href="#">Welcome {{authentication.userName}}</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#">Welcome:<span ng-bind="authentication.userName"></span></a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/company">Companies</a></li>
                     <li ><a href="#/matches">Matches</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>
@@ -96,6 +100,14 @@
     <script src="Scripts/Angular/vender/angular-local-storage.min.js"></script>
     <script src="Scripts/Angular/vender/loading-bar.js"></script>
     <script src="Scripts/Bootstrap/ui-bootstrap-tpls-0.11.2.min.js"></script>
+
+    <!--Receipt js files-->
+    <script src="Scripts/app/autoNumeric.js"></script>
+    <script src="Scripts/app/bet.js"></script>
+    <script src="Scripts/app/receipt.js"></script>
+    <script src="Scripts/app/receiptSender.js"></script>
+    <script src="Scripts/app/printExt.js"></script>
+    <script src="Scripts/app/receiptGen.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->    
@@ -117,6 +129,10 @@
     <script src="Scripts/Angular/scripts/filters/datatime.js"></script>
     <script src="Scripts/Angular/scripts/controllers/terminal.js"></script>
     <script src="Scripts/Angular/scripts/controllers/shift.js"></script>
+    <script src="Scripts/Angular/directives/tablesDirectives.js"></script>
     <!-- endbuild -->
+   
+
+   
 </body>
 </html>

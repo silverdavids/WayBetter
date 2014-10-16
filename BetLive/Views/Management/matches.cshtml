@@ -1,3 +1,6 @@
+@{
+    Layout = null;
+}
 <style type="text/css">
     body.modal-open,
     .modal-open .navbar-fixed-top,
@@ -129,19 +132,63 @@
 
     .oddCategory {
     }
+
+    .main-div {
+        margin-top:47px;
+    }
 </style>
 
-<div class="container">
+<div class="container main-div">
+    <div class="col-lg-12">
+        <div class="col-md-8">
+            <!----Tab set---->
+            <tabset>
+                <tab heading="FT 1x2">
+                    <full-time></full-time>
+                </tab>
+                <tab heading="FT U/O">
+                    <full-time-uo></full-time-uo>
+                </tab>
+                <tab heading="HT 1x2">
+                    <half-time></half-time>
 
-    <!-------->
-    <tabset>
-        <tab heading="FT 1x2">
-            <table class="table-striped table-hover" id="oddstable">
-                <thead>
-                    <tr></tr>
-                </thead>
-                <tbody id="match">
-                    <table class="table-striped table-hover" id="oddstable">
+                </tab>
+                <tab heading="HT U/O">
+                    <half-time-uo></half-time-uo>
+                </tab>
+                <tab heading="Double Chance">
+                    <double-chance></double-chance>
+                </tab>
+                <tab heading="Handicap">
+                    <handicap></handicap>
+                </tab>
+                <tab heading="Both Teams To Score">
+                    <both-teams-to-score></both-teams-to-score>
+
+                </tab>
+                <tab heading="First Team To Score">
+                    <full-time></full-time>
+                </tab>
+                <tab heading="Draw No Bet">
+                    <full-time></full-time>
+                </tab>
+            </tabset>
+        </div >
+        <div class="col-lg-4 selections-header">
+
+            <div class="col-md-12">
+                <div class="col-sm-12">
+                    @{
+                        @Html.Partial("Receipt")
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- container -->
+                <!--Match Templates for each category-->
+                <script id="fullTime.html" type="text/ng-template">
+                    <table class="table-striped table-hover oddstable" >
                         <thead>
                             <tr>
                                 <th>Code</th>
@@ -161,86 +208,222 @@
                                 <td class="livebet"><span class="badge">Live</span></td>
                                 <td>1+</td>
                                 <td data-field="teamVersus" class="team-versus">{{ item.match.HomeTeamName }} vs  {{ item.match.AwayTeamName }}</td>
-                                <td><input type="button" class="' + oddHomeClass + '" value="{{(item.oddHome.Odd).toFixed(2)}}" data-odd-type="{{item.oddHome.BetOptionId }}" data-option-id="{{ item.oddHome.BetOptionId }}" data-option-name="{{item.oddHome.BetOption }}" data-bet-category="{{item.oddHome.BetCategory }}" /></td>
-                                <td><input type="button" class="' + oddDrawClass + '" value="{{ (item.oddDraw.Odd).toFixed(2) }}" data-odd-type="{{ item.oddDraw.BetOptionId }}" data-option-id="{{ item.oddDraw.BetOptionId }}" data-option-name="{{ item.oddDraw.BetOption }}" data-bet-category="{{ item.oddDraw.BetCategory }}" /></td>
-                                <td><input type="button" class="' + oddAwayClass }}" value="{{ (item.oddAway.Odd).toFixed(2) }}" data-odd-type="{{ item.oddAway.BetOptionId }}" data-option-id="{{ item.oddAway.BetOptionId }}" data-option-name="{{ item.oddAway.BetOption }}" data-bet-category="{{ item.oddAway.BetCategory }}" /></td>
-                                <td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+{{ item.GameOdds.length }}" /></td>
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddHome.Odd}}" data-odd-type="{{item.oddHome.BetOptionId }}" data-option-id="{{ item.oddHome.BetOptionId }}" data-option-name="{{item.oddHome.BetOption }}" data-bet-category="{{item.oddHome.BetCategory }}" /></td>
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddDraw.Odd}}" data-odd-type="{{ item.oddDraw.BetOptionId }}" data-option-id="{{ item.oddDraw.BetOptionId }}" data-option-name="{{ item.oddDraw.BetOption }}" data-bet-category="{{ item.oddDraw.BetCategory }}" /></td>
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddAway.Odd}}" data-odd-type="{{ item.oddAway.BetOptionId }}" data-option-id="{{ item.oddAway.BetOptionId }}" data-option-name="{{ item.oddAway.BetOption }}" data-bet-category="{{ item.oddAway.BetCategory }}" /></td>
+                                <td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+{{ item.TotalOdds }}" /></td>
                             </tr>
-
-
                         </tbody>
                     </table>
+                </script>
+                <script id="fullTimeUo.html" type="text/ng-template">
+                    <table class="table-striped table-hover oddstable" >
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Time</th>
+                                <th colspan="3" style="text-align: center;">Info</th>
+                                <th colspan="2" style="text-align: center;"><b>0.5 <br />Under Over</b></th>
+                                <th colspan="2" style="text-align: center;"><b>1.5 <br />Under Over</b></b></th>
+                                <th colspan="2" style="text-align: center;"><b>2.5 <br />Under Over</b></b></th>
+                                <th colspan="2" style="text-align: center;"><b>3.5 <br />Under Over</b></b></th>
+                                <th colspan="2" style="text-align: center;"><b>4.5 <br />Under Over</b></b></th>
+                                <th colspan="2" style="text-align: center;"><b>5.5 <br />Under Over</b></b></th>
+                                <th><b>More</b></th>
+                            </tr>
+                        </thead>
+                        <tbody id="match">
+                            <tr ng-repeat="item in oddCategoryRows" class="match" id=" {{ item.match.MatchNo }} ">
+                                <td data-field="matchId" class="match-code"> {{item.match.MatchNo }} </td>
+                                <td data-field="startTime" class="start-time"> {{item.match.OldDateTime|datetime}}</td>
+                                <td data-field="startDate" class="start-date hidden"> {{ item.match.StartTime|datetime }}</td>
+                                <td class="livebet"><span class="badge">Live</span></td>
+                                <td>1+</td>
+                                <td data-field="teamVersus" class="team-versus">{{ item.match.HomeTeamName }} vs  {{ item.match.AwayTeamName }}</td>
 
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddFtUnder05.Odd}}" data-odd-type="{{item.oddFtUnder05.BetOptionId }}" data-option-id="{{item.oddFtUnder05.BetOptionId }}" data-option-name="{{item.oddFtUnder05.BetOption }}" data-bet-category="{{item.oddFtUnder05.BetCategory }}" /></td>
 
-                </tbody>
-            </table>
-        </tab>
-        <tab heading="FT U/O">
-            <table class="table-striped table-hover" id="oddstable">
-                <thead>
-                    <tr></tr>
-                </thead>
-                <tbody id="match"></tbody>
-            </table>
-        </tab>
-        <tab heading="HT 1x2">
-            <table class="table-striped table-hover" id="oddstable">
-                <thead>
-                    <tr></tr>
-                </thead>
-                <tbody id="match"></tbody>
-            </table>
-        </tab>
-        <tab heading="HT U/O">
-            <table class="table-striped table-hover" id="oddstable">
-                <thead>
-                    <tr></tr>
-                </thead>
-                <tbody id="match"></tbody>
-            </table>
-        </tab>
-        <tab heading="Double Chance">
-            <table class="table-striped table-hover" id="oddstable">
-                <thead>
-                    <tr></tr>
-                </thead>
-                <tbody id="match"></tbody>
-            </table>
-        </tab>
-        <tab heading="Handicap">
-            <table class="table-striped table-hover" id="oddstable">
-                <thead>
-                    <tr></tr>
-                </thead>
-                <tbody id="match"></tbody>
-            </table>
-        </tab>
-        <tab heading="Both Teams To Score">
-            <table class="table-striped table-hover" id="oddstable">
-                <thead>
-                    <tr></tr>
-                </thead>
-                <tbody id="match"></tbody>
-            </table>
-        </tab>
-        <tab heading="First Team To Score">
-           
-        </tab>
-        <tab heading="Draw No Bet">
-            <table class="table-striped table-hover" id="oddstable">
-                <thead>
-                    <tr></tr>
-                </thead>
-                <tbody id="match"></tbody>
-            </table>
-        </tab>
-        
-       
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddFtOver05.Odd}}" data-odd-type="{{item.oddFtOver05.BetOptionId }}" data-option-id="{{item.oddFtOver05.BetOptionId }}" data-option-name="{{item.oddFtOver05.BetOption }}" data-bet-category="{{item.oddFtOver05.BetCategory }}" /></td>
 
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddFtUnder15.Odd}}" data-odd-type="{{item.oddFtUnder15.BetOptionId }}" data-option-id="{{item.oddFtUnder15.BetOptionId }}" data-option-name="{{item.oddFtUnder15.BetOption }}" data-bet-category="{{item.oddFtUnder15.BetCategory }}" /></td>
 
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddFtOver15.Odd}}" data-odd-type="{{item.oddFtOver15.BetOptionId }}" data-option-id="{{item.oddFtOver15.BetOptionId }}" data-option-name="{{item.oddFtOver15.BetOption }}" data-bet-category="{{item.oddFtOver15.BetCategory }}" /></td>
 
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddFtUnder25.Odd}}" data-odd-type="{{item.oddFtUnder25.BetOptionId }}" data-option-id="{{item.oddFtUnder25.BetOptionId }}" data-option-name="{{item.oddFtUnder25.BetOption }}" data-bet-category="{{item.oddFtUnder25.BetCategory }}" /></td>
 
-        
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddFtOver25.Odd}}" data-odd-type="{{item.oddFtOver25.BetOptionId }}" data-option-id="{{item.oddFtOver25.BetOptionId }}" data-option-name="{{item.oddFtOver25.BetOption }}" data-bet-category="{{item.oddFtOver25.BetCategory }}" /></td>
 
-    </tabset>
-</div> <!-- container -->
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddFtUnder35.Odd}}" data-odd-type="{{item.oddFtUnder35.BetOptionId }}" data-option-id="{{item.oddFtUnder35.BetOptionId }}" data-option-name="{{item.oddFtUnder35.BetOption }}" data-bet-category="{{item.oddFtUnder35.BetCategory }}" /></td>
+
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddFtOver35.Odd}}" data-odd-type="{{item.oddFtOver35.BetOptionId }}" data-option-id="{{item.oddFtOver35.BetOptionId }}" data-option-name="{{item.oddFtOver35.BetOption }}" data-bet-category="{{item.oddFtOver35.BetCategory }}" /></td>
+
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddFtUnder45.Odd}}" data-odd-type="{{item.oddFtUnder45.BetOptionId }}" data-option-id="{{item.oddFtUnder45.BetOptionId }}" data-option-name="{{item.oddFtUnder45.BetOption }}" data-bet-category="{{item.oddFtUnder45.BetCategory }}" /></td>
+
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddFtOver45.Odd}}" data-odd-type="{{item.oddFtOver45.BetOptionId }}" data-option-id="{{item.oddFtOver45.BetOptionId }}" data-option-name="{{item.oddFtOver45.BetOption }}" data-bet-category="{{item.oddFtOver45.BetCategory }}" /></td>
+
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddFtUnder55.Odd}}" data-odd-type="{{item.oddFtUnder55.BetOptionId }}" data-option-id="{{item.oddFtUnder55.BetOptionId }}" data-option-name="{{item.oddFtUnder55.BetOption }}" data-bet-category="{{item.oddFtUnder55.BetCategory }}" /></td>
+
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddFtOver55.Odd}}" data-odd-type="{{item.oddFtOver55.BetOptionId }}" data-option-id="{{item.oddFtOver55.BetOptionId }}" data-option-name="{{item.oddFtOver55.BetOption }}" data-bet-category="{{item.oddFtOver55.BetCategory }}" /></td>
+
+                                <td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="{{item.TotalOdds }}" /></td>
+                            </tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                </script>
+                <script id="doubleChance.html" type="text/ng-template">
+                    <table class="table-striped table-hover oddstable" >
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Time</th>
+                                <th colspan="3" style="text-align: center;">Info</th>
+                                <th><b>1X</b></th>
+                                <th><b>12</b></th>
+                                <th><b>X2</b></th>
+                                <th><b>More</b></th>
+                            </tr>
+                        </thead>
+                        <tbody id="match">
+                            <tr ng-repeat="item in oddCategoryRows" class="match" id=" {{ item.match.MatchNo }} ">
+                                <td data-field="matchId" class="match-code"> {{item.match.MatchNo }} </td>
+                                <td data-field="startTime" class="start-time"> {{item.match.OldDateTime|datetime}}</td>
+                                <td data-field="startDate" class="start-date hidden"> {{ item.match.StartTime|datetime }}</td>
+                                <td class="livebet"><span class="badge">Live</span></td>
+                                <td>1+</td>
+                                <td data-field="teamVersus" class="team-versus">{{ item.match.HomeTeamName }} vs  {{ item.match.AwayTeamName }}</td>
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddDchd.Odd}}" data-odd-type="{{item.oddDchd.BetOptionId }}" data-option-id="{{ item.oddDchd.BetOptionId }}" data-option-name="{{item.oddDchd.BetOption }}" data-bet-category="{{item.oddDchd.BetCategory }}" /></td>
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddDcha.Odd}}" data-odd-type="{{ item.oddDcha.BetOptionId }}" data-option-id="{{ item.oddDcha.BetOptionId }}" data-option-name="{{ item.oddDcha.BetOption }}" data-bet-category="{{ item.oddDcha.BetCategory }}" /></td>
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddDcda.Odd}}" data-odd-type="{{ item.oddDcda.BetOptionId }}" data-option-id="{{ item.oddDcda.BetOptionId }}" data-option-name="{{ item.oddDcda.BetOption }}" data-bet-category="{{ item.oddDcda.BetCategory }}" /></td>
+                                <td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+{{ item.TotalOdds }}" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </script>
+                <script id="halfTime.html" type="text/ng-template">
+                    <table class="table-striped table-hover oddstable" >
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Time</th>
+                                <th colspan="3" style="text-align: center;">Info</th>
+                                <th><b>HT1</b></th>
+                                <th><b>HTX</b></th>
+                                <th><b>HT2</b></th>
+                                <th><b>More</b></th>
+                            </tr>
+                        </thead>
+                        <tbody id="match">
+                            <tr ng-repeat="item in oddCategoryRows" class="match" id=" {{ item.match.MatchNo }} ">
+                                <td data-field="matchId" class="match-code"> {{item.match.MatchNo }} </td>
+                                <td data-field="startTime" class="start-time"> {{item.match.OldDateTime|datetime}}</td>
+                                <td data-field="startDate" class="start-date hidden"> {{ item.match.StartTime|datetime }}</td>
+                                <td class="livebet"><span class="badge">Live</span></td>
+                                <td>1+</td>
+                                <td data-field="teamVersus" class="team-versus">{{ item.match.HomeTeamName }} vs  {{ item.match.AwayTeamName }}</td>
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddht1.Odd}}" data-odd-type="{{item.oddht1.BetOptionId }}" data-option-id="{{ item.oddht1.BetOptionId }}" data-option-name="{{item.oddht1.BetOption }}" data-bet-category="{{item.oddht1.BetCategory }}" /></td>
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddhtx.Odd}}" data-odd-type="{{ item.oddhtx.BetOptionId }}" data-option-id="{{ item.oddhtx.BetOptionId }}" data-option-name="{{ item.oddhtx.BetOption }}" data-bet-category="{{ item.oddhtx.BetCategory }}" /></td>
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddht2.Odd}}" data-odd-type="{{ item.oddht2.BetOptionId }}" data-option-id="{{ item.oddht2.BetOptionId }}" data-option-name="{{ item.oddht2.BetOption }}" data-bet-category="{{ item.oddht2.BetCategory }}" /></td>
+                                <td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+{{ item.TotalOdds }}" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </script>
+                <script id="halfTimeUo.html" type="text/ng-template">
+                    <table class="table-striped table-hover oddstable" >
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Time</th>
+                                <th colspan="3" style="text-align: center;">Info</th>
+                                <th colspan="2" style="text-align: center;"><b>0.5 <br />Under Over</b></th>
+                                <th colspan="2" style="text-align: center;"><b>1.5 <br />Under Over</b></b></th>
+                                <th colspan="2" style="text-align: center;"><b>2.5 <br />Under Over</b></b></th>
+
+                                <th><b>More</b></th>
+                            </tr>
+                        </thead>
+                        <tbody id="match">
+                            <tr ng-repeat="item in oddCategoryRows" class="match" id=" {{ item.match.MatchNo }} ">
+                                <td data-field="matchId" class="match-code"> {{item.match.MatchNo }} </td>
+                                <td data-field="startTime" class="start-time"> {{item.match.OldDateTime|datetime}}</td>
+                                <td data-field="startDate" class="start-date hidden"> {{ item.match.StartTime|datetime }}</td>
+                                <td class="livebet"><span class="badge">Live</span></td>
+                                <td>1+</td>
+                                <td data-field="teamVersus" class="team-versus">{{ item.match.HomeTeamName }} vs  {{ item.match.AwayTeamName }}</td>
+
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddHtUnder05.Odd}}" data-odd-type="{{item.oddHtUnder05.BetOptionId }}" data-option-id="{{item.oddHtUnder05.BetOptionId }}" data-option-name="{{item.oddHtUnder05.BetOption }}" data-bet-category="{{item.oddHtUnder05.BetCategory }}" /></td>
+
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddHtOver05.Odd}}" data-odd-type="{{item.oddHtOver05.BetOptionId }}" data-option-id="{{item.oddHtOver05.BetOptionId }}" data-option-name="{{item.oddHtOver05.BetOption }}" data-bet-category="{{item.oddHtOver05.BetCategory }}" /></td>
+
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddHtUnder15.Odd}}" data-odd-type="{{item.oddHtUnder15.BetOptionId }}" data-option-id="{{item.oddHtUnder15.BetOptionId }}" data-option-name="{{item.oddHtUnder15.BetOption }}" data-bet-category="{{item.oddHtUnder15.BetCategory }}" /></td>
+
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddHtOver15.Odd}}" data-odd-type="{{item.oddHtOver15.BetOptionId }}" data-option-id="{{item.oddHtOver15.BetOptionId }}" data-option-name="{{item.oddHtOver15.BetOption }}" data-bet-category="{{item.oddHtOver15.BetCategory }}" /></td>
+
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddHtUnder25.Odd}}" data-odd-type="{{item.oddHtUnder25.BetOptionId }}" data-option-id="{{item.oddHtUnder25.BetOptionId }}" data-option-name="{{item.oddHtUnder25.BetOption }}" data-bet-category="{{item.oddHtUnder25.BetCategory }}" /></td>
+
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddHtOver25.Odd}}" data-odd-type="{{item.oddHtOver25.BetOptionId }}" data-option-id="{{item.oddHtOver25.BetOptionId }}" data-option-name="{{item.oddHtOver25.BetOption }}" data-bet-category="{{item.oddHtOver25.BetCategory }}" /></td>
+
+                                <td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="{{item.TotalOdds }}" /></td>
+                            </tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                </script>
+                <script id="handicap.html" type="text/ng-template">
+                    <table class="table-striped table-hover oddstable" >
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Time</th>
+                                <th colspan="3" style="text-align: center;">Info</th>
+                                <th>arg</th>
+                                <th><b>HC1</b></th>
+                                <th><b>HC2</b></th>
+                                <th><b>More</b></th>
+                            </tr>
+                        </thead>
+                        <tbody id="match">
+                            <tr ng-repeat="item in oddCategoryRows" class="match" id=" {{ item.match.MatchNo }} ">
+                                <td data-field="matchId" class="match-code"> {{item.match.MatchNo }} </td>
+                                <td data-field="startTime" class="start-time"> {{item.match.OldDateTime|datetime}}</td>
+                                <td data-field="startDate" class="start-date hidden"> {{ item.match.StartTime|datetime }}</td>
+                                <td class="livebet"><span class="badge">Live</span></td>
+                                <td>1+</td>
+                                <td data-field="teamVersus" class="team-versus">{{item.match.HomeTeamName}} vs  {{ item.match.AwayTeamName }}</td>
+                                <td data-oddhc-home="{{item.oddhc1.HandicapGoals}}" data-oddhc-away="{{item.oddhc2.HandicapGoals}}">{{item.oddhc1.HandicapGoals}}:{{item.oddhc2.HandicapGoals}}</td>
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddhc1.Odd}}" data-odd-type="{{item.oddhc1.BetOptionId }}" data-option-id="{{ item.oddhc1.BetOptionId }}" data-option-name="{{item.oddhc1.BetOption }}" data-bet-category="{{item.oddhc1.BetCategory }}" /></td>
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddhc2.Odd}}" data-odd-type="{{ item.oddhc2.BetOptionId }}" data-option-id="{{ item.oddhc2.BetOptionId }}" data-option-name="{{ item.oddhc2.BetOption }}" data-bet-category="{{ item.oddhc2.BetCategory }}" /></td>
+                                <td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+{{ item.TotalOdds }}" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </script>
+                <script id="bothTeamsToScore.html" type="text/ng-template">
+                    <table class="table-striped table-hover oddstable">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Time</th>
+                                <th colspan="3" style="text-align: center;">Info</th>
+                                <th><b>GG</b></th>
+                                <th><b>NG</b></th>
+                                <th><b>More</b></th>
+                            </tr>
+                        </thead>
+                        <tbody id="match">
+                            <tr ng-repeat="item in oddCategoryRows" class="match" id=" {{ item.match.MatchNo }} ">
+                                <td data-field="matchId" class="match-code"> {{item.match.MatchNo }} </td>
+                                <td data-field="startTime" class="start-time"> {{item.match.OldDateTime|datetime}}</td>
+                                <td data-field="startDate" class="start-date hidden"> {{ item.match.StartTime|datetime }}</td>
+                                <td class="livebet"><span class="badge">Live</span></td>
+                                <td>1+</td>
+                                <td data-field="teamVersus" class="team-versus">{{ item.match.HomeTeamName }} vs  {{ item.match.AwayTeamName }}</td>
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddgg.Odd}}" data-odd-type="{{item.oddgg.BetOptionId }}" data-option-id="{{ item.oddgg.BetOptionId }}" data-option-name="{{item.oddgg.BetOption }}" data-bet-category="{{item.oddgg.BetCategory }}" /></td>
+                                <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddng.Odd}}" data-odd-type="{{ item.oddng.BetOptionId }}" data-option-id="{{ item.oddng.BetOptionId }}" data-option-name="{{ item.oddng.BetOption }}" data-bet-category="{{ item.oddng.BetCategory }}" /></td>
+                                <td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+{{ item.TotalOdds }}" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </script>
+                <!--Match Templates for each category-->

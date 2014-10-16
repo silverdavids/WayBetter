@@ -160,3 +160,4 @@ function getGameOddsByCategory(category) {
     });
     return gameOdds;
 }
+

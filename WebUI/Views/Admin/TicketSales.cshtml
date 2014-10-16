@@ -113,7 +113,111 @@
 
 <script src="~/Scripts/jquery-ui.js"></script>
 <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<script type="text/javascript">
+    $('table').delegate('.Details', 'click', function () {
 
+        var reciept = $(this).val();
+
+        $.ajax({
+            url: '@Url.Action("RecieptData", "Recept")/' + reciept,
+            dataType: 'json',
+            type: 'GET'
+        }).done(function (data) {
+            var dt = '';
+            dt = '<table width="600"  id="rectable">';
+            // alert("out");
+            dt += ('' +
+                  '<th colspan="2"><b>Reciept Id: ' + ' <label   id="Reciept" ></label>' + reciept + '</b></th>');
+            //   alert(dt);
+            var status = "";
+            var betmoney = 0;
+            var setodd = 0;
+            var loop = 0;
+            var Cancel = false;
+            for (var i in data) {
+                status = data[i].status;
+                Cancel = data[i].Cancel;
+                //  alert(Cancel);
+                loop += 1;
+                if (loop == 1) {
+                    dt += (
+         '<tr>' +
+          '<td   colspan="2" >Stake:' + data[i].BetMoney + '</td>' + '</tr><tr>' +
+              '<td  data-field="matchId" class="match-code">Status:' + data[i].status + '</td>' + '</tr><tr>' +
+           '<td> TotalOdd:' + data[i].SetOdd + '</td>' +
+             '</tr>' +
+             '<tr><td colspan="2">-------------------------<td></tr>'
+                );
+                }
+                dt += (
+          '<tr class="match" id="' + data[i].id + '">' +
+           '<td  data-field="matchId" class="match-code" colspan="2" >' + data[i].team + '</td>' + '</tr><tr>' +
+               '<td  data-field="matchId" class="match-code">' + data[i].type + '</td>' +
+            '<td  data-field="betmoney" class="match-code">' + data[i].choice + '</td>' +
+
+              '</tr>' +
+              '<tr><td colspan="2">-----------------------<td></tr>'
+
+              );
+
+            }
+            dt += ('</table>');
+    
+                dt += '<input type="button" id="recid"  class="btn btn-danger btn-xs cancel" value="CancelReciept"  />';
+            
+            $("#dialog").html(dt);
+            $("#rectable tr:not(:first)").each(function () {
+                $(this).find("td:nth-child(2)").css("color", "#00FF00");
+            });
+            // original data from the server
+            games = data;
+            console.log(games);
+            $("#dialog").dialog({
+                title: "Reciept Details",
+                buttons: {
+                    Close: function () {
+                        $(this).dialog('close');
+
+                    }
+
+                }
+
+            });
+
+        })
+
+        return false;
+    })
+    $("[id*=recid]").live("click", function () {
+        var recieptid = $("#Reciept").val();
+        alert("Cancel Ticket"+recieptid);
+        $.ajax({
+            url: '@Url.Action("CancelReciept", "Recept")/' + recieptid,
+            dataType: 'json',
+            type: 'GET'
+        }).done(function (data) {
+            window.location.reload();
+            $("#dialog").hide(20);
+            // alert("back");
+        })
+
+    })
+    $("[id*=payreciept]").live("click", function () {
+        var recieptid = $("#RecieptId").val();
+        alert(recieptid);
+        $.ajax({
+            url: '@Url.Action("PayReciept", "Recept")/' + recieptid,
+            dataType: 'json',
+            type: 'GET'
+        }).done(function (data) {
+            window.location.reload();
+            $("#dialog").hide(20);
+            //  location.reload();
+            alert("back");
+        })
+
+    })
+</script>
 
 
 <div id="dialog">
