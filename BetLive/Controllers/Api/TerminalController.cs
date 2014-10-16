@@ -61,7 +61,7 @@ namespace BetLive.Controllers.Api
                 return BadRequest();
             }
 
-            db.Entry(terminal).State = EntityState.Modified;
+            db.Entry(terminal).State = System.Data.Entity.EntityState.Modified;
 
             try
             {

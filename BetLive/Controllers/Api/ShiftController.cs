@@ -11,7 +11,9 @@ using System.Web.Http.Description;
 using WebUI.DataAccessLayer;
 
 using Domain.Models.Concrete;
+
 using System.Data.Entity.Core.Objects;
+
 
 
 
@@ -88,7 +90,7 @@ namespace BetLive.Controllers.Api
                         shift.Terminal.isActive = true;
                     }
                     shift.IsClosed = true;
-                    db.Entry(shift).State = EntityState.Modified;
+                    db.Entry(shift).State = System.Data.Entity.EntityState.Modified;
                     try
                     {
                         db.SaveChanges();
@@ -135,7 +137,7 @@ namespace BetLive.Controllers.Api
                 return BadRequest();
             }
 
-            db.Entry(shift).State = EntityState.Modified;
+            db.Entry(shift).State = System.Data.Entity.EntityState.Modified;
 
             try
             {
