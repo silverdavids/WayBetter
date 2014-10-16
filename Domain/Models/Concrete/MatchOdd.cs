@@ -18,6 +18,8 @@ namespace Domain.Models.Concrete
         [Column(Order = 200)]
         public int BetOptionId { get; set; }
 
+        public string Line { get; set; }
+
         public decimal Odd { get; set; }
 
         public DateTime? LastUpdateTime { get; set; }

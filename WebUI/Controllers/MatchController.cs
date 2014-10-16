@@ -27,12 +27,12 @@ namespace WebUI.Controllers
 
             if (!Request.IsAjaxRequest())
             {
-                var account = await BetDatabase.Accounts.Select(a => new
-                {
-                    a.UserId,
-                    a.AmountE
-                }).SingleOrDefaultAsync(t => t.UserId == User.Identity.Name);
-                ViewBag.Balance = account.AmountE;
+                //var account = await BetDatabase.Accounts.Select(a => new
+                //{
+                //    a.UserId,
+                //    a.AmountE
+                //}).SingleOrDefaultAsync(t => t.UserId == User.Identity.Name);
+                //ViewBag.Balance = account.AmountE;
                 return View();
             }
         
@@ -46,14 +46,14 @@ namespace WebUI.Controllers
                 AwayTeamId = g.Match.AwayTeamId,
                 AwayTeamName = g.Match.AwayTeam.TeamName,
                 Champ = g.Match.League,
-                GameOdds = g.Match.GameOdds.Select(go => new GameOddViewModel
+                MatchOdds = g.Match.MatchOdds.Select(go => new GameOddViewModel
                 {
                     BetCategory = go.BetOption.BetCategory.Name,
                     BetOptionId = go.BetOptionId,
                     BetOption = go.BetOption.Option,
                     LastUpdateTime = go.LastUpdateTime,
                     Odd = go.Odd,
-                    //HandicapGoals = go.Line
+                    //Line = go.Line
                 }).ToList(),
                 GameStatus = g.Match.GameStatus,
                 HalfTimeAwayScore = g.Match.HalfTimeAwayScore,

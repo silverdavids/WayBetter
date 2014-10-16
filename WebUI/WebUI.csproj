@@ -213,6 +213,7 @@
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\ManualResultController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
+    <Compile Include="Controllers\MatchesController.cs" />
     <Compile Include="Controllers\ReceptController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
@@ -302,6 +303,10 @@
     <Compile Include="Migrations\201410141731072_InitialCreate.cs" />
     <Compile Include="Migrations\201410141731072_InitialCreate.Designer.cs">
       <DependentUpon>201410141731072_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410161711350_BetOptionpatch.cs" />
+    <Compile Include="Migrations\201410161711350_BetOptionpatch.Designer.cs">
+      <DependentUpon>201410161711350_BetOptionpatch.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1629,7 +1634,7 @@
     <Content Include="Views\Match\Delete.cshtml" />
     <Content Include="Views\Match\Details.cshtml" />
     <Content Include="Views\Match\Edit.cshtml" />
-    <Content Include="Views\Match\Index.cshtml" />
+    <Content Include="Views\Matches\Index.cshtml" />
     <Content Include="Views\Games\Create.cshtml" />
     <Content Include="Views\Games\Delete.cshtml" />
     <Content Include="Views\Games\Details.cshtml" />
@@ -1707,6 +1712,10 @@
     <Content Include="Views\Shared\Scores.cshtml" />
     <Content Include="Views\Shared\_LiveLayoutPage.cshtml" />
     <Content Include="Views\LiveGames\Index.cshtml" />
+    <Content Include="Views\Matches\Create.cshtml" />
+    <Content Include="Views\Matches\Delete.cshtml" />
+    <Content Include="Views\Matches\Details.cshtml" />
+    <Content Include="Views\Matches\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1730,6 +1739,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201410141731072_InitialCreate.resx">
       <DependentUpon>201410141731072_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410161711350_BetOptionpatch.resx">
+      <DependentUpon>201410161711350_BetOptionpatch.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

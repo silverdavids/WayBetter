@@ -846,11 +846,11 @@ namespace WebUI.Controllers
                                             break;
                                     }
                                 } 
-                                game.GameOdds = gameodds;
+                                game.MatchOdds = gameodds;
                                 game.BetServiceMatchNo = Convert.ToInt32(goalServeMatchId);
                                 game.StartTime = Convert.ToDateTime(stDateTime).ToLocalTime();
                                 game.ResultStatus = 1;
-                                game.GameOdds.ForEach(g => g.BetServiceMatchNo = game.BetServiceMatchNo);
+                                game.MatchOdds.ForEach(g => g.BetServiceMatchNo = game.BetServiceMatchNo);
                                 BetDatabase.Matches.AddOrUpdate(game);
                                 await BetDatabase.SaveChangesAsync();
                             }
@@ -1283,7 +1283,7 @@ namespace WebUI.Controllers
                     BetServiceMatchNo = matno,
                     StartTime = matchTime,
                     League = (ds.Tables[0].Rows[i][3]).ToString(),
-                    GameOdds = new List<MatchOdd>
+                    MatchOdds = new List<MatchOdd>
                     {
                         new MatchOdd// Full Time Results
                         {
@@ -1473,7 +1473,7 @@ namespace WebUI.Controllers
                     ResultStatus = 1,
                 };
                 excelmatches.Add(match);
-                match.GameOdds.ForEach(g => g.BetServiceMatchNo = match.BetServiceMatchNo);
+                match.MatchOdds.ForEach(g => g.BetServiceMatchNo = match.BetServiceMatchNo);
                 BetDatabase.Matches.AddOrUpdate(match);
                 BetDatabase.SaveChanges();
             }

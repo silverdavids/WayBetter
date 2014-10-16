@@ -226,11 +226,11 @@ namespace WebUI.Controllers
                                 }
 
                             }
-                            game.GameOdds = gameodds;
+                            game.MatchOdds = gameodds;
                             game.BetServiceMatchNo = Convert.ToInt32(goalServeMatchId);
                             game.StartTime = Convert.ToDateTime(stDateTime).ToLocalTime();
                             game.ResultStatus = 1;
-                            game.GameOdds.ForEach(g => g.BetServiceMatchNo = game.BetServiceMatchNo);
+                            game.MatchOdds.ForEach(g => g.BetServiceMatchNo = game.BetServiceMatchNo);
                             BetDatabase.Matches.Add(game);
                             await BetDatabase.SaveChangesAsync();
                         }
@@ -249,7 +249,7 @@ namespace WebUI.Controllers
                 return View();
             }
         
-           // var games = await BetDatabase.Matches.Include(g => g.AwayTeam).Include(g => g.HomeTeam).Include(g => g.GameOdds.Select(c=>c.BetOption)).ToListAsync();
+           // var games = await BetDatabase.Matches.Include(g => g.AwayTeam).Include(g => g.HomeTeam).Include(g => g.MatchOdds.Select(c=>c.BetOption)).ToListAsync();
             var games = await BetDatabase.ShortMatchCodes.Include(s => s.Match).ToListAsync();
             var filteredgames = games.Select(g => new GameViewModel
             {
@@ -257,7 +257,7 @@ namespace WebUI.Controllers
                 AwayTeamId = g.Match.AwayTeamId,
                 AwayTeamName = g.Match.AwayTeam.TeamName,
                 Champ = g.Match.League,
-                GameOdds = g.Match.GameOdds.Select(go => new GameOddViewModel
+                MatchOdds = g.Match.MatchOdds.Select(go => new GameOddViewModel
                 {
                     BetCategory = go.BetOption.BetCategory.Name,
                     BetOptionId = go.BetOptionId,

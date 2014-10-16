@@ -250,7 +250,7 @@ namespace WebUI.Controllers
 
         public List<FixtureViewModel> GetGames()
         {
-            //var games =  BetDatabase.Matches.Include(g => g.AwayTeam).Include(g => g.AwayTeam.League).Include(g => g.HomeTeam).Include(g => g.GameOdds.Select(c => c.BetOption)).ToList();
+            //var games =  BetDatabase.Matches.Include(g => g.AwayTeam).Include(g => g.AwayTeam.League).Include(g => g.HomeTeam).Include(g => g.MatchOdds.Select(c => c.BetOption)).ToList();
 
             var constring = ConfigurationManager.ConnectionStrings["BetConnection"].ConnectionString;
             var con = new SqlConnection(constring);

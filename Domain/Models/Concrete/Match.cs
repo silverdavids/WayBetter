@@ -38,7 +38,7 @@ namespace Domain.Models.Concrete
         [Required]
         public virtual Team HomeTeam { get; set; }
         public ICollection<Bet> Bets { get; set; }
-        public virtual ICollection<MatchOdd> GameOdds { get; set; }
-        public virtual ShortMatchCode ShrtMatchCode { get; set; }
+        public virtual ICollection<MatchOdd> MatchOdds { get; set; }
+        public virtual ShortMatchCode ShortMatchCode { get; set; }
     }
 }
