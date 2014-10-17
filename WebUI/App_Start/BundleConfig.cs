@@ -49,6 +49,9 @@ namespace WebUI.App_Start
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
                         "~/Content/bootstrap.*"));
 
+            bundles.Add(new StyleBundle("~/Content/css/Custom.css").Include(
+                       "~/Content/custom"));
+
             bundles.Add(new StyleBundle("~/Content/main").Include(
                         "~/Content/main.css"));
 

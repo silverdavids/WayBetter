@@ -3,6 +3,7 @@
     ViewBag.Title = "Live";
     Layout = "~/Views/Shared/_LiveLayoutPage.cshtml";
 }
+
 <div>
     <div class="row">
        
@@ -57,6 +58,24 @@
     <script src="~/signalr/hubs"></script>
     <!--SignalR script to update the chat page and send messages.-->
     <script>
+        (function ($) {
+
+            $.fn.extend({
+
+                addTemporaryClass: function (className, duration) {
+                    var elements = this;
+                    setTimeout(function () {
+                        elements.removeClass(className);
+                    }, duration);
+
+                    return this.each(function () {
+                        $(this).addClass(className);
+                    });
+                }
+            });
+
+        })(jQuery);
+        
         $(function () {
             // A simple templating method for replacing placeholders enclosed in curly braces.
             if (!String.prototype.supplant) {
@@ -107,20 +126,20 @@
                                 };
                             }
                             var rowTemplate =
-                                '<tr data-symbol="' + game.MatchNo + '">' +
+                                '<tr id="' + game.MatchNo + '">' +
                                     '<td>' + game.MatchNo + '</td>' +
                                     '<td>' + game.Minutes + '</td>' +
                                     '<td>' + game.LocalTeam + '</td>' +
                                     '<td>' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
                                     '<td>' + game.AwayTeam + '</td>' +
                                     '<td style="padding-bottom: 0px;">' +
-                                    '<table><tbody><tr><td style="border-top-width: 0px;" > ' +
-                                    '<input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.HomeWins + '"/>' + '</td>' +
+                                    '<table class="fullTimeOdds"><tbody><tr><td style="border-top-width: 0px;" > ' +
+                                    '<input type="button" class="btn btn-sm btn-default  FT-1" value="' + game.FullTimeOdds.HomeWins + '"/>' + '</td>' +
                                     '<td style="border-top-width: 0px;">' +
-                                    '<input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.Draw + '"/></td>' +
-                                    '<td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.AwayWins + '"/>' +
+                                    '<input type="button" class="btn btn-sm btn-default  FT-X" value="' + game.FullTimeOdds.Draw + '"/></td>' +
+                                    '<td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default  FT-2" value="' + game.FullTimeOdds.AwayWins + '"/>' +
                                     '</td></tr></tbody></table></td><td style="padding-bottom: 0px;">' +
-                                    '<table>' +
+                                    '<table class="underOverOdds">' +
                                     '<tbody>' +
                                     '<tr>' +
                                     '<td style="border-top-width: 0px;">' +
@@ -138,7 +157,7 @@
                 // Add a client-side hub method that the server will call
                 ticker.client.updateGame = function (game) {
                     console.clear();
-                    console.log(game);
+                    //console.log(game);
                     if (game.FullTimeOdds == null) {
                         game.FullTimeOdds = {
                             AwayWins: "N/A",
@@ -154,15 +173,85 @@
                             ExtraValue: "N/A"
                         };
                     }
-                    var rowTemplate = '<tr data-symbol="' + game.MatchNo + '"><td>' + game.MatchNo + '</td><td>' + game.Minutes + '</td><td>' + game.LocalTeam + '</td><td>' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td><td>' + game.AwayTeam + '</td><td style="padding-bottom: 0px;"><table><tbody><tr><td style="border-top-width: 0px;" > <input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.HomeWins + '"/>' + '</td><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.Draw + '"/></td><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.FullTimeOdds.AwayWins + '"/></td></tr></tbody></table></td><td style="padding-bottom: 0px;"><table><tbody><tr><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Under + '"/></td><td style="border-top-width: 0px;padding-top: 10px;">  <span class="text-info ">' + game.UnderOverOdds.ExtraValue + '</span></td><td style="border-top-width: 0px;"><input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Over + '"/></td></tr></tbody></table></td></tr>';
-
-                    if ($gamesTableBody.find('tr[data-symbol=' + game.MatchNo + ']').length > 0) {
-
-                        $gamesTableBody.find('tr[data-symbol=' + game.MatchNo + ']')
+                    var rowTemplate = '<tr id="' + game.MatchNo + '">' +
+                        '<td>' + game.MatchNo + '</td>' +
+                        '<td>' + game.Minutes + '</td>' +
+                        '<td>' + game.LocalTeam + '</td>' +
+                        '<td>' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
+                        '<td>' + game.AwayTeam + '</td>' +
+                        '<td style="padding-bottom: 0px;">' +
+                        '<table class="fullTimeOdds">' +
+                        '<tbody>' +
+                        '<tr>' +
+                        '<td style="border-top-width: 0px;" > ' +
+                        '<input type="button" class="btn btn-sm btn-default FT-1" value="' + game.FullTimeOdds.HomeWins + '"/>' +
+                        '</td>' +
+                        '<td style="border-top-width: 0px;">' +
+                        '<input type="button" class="btn btn-sm btn-default FT-X" value="' + game.FullTimeOdds.Draw + '"/>' +
+                        '</td>' +
+                        '<td style="border-top-width: 0px;">' +
+                        '<input type="button" class="btn btn-sm btn-default FT-2" value="' + game.FullTimeOdds.AwayWins + '"/>' +
+                        '</td>' +
+                        '</tr>' +
+                        '</tbody>' +
+                        '</table>' +
+                        '</td>' +
+                        '<td style="padding-bottom: 0px;">' +
+                        '<table class="underOverOdds">' +
+                        '<tbody>' +
+                        '<tr>' +
+                        '<td style="border-top-width: 0px;">' +
+                        '<input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Under + '"/>' +
+                        '</td>' +
+                        '<td style="border-top-width: 0px;padding-top: 10px;">' +
+                        '  <span class="text-info ">' + game.UnderOverOdds.ExtraValue + '</span>' +
+                        '</td>' +
+                        '<td style="border-top-width: 0px;">' +
+                        '<input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Over + '"/>' +
+                        '</td>' +
+                        '</tr>' +
+                        '</tbody>' +
+                        '</table>' +
+                        '</td>' +
+                        '</tr>';
+                    var tr = $gamesTableBody.find('tr[id=' + game.MatchNo + ']').children('td');//.eq(0).text();
+                    var table = $('#' + game.MatchNo).html();
+                    var FT1 = $gamesTableBody.find('#' + game.MatchNo + ' > td > table.fullTimeOdds > tbody tr > td > input.FT-1').attr("value");
+                    var FTX = $gamesTableBody.find('#' + game.MatchNo + ' > td > table.fullTimeOdds > tbody tr > td > input.FT-X').attr("value");
+                    var FT2 = $gamesTableBody.find('#' + game.MatchNo + ' > td > table.fullTimeOdds > tbody tr > td > input.FT-2').attr("value");
+                   
+                    if ($gamesTableBody.find('tr[id=' + game.MatchNo + ']').length > 0) {
+                        $gamesTableBody.find('tr[id=' + game.MatchNo + ']')
                             .replaceWith(rowTemplate);
                     } else {
                         $gamesTableBody.append(rowTemplate);
                     }
+                    if (parseInt(FT1) > parseInt(game.FullTimeOdds.HomeWins)) {
+                        $('#' + game.MatchNo + ' > td > table.fullTimeOdds > tbody tr > td > input.FT-1').addTemporaryClass("down", 3000);
+
+                    }
+                    if (parseInt(FT1) < parseInt(game.FullTimeOdds.HomeWins)) {
+                        $('#' + game.MatchNo + ' > td > table.fullTimeOdds > tbody tr > td > input.FT-1').addTemporaryClass("up", 3000);
+                    }
+                    if (parseInt(FTX) > parseInt(game.FullTimeOdds.Draw)) {
+                        $('#' + game.MatchNo + ' > td > table.fullTimeOdds > tbody tr > td > input.FT-X').addTemporaryClass("down", 3000);
+                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
+
+                    }
+                    if (parseInt(FTX) < parseInt(game.FullTimeOdds.Draw)) {
+                        $('#' + game.MatchNo + ' > td > table.fullTimeOdds > tbody tr > td > input.FT-X').addTemporaryClass("up", 3000);
+                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
+                    }
+                    if (parseInt(FTX) > parseInt(game.FullTimeOdds.AwayWins)) {
+                        $('#' + game.MatchNo + ' > td > table.fullTimeOdds > tbody tr > td > input.FT-2').addTemporaryClass("down", 3000);
+                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
+
+                    }
+                    if (parseInt(FTX) < parseInt(game.FullTimeOdds.AwayWins)) {
+                        $('#' + game.MatchNo + ' > td > table.fullTimeOdds > tbody tr > td > input.FT-2').addTemporaryClass("up", 3000);
+                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
+                    }
+
                 };
                 // Start the connection
                 $.connection.hub.start().done(init);
