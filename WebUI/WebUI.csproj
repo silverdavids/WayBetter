@@ -308,6 +308,10 @@
     <Compile Include="Migrations\201410161711350_BetOptionpatch.Designer.cs">
       <DependentUpon>201410161711350_BetOptionpatch.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410172202302_MatchOddError.cs" />
+    <Compile Include="Migrations\201410172202302_MatchOddError.Designer.cs">
+      <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -1742,6 +1746,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410161711350_BetOptionpatch.resx">
       <DependentUpon>201410161711350_BetOptionpatch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410172202302_MatchOddError.resx">
+      <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

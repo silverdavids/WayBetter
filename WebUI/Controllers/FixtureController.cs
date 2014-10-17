@@ -234,7 +234,7 @@ namespace WebUI.Controllers
                                 };
 
                                 BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
-                                BetDatabase.SaveChanges();
+                                await BetDatabase.SaveChangesAsync();
                                 var matchodd = new MatchOdd
                                 {
                                     BetServiceMatchNo = Convert.ToInt32(eventId),
@@ -264,7 +264,7 @@ namespace WebUI.Controllers
                                 };
 
                                 BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
-                                BetDatabase.SaveChanges();
+                                await BetDatabase.SaveChangesAsync();
                                 if (line != "0.5" && line != "1.5" && line != "2.5" && line != "3.5" &&
                                     line != "4.5" && line != "5.5" && line != "6.5") continue;
                                 var matchodd = new MatchOdd
@@ -295,7 +295,7 @@ namespace WebUI.Controllers
                                 };
 
                                 BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
-                                BetDatabase.SaveChanges();
+                                await BetDatabase.SaveChangesAsync();
                                 var matchodd = new MatchOdd
                                 {
                                     BetServiceMatchNo = Convert.ToInt32(eventId),
@@ -325,7 +325,7 @@ namespace WebUI.Controllers
 
                                 BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line },
                                     betoption);
-                                BetDatabase.SaveChanges();
+                                await BetDatabase.SaveChangesAsync();
                                 var matchodd = new MatchOdd
                                 {
                                     BetServiceMatchNo = Convert.ToInt32(eventId),
@@ -354,7 +354,66 @@ namespace WebUI.Controllers
                                 };
 
                                 BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
-                                BetDatabase.SaveChanges();
+                                await BetDatabase.SaveChangesAsync();
+                                var matchodd = new MatchOdd
+                                {
+                                    BetServiceMatchNo = Convert.ToInt32(eventId),
+                                    BetOptionId = betoption.BetOptionId,
+                                    LastUpdateTime = DateTime.Parse(unformattedLastUpdateTime),
+                                    Odd = Convert.ToDecimal(odd.Attributes["currentPrice"].InnerText)
+                                };
+                                matchodds.Add(matchodd);
+                            }
+                            break;
+                        #endregion
+
+                        #region Under/Over 1st Period
+                        case "Under/Over 1st Period":
+                            foreach (XmlNode odd in oddsNodes)
+                            {
+                                if (odd.Attributes == null) continue;
+                                var bet = odd.Attributes["bet"].InnerText;
+                                var line = odd.Attributes["line"].InnerText;
+                                var unformattedLastUpdateTime = odd.Attributes["LastUpdate"].InnerText;
+                                var betoption = new BetOption
+                                {
+                                    BetCategoryId = betcategory.CategoryId,
+                                    Option = bet,
+                                    Line = line
+                                };
+
+                                BetDatabase.BetOptions.AddOrUpdate(
+                                    bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
+                                await BetDatabase.SaveChangesAsync();
+                                var matchodd = new MatchOdd
+                                {
+                                    BetServiceMatchNo = Convert.ToInt32(eventId),
+                                    BetOptionId = betoption.BetOptionId,
+                                    LastUpdateTime = DateTime.Parse(unformattedLastUpdateTime),
+                                    Odd = Convert.ToDecimal(odd.Attributes["currentPrice"].InnerText)
+                                };
+                                matchodds.Add(matchodd);
+                            }
+                            break;
+                        #endregion
+
+                        #region 1st Period Winner
+                        case "1st Period Winner":
+                            foreach (XmlNode odd in oddsNodes)
+                            {
+                                if (odd.Attributes == null) continue;
+                                var bet = odd.Attributes["bet"].InnerText;
+                                var line = odd.Attributes["line"].InnerText;
+                                var unformattedLastUpdateTime = odd.Attributes["LastUpdate"].InnerText;
+                                var betoption = new BetOption
+                                {
+                                    BetCategoryId = betcategory.CategoryId,
+                                    Option = bet,
+                                    Line = line
+                                };
+
+                                BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
+                                await BetDatabase.SaveChangesAsync();
                                 var matchodd = new MatchOdd
                                 {
                                     BetServiceMatchNo = Convert.ToInt32(eventId),
@@ -375,9 +434,21 @@ namespace WebUI.Controllers
             }
             try
             {
-                BetDatabase.Matches.AddOrUpdate(m => m.BetServiceMatchNo, matches.ToArray());
-                BetDatabase.SaveChanges();
-                Console.WriteLine("Matches Updated Successfully");
+                const int chunkSize = 100;
+                var totalMatches = matches.Count;
+                var chunksToSave = (totalMatches % chunkSize) > 0 ? (totalMatches / chunkSize) + 1 : totalMatches / chunkSize;
+                for (var i = 0; i < chunksToSave; i++)
+                {
+                    var chunk = matches.Skip(i * chunkSize).Take(chunkSize);
+                    var startTime = DateTime.Now;
+                    BetDatabase.Matches.AddOrUpdate(m => m.BetServiceMatchNo, chunk.ToArray());
+                    BetDatabase.SaveChanges();
+                    var endTime = DateTime.Now;
+                    var timeSpan = endTime - startTime;
+                    //Console.WriteLine("Matches in Chunk {0} Updated Successfully in {1} Seconds", i + 1, timeSpan.Seconds);
+                }
+
+                //Console.WriteLine("Matches Updated Successfully");
             }
             catch (Exception ex)
             {
@@ -385,9 +456,23 @@ namespace WebUI.Controllers
             }
             try
             {
-                BetDatabase.MatchOdds.AddOrUpdate(key => new { key.BetServiceMatchNo, key.BetOptionId }, matchodds.ToArray());
-                BetDatabase.SaveChanges();
-                Console.WriteLine("MatchOdds Updated Successfully");
+                const int chunkSize = 100;
+                var totalMatchOdds = matchodds.Count;
+                var chunksToSave = (totalMatchOdds % chunkSize) > 0
+                    ? (totalMatchOdds / chunkSize) + 1
+                    : totalMatchOdds / chunkSize;
+
+                for (var i = 0; i < chunksToSave; i++)
+                {
+                    var chunk = matchodds.Skip(i * chunkSize).Take(chunkSize);
+                    var startTime = new DateTime();
+                    BetDatabase.MatchOdds.AddOrUpdate(key => new { key.BetServiceMatchNo, key.BetOptionId }, chunk.ToArray());
+                    BetDatabase.SaveChanges();
+                    var endTime = new DateTime();
+                    var timeSpan = endTime - startTime;
+                    //Console.WriteLine("MatchOdds in Chunk {0} Updated Successfully in {1} Seconds", i + 1, timeSpan.Seconds);
+                }
+                //Console.WriteLine("All MatchOdds Updated Successfully");
             }
             catch (Exception ex)
             {
