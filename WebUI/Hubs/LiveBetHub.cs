@@ -62,7 +62,9 @@ namespace WebUI.Hubs
                                 AwayTeamScore = gamescore.AwayTeamScore,
                                 LocalTeamScore = gamescore.LocalTeamScore,
                                 FullTimeOdds = gameodds.FullTimeOdds,
-                                UnderOverOdds = gameodds.UnderOverOdds
+                                UnderOverOdds = gameodds.UnderOverOdds,
+                                RestofMatch = gameodds.RestofMatch,
+                                NextGoal = gameodds.NextGoal
                             }).ToList();
             _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
             return allGames;
@@ -142,7 +144,7 @@ namespace WebUI.Hubs
                     if (match.Attributes != null)
                     {
                         testGame.MatchNo = match.Attributes["id"].InnerText;
-                        testGame.Minutes = match.Attributes["minute"].InnerText;
+                        testGame.Minutes = match.Attributes["minute"].InnerText.Substring(0,2)+"'";
                     }
 
                     foreach (XmlNode team in teams)
@@ -269,6 +271,30 @@ namespace WebUI.Hubs
                                             }
                                         }
                                         break;
+                                    case "Next Goal":
+                                        testGame.NextGoal = new NextGoal();
+                                        foreach (XmlNode FTO in odd.ChildNodes)
+                                        {
+                                            if (FTO.Attributes != null)
+                                            {
+                                                if (FTO.Attributes["extravalue"].InnerText == "1")
+                                                {
+                                                    var homeScores = FTO.Attributes["odd"].InnerText;
+                                                    testGame.NextGoal.HomeScores = homeScores;
+                                                }
+                                                if (FTO.Attributes["extravalue"].InnerText == "X")
+                                                {
+                                                    var draw = FTO.Attributes["odd"].InnerText;
+                                                    testGame.NextGoal.Draw = draw;
+                                                }
+                                                if (FTO.Attributes["extravalue"].InnerText == "2")
+                                                {
+                                                    var awayScores = FTO.Attributes["odd"].InnerText;
+                                                    testGame.NextGoal.AwayScores = awayScores;
+                                                }
+                                            }
+                                        }
+                                        break;
 
                                 }
 
@@ -363,7 +389,7 @@ namespace WebUI.Hubs
     public class NextGoal
     {
         public string HomeScores { get; set; }
-        public string None { get; set; }
+        public string Draw { get; set; }
         public string AwayScores { get; set; }
     }
 }
