@@ -9,7 +9,7 @@
         <div class="col-lg-8">
             <h2 class="heading">Live </h2>
             <div id="gameTable">
-                <table class="table table-condensed table-striped" id="liveGames">
+                <table class="table table-condensed table-striped" id="MatchTable">
                     <thead>
                         <tr><th colspan="5"></th><th colspan="3" class="text-center">Full&nbsp;Time</th><th colspan="3" class="text-center">Under/Over</th><th colspan="3" class="text-center">Rest&nbsp;Of&nbsp;Match</th><th colspan="3" class="text-center">Next&nbsp;Goal</th></tr>
                         <tr style="background-color:#0D1F35 !important; color: #ffffff;">
@@ -34,7 +34,6 @@
                     </thead>
                     <tbody id="tbody">
                         @*<tr class="loading text-center"><td colspan="11">loading...</td></tr>*@
-
                     </tbody>
                 </table>
             </div>
@@ -184,8 +183,8 @@
 
                 // Add a client-side hub method that the server will call
                 ticker.client.updateGame = function (game) {
-                    //console.clear();
-                    //console.log(game);
+                    console.clear();
+                    console.log(game);
                     if (game.FullTimeOdds == null) {
                         game.FullTimeOdds = {
                             AwayWins: "N/A",
