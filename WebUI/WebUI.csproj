@@ -335,6 +335,7 @@
     <Content Include="Content\css\Custom.css" />
     <Content Include="Content\css\local.css" />
     <Content Include="Content\css\styles.css" />
+    <Content Include="Content\custom.css" />
     <Content Include="Content\DataTables-1.10.2\css\dataTables.autoFill.css" />
     <Content Include="Content\DataTables-1.10.2\css\dataTables.autoFill.min.css" />
     <Content Include="Content\DataTables-1.10.2\css\dataTables.bootstrap.css" />
@@ -400,6 +401,8 @@
     <Content Include="Content\Images\betway2.png" />
     <Content Include="Content\Images\icons.png" />
     <Content Include="Content\Images\loadingAnim.gif" />
+    <Content Include="Content\Images\pattern2.png" />
+    <Content Include="Content\Images\uefa2.jpg" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery.dataTables.css" />
     <Content Include="Content\main.css" />
