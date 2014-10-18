@@ -1,4 +1,125 @@
 ﻿@model Domain.Models.ViewModels.LoginVM
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie ie9" lang="en" class="no-js"> <![endif]-->
+<!--[if !(IE)]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<head>
+    <title>Login | Betway</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Betting Uganda">
+    <meta name="author" content="Edmond">
+    <!-- CSS -->
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/main.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    @*<link rel="shortcut icon" href="~/Content/ico/logo1.ico">*@
+</head>
+<body>
+    <div class="wrapper full-page-wrapper page-login text-center">
+        <div class="inner-page">
+            <div class="logo">
+                @*<a href="#"><img src="~/Content/img/nft.jpg" alt="" /></a>*@
+                <h1>Betway Uganda</h1>
+                <p><i>Bet Your Way</i></p>
+            </div>
+            <div class="separator"><span>Account Credentials</span></div>
+            @using (Html.BeginForm("Login", "Account", new { ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "loginForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="login-box center-block">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @*<p class="title">Use your EIN or Email Address</p>*@
+                    <div class="form-group">
+                        <label for="Username" class="control-label sr-only">Username</label>
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <input type="text" placeholder="username" class="form-control" id="Username" name="Username">
+                                @*<span class="input-group-addon"><i class="fa fa-user"></i></span>*@
+                            </div>
+                            <div class="input-group">
+                                <p class="text-danger hidden" id="UsernameError">* Username is required.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <label for="Password" class="control-label sr-only">Password</label>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <input type="password" placeholder="password" class="form-control" id="Password" name="Password">
+                                @*<span class="input-group-addon"><i class="fa fa-lock"></i></span>*@
+                            </div>
+                            <div class="input-group">
+                                <p class="text-danger hidden" id="PasswordError">* Password is required.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="simple-checkbox">
+                        <input type="checkbox" id="checkbox1">
+                        <label for="checkbox1">Remember me next time</label>
+                    </div>
+                    <button class="btn btn-custom-primary btn-lg btn-block btn-login" id="loginButton"><i class="fa fa-arrow-circle-o-right"></i> Login</button>
+
+
+                    <div class="links">
+                        <p><a href="#">Forgot Username or Password?</a></p>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="push-sticky-footer"></div>
+    </div>
+    <footer class="footer">&copy; @DateTime.Now.Year Betway Uganda</footer>
+</body>
+</html>
+<!-- Javascript -->
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/modernizr-2.7.2.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#loginButton').click(function () {
+            var username = $('#Username').val();
+            var password = $('#Password').val();
+            if (!username || !password) {
+                if (!username) {
+                    $('#UsernameError').removeClass('hidden').addClass('show');
+                    return false;
+                } else {
+                    $('#UsernameError').removeClass('show').addClass('hidden');
+                }
+
+                if (!password) {
+                    $('#PasswordError').removeClass('hidden').addClass('show');
+                    return false;
+                } else {
+                    $('#PasswordError').removeClass('show').addClass('hidden');
+                }
+                return false;
+            } else {
+                $('#UsernameError').removeClass('show').addClass('hidden');
+                $('#PasswordError').removeClass('show').addClass('hidden');
+                $('#loginForm').submit();
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+@*@model Domain.Models.ViewModels.LoginVM
 
 @{
     ViewBag.Title = "Log in";
@@ -27,24 +148,13 @@
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>
-               
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Log in" class="btn btn-info" />
                     </div>
                 </div>
-   
-
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                <p>
-                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                </p>*@
             }
         </section>
     </div>
-    <div class="col-md-4">
-     
-        
-    </div>
-</div>
+</div>*@
  

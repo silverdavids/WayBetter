@@ -1,5 +1,4 @@
-﻿//using System.Timers;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
@@ -324,7 +323,7 @@ namespace WebUI.Hubs
             //Todo: update the records in the DB
 
             ////_games.Clear();
-            //_games.TryAdd(game.MatchNo, game);
+            //_games.TryAdd(game.BetServiceMatchNo, game);
             return true;
         }
 

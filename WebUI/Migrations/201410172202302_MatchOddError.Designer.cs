@@ -2,17 +2,18 @@
 namespace WebUI.Migrations
 {
     using System.CodeDom.Compiler;
+    using System.Data.Entity.Migrations;
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class reciepts : IMigrationMetadata
+    public sealed partial class MatchOddError : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(reciepts));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(MatchOddError));
         
         string IMigrationMetadata.Id
         {
-            get { return "201409300018243_reciepts"; }
+            get { return "201410172202302_MatchOddError"; }
         }
         
         string IMigrationMetadata.Source

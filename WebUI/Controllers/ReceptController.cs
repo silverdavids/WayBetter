@@ -140,9 +140,9 @@ namespace WebUI.Controllers
             int serial = Convert.ToInt32(id);
             var constring = ConfigurationManager.ConnectionStrings["BetConnection"].ConnectionString;
             var con = new SqlConnection(constring);               
-            var query = "SELECT  MatchNo,[dbo].[ReturnTeamName](HomeTeamId) as HomeTeam,[dbo].[ReturnTeamName](AwayTeamId) as AwayTeam,"+
+            var query = "SELECT  BetServiceMatchNo,[dbo].[ReturnTeamName](HomeTeamId) as HomeTeam,[dbo].[ReturnTeamName](AwayTeamId) as AwayTeam,"+
     "[dbo].[ReturnOptionName](BetOptionId) as choice, [dbo].[ReturnCategoryName](BetOptionId) as category,HomeScore,AwayScore,stake,userid,m.starttime,r.TotalOdds , rs.statusName,r.receiptdate, convert(varchar(5) ,HomeScore)+':'+convert(varchar(5) ,AwayScore) as FT,convert(varchar(5) ,HalfTimeHomeScore)+':'+convert(varchar(5) ,HalfTimeAwayScore) as HT " +
- " FROM [dbo].[Bets] bm inner join [dbo].[Matches] m on bm.MatchID=m.MatchNo inner join Receipts r on r.ReceiptID=bm.RecieptId  inner join ReceiptStatus rs on r.ReceiptStatus=rs.StatusId    where bm.RecieptId="+id;
+ " FROM [dbo].[Bets] bm inner join [dbo].[Matches] m on bm.MatchID=m.BetServiceMatchNo inner join Receipts r on r.ReceiptID=bm.RecieptId  inner join ReceiptStatus rs on r.ReceiptStatus=rs.StatusId    where bm.RecieptId="+id;
             var model = new List<RecieptDetailsVm>();
             var dt = new DataTable();
             con.Open();
@@ -154,7 +154,7 @@ namespace WebUI.Controllers
                 {
                     model.Add(new RecieptDetailsVm
                     {
-                        MatchNo = Convert.ToInt32(dt.Rows[i]["MatchNo"]),
+                        MatchNo = Convert.ToInt32(dt.Rows[i]["BetServiceMatchNo"]),
                         HomeTeam = dt.Rows[i]["HomeTeam"].ToString(),
                         AwayTeam = dt.Rows[i]["AwayTeam"].ToString(),
                         CategoryName = dt.Rows[i]["category"].ToString(),

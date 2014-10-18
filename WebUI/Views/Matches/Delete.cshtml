@@ -1,4 +1,4 @@
-﻿@model Domain.Models.Concrete.Game
+﻿@model Domain.Models.Concrete.Match
 
 @{
     ViewBag.Title = "Delete";
@@ -28,6 +28,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.ShortMatchCode.MatchNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShortMatchCode.MatchNo)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.League)
         </dt>
 
@@ -44,11 +52,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.MatchStatus)
+            @Html.DisplayNameFor(model => model.GameStatus)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.MatchStatus)
+            @Html.DisplayFor(model => model.GameStatus)
         </dd>
 
         <dt>

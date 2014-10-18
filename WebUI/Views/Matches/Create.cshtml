@@ -1,13 +1,13 @@
 ﻿@model Domain.Models.Concrete.Match
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Create";
 }
 
-<h2>Edit</h2>
+<h2>Create</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
@@ -15,9 +15,13 @@
         <h4>Match</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.BetServiceMatchNo)
-
-        @Html.HiddenFor(model => model.SetNo)
+        <div class="form-group">
+            @Html.LabelFor(model => model.BetServiceMatchNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BetServiceMatchNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetServiceMatchNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.League, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -36,10 +40,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MatchStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.GameStatus, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MatchStatus, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MatchStatus, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.GameStatus, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GameStatus, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -109,7 +113,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>

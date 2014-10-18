@@ -647,7 +647,7 @@ public class AdminClass
     public DataSet getgamedetails()
     {
         SqlParameter[] param = new SqlParameter[2];
-        param[0] = new SqlParameter("@MatchNo", _matno);
+        param[0] = new SqlParameter("@BetServiceMatchNo", _matno);
         param[1] = new SqlParameter("@Mode", "Gamedetails");
     
         return objDBBridge.ExecuteDataset(_spName1, param);
@@ -693,7 +693,7 @@ public class AdminClass
     {
         int counts = 0;
         SqlParameter[] param = new SqlParameter[4];
-        param[0] = new SqlParameter("@MatchNo", _matno);
+        param[0] = new SqlParameter("@BetServiceMatchNo", _matno);
         param[1] = new SqlParameter("@bet_type", _bet_type);
         param[2] = new SqlParameter("@Mode", "Gamedetailsbyodd");
         param[3] = new SqlParameter("@oddname", _choice);
@@ -730,7 +730,7 @@ public class AdminClass
         SqlParameter[] param = new SqlParameter[26];
         param[0] = new SqlParameter("@bet_type", _bet_type);
         param[1] = new SqlParameter("@champ", _league);
-        param[2] = new SqlParameter("@MatchNo", _matno);
+        param[2] = new SqlParameter("@BetServiceMatchNo", _matno);
         param[3] = new SqlParameter("@host", _host);
         param[4] = new SqlParameter("@visitor", _visitor);
         param[5] = new SqlParameter("@StartTime", _stime);
@@ -1086,7 +1086,7 @@ public class AdminClass
         param[0] = new SqlParameter("@Mode", "betresults1");
         param[1] = new SqlParameter("@category", _category);
         param[2] = new SqlParameter("@Email", _email);
-        param[3] = new SqlParameter("@MatchNo", _matno);
+        param[3] = new SqlParameter("@BetServiceMatchNo", _matno);
         param[4] = new SqlParameter("@host", _host);
         param[5] = new SqlParameter("@visitor", _visitor);
         param[6] = new SqlParameter("@odd", _odd);
@@ -1100,7 +1100,7 @@ public class AdminClass
         param[0] = new SqlParameter("@Mode", "InsertGame");
         param[1] = new SqlParameter("@bet_type", _bet_type);
         param[2] = new SqlParameter("@champ", _league);
-        param[3] = new SqlParameter("@MatchNo", _matno);
+        param[3] = new SqlParameter("@BetServiceMatchNo", _matno);
         param[4] = new SqlParameter("@host", _host);
         param[5] = new SqlParameter("@visitor", _visitor);    
         param[6] = new SqlParameter("@StartTime", _stime);
@@ -1132,7 +1132,7 @@ public class AdminClass
         param[0] = new SqlParameter("@Mode", "InsertAnalysisData");
         param[1] = new SqlParameter("@HomeTeamForm", _HomeTeamForm);
         param[2] = new SqlParameter("@HomeTeamH2H", _HomeTeamH2H);
-        param[3] = new SqlParameter("@MatchNo", _matno);
+        param[3] = new SqlParameter("@BetServiceMatchNo", _matno);
         param[4] = new SqlParameter("@HomeTeamHomeForm", _HomeTeamHomeForm);
         param[5] = new SqlParameter("@HomeTeamLeagueRating", _HomeTeamLeagueRating);
         param[6] = new SqlParameter("@HomeRecentGame", _HomeRecentGame);
@@ -1154,7 +1154,7 @@ public class AdminClass
         param[0] = new SqlParameter("@Mode", "UpdateAnalysisData");
         param[1] = new SqlParameter("@HomeTeamForm", _HomeTeamForm);
         param[2] = new SqlParameter("@HomeTeamH2H", _HomeTeamH2H);
-        param[3] = new SqlParameter("@MatchNo", _matno);
+        param[3] = new SqlParameter("@BetServiceMatchNo", _matno);
         param[4] = new SqlParameter("@HomeTeamHomeForm", _HomeTeamHomeForm);
         param[5] = new SqlParameter("@HomeTeamLeagueRating", _HomeTeamLeagueRating);
         param[6] = new SqlParameter("@HomeRecentGame", _HomeRecentGame);
@@ -1257,7 +1257,7 @@ public class AdminClass
         param[0] = new SqlParameter("@Mode", "updategame");
         param[1] = new SqlParameter("@bet_type", _bet_type);
         param[2] = new SqlParameter("@champ", _league);
-        param[3] = new SqlParameter("@MatchNo", _matno);
+        param[3] = new SqlParameter("@BetServiceMatchNo", _matno);
         param[4] = new SqlParameter("@host", _host);
         param[5] = new SqlParameter("@visitor", _visitor);
         param[6] = new SqlParameter("@StartTime", _stime);
@@ -1316,7 +1316,7 @@ public class AdminClass
     {
 
         SqlParameter[] dtm = new SqlParameter[5];
-        dtm[0] = new SqlParameter("@MatchNo", _matno);
+        dtm[0] = new SqlParameter("@BetServiceMatchNo", _matno);
         dtm[1] = new SqlParameter("@bet_type",_bet_type);
         dtm[2] = new SqlParameter("@choice", _choice);
         dtm[3] = new SqlParameter("@Teamcode", _smscode);
@@ -1802,7 +1802,7 @@ public class AdminClass
         SqlParameter[] param = new SqlParameter[4];
         param[0] = new SqlParameter("@Mode", "getTeamscode");
         param[1] = new SqlParameter("@choice",_choice);
-        param[2] = new SqlParameter("@MatchNo",_matno);
+        param[2] = new SqlParameter("@BetServiceMatchNo",_matno);
         param[3] = new SqlParameter("@bet_type",_bet_type);
         DataTable dtUser = new DataTable();
         dtUser = objDBBridge.ExecuteDataset(_spName, param).Tables[0];
@@ -1818,7 +1818,7 @@ public class AdminClass
     {
         SqlParameter[] param = new SqlParameter[2];
         param[0] = new SqlParameter("@Mode", "MatchAnalysisData");
-        param[1] = new SqlParameter("@MatchNo", _matno);
+        param[1] = new SqlParameter("@BetServiceMatchNo", _matno);
         DataTable dtUser = new DataTable();
         dtUser = objDBBridge.ExecuteDataset(_spName, param).Tables[0];
         if (dtUser.Rows.Count != 0)
@@ -1851,7 +1851,7 @@ public class AdminClass
     {
         SqlParameter[] param = new SqlParameter[2];
         param[0] = new SqlParameter("@Mode", "MatchAnalysisData");
-        param[1] = new SqlParameter("@MatchNo", matno);
+        param[1] = new SqlParameter("@BetServiceMatchNo", matno);
         DataTable dtUser = new DataTable();
         dtUser = objDBBridge.ExecuteDataset(_spName, param).Tables[0];
         if (dtUser.Rows.Count != 0)
@@ -1885,7 +1885,7 @@ public class AdminClass
         int maxmatno = 0;
         SqlParameter[] param = new SqlParameter[2];
         param[0] = new SqlParameter("@Mode", "getmatch");
-        param[1] = new SqlParameter("@MatchNo", _matno);     
+        param[1] = new SqlParameter("@BetServiceMatchNo", _matno);     
         DataTable dtUser = new DataTable();
         dtUser = objDBBridge.ExecuteDataset(_spName, param).Tables[0];
         if (dtUser.Rows.Count != 0)

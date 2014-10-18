@@ -8,7 +8,7 @@ namespace WebUI.Areas.Game
         {
             get 
             {
-                return "Game";
+                return "Match";
             }
         }
 
@@ -16,7 +16,7 @@ namespace WebUI.Areas.Game
         {
             context.MapRoute(
                 "Game_default",
-                "Game/{controller}/{action}/{id}",
+                "Match/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
         }

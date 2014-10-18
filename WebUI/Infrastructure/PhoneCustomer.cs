@@ -657,7 +657,7 @@ public class PhoneCustomer
     {
         SqlParameter[] param = new SqlParameter[3];
         param[0] = new SqlParameter("@Mode", "CancelRecieptGame");
-        param[1] = new SqlParameter("@MatchNo", _matchno);
+        param[1] = new SqlParameter("@BetServiceMatchNo", _matchno);
         param[2] = new SqlParameter("@betid", _betid);
         DataTable dt = new DataTable();
         dt = objDBBridge.ExecuteDataset(_spName, param).Tables[0];
@@ -696,7 +696,7 @@ public class PhoneCustomer
                         Login log = new Login();
                         log.Username = _username;
                         log.getuser_info();
-                        sendsms("" + getMatchTeams(_matchno) + " has been removed from your ticket (ReceiptNo: " + _betid + " due to erroneous odds (MatchNo: " + _matchno + ")", log.Phoneno);
+                        sendsms("" + getMatchTeams(_matchno) + " has been removed from your ticket (ReceiptNo: " + _betid + " due to erroneous odds (BetServiceMatchNo: " + _matchno + ")", log.Phoneno);
                     }
                 }
             }
@@ -859,7 +859,7 @@ public class PhoneCustomer
         param[0] = new SqlParameter("@Mode", "betresults1");
         param[1] = new SqlParameter("@category", _category);
         param[2] = new SqlParameter("@Email", _email);
-        param[3] = new SqlParameter("@MatchNo", _matno);
+        param[3] = new SqlParameter("@BetServiceMatchNo", _matno);
         param[4] = new SqlParameter("@host", _host);
         param[5] = new SqlParameter("@visitor", _visitor);
         param[6] = new SqlParameter("@odd", _odd);
@@ -967,7 +967,7 @@ public class PhoneCustomer
         param[5] = new SqlParameter("@category", _category);
         param[6] = new SqlParameter("@champ", _champ);
         param[7] = new SqlParameter("@setno", _setno);
-        param[8] = new SqlParameter("@MatchNo",_matchno);
+        param[8] = new SqlParameter("@BetServiceMatchNo",_matchno);
         param[9] = new SqlParameter("@host", _host);
         param[10] = new SqlParameter("@vs", "Vs");
         param[11] = new SqlParameter("@visitor", _visitor);
@@ -990,7 +990,7 @@ public class PhoneCustomer
         param[5] = new SqlParameter("@category", "Straight Line");
         param[6] = new SqlParameter("@champ", _champ);
         param[7] = new SqlParameter("@setno", _setno);
-        param[8] = new SqlParameter("@MatchNo", _matchno);
+        param[8] = new SqlParameter("@BetServiceMatchNo", _matchno);
         param[9] = new SqlParameter("@host", _host);
         param[10] = new SqlParameter("@visitor", _visitor);
         param[11] = new SqlParameter("@odd", _odd);
@@ -1010,7 +1010,7 @@ public class PhoneCustomer
         param[3] = new SqlParameter("@betmoney",_betmoney);
         param[4] = new SqlParameter("@bet_type", _bet_type);
         param[5] = new SqlParameter("@setno", _setno);
-        param[6] = new SqlParameter("@MatchNo", Convert.ToInt32(_matchno));
+        param[6] = new SqlParameter("@BetServiceMatchNo", Convert.ToInt32(_matchno));
         param[7] = new SqlParameter("@oddname", _oddname);
         param[8] = new SqlParameter("@betid", _betid);
         param[9] = new SqlParameter("@category", _category);
@@ -1025,7 +1025,7 @@ public class PhoneCustomer
         param[3] = new SqlParameter("@betmoney", _betmoney);
         param[4] = new SqlParameter("@bet_type", _bet_type);
         param[5] = new SqlParameter("@setno", _setno);
-        param[6] = new SqlParameter("@MatchNo", Convert.ToInt32(_matchno));
+        param[6] = new SqlParameter("@BetServiceMatchNo", Convert.ToInt32(_matchno));
         param[7] = new SqlParameter("@oddname", _oddname);
         param[8] = new SqlParameter("@betid", _betid);
         param[9] = new SqlParameter("@category", _category);
@@ -1087,7 +1087,7 @@ public class PhoneCustomer
         {
             DataRow dr;
             dr = dtEmployee.Rows[0];
-            _matchno = dr["MatchNo"].ToString();
+            _matchno = dr["BetServiceMatchNo"].ToString();
             _bet_type = dr["bettype"].ToString();
             _choice = dr["choice"].ToString();
             
@@ -1237,7 +1237,7 @@ public class PhoneCustomer
         SqlParameter[] param = new SqlParameter[5];
         param[0] = new SqlParameter("@Mode", "EnterScores");
         param[1] = new SqlParameter("@username", _username);
-        param[2] = new SqlParameter("@MatchNo", _matchno);
+        param[2] = new SqlParameter("@BetServiceMatchNo", _matchno);
         param[3] = new SqlParameter("@HomeScore", _HomeScore);
         param[4] = new SqlParameter("@AwayScore", _AwayScore);
         return objDBBridge.ExecuteNonQuery(_spName, param);
@@ -1247,7 +1247,7 @@ public class PhoneCustomer
         SqlParameter[] param = new SqlParameter[5];
         param[0] = new SqlParameter("@Mode", "HalfTimeScores");
         param[1] = new SqlParameter("@username", _username);
-        param[2] = new SqlParameter("@MatchNo", _matchno);
+        param[2] = new SqlParameter("@BetServiceMatchNo", _matchno);
         param[3] = new SqlParameter("@hthomescore", _hthomescore);
         param[4] = new SqlParameter("@htawayscore", _htawayscore);
         return objDBBridge.ExecuteNonQuery(_spName, param);
@@ -1268,7 +1268,7 @@ public class PhoneCustomer
         parameter[0] = new SqlParameter("@username", _username);
         parameter[1] = new SqlParameter("@betid", _betid);
         parameter[2] = new SqlParameter("@controller", _controller);
-        parameter[3] = new SqlParameter("@MatchNo", _matchno);
+        parameter[3] = new SqlParameter("@BetServiceMatchNo", _matchno);
         parameter[4] = new SqlParameter("@mode", mode);
         exec = objDBBridge.ExecuteNonQuery("updatesetdetails", parameter);
         return exec;
@@ -1278,7 +1278,7 @@ public class PhoneCustomer
         SqlParameter[] param = new SqlParameter[5];
         param[0] = new SqlParameter("@Mode", "ApproveScores");
         param[1] = new SqlParameter("@username", _username);
-        param[2] = new SqlParameter("@MatchNo", _matchno);
+        param[2] = new SqlParameter("@BetServiceMatchNo", _matchno);
         DataTable dt = new DataTable();
         dt = objDBBridge.ExecuteDataset(_spName, param).Tables[0];
         int opt = 0, exec = 0;
@@ -1632,7 +1632,7 @@ public class PhoneCustomer
         SqlParameter[] param = new SqlParameter[3];
         param[0] = new SqlParameter("@Mode", "PostponeGame");
         param[1] = new SqlParameter("@username", _username);
-        param[2] = new SqlParameter("@MatchNo", _matchno);
+        param[2] = new SqlParameter("@BetServiceMatchNo", _matchno);
         DataTable dt = new DataTable();
         dt = objDBBridge.ExecuteDataset(_spName, param).Tables[0];
         int opt = 0, exec = 0, canceledreciepts = 0, canceledoodds = 0;
@@ -1668,7 +1668,7 @@ public class PhoneCustomer
                         Login log = new Login();
                         log.Username = _username;
                         log.getuser_info();
-                        sendsms("" + getMatchTeams(_matchno) + " has been removed from your ticket (ReceiptNo: " + _betid + " due to erroneous odds (MatchNo: " + _matchno+")", log.Phoneno);
+                        sendsms("" + getMatchTeams(_matchno) + " has been removed from your ticket (ReceiptNo: " + _betid + " due to erroneous odds (BetServiceMatchNo: " + _matchno+")", log.Phoneno);
                     }
                 }
             }
@@ -1691,7 +1691,7 @@ public class PhoneCustomer
         SqlParameter[] param = new SqlParameter[3];
         param[0] = new SqlParameter("@Mode", "PostponeGame");
         param[1] = new SqlParameter("@username", _username);
-        param[2] = new SqlParameter("@MatchNo", _matchno);
+        param[2] = new SqlParameter("@BetServiceMatchNo", _matchno);
         DataTable dt = new DataTable();
         dt = objDBBridge.ExecuteDataset(_spName, param).Tables[0];
         int opt = 0, exec = 0, canceledreciepts = 0, canceledoodds = 0;
@@ -1715,7 +1715,7 @@ public class PhoneCustomer
                         Login log = new Login();
                         log.Username = _username;
                         log.getuser_info();
-						string res = "" + getMatchTeams(_matchno) + " has been postponed or cancelled and effectively removed from your ticket (ReceiptNo: " + _betid + ", (MatchNo: " + _matchno + "). Thank you!";
+						string res = "" + getMatchTeams(_matchno) + " has been postponed or cancelled and effectively removed from your ticket (ReceiptNo: " + _betid + ", (BetServiceMatchNo: " + _matchno + "). Thank you!";
                         sendsms(res, log.Phoneno); 
 						log.Phoneno = log.Phoneno;
 						log.Message = res;
@@ -1733,7 +1733,7 @@ public class PhoneCustomer
                         Login log = new Login();
                         log.Username = _username;
                         log.getuser_info();
-                        string res = "" + getMatchTeams(_matchno) + " has been postponed or cancelled and effectively removed from your ticket (ReceiptNo: " + _betid + ", (MatchNo: " + _matchno + "). Thank you!";
+                        string res = "" + getMatchTeams(_matchno) + " has been postponed or cancelled and effectively removed from your ticket (ReceiptNo: " + _betid + ", (BetServiceMatchNo: " + _matchno + "). Thank you!";
                         sendsms(res, log.Phoneno); 
 						log.Phoneno = log.Phoneno;
 						log.Message = res;
@@ -1762,7 +1762,7 @@ public class PhoneCustomer
         SqlParameter[] param = new SqlParameter[3];
         param[0] = new SqlParameter("@Mode", "CancelGame");
         param[1] = new SqlParameter("@username", _username);
-        param[2] = new SqlParameter("@MatchNo", _matchno);
+        param[2] = new SqlParameter("@BetServiceMatchNo", _matchno);
        return  objDBBridge.ExecuteNonQuery(_spName, param);
     }
     public int postponeErrorGame()
@@ -1770,7 +1770,7 @@ public class PhoneCustomer
         SqlParameter[] param = new SqlParameter[3];
         param[0] = new SqlParameter("@Mode", "PostponeGame");
         param[1] = new SqlParameter("@username", _username);
-        param[2] = new SqlParameter("@MatchNo", _matchno);
+        param[2] = new SqlParameter("@BetServiceMatchNo", _matchno);
         DataTable dt = new DataTable();
         dt = objDBBridge.ExecuteDataset(_spName, param).Tables[0];
         int opt = 0, exec = 0, canceledreciepts = 0, canceledoodds = 0;
@@ -1794,7 +1794,7 @@ public class PhoneCustomer
                         Login log = new Login();
                         log.Username = _username;
                         log.getuser_info();
-                        string res = "" + getMatchTeams(_matchno) + " has been removed from your ticket (ReceiptNo: " + _betid + " due to erroneous odds (MatchNo: " + _matchno + ")";
+                        string res = "" + getMatchTeams(_matchno) + " has been removed from your ticket (ReceiptNo: " + _betid + " due to erroneous odds (BetServiceMatchNo: " + _matchno + ")";
                         sendsms(res, log.Phoneno);
                         log.Phoneno = log.Phoneno;
                         log.Message = res;
@@ -1812,7 +1812,7 @@ public class PhoneCustomer
                         Login log = new Login();
                         log.Username = _username;
                         log.getuser_info();
-                        string res = "" + getMatchTeams(_matchno) + " has been removed from your ticket (ReceiptNo: " + _betid + " due to erroneous odds (MatchNo: " + _matchno + ")";
+                        string res = "" + getMatchTeams(_matchno) + " has been removed from your ticket (ReceiptNo: " + _betid + " due to erroneous odds (BetServiceMatchNo: " + _matchno + ")";
                         sendsms(res, log.Phoneno);
                         log.Phoneno = log.Phoneno;
                         log.Message = res;
@@ -1959,7 +1959,7 @@ public class PhoneCustomer
         SqlParameter[] param = new SqlParameter[6];
         param[1] = new SqlParameter("@amount", _betmoney);
         param[2] = new SqlParameter("@betid", _betid);
-        param[3] = new SqlParameter("@MatchNo", _matchno);
+        param[3] = new SqlParameter("@BetServiceMatchNo", _matchno);
         param[4] = new SqlParameter("@controller", _controller);
         param[5] = new SqlParameter("@oddname", getoddname(_bet_type, _oddname));
         return objDBBridge.ExecuteNonQuery("cancelgame", param);
@@ -2051,7 +2051,7 @@ public class PhoneCustomer
         param[0] = new SqlParameter("@username", _username);
         param[1] = new SqlParameter("@amount", _betmoney);
         param[2] = new SqlParameter("@betid", _betid);
-        param[3] = new SqlParameter("@MatchNo", _matchno);
+        param[3] = new SqlParameter("@BetServiceMatchNo", _matchno);
         param[4] = new SqlParameter("@controller", _controller);
         param[5] = new SqlParameter("@oddname", getoddname(_bet_type, _oddname));
         return objDBBridge.ExecuteNonQuery("RefundBetMoney", param);
@@ -2200,7 +2200,7 @@ public class PhoneCustomer
         SqlParameter[] param = new SqlParameter[4];
         param[0] = new SqlParameter("@Mode", "betmoney");
         param[1] = new SqlParameter("@setno", _setno);
-        param[2] = new SqlParameter("@MatchNo", _matchno);
+        param[2] = new SqlParameter("@BetServiceMatchNo", _matchno);
         param[3] = new SqlParameter("@oddname", _oddname);
         DataTable dtEmployee = new DataTable();
         dtEmployee = objDBBridge.ExecuteDataset(_spName, param).Tables[0];
@@ -2218,7 +2218,7 @@ public class PhoneCustomer
         SqlParameter[] param = new SqlParameter[4];
         param[0] = new SqlParameter("@Mode", "betmoney");
         param[1] = new SqlParameter("@setno", _setno);
-        param[2] = new SqlParameter("@MatchNo", _matchno);
+        param[2] = new SqlParameter("@BetServiceMatchNo", _matchno);
         param[3] = new SqlParameter("@oddname", _oddname);
         DataTable dtEmployee = new DataTable();
         dtEmployee = objDBBridge.ExecuteDataset(_spName, param).Tables[0];
@@ -2236,7 +2236,7 @@ public class PhoneCustomer
         SqlParameter[] param = new SqlParameter[3];
         param[0] = new SqlParameter("@Mode", "share");
         param[1] = new SqlParameter("@setno", _setno);
-        param[2] = new SqlParameter("@MatchNo", _matchno);
+        param[2] = new SqlParameter("@BetServiceMatchNo", _matchno);
         DataTable dtEmployee = new DataTable();
         dtEmployee = objDBBridge.ExecuteDataset(_spName, param).Tables[0];
         if (dtEmployee.Rows.Count != 0)
@@ -2255,7 +2255,7 @@ public class PhoneCustomer
         SqlParameter[] param = new SqlParameter[3];
         param[0] = new SqlParameter("@Mode", "maxandminodd");
         param[1] = new SqlParameter("@setno", _setno);
-        param[2] = new SqlParameter("@MatchNo", _matno);
+        param[2] = new SqlParameter("@BetServiceMatchNo", _matno);
        
         DataTable dtEmployee = new DataTable();
         dtEmployee = objDBBridge.ExecuteDataset(_spName, param).Tables[0];
@@ -2275,7 +2275,7 @@ public class PhoneCustomer
         SqlParameter[] param = new SqlParameter[3];
         param[0] = new SqlParameter("@Mode", "maxandminodd");
         param[1] = new SqlParameter("@setno", _setno);
-        param[2] = new SqlParameter("@MatchNo", _matno);
+        param[2] = new SqlParameter("@BetServiceMatchNo", _matno);
 
         DataTable dtEmployee = new DataTable();
         dtEmployee = objDBBridge.ExecuteDataset(_spName, param).Tables[0];
@@ -2295,7 +2295,7 @@ public class PhoneCustomer
         SqlParameter[] param = new SqlParameter[3];
         param[0] = new SqlParameter("@Mode", "share");
         param[1] = new SqlParameter("@setno", _setno);
-        param[2] = new SqlParameter("@MatchNo",_matchno);
+        param[2] = new SqlParameter("@BetServiceMatchNo",_matchno);
        
         DataTable dtEmployee = new DataTable();
         dtEmployee = objDBBridge.ExecuteDataset(_spName, param).Tables[0];
@@ -2375,7 +2375,7 @@ public class PhoneCustomer
         param[5] = new SqlParameter("@category", _category);
         param[6] = new SqlParameter("@champ", _champ);
         param[7] = new SqlParameter("@setno", _setno);
-        param[8] = new SqlParameter("@MatchNo", _matchno);
+        param[8] = new SqlParameter("@BetServiceMatchNo", _matchno);
         param[9] = new SqlParameter("@host", _host);
         param[10] = new SqlParameter("@vs", "Vs");
         param[11] = new SqlParameter("@visitor", _visitor);
@@ -2400,7 +2400,7 @@ public class PhoneCustomer
          SqlParameter[] param = new SqlParameter[4];
          param[0] = new SqlParameter("@mode", "updatewinhome");
          param[1] = new SqlParameter("@setno", _setno);
-         param[2] = new SqlParameter("@MatchNo", _matchno);
+         param[2] = new SqlParameter("@BetServiceMatchNo", _matchno);
          param[3] = new SqlParameter("@winhome", _winhome);
          return objDBBridge.ExecuteNonQuery(_spName, param);
      }
@@ -2409,7 +2409,7 @@ public class PhoneCustomer
          SqlParameter[] param = new SqlParameter[4];
          param[0] = new SqlParameter("@mode", "updatelossaway");
          param[1] = new SqlParameter("@setno", _setno);
-         param[2] = new SqlParameter("@MatchNo", _matchno);
+         param[2] = new SqlParameter("@BetServiceMatchNo", _matchno);
          param[3] = new SqlParameter("@lossaway", _lossaway);
          return objDBBridge.ExecuteNonQuery(_spName, param);
      }
@@ -2470,7 +2470,7 @@ public class PhoneCustomer
          SqlParameter[] param = new SqlParameter[4];
          param[0] = new SqlParameter("@mode", "  updatesetoddlose");
          param[1] = new SqlParameter("@setno", _setno);
-         param[2] = new SqlParameter("@MatchNo", _matchno);
+         param[2] = new SqlParameter("@BetServiceMatchNo", _matchno);
          param[3] = new SqlParameter("@oddlose", _oddlose);
          param[4] = new SqlParameter("@oddname", _oddname);
          return objDBBridge.ExecuteNonQuery(_spName, param);
@@ -2480,7 +2480,7 @@ public class PhoneCustomer
          SqlParameter[] param = new SqlParameter[4];
          param[0] = new SqlParameter("@mode", " updatesetoddwin");
          param[1] = new SqlParameter("@setno", _setno);
-         param[2] = new SqlParameter("@MatchNo", _matchno);
+         param[2] = new SqlParameter("@BetServiceMatchNo", _matchno);
          param[3] = new SqlParameter("@oddwin", _oddwin);
          param[4] = new SqlParameter("@oddname", _oddname);
          return objDBBridge.ExecuteNonQuery(_spName, param);

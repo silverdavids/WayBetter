@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Domain.ViewModels.GameViewModel>
+﻿@model IEnumerable<Domain.ViewModels.MatchViewModel>
 
 <style type="text/css">
     .col-lg-12, .col-md-8, .col-md-offset-11, .col-sm-1 {
@@ -58,7 +58,7 @@
         text-align: center;
     }
 </style>
-<div id="maindiv" ng-controller="GamesController">
+<div id="maindiv" ng-controller="MatchsController">
     <div class="col-lg-12">
         <div class="form-group">
             <input type="button" class="btn btn-xs btn-success" value="FT 1x2" data-bet-category="FT 1x2" onclick="getBetCategoryOddTypes()" />
@@ -100,10 +100,10 @@
                 {
                     <tr>
                         <td>
-                            @String.Format("{0}", item.Game.MatchNo)
+                            @String.Format("{0}", item.Match.BetServiceMatchNo)
                         </td>
                         <td>
-                            @String.Format("{0:t}", item.Game.StartTime)
+                            @String.Format("{0:t}", item.Match.StartTime)
                         </td>
                         <td class="livebet">
                             <span class="badge">Live</span>

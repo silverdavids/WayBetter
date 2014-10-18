@@ -12,10 +12,9 @@ namespace Domain.Models.Concrete
         [Required(ErrorMessage = "* Required")]
         public string Option { get; set; }
 
-        public int? HandicapGoals { get; set; }
+        public string Line { get; set; }
 
         [ForeignKey("BetCategory")]
-        [Required(ErrorMessage = "* Required")]
         public int BetCategoryId { get; set; }
 
         public virtual BetCategory BetCategory { get; set; }

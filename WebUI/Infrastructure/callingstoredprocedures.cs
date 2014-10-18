@@ -614,7 +614,7 @@ public class callingstoredprocedures
             dtm[5] = new SqlParameter("@bet_type", _bet_type.Trim());
             dtm[6] = new SqlParameter("@category", _category.Trim());
             dtm[7] = new SqlParameter("@champ", _champ.Trim());
-            dtm[8] = new SqlParameter("@MatchNo", _matno.Trim());
+            dtm[8] = new SqlParameter("@BetServiceMatchNo", _matno.Trim());
             dtm[9] = new SqlParameter("@host", _host.Trim());
             dtm[10] = new SqlParameter("@visitor", _visitor.Trim());
             dtm[11] = new SqlParameter("@oddname", _oddname.Trim());
@@ -655,7 +655,7 @@ public class callingstoredprocedures
         try
         {
             SqlParameter[] dtm = new SqlParameter[2];
-            dtm[0] = new SqlParameter("@MatchNo", _matno.Trim());
+            dtm[0] = new SqlParameter("@BetServiceMatchNo", _matno.Trim());
             dtm[1] = new SqlParameter("@mode", _mode.Trim());
 
             // DataTable dtmatches = new DataTable();
@@ -717,7 +717,7 @@ public class callingstoredprocedures
             dtm[2] = new SqlParameter("@category", _category.Trim());
             dtm[3] = new SqlParameter("@champ", _champ.Trim());
             dtm[4] = new SqlParameter("@setno", setno.Trim());
-            dtm[5] = new SqlParameter("@MatchNo", _matno.Trim());            
+            dtm[5] = new SqlParameter("@BetServiceMatchNo", _matno.Trim());            
             dtm[6] = new SqlParameter("@visitor", _visitor.Trim());
             dtm[7] = new SqlParameter("@oddname", _oddname.Trim());
             dtm[8] = new SqlParameter("@odd", _odd);
@@ -818,7 +818,7 @@ public class callingstoredprocedures
             dtm[2] = new SqlParameter("@category", _category.Trim());
             dtm[3] = new SqlParameter("@champ", _champ.Trim());
             dtm[4] = new SqlParameter("@setno", setno.Trim());
-            dtm[5] = new SqlParameter("@MatchNo", _matno.Trim());
+            dtm[5] = new SqlParameter("@BetServiceMatchNo", _matno.Trim());
             dtm[6] = new SqlParameter("@visitor", _visitor.Trim());
             dtm[7] = new SqlParameter("@oddname", _oddname.Trim());
             dtm[8] = new SqlParameter("@odd", _odd);
@@ -1030,7 +1030,7 @@ public class callingstoredprocedures
             dtm[1] = new SqlParameter("@betdate",_betdate);
             dtm[2] = new SqlParameter("@category",_category);
             dtm[3] = new SqlParameter("@setno",_setno);
-            dtm[4] = new SqlParameter("@MatchNo",_matno);
+            dtm[4] = new SqlParameter("@BetServiceMatchNo",_matno);
             dtm[5] = new SqlParameter("@host",_host);
             dtm[6] = new SqlParameter("@visitor",_visitor);
             dtm[7] = new SqlParameter("@oddname",_oddname);
@@ -1059,7 +1059,7 @@ public class callingstoredprocedures
 
             dtm[0] = new SqlParameter("@username", _username); 
             dtm[1] = new SqlParameter("@betdate", _betdate);          
-            dtm[2] = new SqlParameter("@MatchNo", _matno);
+            dtm[2] = new SqlParameter("@BetServiceMatchNo", _matno);
             dtm[3] = new SqlParameter("@host", _host);
             dtm[4] = new SqlParameter("@visitor", _visitor);
             dtm[5] = new SqlParameter("@oddname", _oddname);
@@ -1086,7 +1086,7 @@ public class callingstoredprocedures
         try
         {
             SqlParameter[] dtm = new SqlParameter[1];
-            dtm[0] = new SqlParameter("@MatchNo", matno.Trim());
+            dtm[0] = new SqlParameter("@BetServiceMatchNo", matno.Trim());
 
             dtmatches = mybridge.ExecuteDataset("SelectApproved_set", dtm).Tables[0];
             res = "success";
@@ -1107,7 +1107,7 @@ public class callingstoredprocedures
             
             dtm[0] = new SqlParameter("@controller", _username.Trim());
             dtm[1] = new SqlParameter("@betID", _betID);
-            dtm[2] = new SqlParameter("@MatchNo", _matno.Trim());
+            dtm[2] = new SqlParameter("@BetServiceMatchNo", _matno.Trim());
             dtm[3] = new SqlParameter("@oddname", _oddname.Trim());
             dtm[4] = new SqlParameter("@host", _host.Trim());
             dtm[5] = new SqlParameter("@visitor", _visitor.Trim());
@@ -1133,7 +1133,7 @@ public class callingstoredprocedures
 
     //        dtm[0] = new SqlParameter("@controller", _username.Trim());
     //        dtm[1] = new SqlParameter("@betID", _betID);
-    //        dtm[2] = new SqlParameter("@MatchNo", _matno.Trim());
+    //        dtm[2] = new SqlParameter("@BetServiceMatchNo", _matno.Trim());
     //        dtm[3] = new SqlParameter("@oddname", _oddname.Trim());
     //        dtm[4] = new SqlParameter("@host", _host.Trim());
     //        dtm[5] = new SqlParameter("@visitor", _visitor.Trim());
@@ -1158,7 +1158,7 @@ public class callingstoredprocedures
         {
             SqlParameter[] dtm = new SqlParameter[1];
                        
-            dtm[0] = new SqlParameter("@MatchNo", _matno.Trim());
+            dtm[0] = new SqlParameter("@BetServiceMatchNo", _matno.Trim());
 
             mybridge.ExecuteDataset("deny_set_results", dtm);
             res = "success";
@@ -1296,7 +1296,7 @@ public class callingstoredprocedures
                       
             dtm[0] = new SqlParameter("@username", _username);
             dtm[1] = new SqlParameter("@league ", _champ);
-            dtm[2] = new SqlParameter("@MatchNo", _matno);
+            dtm[2] = new SqlParameter("@BetServiceMatchNo", _matno);
             dtm[3] = new SqlParameter("@host", _host);
             dtm[4] = new SqlParameter("@visitor", _visitor);
             dtm[5] = new SqlParameter("@oddname", _oddname);
@@ -1322,7 +1322,7 @@ public class callingstoredprocedures
         try
         {
             SqlParameter[] dtm = new SqlParameter[1];
-            dtm[0] = new SqlParameter("@MatchNo", _matno);
+            dtm[0] = new SqlParameter("@BetServiceMatchNo", _matno);
 
             dtmatches = mybridge.ExecuteDataset("Getbetted_sets").Tables[0];
             //mybridge.ExecuteDataset("Approved_sets", dtm);
@@ -1345,7 +1345,7 @@ public class callingstoredprocedures
         {
             SqlParameter[] dtm = new SqlParameter[1];
 
-            dtm[0] = new SqlParameter("@MatchNo", _matno);
+            dtm[0] = new SqlParameter("@BetServiceMatchNo", _matno);
 
             dtmatches = mybridge.ExecuteDataset("GetApproved_match", dtm).Tables[0];
             //mybridge.ExecuteDataset("Approved_sets", dtm);
@@ -1415,7 +1415,7 @@ public class callingstoredprocedures
         {
             SqlParameter[] dtm = new SqlParameter[1];
 
-            dtm[0] = new SqlParameter("@MatchNo", _matno);
+            dtm[0] = new SqlParameter("@BetServiceMatchNo", _matno);
             
             dtmatches = mybridge.ExecuteDataset("Getsmsmatches", dtm).Tables[0];
             //mybridge.ExecuteDataset("Approved_sets", dtm);
@@ -1461,7 +1461,7 @@ public class callingstoredprocedures
     //    {
     //        SqlParameter[] dtm = new SqlParameter[1];
 
-    //        dtm[0] = new SqlParameter("@MatchNo", _matno.Trim());
+    //        dtm[0] = new SqlParameter("@BetServiceMatchNo", _matno.Trim());
 
     //        mybridge.ExecuteDataset("deny_set_results", dtm);
     //        res = "success";
@@ -1483,7 +1483,7 @@ public class callingstoredprocedures
 
             dtm[0] = new SqlParameter("@oddname", _oddname);
             dtm[1] = new SqlParameter("@username", _username);
-            dtm[2] = new SqlParameter("@MatchNo", _matno);
+            dtm[2] = new SqlParameter("@BetServiceMatchNo", _matno);
             dtm[3] = new SqlParameter("@betID", _betID);
             dtm[4] = new SqlParameter("@flag", _flag);
 
@@ -1531,7 +1531,7 @@ public class callingstoredprocedures
             
             dtm[0] = new SqlParameter("@username", _username);
             dtm[1] = new SqlParameter("@betID", _betID);
-            dtm[2] = new SqlParameter("@MatchNo", _matno);
+            dtm[2] = new SqlParameter("@BetServiceMatchNo", _matno);
             dtm[3] = new SqlParameter("@oddname", _oddname);
             dtm[4] = new SqlParameter("@host", _host);
             dtm[5] = new SqlParameter("@visitor", _visitor);
@@ -1564,7 +1564,7 @@ public class callingstoredprocedures
         try
         {
             SqlParameter[] dtm = new SqlParameter[1];
-            dtm[0] = new SqlParameter("@MatchNo", matno);
+            dtm[0] = new SqlParameter("@BetServiceMatchNo", matno);
 
             dtmatches = mybridge.ExecuteDataset("getdetailsmatchessets", dtm).Tables[0];
             res = "success";
@@ -1632,7 +1632,7 @@ public class callingstoredprocedures
         {
             SqlParameter[] dtm = new SqlParameter[1];
 
-            dtm[0] = new SqlParameter("@MatchNo", _matno);
+            dtm[0] = new SqlParameter("@BetServiceMatchNo", _matno);
 
             dtmatches = mybridge.ExecuteDataset("deleteteamcode", dtm).Tables[0];
             //mybridge.ExecuteDataset("Approved_sets", dtm);
@@ -1654,7 +1654,7 @@ public class callingstoredprocedures
         try
         {
             SqlParameter[] dtm = new SqlParameter[1];
-            dtm[0] = new SqlParameter("@MatchNo", matno);
+            dtm[0] = new SqlParameter("@BetServiceMatchNo", matno);
 
             dtmatches = mybridge.ExecuteDataset("getmatchbettedon", dtm).Tables[0];
             res = "success";

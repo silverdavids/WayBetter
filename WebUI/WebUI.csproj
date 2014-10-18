@@ -213,6 +213,7 @@
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\ManualResultController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
+    <Compile Include="Controllers\MatchesController.cs" />
     <Compile Include="Controllers\ReceptController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
@@ -299,33 +300,17 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Infrastructure\XmlHelper.cs" />
-    <Compile Include="Migrations\201409251707257_InitialCreate.cs" />
-    <Compile Include="Migrations\201409251707257_InitialCreate.Designer.cs">
-      <DependentUpon>201409251707257_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201410141731072_InitialCreate.cs" />
+    <Compile Include="Migrations\201410141731072_InitialCreate.Designer.cs">
+      <DependentUpon>201410141731072_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201409262304178_pat1.cs" />
-    <Compile Include="Migrations\201409262304178_pat1.Designer.cs">
-      <DependentUpon>201409262304178_pat1.cs</DependentUpon>
+    <Compile Include="Migrations\201410161711350_BetOptionpatch.cs" />
+    <Compile Include="Migrations\201410161711350_BetOptionpatch.Designer.cs">
+      <DependentUpon>201410161711350_BetOptionpatch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201409262338524_lasttest.cs" />
-    <Compile Include="Migrations\201409262338524_lasttest.Designer.cs">
-      <DependentUpon>201409262338524_lasttest.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409271814396_FinalMigration.cs" />
-    <Compile Include="Migrations\201409271814396_FinalMigration.Designer.cs">
-      <DependentUpon>201409271814396_FinalMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409290923241_addbetodd.cs" />
-    <Compile Include="Migrations\201409290923241_addbetodd.Designer.cs">
-      <DependentUpon>201409290923241_addbetodd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409292347057_recieptgenerate.cs" />
-    <Compile Include="Migrations\201409292347057_recieptgenerate.Designer.cs">
-      <DependentUpon>201409292347057_recieptgenerate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201409300018243_reciepts.cs" />
-    <Compile Include="Migrations\201409300018243_reciepts.Designer.cs">
-      <DependentUpon>201409300018243_reciepts.cs</DependentUpon>
+    <Compile Include="Migrations\201410172202302_MatchOddError.cs" />
+    <Compile Include="Migrations\201410172202302_MatchOddError.Designer.cs">
+      <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -350,6 +335,7 @@
     <Content Include="Content\css\Custom.css" />
     <Content Include="Content\css\local.css" />
     <Content Include="Content\css\styles.css" />
+    <Content Include="Content\custom.css" />
     <Content Include="Content\DataTables-1.10.2\css\dataTables.autoFill.css" />
     <Content Include="Content\DataTables-1.10.2\css\dataTables.autoFill.min.css" />
     <Content Include="Content\DataTables-1.10.2\css\dataTables.bootstrap.css" />
@@ -415,6 +401,8 @@
     <Content Include="Content\Images\betway2.png" />
     <Content Include="Content\Images\icons.png" />
     <Content Include="Content\Images\loadingAnim.gif" />
+    <Content Include="Content\Images\pattern2.png" />
+    <Content Include="Content\Images\uefa2.jpg" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery.dataTables.css" />
     <Content Include="Content\main.css" />
@@ -711,6 +699,7 @@
     <Content Include="gbl\england_shedule.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="gbl\GetSportEventsItalyEngland.xml" />
     <Content Include="gbl\Update.aspx" />
     <Content Include="gbl\UpdateScore.aspx" />
     <Content Include="gbl\Uploadxml.aspx" />
@@ -1652,7 +1641,7 @@
     <Content Include="Views\Match\Delete.cshtml" />
     <Content Include="Views\Match\Details.cshtml" />
     <Content Include="Views\Match\Edit.cshtml" />
-    <Content Include="Views\Match\Index.cshtml" />
+    <Content Include="Views\Matches\Index.cshtml" />
     <Content Include="Views\Games\Create.cshtml" />
     <Content Include="Views\Games\Delete.cshtml" />
     <Content Include="Views\Games\Details.cshtml" />
@@ -1730,6 +1719,10 @@
     <Content Include="Views\Shared\Scores.cshtml" />
     <Content Include="Views\Shared\_LiveLayoutPage.cshtml" />
     <Content Include="Views\LiveGames\Index.cshtml" />
+    <Content Include="Views\Matches\Create.cshtml" />
+    <Content Include="Views\Matches\Delete.cshtml" />
+    <Content Include="Views\Matches\Details.cshtml" />
+    <Content Include="Views\Matches\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1751,26 +1744,14 @@
     <Folder Include="Content\Files\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201409251707257_InitialCreate.resx">
-      <DependentUpon>201409251707257_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201410141731072_InitialCreate.resx">
+      <DependentUpon>201410141731072_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409262304178_pat1.resx">
-      <DependentUpon>201409262304178_pat1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201410161711350_BetOptionpatch.resx">
+      <DependentUpon>201410161711350_BetOptionpatch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409262338524_lasttest.resx">
-      <DependentUpon>201409262338524_lasttest.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409271814396_FinalMigration.resx">
-      <DependentUpon>201409271814396_FinalMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409290923241_addbetodd.resx">
-      <DependentUpon>201409290923241_addbetodd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409292347057_recieptgenerate.resx">
-      <DependentUpon>201409292347057_recieptgenerate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409300018243_reciepts.resx">
-      <DependentUpon>201409300018243_reciepts.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201410172202302_MatchOddError.resx">
+      <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
