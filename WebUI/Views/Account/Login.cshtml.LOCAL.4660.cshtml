@@ -1,0 +1,153 @@
+﻿@*@model Domain.Models.ViewModels.LoginVM
+
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_LoginMaster.cshtml";
+}
+<div class="row">
+    <div class="col-md-offset-3 col-md-6">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            { 
+                @Html.AntiForgeryToken()
+                <h3>Staff Login</h3>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+               
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Log in" class="btn btn-info" />
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>*@
+
+@{
+    Layout = null;
+}
+@model Domain.Models.ViewModels.LoginVM
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie ie9" lang="en" class="no-js"> <![endif]-->
+<!--[if !(IE)]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<head>
+    <title>Login | BetWay Uganda</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Betway Uganda Limited">
+    <meta name="author" content="Shazam">
+    <!-- CSS -->
+
+    <link href="~/Content/master/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/master/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/master/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/master/css/custom.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="wrapper full-page-wrapper page-login text-center">
+        <div class="inner-page">
+            <div class="logo">
+                <h1 style="font-weight: bolder; font-size: 3.6em;">Betway Uganda Limited</h1>
+                <p style="font-size: 1.2em; font-weight: bolder;"><i>bet your way</i></p>
+            </div>
+            <div class="separator"><span>Account Credentials</span></div>
+            @using (Html.BeginForm("Login", "Account", new { ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "loginForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="login-box center-block">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <p class="title"></p>
+                    <div class="form-group">
+                        <label for="Username" class="control-label sr-only">Username</label>
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <input type="text" placeholder="username" class="form-control" id="Username" name="Username">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            </div>
+                            <div class="input-group">
+                                <p class="text-danger hidden" id="UsernameError">* Username is required.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <label for="Password" class="control-label sr-only">Password</label>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <input type="password" placeholder="password" class="form-control" id="Password" name="Password">
+                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                            </div>
+                            <div class="input-group">
+                                <p class="text-danger hidden" id="PasswordError">* Password is required.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="simple-checkbox">
+                        <input type="checkbox" id="checkbox1">
+                        <label for="checkbox1">Remember me next time</label>
+                    </div>
+                    <button class="btn btn-custom-primary btn-lg btn-block btn-login" id="loginButton"><i class="fa fa-arrow-circle-o-right"></i> Login</button>
+
+
+                    <div class="links">
+                        <p><a href="#">Forgot Username or Password?</a></p>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="push-sticky-footer"></div>
+    </div>
+    <footer class="footer">&copy; @DateTime.Now.Year Betway Uganda Limited</footer>
+</body>
+</html>
+<!-- Javascript -->
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/modernizr-2.7.2.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#loginButton').click(function () {
+            var username = $('#Username').val();
+            var password = $('#Password').val();
+            if (!username || !password) {
+                if (!username) {
+                    $('#UsernameError').removeClass('hidden').addClass('show');
+                    return false;
+                } else {
+                    $('#UsernameError').removeClass('show').addClass('hidden');
+                }
+
+                if (!password) {
+                    $('#PasswordError').removeClass('hidden').addClass('show');
+                    return false;
+                } else {
+                    $('#PasswordError').removeClass('show').addClass('hidden');
+                }
+                return false;
+            } else {
+                $('#UsernameError').removeClass('show').addClass('hidden');
+                $('#PasswordError').removeClass('show').addClass('hidden');
+                $('#submitForm').submit();
+            }
+        });
+    });
+</script>
+
+
+ 

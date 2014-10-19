@@ -21,6 +21,14 @@ body {
   color: #555555;
   background-color: #ffffff;
 }
+
+.bet-way-header {
+    background: #0D1F35 !important;
+    background-color:#0D1F35 !important;
+  /*border-color: #080808;*/
+
+}
+
 .text-muted {
   color: #999999;
 }

@@ -6,7 +6,6 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using WebUI.Helpers;
 
@@ -25,18 +24,19 @@ namespace WebUI.Controllers
         {
             try
             {
-                DateTime startTime = DateTime.Now.AddHours(-12);
+                DateTime startTime = DateTime.Now.AddHours(-24);
+                DateTime endTime = DateTime.Now.AddHours(-2);
                 var MatchList =
-                    BetDatabase.Matches.Where(x=>x.ResultStatus==1&&x.StartTime<startTime).OrderByDescending(x=>x.StartTime).Take(100).ToList();
+                    BetDatabase.Matches.Where(x=>x.ResultStatus==1&&x.StartTime>startTime&&x.StartTime<endTime&&x.BetServiceMatchNo<10000).OrderByDescending(x=>x.StartTime).Take(1000).ToList();
                 int count = MatchList.Count;
                 List<MatchScores> score=new List<MatchScores>();
                 foreach (Match match in MatchList)
                 {
                    MatchScores ms=new MatchScores();
-                    ms.MatchNo = match.MatchNo;
+                    ms.MatchNo = match.BetServiceMatchNo;
                     ms.HomeTeam = match.HomeTeam.TeamName;
                     ms.AwayTeam = match.AwayTeam.TeamName;
-                    ms.League = match.Champ;
+                    ms.League = match.League;
                     ms.HomeScore = 0;
                     ms.AwayScore = 0;
                     ms.HalfTimeHomeScore = 0;
@@ -91,11 +91,11 @@ namespace WebUI.Controllers
                                         {
                                           
                                            int mtcno = Convert.ToInt32(goalServeMatchID);
-                                            var mtc = BetDatabase.Matches.Include(x => x.AwayTeam).Include(x => x.HomeTeam).Where(c=>c.ResultStatus==1).Single(m => m.MatchNo == mtcno);
+                                            var mtc = BetDatabase.Matches.Include(x => x.AwayTeam).Include(x => x.HomeTeam).Where(c=>c.ResultStatus==1).Single(m => m.BetServiceMatchNo == mtcno);
                                             if (mtc == null)
                                             {                                           
                                             }
-                                            // Match mtc = BetDatabase.Matches.Where(mt => mt.MatchNo == mtcno).SingleOrDefault();
+                                            // Match mtc = BetDatabase.Matches.Where(mt => mt.BetServiceMatchNo == mtcno).SingleOrDefault();
 
                                             try
                                             {
@@ -131,28 +131,28 @@ namespace WebUI.Controllers
                                             if (mtc.HomeScore > mtc.AwayScore)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 1).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(h => h.BetCategoryId == result.CategoryId).Where(c => c.BetOptionId == 1).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
                                                 resultList.Add(result);
-                                                BetDatabase.SaveChanges();
+                                             
 
                                             }
                                             else if (mtc.HomeScore < mtc.AwayScore)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 1).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(h => h.BetCategoryId == result.CategoryId).Where(c => c.BetOptionId == 3).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
                                                 resultList.Add(result);
-                                                BetDatabase.SaveChanges();
+                                            
                                             }
                                             else if (mtc.HomeScore == mtc.AwayScore)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 1).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(h => h.BetCategoryId == result.CategoryId).Where(c => c.BetOptionId == 2).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
@@ -164,28 +164,28 @@ namespace WebUI.Controllers
                                             if (mtc.HalfTimeHomeScore > mtc.HalfTimeAwayScore)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 3).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(h => h.BetCategoryId == result.CategoryId).Where(c => c.BetOptionId == 12).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
                                                 resultList.Add(result);
-                                                BetDatabase.SaveChanges();
+                                          
                                             }
                                             else if (mtc.HalfTimeHomeScore < mtc.HalfTimeAwayScore)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 3).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(h => h.BetCategoryId == result.CategoryId).Where(c => c.BetOptionId == 14).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
                                                 resultList.Add(result);
-                                                BetDatabase.SaveChanges();
+                                           
                                             }
 
                                             else if (mtc.HalfTimeHomeScore == mtc.HalfTimeAwayScore)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 3).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(h => h.BetCategoryId == result.CategoryId).Where(c => c.BetOptionId == 13).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
@@ -197,7 +197,7 @@ namespace WebUI.Controllers
                                             //if (mtc.HomeScore > mtc.AwayScore)
                                             //{
                                             //    Result result = new Result();
-                                            //    result.MatchId = mtc.MatchNo;
+                                            //    result.MatchId = mtc.BetServiceMatchNo;
                                             //    result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 9).FirstOrDefault().CategoryId;
                                             //    result.OptionId = BetDatabase.BetOptions.Where(h => h.BetCategoryId == result.CategoryId).Where(c => c.BetOptionId == 13).FirstOrDefault().BetOptionId;
                                             //    BetDatabase.Results.Add(result);
@@ -207,7 +207,7 @@ namespace WebUI.Controllers
                                             //else if (mtc.HomeScore < mtc.AwayScore)
                                             //{
                                             //    Result result = new Result();
-                                            //    result.MatchId = mtc.MatchNo;
+                                            //    result.MatchId = mtc.BetServiceMatchNo;
                                             //    result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 9).FirstOrDefault().CategoryId;
                                             //    result.OptionId = BetDatabase.BetOptions.Where(h => h.BetCategoryId == result.CategoryId).Where(c => c.Option == "DNB2").FirstOrDefault().BetOptionId;
                                             //    BetDatabase.Results.Add(result);
@@ -217,7 +217,7 @@ namespace WebUI.Controllers
                                             //else if (mtc.HomeScore == mtc.AwayScore)
                                             //{
                                             //    Result result = new Result();
-                                            //    result.MatchId = mtc.MatchNo;
+                                            //    result.MatchId = mtc.BetServiceMatchNo;
                                             //    result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 9).FirstOrDefault().CategoryId;
                                             //    result.OptionId = BetDatabase.BetOptions.Where(h => h.BetCategoryId == result.CategoryId).Where(c => c.Option == "DNB2").FirstOrDefault().BetOptionId;
 
@@ -231,7 +231,7 @@ namespace WebUI.Controllers
                                             if (mtc.HomeScore > mtc.AwayScore)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 9).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 21).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
@@ -243,7 +243,7 @@ namespace WebUI.Controllers
                                             else if (mtc.HomeScore < mtc.AwayScore)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 4).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 23).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
@@ -256,7 +256,7 @@ namespace WebUI.Controllers
                                             else if (mtc.HomeScore == mtc.AwayScore)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 23).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
@@ -273,7 +273,7 @@ namespace WebUI.Controllers
                                             if (FullTimeTotalGoals > 0.5)//over 0.5
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 33).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
@@ -282,17 +282,17 @@ namespace WebUI.Controllers
                                             else if (FullTimeTotalGoals < 0.5)  //under0.5
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 32).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges();
+                                            
                                                 resultList.Add(result);
                                             }
                                             if (FullTimeTotalGoals > 1.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 5).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
@@ -301,17 +301,17 @@ namespace WebUI.Controllers
                                             else if (FullTimeTotalGoals < 1.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 4).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges();
+                                         
                                                 resultList.Add(result);
                                             }
                                             if (FullTimeTotalGoals > 2.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 7).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
@@ -320,17 +320,17 @@ namespace WebUI.Controllers
                                             else if (FullTimeTotalGoals < 2.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 6).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges();
+                                          
                                                 resultList.Add(result);
                                             }
                                             if (FullTimeTotalGoals > 3.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 9).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
@@ -339,17 +339,16 @@ namespace WebUI.Controllers
                                             else if (FullTimeTotalGoals < 3.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 8).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges();
                                                 resultList.Add(result);
                                             }
                                             if (FullTimeTotalGoals > 4.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 11).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
@@ -358,17 +357,16 @@ namespace WebUI.Controllers
                                             else if (FullTimeTotalGoals < 4.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 12).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges();
                                                 resultList.Add(result);
                                             }
                                             if (FullTimeTotalGoals > 5.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 35).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
@@ -377,11 +375,10 @@ namespace WebUI.Controllers
                                             else if (FullTimeTotalGoals < 5.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 34).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges();
                                                 resultList.Add(result);
                                             }
                                             /*End FullTime U/O/
@@ -393,7 +390,7 @@ namespace WebUI.Controllers
                                             if (HalfTimeTotalGoals > 0.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 4).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 16).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
@@ -402,11 +399,10 @@ namespace WebUI.Controllers
                                             else if (HalfTimeTotalGoals < 0.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 2).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 15).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges();
                                                 resultList.Add(result);
                                             }
                                             /* 0.5*/
@@ -414,7 +410,7 @@ namespace WebUI.Controllers
                                             if (HalfTimeTotalGoals > 1.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 4).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 18).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
@@ -424,7 +420,7 @@ namespace WebUI.Controllers
                                             else if (HalfTimeTotalGoals < 1.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 4).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 17).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
@@ -436,7 +432,7 @@ namespace WebUI.Controllers
                                             if (HalfTimeTotalGoals > 2.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 4).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 20).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
@@ -445,11 +441,10 @@ namespace WebUI.Controllers
                                             else if (HalfTimeTotalGoals < 2.5)
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 4).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 19).FirstOrDefault().BetOptionId;
                                                 BetDatabase.Results.Add(result);
-                                                BetDatabase.SaveChanges();
                                                 resultList.Add(result);
                                             }
                                             /* HT2.5*/
@@ -463,7 +458,7 @@ namespace WebUI.Controllers
                                             if ((homeGoals > 0) && (awayGoals > 0))
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 7).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 26).Where(l => l.BetCategoryId == result.CategoryId).FirstOrDefault().BetCategoryId;
                                                 BetDatabase.Results.Add(result);
@@ -472,7 +467,7 @@ namespace WebUI.Controllers
                                             else if ((homeGoals == 0) && (awayGoals == 0))
                                             {
                                                 Result result = new Result();
-                                                result.MatchId = mtc.MatchNo;
+                                                result.MatchId = mtc.BetServiceMatchNo;
                                                 result.CategoryId = BetDatabase.BetCategories.Where(c => c.CategoryId == 7).FirstOrDefault().CategoryId;
                                                 result.OptionId = BetDatabase.BetOptions.Where(c => c.BetOptionId == 27).Where(l => l.BetCategoryId == result.CategoryId).FirstOrDefault().BetCategoryId;
                                                 BetDatabase.Results.Add(result);
@@ -493,22 +488,26 @@ namespace WebUI.Controllers
                                                         continue;
                                                     }
                                                     rec.SubmitedSize = rec.SubmitedSize + 1;
-                                                    //if (score.OptionId == 30)
-                                                    //{
-                                                    //    betted = BetDatabase.Bets.Where(s => s.MatchId == score.MatchId).Where(j => j.BetOption.BetCategoryId == score.CategoryId).ToList();
-                                                    //    foreach (var bet in betted)
-                                                    //    {
-                                                    //           Receipt betReciept = BetDatabase.Receipts.Where(rc => rc.ReceiptId == bm.RecieptId).Where(rc => rc.ReceiptStatus == 1).SingleOrDefault();
-                                                    //           Double Divider =Convert.ToDouble( betReciept.TotalOdds);
-                                                    //          // betReciept.TotalOdds =Convert.ToDecimal(betReciept.TotalOdds/(Divider));
-
-                                                    //    }
-                                                    //}
+                                                
+                                                    
                                                     if ((bm.BetOptionId == score.OptionId) && (bm.BetOption.BetCategoryId == score.CategoryId))
                                                     {
                                                         rec.WonSize = rec.WonSize + 1;
                                                         bm.GameBetStatus = 2;
-
+                                                    }
+                                                    else  if( (score.CategoryId == 2)||(score.CategoryId == 4))
+                                                    {
+                                                        int subCategory = getSubCategory(score.OptionId);
+                                                        int baseCategory = getSubCategory(bm.BetOptionId);
+                                                        if (UnderOverCat(subCategory, baseCategory))
+                                                        {
+                                                            rec.ReceiptStatus = 2;
+                                                            bm.GameBetStatus = 1;
+                                                        }
+                                                        else
+                                                        {
+                                                            continue;                                                         
+                                                        }
                                                     }
 
                                                     else
@@ -550,6 +549,55 @@ namespace WebUI.Controllers
             catch (Exception exception) { }
        
             return AddedScores;
+        }
+
+        public Boolean UnderOverCat(int baseValue,int compValue)
+        {
+           Boolean CatUnderOver = false;
+            if (baseValue==compValue)
+            {
+                CatUnderOver = true;
+            }
+            return CatUnderOver;
+        }
+
+        public int getSubCategory(int Option )
+        {
+            if ((Option == 33) || (Option == 32))//Under Over 0.5
+            {
+                return 1;
+            }
+            else if ((Option == 4) || (Option == 5))//Under Over 1.5
+            {
+                return 2;
+            }
+            else if ((Option == 6) || (Option == 7))//Under Over 2.5
+            {
+                return 3;
+            }
+            else if ((Option == 8) || (Option == 9))//Under Over 3.5
+            {
+                return 4;
+            }
+            else if ((Option == 10) || (Option == 11))//Under Over 4.5
+            {
+                return 5;
+            }
+            else if ((Option == 15) || (Option == 16))//HtUnder Over 0.5
+            {
+                return 6;
+            }
+            else if ((Option == 17) || (Option == 18))//HTUnder Over 1.5
+            {
+                return 7;
+            }
+            else if ((Option == 19) || (Option == 20))//HT Under Over 2.5
+            {
+                return 8;
+            }
+           
+            return 0; 
+
         }
     }
 }

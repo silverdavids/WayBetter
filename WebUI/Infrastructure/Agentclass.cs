@@ -1272,7 +1272,7 @@ public class Agentclass
         double matodd = 1;
        DataTable dt_match = new DataTable();
       SqlParameter[] param = new SqlParameter[1];
-      param[0] = new SqlParameter("@MatchNo", matchcode);
+      param[0] = new SqlParameter("@BetServiceMatchNo", matchcode);
         dt_match  = objDBBridge.ExecuteDataset("getmatchbettedon", param).Tables[0];
         if (dt_match.Rows.Count != 0)
         {
@@ -1287,7 +1287,7 @@ public class Agentclass
               dtm[2] = new SqlParameter("@category", "Sets");
               dtm[3] = new SqlParameter("@champ", dr["LEAGUE"]);
               dtm[4] = new SqlParameter("@setno", dr["SETCODE"]);
-              dtm[5] = new SqlParameter("@MatchNo", matchcode);
+              dtm[5] = new SqlParameter("@BetServiceMatchNo", matchcode);
               dtm[6] = new SqlParameter("@visitor", dr["AWAY TEAM"]);
               dtm[7] = new SqlParameter("@oddname", oddname.Trim());
               dtm[8] = new SqlParameter("@ttmoney",0);

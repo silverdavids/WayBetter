@@ -326,7 +326,7 @@ public class ProcessReciept
         param[1] = new SqlParameter("@betdate", DateTime.Now);
         param[2] = new SqlParameter("@betmoney", _betmoney);
         param[3] = new SqlParameter("@bet_type", _bettype);
-        param[5] = new SqlParameter("@MatchNo", _matchno);
+        param[5] = new SqlParameter("@BetServiceMatchNo", _matchno);
         param[6] = new SqlParameter("@oddname", _oddname);
         param[7] = new SqlParameter("@betid", _RecieptID.Trim());
         param[8] = new SqlParameter("@username", _username);
@@ -343,7 +343,7 @@ public class ProcessReciept
         param[3] = new SqlParameter("@betmoney", _betmoney);
         param[4] = new SqlParameter("@bet_type", _bet_type);
         param[5] = new SqlParameter("@setno", _setno);
-        param[6] = new SqlParameter("@MatchNo", _matchno);
+        param[6] = new SqlParameter("@BetServiceMatchNo", _matchno);
         param[7] = new SqlParameter("@oddname", _oddname);
         param[8] = new SqlParameter("@betid", _betid);
         param[9] = new SqlParameter("@category", _category);

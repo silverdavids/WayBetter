@@ -130,7 +130,7 @@
                                                 <AlternatingRowStyle CssClass="gridrow_alt" Height="25px" />
                                                 <PagerSettings Position="TopAndBottom" />
                                                 <Columns>
-                                                    <asp:BoundField DataField="MatchNo" HeaderText="Match no" HeaderStyle-HorizontalAlign="Left" />
+                                                    <asp:BoundField DataField="BetServiceMatchNo" HeaderText="Match no" HeaderStyle-HorizontalAlign="Left" />
                                                     <asp:BoundField DataField="bet_type" HeaderText="Bettype" HeaderStyle-HorizontalAlign="Left" />
 
                                                     <asp:BoundField DataField="host" HeaderText="Home" HeaderStyle-HorizontalAlign="Left" />

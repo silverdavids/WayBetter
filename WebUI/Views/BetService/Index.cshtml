@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+
+
+@section scripts{
+    <script src="~/Scripts/xml.js"></script>
+    <script src="~/Scripts/xml2json.js"></script>
+    <script src="~/Scripts/jquery.xml2json.js"></script>
+    <script>
+        $(document).ready(function() {
+            ////http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/england_shedule?odds=bet365
+            //$.get('http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/england_shedule?odds=bet365',
+            //function (xml) {
+            //    var json = $.xml2json(xml);ss
+            //    alert(json);
+            //});
+            
+            $.ajax({
+                url: "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/england_shedule?odds=bet365",
+                dataType: "xml",
+                success: mycallback
+            });
+            
+            function parseXml(xml) {
+                $('category', xml).each(function() {
+                    console.log(JSON.stringify($(this)));
+                });
+            }
+            
+            function mycallback(data) {
+                console.log(data);
+                //var jsonData = xml.xmlToJSON(data);
+                //console.log(JSON.stringify(jsonData));
+            }
+            
+            //var contentType = "application/x-www-form-urlencoded; charset=utf-8";
+
+            //if (window.XDomainRequest)
+            //    contentType = "text/plain";
+
+            //$.ajax({
+            //    url: "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/england_shedule",
+            //    data: "odds=bet365",
+            //    type: "GET",
+            //    dataType: "json",
+            //    contentType: contentType,
+            //    success: function (data) {
+            //        alert("Data from Server" + JSON.stringify(data));
+            //    },
+            //    error: function (jqXhr, textStatus, errorThrown) {
+            //        alert("You can not send Cross Domain AJAX requests: " + errorThrown);
+            //    }
+            //});
+        });
+    </script>
+}
+

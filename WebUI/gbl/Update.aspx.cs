@@ -291,15 +291,15 @@ namespace WebUI.gbl
         //                                    _admin.host = hostTeam;
         //                                    _admin.setno = Convert.ToInt32(setno.Text);
         //                                    _admin.league = league;
-        //                                    _admin.MatchNo = Convert.ToInt64(goalServeMatchID);
+        //                                    _admin.BetServiceMatchNo = Convert.ToInt64(goalServeMatchID);
         //                                    _admin.visitors = awayTeam;
         //                                    _admin.stime = Convert.ToDateTime(stDateTime);
         //                                    _admin.stime = _admin.stime.ToLocalTime();
         //                                    var feed = new MatchFeed
         //                                    {
-        //                                        Game =
+        //                                        Match =
         //                                        {
-        //                                            MatchNo = Convert.ToInt32(_admin.MatchNo),
+        //                                            BetServiceMatchNo = Convert.ToInt32(_admin.BetServiceMatchNo),
         //                                            StartTime = _admin.stime,
         //                                            ResultStatus = 1
         //                                        }

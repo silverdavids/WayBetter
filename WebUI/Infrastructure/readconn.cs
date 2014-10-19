@@ -245,7 +245,7 @@ namespace SRN.BLL
             try
             { 
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfCustomers FROM setbetmatches1 WHERE (MatchNo ='" + matchno + "' AND setno='" + setnum + "')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfCustomers FROM setbetmatches1 WHERE (BetServiceMatchNo ='" + matchno + "' AND setno='" + setnum + "')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -269,7 +269,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfhomebetters FROM setbetmatches1 WHERE (MatchNo ='" + matchno + "' AND setno='" + setnum + "' AND oddname ='home')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfhomebetters FROM setbetmatches1 WHERE (BetServiceMatchNo ='" + matchno + "' AND setno='" + setnum + "' AND oddname ='home')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -292,7 +292,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfawaybetters FROM setbetmatches1 WHERE (MatchNo ='" + matchno + "' AND setno='" + setnum + "' AND oddname ='away')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfawaybetters FROM setbetmatches1 WHERE (BetServiceMatchNo ='" + matchno + "' AND setno='" + setnum + "' AND oddname ='away')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -315,7 +315,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfdrawbetters FROM setbetmatches1 WHERE (MatchNo ='" + matchno + "' AND setno='" + setnum + "' AND oddname ='draw')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfdrawbetters FROM setbetmatches1 WHERE (BetServiceMatchNo ='" + matchno + "' AND setno='" + setnum + "' AND oddname ='draw')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -338,7 +338,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT champ,host,visitor,oddhome,oddaway,odddraw,type FROM betmatch1 WHERE (MatchNo ='" + matchno + "')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT champ,host,visitor,oddhome,oddaway,odddraw,type FROM betmatch1 WHERE (BetServiceMatchNo ='" + matchno + "')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -369,7 +369,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT oddname FROM betresults2 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT oddname FROM betresults2 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -392,7 +392,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT betmoney AS totalmoney FROM setbetmatches1 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT betmoney AS totalmoney FROM setbetmatches1 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -415,7 +415,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT betmoney AS totalmoneyhome FROM setbetmatches1 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='home')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT betmoney AS totalmoneyhome FROM setbetmatches1 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='home')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -438,7 +438,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT ttmoney AS grossmoney FROM setbetmatches1 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='home')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT ttmoney AS grossmoney FROM setbetmatches1 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='home')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -465,7 +465,7 @@ namespace SRN.BLL
            try
            {
                myconn.Open();
-               SqlCommand cmd2 = new SqlCommand("SELECT betmoney AS totalmoneyaway FROM setbetmatches1 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='away')", myconn);
+               SqlCommand cmd2 = new SqlCommand("SELECT betmoney AS totalmoneyaway FROM setbetmatches1 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='away')", myconn);
                SqlDataReader reader = cmd2.ExecuteReader();
                while (reader.Read())
                {
@@ -488,7 +488,7 @@ namespace SRN.BLL
            try
            {
                myconn.Open();
-               SqlCommand cmd2 = new SqlCommand("SELECT ttmoney AS grossmoneyaway FROM setbetmatches1 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='away')", myconn);
+               SqlCommand cmd2 = new SqlCommand("SELECT ttmoney AS grossmoneyaway FROM setbetmatches1 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='away')", myconn);
                SqlDataReader reader = cmd2.ExecuteReader();
                while (reader.Read())
                {
@@ -514,7 +514,7 @@ namespace SRN.BLL
            try
            {
                myconn.Open();
-               SqlCommand cmd2 = new SqlCommand("SELECT betmoney AS totalmoneydraw FROM setbetmatches1 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='draw')", myconn);
+               SqlCommand cmd2 = new SqlCommand("SELECT betmoney AS totalmoneydraw FROM setbetmatches1 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='draw')", myconn);
                SqlDataReader reader = cmd2.ExecuteReader();
                while (reader.Read())
                {
@@ -537,7 +537,7 @@ namespace SRN.BLL
            try
            {
                myconn.Open();
-               SqlCommand cmd2 = new SqlCommand("SELECT ttmoney AS grossmoneydraw FROM setbetmatches1 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='draw')", myconn);
+               SqlCommand cmd2 = new SqlCommand("SELECT ttmoney AS grossmoneydraw FROM setbetmatches1 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='draw')", myconn);
                SqlDataReader reader = cmd2.ExecuteReader();
                while (reader.Read())
                {
@@ -564,7 +564,7 @@ namespace SRN.BLL
            {
                //myconn.Open();
 
-               String sql2 = "insert into SummaryTable(date_e,MatchNo,league,betcategory,bettype,home,away,homeodds," +
+               String sql2 = "insert into SummaryTable(date_e,BetServiceMatchNo,league,betcategory,bettype,home,away,homeodds," +
                "awayodds,drawodds,totalbettors,betpatternHome,betpatternAway,betpatternDraw,result," +
                "totalBetvalSupporters,totalBetvalHome,netwinpayoutHome,grosspayoutHome,netrevenueHome,totalBetvalAway,"+
                "netwinpayoutAway,grosspayoutAway,netrevenueAway,totalBetvalDraw,netwinpayoutDraw,grosspayoutDraw,"+
@@ -651,7 +651,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfCustomers FROM setbetmatches3 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "' AND setno='" + setnum + "'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfCustomers FROM setbetmatches3 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "' AND setno='" + setnum + "'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -675,7 +675,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfhomebetters FROM setbetmatches3 WHERE (MatchNo ='" + matchno + "' AND setno='" + setnum + "' AND oddname ='home'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfhomebetters FROM setbetmatches3 WHERE (BetServiceMatchNo ='" + matchno + "' AND setno='" + setnum + "' AND oddname ='home'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -698,7 +698,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfawaybetters FROM setbetmatches3 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "' AND oddname ='away'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfawaybetters FROM setbetmatches3 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "' AND oddname ='away'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -721,7 +721,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfdrawbetters FROM setbetmatches3 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "' AND oddname ='draw'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(username) AS NumberOfdrawbetters FROM setbetmatches3 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "' AND oddname ='draw'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -744,7 +744,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT champ,host,visitor,winhome,winaway,loseaway,type FROM betmatch4 WHERE (MatchNo ='" + matchno.Trim() + "')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT champ,host,visitor,winhome,winaway,loseaway,type FROM betmatch4 WHERE (BetServiceMatchNo ='" + matchno.Trim() + "')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -775,7 +775,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT oddname FROM betresults4 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT oddname FROM betresults4 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -798,7 +798,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT betmoney AS totalmoney FROM setbetmatches3 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT betmoney AS totalmoney FROM setbetmatches3 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -821,7 +821,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT betmoney AS totalmoneyhome FROM setbetmatches3 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='home'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT betmoney AS totalmoneyhome FROM setbetmatches3 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='home'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -844,7 +844,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT ttmoneywin AS grossmoney FROM setbetmatches3 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='home'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT ttmoneywin AS grossmoney FROM setbetmatches3 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='home'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -867,7 +867,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT ttmoneylose AS grossmoneylose FROM setbetmatches3 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname <> 'home'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT ttmoneylose AS grossmoneylose FROM setbetmatches3 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname <> 'home'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -897,7 +897,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT betmoney AS totalmoneyaway FROM setbetmatches3 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='away'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT betmoney AS totalmoneyaway FROM setbetmatches3 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='away'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -920,7 +920,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT ttmoneywin AS grossmoneyaway FROM setbetmatches3 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='away'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT ttmoneywin AS grossmoneyaway FROM setbetmatches3 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='away'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -943,7 +943,7 @@ namespace SRN.BLL
             try
             {
                 myconn.Open();
-                SqlCommand cmd2 = new SqlCommand("SELECT ttmoneylose AS grossmoneyaway FROM setbetmatches3 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname <>'away'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
+                SqlCommand cmd2 = new SqlCommand("SELECT ttmoneylose AS grossmoneyaway FROM setbetmatches3 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname <>'away'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
                 SqlDataReader reader = cmd2.ExecuteReader();
                 while (reader.Read())
                 {
@@ -973,7 +973,7 @@ namespace SRN.BLL
             //try
             //{
             //    myconn.Open();
-            //    SqlCommand cmd2 = new SqlCommand("SELECT SUM(betmoney) AS totalmoneydraw FROM setbetmatches3 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='draw'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
+            //    SqlCommand cmd2 = new SqlCommand("SELECT SUM(betmoney) AS totalmoneydraw FROM setbetmatches3 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='draw'  AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
             //    SqlDataReader reader = cmd2.ExecuteReader();
             //    while (reader.Read())
             //    {
@@ -995,7 +995,7 @@ namespace SRN.BLL
             //try
             //{
             //    myconn.Open();
-            //    SqlCommand cmd2 = new SqlCommand("SELECT SUM(ttmoneylose) AS grossmoneydraw FROM setbetmatches3 WHERE (MatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='draw' AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
+            //    SqlCommand cmd2 = new SqlCommand("SELECT SUM(ttmoneylose) AS grossmoneydraw FROM setbetmatches3 WHERE (BetServiceMatchNo ='" + matchno + "'AND setno='" + setnum + "'AND oddname ='draw' AND username <> 'Administrator' AND username <> 'Administrator1')", myconn);
             //    SqlDataReader reader = cmd2.ExecuteReader();
             //    while (reader.Read())
             //    {
@@ -1021,7 +1021,7 @@ namespace SRN.BLL
             {
                // myconn.Open();
 
-                String sql2 = "insert into SummaryTable(date_e,MatchNo,league,betcategory,bettype,home,away,homeodds," +
+                String sql2 = "insert into SummaryTable(date_e,BetServiceMatchNo,league,betcategory,bettype,home,away,homeodds," +
                 "awayodds,drawodds,totalbettors,betpatternHome,betpatternAway,betpatternDraw,result," +
                 "totalBetvalSupporters,totalBetvalHome,netwinpayoutHome,grosspayoutHome,netrevenueHome,totalBetvalAway," +
                 "netwinpayoutAway,grosspayoutAway,netrevenueAway,totalBetvalDraw,netwinpayoutDraw,grosspayoutDraw," +
@@ -1258,10 +1258,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select username,betmoney,oddwin,oddlose from setbetmatches3 WHERE (setno Like @setno AND MatchNo Like @MatchNo)";
+                string query3 = "select username,betmoney,oddwin,oddlose from setbetmatches3 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo)";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
 
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
@@ -1306,10 +1306,10 @@ namespace SRN.BLL
                 {
                     conn.Open();
                     //checking up money on one's Account
-                    String query = "UPDATE setbetmatches3 SET ttmoneywin = @ttmoneywin,ttmoneylose=@ttmoneylose WHERE (setno Like @setno AND MatchNo Like @MatchNo AND username Like @username AND betmoney Like @betmoney) ";
+                    String query = "UPDATE setbetmatches3 SET ttmoneywin = @ttmoneywin,ttmoneylose=@ttmoneylose WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND username Like @username AND betmoney Like @betmoney) ";
                     SqlCommand cmd0 = new SqlCommand(query, conn);
                     cmd0.Parameters.AddWithValue("@setno", settno);
-                    cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                    cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                     cmd0.Parameters.AddWithValue("@username", userItems[j]);
                     cmd0.Parameters.AddWithValue("@ttmoneywin", _ttmoney_win);
                     cmd0.Parameters.AddWithValue("@ttmoneylose", _ttmoney_lose);
@@ -1354,10 +1354,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname)";
+                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname)";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd8.Parameters.AddWithValue("@oddname", "home");
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
@@ -1385,10 +1385,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname)";
+                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname)";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd8.Parameters.AddWithValue("@oddname", "away");
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
@@ -1418,10 +1418,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select max_odd_away,min_odd_away from betmatch4 WHERE (setno Like @setno AND MatchNo Like @MatchNo)";
+                string query3 = "select max_odd_away,min_odd_away from betmatch4 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo)";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
                 while (reader1.Read())
@@ -1469,10 +1469,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE betmatch4 SET winaway = @winaway WHERE(setno Like @setno AND MatchNo Like @MatchNo) ";
+                String query = "UPDATE betmatch4 SET winaway = @winaway WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@winaway", winhldamm1.ToString());
                 //cmd8.Parameters.AddWithValue("@oddname", "away");
 
@@ -1493,10 +1493,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE setbetmatches3 SET oddwin = @oddwin WHERE(setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname) ";
+                String query = "UPDATE setbetmatches3 SET oddwin = @oddwin WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@oddwin", winhldamm1.ToString());
                 cmd0.Parameters.AddWithValue("@oddname", "away");
 
@@ -1526,10 +1526,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE betmatch4 SET losehome = @losehome WHERE(setno Like @setno AND MatchNo Like @MatchNo) ";
+                String query = "UPDATE betmatch4 SET losehome = @losehome WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@losehome", losehldamm1.ToString());
                 //cmd8.Parameters.AddWithValue("@oddname", "away");
 
@@ -1545,10 +1545,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE setbetmatches3 SET oddlose = @oddlose WHERE(setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname) ";
+                String query = "UPDATE setbetmatches3 SET oddlose = @oddlose WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@oddlose", losehldamm1.ToString());
                 cmd0.Parameters.AddWithValue("@oddname", "away");
 
@@ -1590,10 +1590,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname)";
+                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname)";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd8.Parameters.AddWithValue("@oddname", "away");
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
@@ -1621,10 +1621,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname)";
+                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname)";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd8.Parameters.AddWithValue("@oddname", "home");
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
@@ -1652,10 +1652,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select max_odd_home,min_odd_home from betmatch4 WHERE (setno Like @setno AND MatchNo Like @MatchNo)";
+                string query3 = "select max_odd_home,min_odd_home from betmatch4 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo)";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
                 while (reader1.Read())
@@ -1699,10 +1699,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE betmatch4 SET winhome = @winhome WHERE(setno Like @setno AND MatchNo Like @MatchNo) ";
+                String query = "UPDATE betmatch4 SET winhome = @winhome WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@winhome", winhldamm1.ToString());
                 //cmd0.Parameters.AddWithValue("@oddname", "away");
 
@@ -1724,10 +1724,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE setbetmatches3 SET oddwin = @oddwin WHERE(setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname) ";
+                String query = "UPDATE setbetmatches3 SET oddwin = @oddwin WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@oddwin", winhldamm1.ToString());
                 cmd0.Parameters.AddWithValue("@oddname", "home");
 
@@ -1757,10 +1757,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE betmatch4 SET loseaway = @loseaway WHERE(setno Like @setno AND MatchNo Like @MatchNo) ";
+                String query = "UPDATE betmatch4 SET loseaway = @loseaway WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@loseaway", losehldamm1.ToString());
                 //cmd8.Parameters.AddWithValue("@oddname", "away");
 
@@ -1782,10 +1782,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE setbetmatches3 SET oddlose = @oddlose WHERE(setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname) ";
+                String query = "UPDATE setbetmatches3 SET oddlose = @oddlose WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@oddlose", losehldamm1.ToString());
                 cmd0.Parameters.AddWithValue("@oddname", "home");
 
@@ -1818,10 +1818,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname )";
+                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname )";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd8.Parameters.AddWithValue("@oddname", "home");
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
@@ -1848,10 +1848,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select winshare,loseshare from betmatch4 WHERE (setno Like @setno AND MatchNo Like @MatchNo )";
+                string query3 = "select winshare,loseshare from betmatch4 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo )";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 //cmd8.Parameters.AddWithValue("@oddname", "away");
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
@@ -1884,10 +1884,10 @@ namespace SRN.BLL
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname )";
+                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname )";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd8.Parameters.AddWithValue("@oddname", "away");
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();

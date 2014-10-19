@@ -13,7 +13,7 @@
             // original data from the server
             games = data;
             console.log(games);
-            //single out unique games
+            //single out unique Matchs
             $.each(data, function (index, item) {
                 inmatchcodes.push(item.MatchNo);
             });

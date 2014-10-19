@@ -5,6 +5,13 @@ body {
 	background-color: #f5f5f5;
 }
 
+.bet-way-header {
+    background: #0D1F35 !important;
+    background-color:#0D1F35 !important;
+  /*border-color: #080808;*/
+
+}
+
 
 @media (min-width: 979px){
     body {

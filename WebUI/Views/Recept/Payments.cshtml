@@ -38,7 +38,7 @@
                     dt = '<table width="600" class="receiptData" >';
                    // alert("out");
                   dt+=('' +
-                        '<th colspan="2"><b>Ticket ID: '+reciept+'</b></th>');
+                        '<th colspan="2"><b>Ticket ID: <label  id="Reciept" >' + reciept + '</label></b></th>');
                     //   alert(dt);
                   var status = "";
                   var betmoney = 0;
@@ -68,7 +68,7 @@
                  '<td  data-field="matchId" class="match-code" colspan="2" >' + data[i].team + '</td>' + '</tr><tr>' +
           
                   '<td  data-field="betmoney" class="match-code"> ' + data[i].choice + '</td>' +
-                              '<td  data-field="betmoney" class="match-code"> ' + data[i].Scores + '</td>' +
+                   '<td  data-field="betmoney" class="match-code"> ' + data[i].Scores + '</td>' +
                     
                                     
                     '</tr>'+
@@ -86,12 +86,12 @@
                  
                         dt += ' <label  id="TicketNumber" data-odd-type="1" value="40000"/>';
                         dt += '<input id="payreciept" type="button" class="btn btn-success btn-xs odd" value="PayReciept" data-odd-type="1" />';
-                        dt += ' <input class="form-control"   id="Reciept" value=' + reciept + ' type="text">';
+                        
                     }
                     $("#dialog").html(dt);
                     // original data from the server
                     games = data;
-                  //  console.log(games);
+                  //  console.log(Matchs);
                     $("#dialog").dialog({
                         title: "Ticket Details",
                         buttons: {

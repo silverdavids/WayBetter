@@ -1,0 +1,44 @@
+﻿.bet-way-log {
+    padding-left: 15px;
+}
+
+body {
+    font-size: 12px !important;
+}
+
+/*.navbar-inverse {
+  background-color: #222222;
+  border-color: #080808;
+}*/
+
+#liveGames tr > th {
+    border-bottom: 0px !important;
+}
+
+.container-full {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.container-fluid {
+     padding-left: 15px;
+     padding-right: 15px;
+}
+.up {
+    color:  #5cb85c !important;
+}
+.down {
+     color: #ff0000 !important;
+}
+
+.bet-way-header {
+    background: #0D1F35 !important;
+    background-color:#0D1F35 !important;
+  /*border-color: #080808;*/
+
+}
+
+.heading {
+    margin-top: 80px;
+    margin-bottom: -15px;
+}

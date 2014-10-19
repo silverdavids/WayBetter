@@ -8,7 +8,7 @@
         }
 
         public int ShortCode { get; set; }
-       // public string MatchNo { get; set; }
+       // public string BetServiceMatchNo { get; set; }
         public string Time { get; set; }
         public string League { get; set; }
         public string Home { get; set; }
