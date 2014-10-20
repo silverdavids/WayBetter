@@ -431,8 +431,8 @@ using System.Configuration;
                     {
                         conn.Open();
 
-                        SqlCommand cmd1 = new SqlCommand("select champ,setno,MatchNo,host,vs,visitor,winhome,losehome,winaway,loseaway,StartTime from betmatch4 Where (MatchNo = @MatchNo)", conn);
-                        cmd1.Parameters.AddWithValue("@MatchNo", matchno);
+                        SqlCommand cmd1 = new SqlCommand("select champ,setno,BetServiceMatchNo,host,vs,visitor,winhome,losehome,winaway,loseaway,StartTime from betmatch4 Where (BetServiceMatchNo = @BetServiceMatchNo)", conn);
+                        cmd1.Parameters.AddWithValue("@BetServiceMatchNo", matchno);
                         SqlDataReader reader = cmd1.ExecuteReader();
                         while (reader.Read())
                         {
@@ -440,7 +440,7 @@ using System.Configuration;
                             // _category = reader["category"].ToString();
                             _champ = reader["champ"].ToString();
                             _setno = reader["setno"].ToString();
-                            _matno = reader["MatchNo"].ToString();
+                            _matno = reader["BetServiceMatchNo"].ToString();
                             _host = reader["host"].ToString();
                             _vs = reader["vs"].ToString();
                             _visitor = reader["visitor"].ToString();
@@ -481,7 +481,7 @@ using System.Configuration;
                             try
                             {
                                 conn.Open();
-                                SqlCommand cmd = new SqlCommand("insert into setbetmatches3(username, betdate,betmoney,category,champ,setno, MatchNo,host,vs,visitor,oddname,oddwin,oddlose,StartTime,phone)values(@username, @betdate,@betmoney,@category,@champ,@setno,@MatchNo,@host,@vs,@visitor,@oddname,@oddwin,@oddlose,@StartTime,@phone)", conn);
+                                SqlCommand cmd = new SqlCommand("insert into setbetmatches3(username, betdate,betmoney,category,champ,setno, BetServiceMatchNo,host,vs,visitor,oddname,oddwin,oddlose,StartTime,phone)values(@username, @betdate,@betmoney,@category,@champ,@setno,@BetServiceMatchNo,@host,@vs,@visitor,@oddname,@oddwin,@oddlose,@StartTime,@phone)", conn);
 
                                 cmd.Parameters.AddWithValue("@username", _user);
                                 cmd.Parameters.AddWithValue("@betdate", _date2de);
@@ -489,7 +489,7 @@ using System.Configuration;
                                 cmd.Parameters.AddWithValue("@category", _category);
                                 cmd.Parameters.AddWithValue("@champ", _champ);
                                 cmd.Parameters.AddWithValue("@setno", _setno);
-                                cmd.Parameters.AddWithValue("@MatchNo", matchno);
+                                cmd.Parameters.AddWithValue("@BetServiceMatchNo", matchno);
                                 cmd.Parameters.AddWithValue("@host", _host);
                                 cmd.Parameters.AddWithValue("@vs", _vs);
                                 cmd.Parameters.AddWithValue("@visitor", _visitor);
@@ -518,7 +518,7 @@ using System.Configuration;
                             try
                             {
                                 conn.Open();
-                                SqlCommand cmd = new SqlCommand("insert into setbetmatches3(username, betdate,betmoney,category,champ,setno, MatchNo,host,vs,visitor,oddname,oddwin,oddlose,StartTime,phone)values(@username, @betdate,@betmoney,@category,@champ,@setno,@MatchNo,@host,@vs,@visitor,@oddname,@oddwin,@oddlose,@StartTime,@phone)", conn);
+                                SqlCommand cmd = new SqlCommand("insert into setbetmatches3(username, betdate,betmoney,category,champ,setno, BetServiceMatchNo,host,vs,visitor,oddname,oddwin,oddlose,StartTime,phone)values(@username, @betdate,@betmoney,@category,@champ,@setno,@BetServiceMatchNo,@host,@vs,@visitor,@oddname,@oddwin,@oddlose,@StartTime,@phone)", conn);
 
                                 cmd.Parameters.AddWithValue("@username", _user);
                                 cmd.Parameters.AddWithValue("@betdate", _date2de);
@@ -526,7 +526,7 @@ using System.Configuration;
                                 cmd.Parameters.AddWithValue("@category", _category);
                                 cmd.Parameters.AddWithValue("@champ", _champ);
                                 cmd.Parameters.AddWithValue("@setno", _setno);
-                                cmd.Parameters.AddWithValue("@MatchNo", matchno);
+                                cmd.Parameters.AddWithValue("@BetServiceMatchNo", matchno);
                                 cmd.Parameters.AddWithValue("@host", _host);
                                 cmd.Parameters.AddWithValue("@vs", _vs);
                                 cmd.Parameters.AddWithValue("@visitor", _visitor);
@@ -565,8 +565,8 @@ using System.Configuration;
                         {
                             conn.Open();
 
-                            SqlCommand cmd1 = new SqlCommand("select champ,setno,MatchNo,host,vs,visitor,StartTime,oddhome,oddaway,odddraw from  betmatch1 Where (MatchNo = @MatchNo)", conn);
-                            cmd1.Parameters.AddWithValue("@MatchNo", matchno);
+                            SqlCommand cmd1 = new SqlCommand("select champ,setno,BetServiceMatchNo,host,vs,visitor,StartTime,oddhome,oddaway,odddraw from  betmatch1 Where (BetServiceMatchNo = @BetServiceMatchNo)", conn);
+                            cmd1.Parameters.AddWithValue("@BetServiceMatchNo", matchno);
                             SqlDataReader reader = cmd1.ExecuteReader();
                             while (reader.Read())
                             {
@@ -574,7 +574,7 @@ using System.Configuration;
                                 // _category = reader["category"].ToString();
                                 _champ = reader["champ"].ToString();
                                 _setno = reader["setno"].ToString();
-                                _matno = reader["MatchNo"].ToString();
+                                _matno = reader["BetServiceMatchNo"].ToString();
                                 _host = reader["host"].ToString();
                                 _vs = reader["vs"].ToString();
                                 _visitor = reader["visitor"].ToString();
@@ -617,7 +617,7 @@ using System.Configuration;
                                 try
                                 {
                                     conn.Open();
-                                    SqlCommand cmd = new SqlCommand("insert into setbetmatches1(username, betdate,betmoney,champ,category,setno,MatchNo,host,vs,visitor,oddname,odd,ttmoney,StartTime,phone)values(@username, @betdate,@betmoney,@champ,@category,@setno,@MatchNo,@host,@vs,@visitor,@oddname,@odd,@ttmoney,@StartTime,@phone)", conn);
+                                    SqlCommand cmd = new SqlCommand("insert into setbetmatches1(username, betdate,betmoney,champ,category,setno,BetServiceMatchNo,host,vs,visitor,oddname,odd,ttmoney,StartTime,phone)values(@username, @betdate,@betmoney,@champ,@category,@setno,@BetServiceMatchNo,@host,@vs,@visitor,@oddname,@odd,@ttmoney,@StartTime,@phone)", conn);
 
                                     cmd.Parameters.AddWithValue("@username", _user);
                                     cmd.Parameters.AddWithValue("@betdate", _date2de);
@@ -625,7 +625,7 @@ using System.Configuration;
                                     cmd.Parameters.AddWithValue("@champ", _champ);
                                     cmd.Parameters.AddWithValue("@category", _category1);
                                     cmd.Parameters.AddWithValue("@setno", _setno);
-                                    cmd.Parameters.AddWithValue("@MatchNo", matchno);
+                                    cmd.Parameters.AddWithValue("@BetServiceMatchNo", matchno);
                                     cmd.Parameters.AddWithValue("@host", _host);
                                     cmd.Parameters.AddWithValue("@vs", _vs);
                                     cmd.Parameters.AddWithValue("@visitor", _visitor);
@@ -658,7 +658,7 @@ using System.Configuration;
                                 try
                                 {
                                     conn.Open();
-                                    SqlCommand cmd = new SqlCommand("insert into setbetmatches1(username, betdate,betmoney,champ,category,setno,MatchNo,host,vs,visitor,oddname,odd,ttmoney,StartTime,phone)values(@username, @betdate,@betmoney,@champ,@category,@setno,@MatchNo,@host,@vs,@visitor,@oddname,@odd,@ttmoney,@StartTime,@phone)", conn);
+                                    SqlCommand cmd = new SqlCommand("insert into setbetmatches1(username, betdate,betmoney,champ,category,setno,BetServiceMatchNo,host,vs,visitor,oddname,odd,ttmoney,StartTime,phone)values(@username, @betdate,@betmoney,@champ,@category,@setno,@BetServiceMatchNo,@host,@vs,@visitor,@oddname,@odd,@ttmoney,@StartTime,@phone)", conn);
 
                                     cmd.Parameters.AddWithValue("@username", _user);
                                     cmd.Parameters.AddWithValue("@betdate", _date2de);
@@ -666,7 +666,7 @@ using System.Configuration;
                                     cmd.Parameters.AddWithValue("@champ", _champ);
                                     cmd.Parameters.AddWithValue("@category", _category1);
                                     cmd.Parameters.AddWithValue("@setno", _setno);
-                                    cmd.Parameters.AddWithValue("@MatchNo", matchno);
+                                    cmd.Parameters.AddWithValue("@BetServiceMatchNo", matchno);
                                     cmd.Parameters.AddWithValue("@host", _host);
                                     cmd.Parameters.AddWithValue("@vs", _vs);
                                     cmd.Parameters.AddWithValue("@visitor", _visitor);
@@ -700,7 +700,7 @@ using System.Configuration;
                                 try
                                 {
                                     conn.Open();
-                                    SqlCommand cmd = new SqlCommand("insert into setbetmatches1(username, betdate,betmoney,champ,category,setno,MatchNo,host,vs,visitor,oddname,odd,ttmoney,StartTime,phone)values(@username, @betdate,@betmoney,@champ,@category,@setno,@MatchNo,@host,@vs,@visitor,@oddname,@odd,@ttmoney,@StartTime,@phone)", conn);
+                                    SqlCommand cmd = new SqlCommand("insert into setbetmatches1(username, betdate,betmoney,champ,category,setno,BetServiceMatchNo,host,vs,visitor,oddname,odd,ttmoney,StartTime,phone)values(@username, @betdate,@betmoney,@champ,@category,@setno,@BetServiceMatchNo,@host,@vs,@visitor,@oddname,@odd,@ttmoney,@StartTime,@phone)", conn);
 
                                     cmd.Parameters.AddWithValue("@username", _user);
                                     cmd.Parameters.AddWithValue("@betdate", _date2de);
@@ -708,7 +708,7 @@ using System.Configuration;
                                     cmd.Parameters.AddWithValue("@champ", _champ);
                                     cmd.Parameters.AddWithValue("@category", _category1);
                                     cmd.Parameters.AddWithValue("@setno", _setno);
-                                    cmd.Parameters.AddWithValue("@MatchNo", matchno);
+                                    cmd.Parameters.AddWithValue("@BetServiceMatchNo", matchno);
                                     cmd.Parameters.AddWithValue("@host", _host);
                                     cmd.Parameters.AddWithValue("@vs", _vs);
                                     cmd.Parameters.AddWithValue("@visitor", _visitor);
@@ -857,10 +857,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select username,betmoney,oddwin,oddlose from setbetmatches3 WHERE (setno Like @setno AND MatchNo Like @MatchNo)";
+                string query3 = "select username,betmoney,oddwin,oddlose from setbetmatches3 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo)";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
 
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
@@ -900,10 +900,10 @@ using System.Configuration;
                 {
                     conn.Open();
                     //checking up money on one's Account
-                    String query = "UPDATE setbetmatches3 SET ttmoneywin = @ttmoneywin,ttmoneylose=@ttmoneylose WHERE (setno Like @setno AND MatchNo Like @MatchNo AND username Like @username AND betmoney Like @betmoney) ";
+                    String query = "UPDATE setbetmatches3 SET ttmoneywin = @ttmoneywin,ttmoneylose=@ttmoneylose WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND username Like @username AND betmoney Like @betmoney) ";
                     SqlCommand cmd0 = new SqlCommand(query, conn);
                     cmd0.Parameters.AddWithValue("@setno", settno);
-                    cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                    cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                     cmd0.Parameters.AddWithValue("@username", userItems[j]);
                     cmd0.Parameters.AddWithValue("@ttmoneywin", _ttmoney_win);
                     cmd0.Parameters.AddWithValue("@ttmoneylose", _ttmoney_lose);
@@ -941,10 +941,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname)";
+                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname)";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd8.Parameters.AddWithValue("@oddname", "home");
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
@@ -967,10 +967,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname)";
+                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname)";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd8.Parameters.AddWithValue("@oddname", "away");
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
@@ -999,10 +999,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select max_odd_away,min_odd_away from betmatch4 WHERE (setno Like @setno AND MatchNo Like @MatchNo)";
+                string query3 = "select max_odd_away,min_odd_away from betmatch4 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo)";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
                 while (reader1.Read())
@@ -1049,10 +1049,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE betmatch4 SET winaway = @winaway WHERE(setno Like @setno AND MatchNo Like @MatchNo) ";
+                String query = "UPDATE betmatch4 SET winaway = @winaway WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@winaway", winhldamm1.ToString());
                 //cmd8.Parameters.AddWithValue("@oddname", "away");
 
@@ -1068,10 +1068,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE setbetmatches3 SET oddwin = @oddwin WHERE(setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname) ";
+                String query = "UPDATE setbetmatches3 SET oddwin = @oddwin WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@oddwin", winhldamm1.ToString());
                 cmd0.Parameters.AddWithValue("@oddname", "away");
 
@@ -1096,10 +1096,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE betmatch4 SET losehome = @losehome WHERE(setno Like @setno AND MatchNo Like @MatchNo) ";
+                String query = "UPDATE betmatch4 SET losehome = @losehome WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@losehome", losehldamm1.ToString());
                 //cmd8.Parameters.AddWithValue("@oddname", "away");
 
@@ -1115,10 +1115,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE setbetmatches3 SET oddlose = @oddlose WHERE(setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname) ";
+                String query = "UPDATE setbetmatches3 SET oddlose = @oddlose WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@oddlose", losehldamm1.ToString());
                 cmd0.Parameters.AddWithValue("@oddname", "away");
 
@@ -1161,10 +1161,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname)";
+                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname)";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd8.Parameters.AddWithValue("@oddname", "away");
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
@@ -1187,10 +1187,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname)";
+                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname)";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd8.Parameters.AddWithValue("@oddname", "home");
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
@@ -1214,10 +1214,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select max_odd_home,min_odd_home from betmatch4 WHERE (setno Like @setno AND MatchNo Like @MatchNo)";
+                string query3 = "select max_odd_home,min_odd_home from betmatch4 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo)";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
                 while (reader1.Read())
@@ -1261,10 +1261,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE betmatch4 SET winhome = @winhome WHERE(setno Like @setno AND MatchNo Like @MatchNo) ";
+                String query = "UPDATE betmatch4 SET winhome = @winhome WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@winhome", winhldamm1.ToString());
                 //cmd0.Parameters.AddWithValue("@oddname", "away");
 
@@ -1285,10 +1285,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE setbetmatches3 SET oddwin = @oddwin WHERE(setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname) ";
+                String query = "UPDATE setbetmatches3 SET oddwin = @oddwin WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@oddwin", winhldamm1.ToString());
                 cmd0.Parameters.AddWithValue("@oddname", "home");
 
@@ -1317,10 +1317,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE betmatch4 SET loseaway = @loseaway WHERE(setno Like @setno AND MatchNo Like @MatchNo) ";
+                String query = "UPDATE betmatch4 SET loseaway = @loseaway WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@loseaway", losehldamm1.ToString());
                 //cmd8.Parameters.AddWithValue("@oddname", "away");
 
@@ -1341,10 +1341,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                String query = "UPDATE setbetmatches3 SET oddlose = @oddlose WHERE(setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname) ";
+                String query = "UPDATE setbetmatches3 SET oddlose = @oddlose WHERE(setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname) ";
                 SqlCommand cmd0 = new SqlCommand(query, conn);
                 cmd0.Parameters.AddWithValue("@setno", settno);
-                cmd0.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd0.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd0.Parameters.AddWithValue("@oddlose", losehldamm1.ToString());
                 cmd0.Parameters.AddWithValue("@oddname", "home");
 
@@ -1376,10 +1376,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname )";
+                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname )";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd8.Parameters.AddWithValue("@oddname", "home");
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
@@ -1401,10 +1401,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select winshare,loseshare from betmatch4 WHERE (setno Like @setno AND MatchNo Like @MatchNo )";
+                string query3 = "select winshare,loseshare from betmatch4 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo )";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 //cmd8.Parameters.AddWithValue("@oddname", "away");
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
@@ -1432,10 +1432,10 @@ using System.Configuration;
             {
                 conn.Open();
                 //checking up money on one's Account
-                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND MatchNo Like @MatchNo AND oddname Like @oddname )";
+                string query3 = "select betmoney from setbetmatches3 WHERE (setno Like @setno AND BetServiceMatchNo Like @BetServiceMatchNo AND oddname Like @oddname )";
                 SqlCommand cmd8 = new SqlCommand(query3, conn);
                 cmd8.Parameters.AddWithValue("@setno", settno);
-                cmd8.Parameters.AddWithValue("@MatchNo", mattno);
+                cmd8.Parameters.AddWithValue("@BetServiceMatchNo", mattno);
                 cmd8.Parameters.AddWithValue("@oddname", "away");
 
                 SqlDataReader reader1 = cmd8.ExecuteReader();
@@ -1846,8 +1846,8 @@ using System.Configuration;
                         {
                             conn.Open();
 
-                            SqlCommand cmd1 = new SqlCommand("select champ,setno,MatchNo,host,vs,visitor,winhome,losehome,winaway,loseaway,StartTime from betmatch4 Where (MatchNo = @MatchNo)", conn);
-                            cmd1.Parameters.AddWithValue("@MatchNo", matchno);
+                            SqlCommand cmd1 = new SqlCommand("select champ,setno,BetServiceMatchNo,host,vs,visitor,winhome,losehome,winaway,loseaway,StartTime from betmatch4 Where (BetServiceMatchNo = @BetServiceMatchNo)", conn);
+                            cmd1.Parameters.AddWithValue("@BetServiceMatchNo", matchno);
                             SqlDataReader reader = cmd1.ExecuteReader();
                             while (reader.Read())
                             {
@@ -1855,7 +1855,7 @@ using System.Configuration;
                                 // _category = reader["category"].ToString();
                                 _champ = reader["champ"].ToString();
                                 _setno = reader["setno"].ToString();
-                                _matno = reader["MatchNo"].ToString();
+                                _matno = reader["BetServiceMatchNo"].ToString();
                                 _host = reader["host"].ToString();
                                 _vs = reader["vs"].ToString();
                                 _visitor = reader["visitor"].ToString();
@@ -1895,7 +1895,7 @@ using System.Configuration;
                                 try
                                 {
                                     conn.Open();
-                                    SqlCommand cmd = new SqlCommand("insert into setbetmatches3(username, betdate,betmoney,category,champ,setno, MatchNo,host,vs,visitor,oddname,oddwin,oddlose,StartTime,phone)values(@username, @betdate,@betmoney,@category,@champ,@setno,@MatchNo,@host,@vs,@visitor,@oddname,@oddwin,@oddlose,@StartTime,@phone)", conn);
+                                    SqlCommand cmd = new SqlCommand("insert into setbetmatches3(username, betdate,betmoney,category,champ,setno, BetServiceMatchNo,host,vs,visitor,oddname,oddwin,oddlose,StartTime,phone)values(@username, @betdate,@betmoney,@category,@champ,@setno,@BetServiceMatchNo,@host,@vs,@visitor,@oddname,@oddwin,@oddlose,@StartTime,@phone)", conn);
 
                                     cmd.Parameters.AddWithValue("@username", user);
                                     cmd.Parameters.AddWithValue("@betdate", _date2de);
@@ -1903,7 +1903,7 @@ using System.Configuration;
                                     cmd.Parameters.AddWithValue("@category", _category);
                                     cmd.Parameters.AddWithValue("@champ", _champ);
                                     cmd.Parameters.AddWithValue("@setno", _setno);
-                                    cmd.Parameters.AddWithValue("@MatchNo", matchno);
+                                    cmd.Parameters.AddWithValue("@BetServiceMatchNo", matchno);
                                     cmd.Parameters.AddWithValue("@host", _host);
                                     cmd.Parameters.AddWithValue("@vs", _vs);
                                     cmd.Parameters.AddWithValue("@visitor", _visitor);
@@ -1932,7 +1932,7 @@ using System.Configuration;
                                 try
                                 {
                                     conn.Open();
-                                    SqlCommand cmd = new SqlCommand("insert into setbetmatches3(username, betdate,betmoney,category,champ,setno, MatchNo,host,vs,visitor,oddname,oddwin,oddlose,StartTime,phone)values(@username, @betdate,@betmoney,@category,@champ,@setno,@MatchNo,@host,@vs,@visitor,@oddname,@oddwin,@oddlose,@StartTime,@phone)", conn);
+                                    SqlCommand cmd = new SqlCommand("insert into setbetmatches3(username, betdate,betmoney,category,champ,setno, BetServiceMatchNo,host,vs,visitor,oddname,oddwin,oddlose,StartTime,phone)values(@username, @betdate,@betmoney,@category,@champ,@setno,@BetServiceMatchNo,@host,@vs,@visitor,@oddname,@oddwin,@oddlose,@StartTime,@phone)", conn);
 
                                     cmd.Parameters.AddWithValue("@username", user);
                                     cmd.Parameters.AddWithValue("@betdate", _date2de);
@@ -1940,7 +1940,7 @@ using System.Configuration;
                                     cmd.Parameters.AddWithValue("@category", _category);
                                     cmd.Parameters.AddWithValue("@champ", _champ);
                                     cmd.Parameters.AddWithValue("@setno", _setno);
-                                    cmd.Parameters.AddWithValue("@MatchNo", matchno);
+                                    cmd.Parameters.AddWithValue("@BetServiceMatchNo", matchno);
                                     cmd.Parameters.AddWithValue("@host", _host);
                                     cmd.Parameters.AddWithValue("@vs", _vs);
                                     cmd.Parameters.AddWithValue("@visitor", _visitor);
@@ -1979,8 +1979,8 @@ using System.Configuration;
                             {
                                 conn.Open();
 
-                                SqlCommand cmd1 = new SqlCommand("select champ,setno,MatchNo,host,vs,visitor,StartTime,oddhome,oddaway,odddraw from  betmatch1 Where (MatchNo = @MatchNo)", conn);
-                                cmd1.Parameters.AddWithValue("@MatchNo", matchno);
+                                SqlCommand cmd1 = new SqlCommand("select champ,setno,BetServiceMatchNo,host,vs,visitor,StartTime,oddhome,oddaway,odddraw from  betmatch1 Where (BetServiceMatchNo = @BetServiceMatchNo)", conn);
+                                cmd1.Parameters.AddWithValue("@BetServiceMatchNo", matchno);
                                 SqlDataReader reader = cmd1.ExecuteReader();
                                 while (reader.Read())
                                 {
@@ -1988,7 +1988,7 @@ using System.Configuration;
                                     // _category = reader["category"].ToString();
                                     _champ = reader["champ"].ToString();
                                     _setno = reader["setno"].ToString();
-                                    _matno = reader["MatchNo"].ToString();
+                                    _matno = reader["BetServiceMatchNo"].ToString();
                                     _host = reader["host"].ToString();
                                     _vs = reader["vs"].ToString();
                                     _visitor = reader["visitor"].ToString();
@@ -2031,7 +2031,7 @@ using System.Configuration;
                                     try
                                     {
                                         conn.Open();
-                                        SqlCommand cmd = new SqlCommand("insert into setbetmatches1(username, betdate,betmoney,champ,category,setno,MatchNo,host,vs,visitor,oddname,odd,ttmoney,StartTime,phone)values(@username, @betdate,@betmoney,@champ,@category,@setno,@MatchNo,@host,@vs,@visitor,@oddname,@odd,@ttmoney,@StartTime,@phone)", conn);
+                                        SqlCommand cmd = new SqlCommand("insert into setbetmatches1(username, betdate,betmoney,champ,category,setno,BetServiceMatchNo,host,vs,visitor,oddname,odd,ttmoney,StartTime,phone)values(@username, @betdate,@betmoney,@champ,@category,@setno,@BetServiceMatchNo,@host,@vs,@visitor,@oddname,@odd,@ttmoney,@StartTime,@phone)", conn);
 
                                         cmd.Parameters.AddWithValue("@username", user);
                                         cmd.Parameters.AddWithValue("@betdate", _date2de);
@@ -2039,7 +2039,7 @@ using System.Configuration;
                                         cmd.Parameters.AddWithValue("@champ", _champ);
                                         cmd.Parameters.AddWithValue("@category", _category1);
                                         cmd.Parameters.AddWithValue("@setno", _setno);
-                                        cmd.Parameters.AddWithValue("@MatchNo", matchno);
+                                        cmd.Parameters.AddWithValue("@BetServiceMatchNo", matchno);
                                         cmd.Parameters.AddWithValue("@host", _host);
                                         cmd.Parameters.AddWithValue("@vs", _vs);
                                         cmd.Parameters.AddWithValue("@visitor", _visitor);
@@ -2072,7 +2072,7 @@ using System.Configuration;
                                     try
                                     {
                                         conn.Open();
-                                        SqlCommand cmd = new SqlCommand("insert into setbetmatches1(username, betdate,betmoney,champ,category,setno,MatchNo,host,vs,visitor,oddname,odd,ttmoney,StartTime,phone)values(@username, @betdate,@betmoney,@champ,@category,@setno,@MatchNo,@host,@vs,@visitor,@oddname,@odd,@ttmoney,@StartTime,@phone)", conn);
+                                        SqlCommand cmd = new SqlCommand("insert into setbetmatches1(username, betdate,betmoney,champ,category,setno,BetServiceMatchNo,host,vs,visitor,oddname,odd,ttmoney,StartTime,phone)values(@username, @betdate,@betmoney,@champ,@category,@setno,@BetServiceMatchNo,@host,@vs,@visitor,@oddname,@odd,@ttmoney,@StartTime,@phone)", conn);
 
                                         cmd.Parameters.AddWithValue("@username", user);
                                         cmd.Parameters.AddWithValue("@betdate", _date2de);
@@ -2080,7 +2080,7 @@ using System.Configuration;
                                         cmd.Parameters.AddWithValue("@champ", _champ);
                                         cmd.Parameters.AddWithValue("@category", _category1);
                                         cmd.Parameters.AddWithValue("@setno", _setno);
-                                        cmd.Parameters.AddWithValue("@MatchNo", matchno);
+                                        cmd.Parameters.AddWithValue("@BetServiceMatchNo", matchno);
                                         cmd.Parameters.AddWithValue("@host", _host);
                                         cmd.Parameters.AddWithValue("@vs", _vs);
                                         cmd.Parameters.AddWithValue("@visitor", _visitor);
@@ -2114,7 +2114,7 @@ using System.Configuration;
                                     try
                                     {
                                         conn.Open();
-                                        SqlCommand cmd = new SqlCommand("insert into setbetmatches1(username, betdate,betmoney,champ,category,setno,MatchNo,host,vs,visitor,oddname,odd,ttmoney,StartTime,phone)values(@username, @betdate,@betmoney,@champ,@category,@setno,@MatchNo,@host,@vs,@visitor,@oddname,@odd,@ttmoney,@StartTime,@phone)", conn);
+                                        SqlCommand cmd = new SqlCommand("insert into setbetmatches1(username, betdate,betmoney,champ,category,setno,BetServiceMatchNo,host,vs,visitor,oddname,odd,ttmoney,StartTime,phone)values(@username, @betdate,@betmoney,@champ,@category,@setno,@BetServiceMatchNo,@host,@vs,@visitor,@oddname,@odd,@ttmoney,@StartTime,@phone)", conn);
 
                                         cmd.Parameters.AddWithValue("@username", user);
                                         cmd.Parameters.AddWithValue("@betdate", _date2de);
@@ -2122,7 +2122,7 @@ using System.Configuration;
                                         cmd.Parameters.AddWithValue("@champ", _champ);
                                         cmd.Parameters.AddWithValue("@category", _category1);
                                         cmd.Parameters.AddWithValue("@setno", _setno);
-                                        cmd.Parameters.AddWithValue("@MatchNo", matchno);
+                                        cmd.Parameters.AddWithValue("@BetServiceMatchNo", matchno);
                                         cmd.Parameters.AddWithValue("@host", _host);
                                         cmd.Parameters.AddWithValue("@vs", _vs);
                                         cmd.Parameters.AddWithValue("@visitor", _visitor);

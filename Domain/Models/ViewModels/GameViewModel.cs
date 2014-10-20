@@ -7,7 +7,7 @@ namespace Domain.Models.ViewModels
     {
         public GameViewModel()
         {
-            GameOdds = new List<GameOddViewModel>();
+            MatchOdds = new List<GameOddViewModel>();
         }
         public int MatchNo { get; set; }
         public int SetNo { get; set; }
@@ -26,7 +26,7 @@ namespace Domain.Models.ViewModels
         public string AwayTeamName { get; set; }
         public string HomeTeamName { get; set; }
 
-        public List<GameOddViewModel> GameOdds { get; set; }
+        public List<GameOddViewModel> MatchOdds { get; set; }
     }
 
     public class GameOddViewModel
@@ -36,6 +36,6 @@ namespace Domain.Models.ViewModels
         public string BetOption { get; set; }
         public decimal Odd { get; set; }
         public DateTime? LastUpdateTime { get; set; }
-        public int? HandicapGoals { get; set; }
+        public string Line { get; set; }
     }
 }

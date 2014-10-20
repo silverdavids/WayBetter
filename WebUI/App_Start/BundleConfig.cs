@@ -49,7 +49,7 @@ namespace WebUI.App_Start
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
                         "~/Content/bootstrap.*"));
 
-            bundles.Add(new StyleBundle("~/Content/main").Include(
+           bundles.Add(new StyleBundle("~/Content/main").Include(
                         "~/Content/main.css"));
 
             //bundles.Add(new StyleBundle("~/Content/DataTables").Include(
@@ -64,9 +64,6 @@ namespace WebUI.App_Start
                    "~/Content/bootstrapcss/bootstrap.min.css"
                    ).Include("~/Content/font-awesome/css/font-awesome.min.css")
                    .Include("~/Content/css/local.css"));
-          
- 
-
 
 
             // Set EnableOptimizations to false for debugging. For more information,

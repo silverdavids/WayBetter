@@ -144,7 +144,7 @@
                                 '<td>' + game.MatchNo + '</td>' +
                                 '<td>' + game.Minutes + '</td>' +
                                 '<td>' + game.LocalTeam + '</td>' +
-                                    '<td>' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' + 
+                                '<td>' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
                                 '<td>' + game.AwayTeam + '</td>' +
                                 '<td style="padding-bottom: 0px;">' +
                                 '<input type="button" class="btn btn-sm btn-default FT-1" value="' + game.FullTimeOdds.HomeWins + '"/>' +

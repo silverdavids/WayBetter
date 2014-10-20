@@ -1,5 +1,4 @@
-﻿//using System.Timers;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
@@ -64,7 +63,9 @@ namespace WebUI.Hubs
                                 AwayTeamScore = gamescore.AwayTeamScore,
                                 LocalTeamScore = gamescore.LocalTeamScore,
                                 FullTimeOdds = gameodds.FullTimeOdds,
-                                UnderOverOdds = gameodds.UnderOverOdds
+                                UnderOverOdds = gameodds.UnderOverOdds,
+                                RestofMatch = gameodds.RestofMatch,
+                                NextGoal = gameodds.NextGoal
                             }).ToList();
             _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
             return allGames;
@@ -144,7 +145,7 @@ namespace WebUI.Hubs
                     if (match.Attributes != null)
                     {
                         testGame.MatchNo = match.Attributes["id"].InnerText;
-                        testGame.Minutes = match.Attributes["minute"].InnerText;
+                        testGame.Minutes = match.Attributes["minute"].InnerText.Substring(0,2)+"'";
                     }
 
                     foreach (XmlNode team in teams)
@@ -160,7 +161,7 @@ namespace WebUI.Hubs
                                 testGame.LocalTeamScore = localTeamAttributes["score"].InnerText == "" ? "?" : localTeamAttributes["score"].InnerText;
                             }
                         }
-                        else
+                        if (team.Name == "awayteam")
                         {
                             var awayTeamattributes = team.Attributes;
                             if (awayTeamattributes != null)
@@ -271,6 +272,30 @@ namespace WebUI.Hubs
                                             }
                                         }
                                         break;
+                                    case "Next Goal":
+                                        testGame.NextGoal = new NextGoal();
+                                        foreach (XmlNode FTO in odd.ChildNodes)
+                                        {
+                                            if (FTO.Attributes != null)
+                                            {
+                                                if (FTO.Attributes["extravalue"].InnerText == "1")
+                                                {
+                                                    var homeScores = FTO.Attributes["odd"].InnerText;
+                                                    testGame.NextGoal.HomeScores = homeScores;
+                                                }
+                                                if (FTO.Attributes["extravalue"].InnerText == "X")
+                                                {
+                                                    var draw = FTO.Attributes["odd"].InnerText;
+                                                    testGame.NextGoal.Draw = draw;
+                                                }
+                                                if (FTO.Attributes["extravalue"].InnerText == "2")
+                                                {
+                                                    var awayScores = FTO.Attributes["odd"].InnerText;
+                                                    testGame.NextGoal.AwayScores = awayScores;
+                                                }
+                                            }
+                                        }
+                                        break;
 
                                 }
 
@@ -300,7 +325,7 @@ namespace WebUI.Hubs
             //Todo: update the records in the DB
 
             ////_games.Clear();
-            //_games.TryAdd(game.MatchNo, game);
+            //_games.TryAdd(game.BetServiceMatchNo, game);
             return true;
         }
 
@@ -522,7 +547,7 @@ namespace WebUI.Hubs
     public class NextGoal
     {
         public string HomeScores { get; set; }
-        public string None { get; set; }
+        public string Draw { get; set; }
         public string AwayScores { get; set; }
     }
 }

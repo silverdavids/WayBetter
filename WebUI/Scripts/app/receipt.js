@@ -100,7 +100,7 @@ function BettingApp() {
              windowToPrint.document.write($receptToPrint.outerHTML);
              windowToPrint.print();
              windowToPrint.close();*/
-            //check if the receipt contains atleast a game
+            //check if the receipt contains atleast a Match
 
 
 
@@ -151,7 +151,7 @@ function BettingApp() {
 
         } else {
             validateObject.isValid = false;
-            validateObject.errMessageArr.push("Receipt must have atleast one game to print");
+            validateObject.errMessageArr.push("Receipt must have atleast one Match to print");
         }
 
         return validateObject;
@@ -177,7 +177,7 @@ function BettingApp() {
         if(numOfBetsAlreadyMade >= maximumNumBet)
         {
           
-            validateObject.errMessageArr.push("Reached a maximum number of bets, you can not bet on more than " + maximumNumBet + " games on one receipt");
+            validateObject.errMessageArr.push("Reached a maximum number of bets, you can not bet on more than " + maximumNumBet + " Matchs on one receipt");
         }
         // Check for duplicate bets
         if (betList.getBetByMatchId(bet.matchId) ==true) {

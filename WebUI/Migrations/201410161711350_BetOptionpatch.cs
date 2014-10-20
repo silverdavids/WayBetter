@@ -1,17 +1,18 @@
 namespace WebUI.Migrations
 {
+    using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addbetodd : DbMigration
+    public partial class BetOptionpatch : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Bets", "BetOdd", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AddColumn("dbo.MatchOdds", "Line", c => c.String());
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Bets", "BetOdd");
+            DropColumn("dbo.MatchOdds", "Line");
         }
     }
 }

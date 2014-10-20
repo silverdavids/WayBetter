@@ -17,8 +17,6 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.BetServiceMatchNo)
 
-        @Html.HiddenFor(model => model.SetNo)
-
         <div class="form-group">
             @Html.LabelFor(model => model.League, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -36,10 +34,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MatchStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.GameStatus, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MatchStatus, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MatchStatus, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.GameStatus, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GameStatus, "", new { @class = "text-danger" })
             </div>
         </div>
 

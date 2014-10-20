@@ -226,11 +226,11 @@ namespace WebUI.Controllers
                                 }
 
                             }
-                            game.GameOdds = gameodds;
-                            game.MatchNo = Convert.ToInt32(goalServeMatchId);
+                            game.MatchOdds = gameodds;
+                            game.BetServiceMatchNo = Convert.ToInt32(goalServeMatchId);
                             game.StartTime = Convert.ToDateTime(stDateTime).ToLocalTime();
                             game.ResultStatus = 1;
-                            game.GameOdds.ForEach(g => g.GameId = game.MatchNo);
+                            game.MatchOdds.ForEach(g => g.BetServiceMatchNo = game.BetServiceMatchNo);
                             BetDatabase.Matches.Add(game);
                             await BetDatabase.SaveChangesAsync();
                         }
@@ -249,15 +249,15 @@ namespace WebUI.Controllers
                 return View();
             }
         
-           // var games = await BetDatabase.Matches.Include(g => g.AwayTeam).Include(g => g.HomeTeam).Include(g => g.GameOdds.Select(c=>c.BetOption)).ToListAsync();
+           // var games = await BetDatabase.Matches.Include(g => g.AwayTeam).Include(g => g.HomeTeam).Include(g => g.MatchOdds.Select(c=>c.BetOption)).ToListAsync();
             var games = await BetDatabase.ShortMatchCodes.Include(s => s.Match).ToListAsync();
             var filteredgames = games.Select(g => new GameViewModel
             {
                 AwayScore = g.Match.AwayScore,
                 AwayTeamId = g.Match.AwayTeamId,
                 AwayTeamName = g.Match.AwayTeam.TeamName,
-                Champ = g.Match.Champ,
-                GameOdds = g.Match.GameOdds.Select(go => new GameOddViewModel
+                Champ = g.Match.League,
+                MatchOdds = g.Match.MatchOdds.Select(go => new GameOddViewModel
                 {
                     BetCategory = go.BetOption.BetCategory.Name,
                     BetOptionId = go.BetOptionId,
@@ -309,7 +309,7 @@ namespace WebUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MatchNo,SetNo,Champ,StartTime,GameStatus,AwayTeamId,HomeTeamId,RegistrationDate,HomeScore,AwayScore,HalfTimeHomeScore,HalfTimeAwayScore,ResultStatus")] Match game)
+        public async Task<ActionResult> Create([Bind(Include = "BetServiceMatchNo,SetNo,League,StartTime,GameStatus,AwayTeamId,HomeTeamId,RegistrationDate,HomeScore,AwayScore,HalfTimeHomeScore,HalfTimeAwayScore,ResultStatus")] Match game)
         {
             if (ModelState.IsValid)
             {
@@ -345,7 +345,7 @@ namespace WebUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MatchNo,SetNo,Champ,StartTime,GameStatus,AwayTeamId,HomeTeamId,RegistrationDate,HomeScore,AwayScore,HalfTimeHomeScore,HalfTimeAwayScore,ResultStatus")] Match game)
+        public async Task<ActionResult> Edit([Bind(Include = "BetServiceMatchNo,SetNo,League,StartTime,GameStatus,AwayTeamId,HomeTeamId,RegistrationDate,HomeScore,AwayScore,HalfTimeHomeScore,HalfTimeAwayScore,ResultStatus")] Match game)
         {
             if (ModelState.IsValid)
             {

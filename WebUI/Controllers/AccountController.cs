@@ -37,10 +37,12 @@ namespace WebUI.Controllers
             if (user != null)
             {
                 await SignInAsync(user, model.RememberMe);
-                if( UserManager.IsInRole(user.Id,"Teller")){
-                    return RedirectToLocal("~/Match/Index");
+                if( UserManager.IsInRole(user.Id,"Teller"))
+                {
+                    return RedirectToAction("Index", "Matches");
+                    //return RedirectToLocal("~/Match/Index");
                 }
-                return UserManager.IsInRole(user.Id, "Manager") ? RedirectToLocal("~/Manager/Index") : RedirectToLocal(UserManager.IsInRole(user.Id, "Admin") ? "~/Admin/SummaryReport" : returnUrl);
+                return UserManager.IsInRole(user.Id, "Manager") ? RedirectToAction("Index", "Match") : RedirectToLocal(UserManager.IsInRole(user.Id, "Admin") ? "~/Admin/SummaryReport" : returnUrl);
             }
             ModelState.AddModelError("", "Invalid username or password.");
 
@@ -61,13 +63,13 @@ namespace WebUI.Controllers
         {
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-          //  var roles = roleManager.Roles.Count();       
+            //var roles = roleManager.Roles.Count();       
                 roleManager.Create(new IdentityRole("Admin"));
                 roleManager.Create(new IdentityRole("Teller"));
                 roleManager.Create(new IdentityRole("Manager"));
             
              
-            // ViewBag.ResultMessage = "Role created successfully !";
+            //ViewBag.ResultMessage = "Role created successfully !";
 
             return RedirectToAction("RoleIndex", "Account");
         }
@@ -101,7 +103,7 @@ namespace WebUI.Controllers
             var result = await UserManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                await SignInAsync(user, isPersistent: false);
+                await SignInAsync(user, false);
                 var acc = new Account
                 {
                     UserId = model.UserName,
@@ -163,25 +165,20 @@ namespace WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
-                {
-                    ModelState.AddModelError("", "The user either does not exist or is not confirmed.");
-                    return View();
-                }
+            if (!ModelState.IsValid) return View(model);
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user != null && await UserManager.IsEmailConfirmedAsync(user.Id)) return View(model);
+            ModelState.AddModelError("", "The user either does not exist or is not confirmed.");
+            return View();
 
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
-            }
+            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+            // Send an email with this link
+            // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+            // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            // return RedirectToAction("ForgotPasswordConfirmation", "Account");
 
             // If we got this far, something failed, redisplay form
-            return View(model);
         }
 
         //
@@ -197,11 +194,7 @@ namespace WebUI.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            if (code == null) 
-            {
-                return View("Error");
-            }
-            return View();
+            return code == null ? View("Error") : View();
         }
 
         //
@@ -211,25 +204,22 @@ namespace WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user == null)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null)
-                {
-                    ModelState.AddModelError("", "No user found.");
-                    return View();
-                }
-                var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("ResetPasswordConfirmation", "Account");
-                }
-                AddErrors(result);
+                ModelState.AddModelError("", "No user found.");
                 return View();
             }
+            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
+            }
+            AddErrors(result);
+            return View();
 
             // If we got this far, something failed, redisplay form
-            return View(model);
         }
 
         //
@@ -251,7 +241,7 @@ namespace WebUI.Controllers
             if (result.Succeeded)
             {
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                await SignInAsync(user, isPersistent: false);
+                await SignInAsync(user, false);
                 message = ManageMessageId.RemoveLoginSuccess;
             }
             else
@@ -287,17 +277,15 @@ namespace WebUI.Controllers
             ViewBag.ReturnUrl = Url.Action("Manage");
             if (hasPassword)
             {
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid) return View(model);
+                var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
                 {
-                    var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-                    if (result.Succeeded)
-                    {
-                        var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                        await SignInAsync(user, isPersistent: false);
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
-                    }
-                    AddErrors(result);
+                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    await SignInAsync(user, false);
+                    return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
                 }
+                AddErrors(result);
             }
             else
             {
@@ -308,15 +296,13 @@ namespace WebUI.Controllers
                     state.Errors.Clear();
                 }
 
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid) return View(model);
+                var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+                if (result.Succeeded)
                 {
-                    var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
-                    }
-                    AddErrors(result);
+                    return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
                 }
+                AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
@@ -349,7 +335,7 @@ namespace WebUI.Controllers
             var user = await UserManager.FindAsync(loginInfo.Login);
             if (user != null)
             {
-                await SignInAsync(user, isPersistent: false);
+                await SignInAsync(user, false);
                 return RedirectToLocal(returnUrl);
             }
             // If the user does not have an account, then prompt the user to create an account
@@ -412,7 +398,7 @@ namespace WebUI.Controllers
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        await SignInAsync(user, isPersistent: false);
+                        await SignInAsync(user, false);
                         
                         // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                         // Send an email with this link
@@ -481,7 +467,7 @@ namespace WebUI.Controllers
         private async Task SignInAsync(ApplicationUser user, bool isPersistent)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, await user.GenerateUserIdentityAsync(UserManager));
+            AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = isPersistent }, await user.GenerateUserIdentityAsync(UserManager));
         }
 
         private void AddErrors(IdentityResult result)

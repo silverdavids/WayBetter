@@ -4,7 +4,7 @@
      <script type="text/javascript">
          var httpObj = null;
          function feed() {
-             document.getElementById("automessage").innerHTML = "updating games.";
+             document.getElementById("automessage").innerHTML = "updating Matchs.";
              document.getElementById("note").style.display = "block";
              progress = true;
              httpObj = getHTTPObject();
@@ -40,13 +40,13 @@
          function animation() {
              if (progress) {
                  if (c == 0)
-                     document.getElementById("automessage").innerHTML = "updating games";
+                     document.getElementById("automessage").innerHTML = "updating Matchs";
                  else if (c == 1)
-                     document.getElementById("automessage").innerHTML = "updating games.";
+                     document.getElementById("automessage").innerHTML = "updating Matchs.";
                  else if (c == 2)
-                     document.getElementById("automessage").innerHTML = "updating games..";
+                     document.getElementById("automessage").innerHTML = "updating Matchs..";
                  else if (c == 3)
-                     document.getElementById("automessage").innerHTML = "updating games...";
+                     document.getElementById("automessage").innerHTML = "updating Matchs...";
                  c++;
                  if (c > 3)
                      c = 0;
@@ -55,7 +55,7 @@
 </script>
 
     <div style="width:650px;text-align:center;margin-left:auto;margin-right:auto;">
-        <p style="width:100%;height:20px;background:#ABD31B;color:#fff;font-size:14px;">Auto Update Games | Set Number: <asp:Label ID="setno" ForeColor="Black"  runat="server"></asp:Label></p>
+        <p style="width:100%;height:20px;background:#ABD31B;color:#fff;font-size:14px;">Auto Update Matchs | Set Number: <asp:Label ID="setno" ForeColor="Black"  runat="server"></asp:Label></p>
         <input type="button" id="autoupdate" value="Auto Update" class="link" onclick="feed()" />
         <asp:Label runat="server" ID="label" ForeColor="Black" Text="Click button to update games."></asp:Label><br />
         <p id="automessage" style="width:600px;height:auto;background:#D9EFEF;margin-left:auto;margin-right:auto;text-align:left;padding:5px;color:#7fba00;font-size:16px;">

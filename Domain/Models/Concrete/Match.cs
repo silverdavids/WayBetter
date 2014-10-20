@@ -19,8 +19,8 @@ namespace Domain.Models.Concrete
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int MatchNo { get; set; }
-        public string Champ { get; set; }
+        public int BetServiceMatchNo { get; set; }
+        public string League { get; set; }
         public DateTime StartTime { get; set; }
         public string GameStatus { get; set; }
         [ForeignKey("AwayTeam")]
@@ -38,7 +38,7 @@ namespace Domain.Models.Concrete
         [Required]
         public virtual Team HomeTeam { get; set; }
         public ICollection<Bet> Bets { get; set; }
-        public virtual ICollection<MatchOdd> GameOdds { get; set; }
-        public virtual ShortMatchCode ShrtMatchCode { get; set; }
+        public virtual ICollection<MatchOdd> MatchOdds { get; set; }
+        public virtual ShortMatchCode ShortMatchCode { get; set; }
     }
 }
