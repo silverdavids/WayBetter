@@ -36,6 +36,7 @@
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
+                   <li></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#">Welcome:<span ng-bind="authentication.userName"></span></a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/company">Companies</a></li>
                     <li ><a href="#/matches">Matches</a></li>
@@ -86,8 +87,8 @@
     <![endif]-->
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
-        
     <script src="Scripts/jquery-1.8.2.js"></script>
+    <script src="Scripts/jquery.signalR-2.1.2.js"></script>   
     <script src="Scripts/Angular/angularjs/angular.min.js"></script>     
     <script src="Scripts/Angular/vender/json3.js"></script>  
     <script src="Scripts/Bootstrap/bootstrap.min.js"></script>
@@ -111,8 +112,10 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->    
-    <script src="Scripts/Angular/scripts/services/dataservice.js"></script>    
+    <script src="Scripts/Angular/scripts/services/dataservice.js"></script> 
+    
     <script src="Scripts/Angular/scripts/app.js"></script>
+    
     <script src="Scripts/Angular/scripts/services/authservice.js"></script>
     <script src="Scripts/Angular/scripts/services/authinterceptorservice.js"></script>
     <script src="Scripts/Angular/scripts/services/matchservice.js"></script>    
@@ -121,6 +124,7 @@
     <script src="Scripts/Angular/scripts/controllers/signup.js"></script>
     <script src="Scripts/Angular/scripts/controllers/login.js"></script>
     <script src="Scripts/Angular/scripts/controllers/index.js"></script>
+    <script src="Scripts/Angular/scripts/services/liveBetsSrvc.js"></script>
     <script src="Scripts/Angular/scripts/controllers/newMatchCtrl.js"></script>
     <script src="Scripts/Angular/scripts/controllers/home.js"></script>
     <script src="Scripts/Angular/scripts/controllers/matches.js"></script>
@@ -130,6 +134,9 @@
     <script src="Scripts/Angular/scripts/controllers/terminal.js"></script>
     <script src="Scripts/Angular/scripts/controllers/shift.js"></script>
     <script src="Scripts/Angular/directives/tablesDirectives.js"></script>
+   
+   
+   
     <!-- endbuild -->
    
 

@@ -80,3 +80,15 @@ bettingApp.directive('bothTeamsToScore', function () {
     };
 
 });
+bettingApp.directive('liveGames', function () {
+    return {
+        restrict: 'E',
+        replace: 'true',
+        templateUrl: 'liveGames.html',
+        
+        link: function (scope, elem, attr) {
+        }
+
+    };
+
+});

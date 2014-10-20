@@ -46,6 +46,13 @@
                 var oddHome = getOddOptionInBetCategory(ft1X2Odds, item.MatchNo, 1);
                 var oddDraw = getOddOptionInBetCategory(ft1X2Odds, item.MatchNo, 2);
                 var oddAway = getOddOptionInBetCategory(ft1X2Odds, item.MatchNo, 3);
+                if (typeof oddHome === 'undefined' || typeof oddDraw === 'undefined' || typeof oddAway === 'undefined'||
+                     oddHome == null ||  oddDraw == null ||  oddAway == null ||
+                    oddHome =="" ||  oddDraw =="" ||  oddAway =="")
+                {
+                    console.log(item);
+                    alert(item.MatchNo)
+                }
                 var oddHomeClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddHome.BetOptionId),
                     oddDrawClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddDraw.BetOptionId),
                     oddAwayClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddAway.BetOptionId);

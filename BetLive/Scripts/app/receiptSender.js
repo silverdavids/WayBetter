@@ -69,7 +69,7 @@ function SendReceipt() {
                 $("#rcpTbranch").text(response.BranchName);
                 $("#rcpTteller").text(response.TellerName);
                 $("#rcpTbarCode img").attr({
-                    src: "../Content/Barcodes/" + response.Serial + ".png",
+                    src: "http://localhost:54480/Content/Barcodes/" + response.Serial + ".png",
                     alt: response.Serial.toString()
                 });
                // ReceiptNumber

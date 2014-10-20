@@ -21,9 +21,9 @@
                     games.push(item);
                 }
             });
-           // console.log(games);
+            console.log(games);
             var ft1X2Odds = getGameOddsByCategory("FT 1x2");
-            console.log(ft1X2Odds);
+
             // building the table - add header for normals
             $('#oddstable > thead').append('<tr></tr>');
             headerrow = $('#oddstable > thead').find('tr').eq(0);
@@ -46,23 +46,40 @@
                 var oddHome = getOddOptionInBetCategory(ft1X2Odds, item.MatchNo, 1);
                 var oddDraw = getOddOptionInBetCategory(ft1X2Odds, item.MatchNo, 2);
                 var oddAway = getOddOptionInBetCategory(ft1X2Odds, item.MatchNo, 3);
-                var oddHomeClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddHome.BetOptionId),
-                    oddDrawClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddDraw.BetOptionId),
-                    oddAwayClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddAway.BetOptionId);
-               // console.log(oddHomeClass + "     " + oddDrawClass + "    " + oddAwayClass);
-                $('table#oddstable > tbody').append(
-                    '<tr  class="match" id="' + item.MatchNo + '">' +
-                        '<td  data-field="matchId" class="match-code">' + item.MatchNo + '</td>' +
-                        '<td data-field="startTime" class="start-time">' + toJavaScriptDate(item.OldDateTime) + '</td>' +
-                        '<td data-field="startDate" class="start-date hidden">' + item.StartTime + '</td>' +
-                        '<td class="livebet"><span class="badge">Live</span></td>' +
-                        '<td>1+</td>' +
-                        '<td data-field="teamVersus" class="team-versus">' + item.HomeTeamName + ' vs ' + item.AwayTeamName + '</td>' +
-                        '<td><input type="button" class="' + oddHomeClass + '" value="' + (oddHome.Odd).toFixed(2) + '" data-odd-type="' + oddHome.BetOptionId + '" data-option-id="' + oddHome.BetOptionId + '" data-option-name="' + oddHome.BetOption + '"  data-bet-category="' + oddHome.BetCategory + '" /></td>' +
-                        '<td><input type="button" class="' + oddDrawClass + '" value="' + (oddDraw.Odd).toFixed(2) + '" data-odd-type="' + oddDraw.BetOptionId + '" data-option-id="' + oddDraw.BetOptionId + '" data-option-name="' + oddDraw.BetOption + '"  data-bet-category="' + oddDraw.BetCategory + '" /></td>' +
-                        '<td><input type="button" class="' + oddAwayClass + '" value="' + (oddAway.Odd).toFixed(2) + '" data-odd-type="' + oddAway.BetOptionId + '" data-option-id="' + oddAway.BetOptionId + '" data-option-name="' + oddAway.BetOption + '"  data-bet-category="' + oddAway.BetCategory + '" /></td>' +
-                        '<td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+' + item.GameOdds.length + '" /></td>' +
-                        '</tr>');
+                if ((typeof oddHome != 'undefined')) {
+                    if (typeof oddDraw != 'undefined') {
+                        if (typeof oddAway !== 'undefined') {
+                            var oddHomeClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddHome.BetOption),
+                                oddDrawClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddDraw.BetOption),
+                                oddAwayClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddAway.BetOption);
+                            // console.log(oddHomeClass + "     " + oddDrawClass + "    " + oddAwayClass);
+                            $('table#oddstable > tbody').append(
+                                '<tr  class="match" id="' + item.MatchNo + '">' +
+                                    '<td  data-field="matchId" class="match-code">' + item.MatchNo + '</td>' +
+                                    '<td data-field="startTime" class="start-time">' + toJavaScriptDate(item.OldDateTime) + '</td>' +
+                                    '<td data-field="startDate" class="start-date hidden">' + item.StartTime + '</td>' +
+                                    '<td class="livebet"><span class="badge">Live</span></td>' +
+                                    '<td>1+</td>' +
+                                    '<td data-field="teamVersus" class="team-versus">' + item.HomeTeamName + ' vs ' + item.AwayTeamName + '</td>' +
+                                    '<td><input type="button" class="' + oddHomeClass + '" value="' + (oddHome.Odd).toFixed(2) + '" data-odd-type="' + oddHome.BetOptionId + '" data-option-id="' + oddHome.BetOptionId + '" data-option-name="' + oddHome.BetOption + '"  data-bet-category="' + oddHome.BetCategory + '" /></td>' +
+                                    '<td><input type="button" class="' + oddDrawClass + '" value="' + (oddDraw.Odd).toFixed(2) + '" data-odd-type="' + oddDraw.BetOptionId + '" data-option-id="' + oddDraw.BetOptionId + '" data-option-name="' + oddDraw.BetOption + '"  data-bet-category="' + oddDraw.BetCategory + '" /></td>' +
+                                    '<td><input type="button" class="' + oddAwayClass + '" value="' + (oddAway.Odd).toFixed(2) + '" data-odd-type="' + oddAway.BetOptionId + '" data-option-id="' + oddAway.BetOptionId + '" data-option-name="' + oddAway.BetOption + '"  data-bet-category="' + oddAway.BetCategory + '" /></td>' +
+                                    '<td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+' + item.GameOdds.length + '" /></td>' +
+                                    '</tr>');
+                        } else {
+                            console.log(item);
+
+                        }
+                    }
+
+                    else {
+                        console.log(item);
+
+                    }
+                } else {
+                    console.log(item);
+
+                }
             });
             var $headerrow1 = $('#oddstable > thead').find('tr').eq(0),
            $headerrowstatic1 = $('#headersstable > thead').find('tr').eq(0);
@@ -111,7 +128,7 @@
                 appendHeaderRow(headerrow, $headerrowstatic, headerRowString);
             }
             else if (category === 'HT U/O') {
-                headerRowString='' +
+                headerRowString = '' +
                     '<th colspan="2" style="text-align: center;"><b>0.5 <br />Under Over</b></th>' +
                     '<th colspan="2" style="text-align: center;"><b>1.5 <br />Under Over</b></b></th>' +
                     '<th colspan="2" style="text-align: center;"><b>2.5 <br />Under Over</b></b></th>' +
@@ -165,23 +182,36 @@
 
 
                 if (category === 'FT 1x2') {
-                    var oddHome = getOddOptionInBetCategory(ft1X2Odds, item.MatchNo, 1);
-                    var oddDraw = getOddOptionInBetCategory(ft1X2Odds, item.MatchNo, 2);
-                    var oddAway = getOddOptionInBetCategory(ft1X2Odds, item.MatchNo, 3);
-                    var oddHomeClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddHome.BetOption),
-                        oddDrawClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddDraw.BetOption),
-                        oddAwayClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddAway.BetOption);
-                    console.log(oddHomeClass + "     " + oddDrawClass + "    " + oddAwayClass);
-                    if (typeof oddHome === 'undefined' || typeof oddDraw === 'undefined' || typeof oddAway === 'undefined') {
+                    var oddHome = getOddOptionInBetCategory(requiredOdds, item.MatchNo, 1);
+                    var oddDraw = getOddOptionInBetCategory(requiredOdds, item.MatchNo, 2);
+                    var oddAway = getOddOptionInBetCategory(requiredOdds, item.MatchNo, 3);
+                    if ((typeof oddHome != 'undefined')) {
+                        if (typeof oddDraw != 'undefined') {
+                            if (typeof oddAway !== 'undefined') {
+                                var oddHomeClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddHome.BetOption),
+                                    oddDrawClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddDraw.BetOption),
+                                    oddAwayClass = self.getMatchClassIfMatchIsSelected(item.MatchNo, oddAway.BetOption);
+                                htmlstring +=
+                                    '<td><input type="button" class="' + oddHomeClass + '" value="' + (oddHome.Odd).toFixed(2) + '" data-odd-type="' + oddHome.BetOptionId + '" data-option-id="' + oddHome.BetOptionId + '" data-option-name="' + oddHome.BetOption + '"  data-bet-category="' + oddHome.BetCategory + '" /></td>' +
+                                        '<td><input type="button" class="' + oddDrawClass + '" value="' + (oddDraw.Odd).toFixed(2) + '" data-odd-type="' + oddDraw.BetOptionId + '" data-option-id="' + oddDraw.BetOptionId + '" data-option-name="' + oddDraw.BetOption + '"  data-bet-category="' + oddDraw.BetCategory + '" /></td>' +
+                                        '<td><input type="button" class="' + oddAwayClass + '" value="' + (oddAway.Odd).toFixed(2) + '" data-odd-type="' + oddAway.BetOptionId + '" data-option-id="' + oddAway.BetOptionId + '" data-option-name="' + oddAway.BetOption + '"  data-bet-category="' + oddAway.BetCategory + '" /></td>' +
+                                        '<td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+' + item.GameOdds.length + '" /></td>' +
+                                        '</tr>';
+                            } else {
+                                console.log(item);
 
+                            }
+                        }
+
+                        else {
+                            console.log(item);
+
+                        }
                     } else {
-                        htmlstring +=
-                            '<td><input type="button" class="' + oddHomeClass + '" value="' + (oddHome.Odd).toFixed(2) + '" data-odd-type="' + oddHome.BetOptionId + '" data-option-id="' + oddHome.BetOptionId + '" data-option-name="' + oddHome.BetOption + '"  data-bet-category="' + oddHome.BetCategory + '" /></td>' +
-                                '<td><input type="button" class="' + oddDrawClass + '" value="' + (oddDraw.Odd).toFixed(2) + '" data-odd-type="' + oddDraw.BetOptionId + '" data-option-id="' + oddDraw.BetOptionId + '" data-option-name="' + oddDraw.BetOption + '"  data-bet-category="' + oddDraw.BetCategory + '" /></td>' +
-                                '<td><input type="button" class="' + oddAwayClass + '" value="' + (oddAway.Odd).toFixed(2) + '" data-odd-type="' + oddAway.BetOptionId + '" data-option-id="' + oddAway.BetOptionId + '" data-option-name="' + oddAway.BetOption + '"  data-bet-category="' + oddAway.BetCategory + '" /></td>' +
-                                '<td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+' + item.GameOdds.length + '" /></td>' +
-                                '</tr>';
+                        console.log(item);
+
                     }
+
                 } else if (category === 'FT U/O') {
                     var oddFtUnder05 = getOddOptionInBetCategory(requiredOdds, item.MatchNo, 32);
                     var oddFtOver05 = getOddOptionInBetCategory(requiredOdds, item.MatchNo, 33);
@@ -292,10 +322,10 @@
                     }
                     if (typeof oddHtOver25 !== 'undefined') {
                         htmlstring += '<td><input type="button" class="' + self.getMatchClassIfMatchIsSelected(item.MatchNo, oddHtOver25.BetOption) + '" value="' + (oddHtOver25.Odd).toFixed(2) + '" data-odd-type="' + oddHtOver25.BetOptionId + '" data-option-id="' + oddHtOver25.BetOptionId + '" data-option-name="' + oddHtOver25.BetOption + '"  data-bet-category="' + oddHtOver25.BetCategory + '" /></td>';
-                        htmlstring += '<td><input type="button" class="' + self.getMatchClassIfMatchIsSelected(item.MatchNo, oddFtOver55.BetOption) + '" value="' + (oddFtOver55.Odd).toFixed(2) + '" data-odd-type="' + oddFtOver55.BetOptionId + '" data-option-id="' + oddFtOver55.BetOptionId + '" data-option-name="' + oddFtOver55.BetOption + '"  data-bet-category="' + oddFtOver55.BetCategory + '" /></td>';
+                        // htmlstring += '<td><input type="button" class="' + self.getMatchClassIfMatchIsSelected(item.MatchNo, oddFtOver55.BetOption) + '" value="' + (oddFtOver55.Odd).toFixed(2) + '" data-odd-type="' + oddFtOver55.BetOptionId + '" data-option-id="' + oddFtOver55.BetOptionId + '" data-option-name="' + oddFtOver55.BetOption + '"  data-bet-category="' + oddFtOver55.BetCategory + '" /></td>';
                     } else {
                         htmlstring += '<td><input type="button" class="btn btn-default btn-xs odd" value="N/A" data-odd-type="" data-option-id="" data-option-name=""  data-bet-category="" disabled /></td>';
-                         
+
                     }
 
                     htmlstring += '<td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+' + item.GameOdds.length + '" /></td></tr>';
@@ -437,7 +467,7 @@
         var mins = (dt.getMinutes() < 10) ? '0' + dt.getMinutes() : dt.getMinutes();
         return (hours + ':' + mins);
     }
-     
+
     function appendHeaderRow($headerRow, $headerRowStatic, strheaderRowString) {
 
         $headerRow.append(strheaderRowString);

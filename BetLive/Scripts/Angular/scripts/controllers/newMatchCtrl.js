@@ -1,24 +1,25 @@
-﻿bettingApp.controller('newMatchCtrl', ['$scope', 'dataService', function ($scope, dataService) {
-    $scope.betCategoryRows = new Array();
-    dataService.get("Match/getBetCategories").then(function (results) {
-        var betCategories = betCategories || {};
-        $scope.betCategories = new Array();
-        angular.forEach(results, function (data, i) {
-            $scope.betCategories.push(data);
+﻿bettingApp.controller('newMatchCtrl', ['$scope', 'dataService', '$rootScope',/* 'liveBetsSrvc',*/ function ($scope, dataService, $rootScope/*, liveBetsSrvc*/) {
+    //$scope.betCategoryRows = new Array();
+    //dataService.get("Match/getBetCategories").then(function (results) {
+    //    var betCategories = betCategories || {};
+    //    $scope.betCategories = new Array();
+    //    angular.forEach(results, function (data, i) {
+    //        $scope.betCategories.push(data);
 
-        })
+    //    })
 
-        // $scope.betCategories = betCategories;
-        //matches.match=new Array();
-        // matches.matches.push()
+    //    // $scope.betCategories = betCategories;
+    //    //matches.match=new Array();
+    //    // matches.matches.push()
 
-    }, function (err) {
-        $scope.message = err.error_description;
-    });
+    //}, function (err) {
+    //    $scope.message = err.error_description;
+    //});
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////Matches///////////////////////////////////////////////////////
+    $scope.query = "";
     $scope.matches = null;
     $scope.matchDistinct = function () {
         this.MatchNo = null;
@@ -276,4 +277,123 @@
         });
         return gameodd;
     }
+
+
+
+
+
+
+    ///////////////////////////////live games/////////////////////////////////////////////////
+
+
+    // $scope.gameRow = function () {
+    //    this.MatchNo = null;      
+    //    this.Minutes=null;
+    //    this.LocalTeam = null;
+    //    this.AwayTeam = null;
+    //    this.LocalTeamScore = null;
+    //    this.AwayTeamScore = null;
+    //    this.FullTimeOdds = {
+    //        AwayWins: "N/A",
+    //        Draw: "N/A",
+    //        HomeWins: "N/A"
+    //    },
+    //    this.UnderOverOdds = {
+    //        Under: "N/A",
+    //        Over: "N/A",
+    //        ExtraValue: "N/A"
+    //    }
+    //}
+    //$scope.gameRows =null;
+    //$scope.updatedGameRow = null;
+    //liveBetsSrvc.init();
+    //$rootScope.$on('getAllGames',function(e,games){
+    //    $scope.$apply(function () {
+    //        console.log(games);
+    //        loopOverAllGames(games); 
+        
+    //    });
+    //});
+
+    //loopOverAllGames = function (games) {
+    //    console.log(games);
+    //    $scope.gameRows = new Array();
+    //    angular.forEach(games,function(game,i){
+    //        var gameRow = new $scope.gameRow();           
+    //        gameRow.MatchNo = game.MatchNo
+    //        gameRow.Minutes = game.Minutes
+    //        gameRow.LocalTeam = game.LocalTeam
+    //        gameRow.AwayTeam = game.AwayTeam
+    //        gameRow.LocalTeamScore = game.LocalTeamScore
+    //        gameRow.AwayTeamScore = game.AwayTeamScore
+    //        if (game.FullTimeOdds == null) {
+    //            gameRow.FullTimeOdds = gameRow.FullTimeOdds;
+    //        }else{
+    //            gameRow.FullTimeOdds.AwayWins = game.FullTimeOdds.AwayWins;
+    //            gameRow.FullTimeOdds.Draw = game.FullTimeOdds.Draw;
+    //            gameRow.FullTimeOdds.HomeWins = game.FullTimeOdds.HomeWins;           
+            
+    //        }
+
+    //        if (game.UnderOverOdds == null) {
+    //            gameRow.UnderOverOdds = gameRow.UnderOverOdds;
+    //        }else{
+    //            gameRow.UnderOverOdds.Under = game.UnderOverOdds.Under;
+    //            gameRow.UnderOverOdds.Over = game.UnderOverOdds.Over;
+    //            gameRow.UnderOverOdds.ExtraValue = game.UnderOverOdds.ExtraValue;  
+    //        }
+    //        $scope.gameRows.push(gameRow);
+    //    });
+    //}
+   
+    //$rootScope.$on('updateGame', function (e, game) {
+    //    $scope.$apply(function () {
+    //        mergeGame(game);
+
+    //    });
+    //});
+   
+    //mergeGame = function (game) {
+    //    var gameRow = new $scope.gameRow();
+    //    gameRow.MatchNo = game.MatchNo;
+    //    gameRow.Minutes = game.Minutes;
+    //    gameRow.LocalTeam = game.LocalTeam;
+    //    gameRow.AwayTeam = game.AwayTeam;
+    //    gameRow.LocalTeamScore = game.LocalTeamScore;
+    //    gameRow.AwayTeamScore = game.AwayTeamScore;
+
+    //    if (game.FullTimeOdds == null) {
+    //        gameRow.FullTimeOdds = gameRow.FullTimeOdds;
+    //    } else {           
+    //        gameRow.FullTimeOdds.AwayWins = game.FullTimeOdds.AwayWins;
+    //        gameRow.FullTimeOdds.Draw = game.FullTimeOdds.Draw;
+    //        gameRow.FullTimeOdds.HomeWins = game.FullTimeOdds.HomeWins;
+    //    }
+
+    //    if (game.UnderOverOdds == null) {
+    //        gameRow.UnderOverOdds = gameRow.UnderOverOdds;
+    //    } else {
+
+    //        gameRow.UnderOverOdds.Under = game.UnderOverOdds.Under;
+    //        gameRow.UnderOverOdds.Over = game.UnderOverOdds.Over;
+    //        gameRow.UnderOverOdds.ExtraValue = game.UnderOverOdds.ExtraValue;
+    //    }
+    //    $scope.updatedGameRow = gameRow;
+    //    console.log(gameRow);
+    //    //var objectRowToBeUpdated = $filter('filter')($scope.gameRows, { MatchNo: $scope.updatedGameRow.MatchNo });
+    //    //objectRowToBeUpdated = $scope.updatedGameRow;
+    //    //$scope.$apply();
+    //    for(var i=0;i<$scope.gameRows.length;i++) {
+    //        if ($scope.gameRows[i].MatchNo === gameRow.MatchNo)
+    //       {                
+    //            $scope.gameRows[i] = gameRow;
+    //            console.log("updated");
+    //            $scope.$apply();
+    //           break;
+    //       }
+
+    //    }
+
+
+    //};
 }]);

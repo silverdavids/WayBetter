@@ -1153,6 +1153,8 @@
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\app\BackUpFiles\Receipt.cshtml" />
     <Content Include="Content\themes\blue\jtable.less" />
+    <Content Include="Xml\soccer_in_play_live_Odds.xml" />
+    <Content Include="Xml\soccer_in_play_scores.xml" />
     <None Include="Properties\PublishProfiles\BetWay.pubxml" />
     <None Include="Properties\PublishProfiles\betwaysystem.pubxml" />
     <None Include="Properties\PublishProfiles\DavidProfile.pubxml" />

@@ -22,10 +22,11 @@ bettingApp.filter("datetime", [function (utils) {
 }]);
 
 bettingApp.filter("datetime2", [function (utils) {
-    return function(input) {
-        var pattern = /Date\(([^)]+)\)/;
-        var results = pattern.exec(value);
-        var dt = new Date(parseFloat(results[1]));
+    return function (input) {
+        var dt = new Date(input);
+       // var pattern = /Date\(([^)]+)\)/;
+        //var results = pattern.exec(value);
+       // var dt = new Date(parseFloat(results[1]));
         var hours = (dt.getHours() < 10) ? '0' + dt.getHours() : dt.getHours();
         var mins = (dt.getMinutes() < 10) ? '0' + dt.getMinutes() : dt.getMinutes();
         return (hours + ':' + mins);

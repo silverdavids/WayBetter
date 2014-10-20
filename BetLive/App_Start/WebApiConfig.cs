@@ -12,6 +12,7 @@ namespace BetLive
         public static JsonSerializerSettings JsonSerializerSettings { get; private set; }
         public static void Register(HttpConfiguration config)
         {
+           
             config.Routes.MapHttpRoute(
                 name: "ApiCtrlWithActions",
                 routeTemplate: "api/{controller}/{action}/{id}",

@@ -254,14 +254,14 @@ namespace WebUI.Controllers
         public  async Task<JsonResult> ReceiveReceipt(Receipt1 receipts)
         {  
             var bcg = new BarCodeGenerator();
-            var account = await BetDatabase.Accounts.SingleOrDefaultAsync(x => x.UserId == User.Identity.Name);
-            var branchId = Convert.ToInt32(account.AdminE);
-            var branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
+           // var account = await BetDatabase.Accounts.SingleOrDefaultAsync(x => x.UserId == User.Identity.Name);
+           // var branchId = Convert.ToInt32(account.AdminE);
+           // var branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
             var receiptid = bcg.GenerateRandomString(8);
             var receipt = new Receipt
             {
                 UserId = User.Identity.Name,
-                BranchId =Convert.ToInt16(account.AdminE),
+               // BranchId =Convert.ToInt16(account.AdminE),
                 ReceiptStatus = 0,
                 SetNo = 20141011,
                 ReceiptId = int.Parse(receiptid)
@@ -319,7 +319,7 @@ namespace WebUI.Controllers
                 receipt.SubmitedSize = 0;
                 receipt.ReceiptDate = DateTime.Now;
                 receipt.Serial = Int2Guid(receiptid);    
-                account.DateE  = DateTime.Now;
+               // account.DateE  = DateTime.Now;
                 // receipt.RecieptID = 34;                    
                 //BetDatabase.Entry(receipt).State = EntityState.Modified;
                 var statement = new Statement
@@ -328,16 +328,16 @@ namespace WebUI.Controllers
                     Amount = receipt.Stake,
                     Controller = receipt.UserId,
                     StatetmentDate = DateTime.Now,
-                    BalBefore = account.AmountE,
-                    BalAfter = account.AmountE + receipt.Stake,
-                    Comment ="Bet Transaction for Ticket No"+receiptid
+                   // BalBefore = account.AmountE,
+                   // BalAfter = account.AmountE + receipt.Stake,
+                    //Comment ="Bet Transaction for Ticket No"+receiptid
                 };
-                account.AmountE = account.AmountE + receipt.Stake;
+               // account.AmountE = account.AmountE + receipt.Stake;
                 statement.Transcation = "Teller Bet";
                 statement.Method = "Online";
                 statement.Serial = receiptid;
             
-                branch.Balance = branch.Balance +Convert.ToDecimal( receipt.Stake);
+               // branch.Balance = branch.Balance +Convert.ToDecimal( receipt.Stake);
                 //BetDatabase.Entry(branch).State = EntityState.Modified;
                // BetDatabase.Accounts.AddOrUpdate(account);
                 //BetDatabase.Statements.Add(statement);
@@ -364,7 +364,7 @@ namespace WebUI.Controllers
                 response = ("Maximum stake is UGX " + bettingLimit + ". Please enter amount less than UGX " + bettingLimit + ".");
             }
 
-            return new JsonResult { Data = new { message = response, ReceiptNumber = receipt.ReceiptId, ReceiptTime = String.Format("{0:dd/MM/yyyy}", DateTime.Now) + " - " + toJavaScriptDate(DateTime.Now), TellerName = account.UserId, BranchName = branch.BranchName, Balance = account.AmountE, Serial = receiptid, FormatedSerial = GetSerialNumber(receiptid) } };
+            return new JsonResult { Data = new { message = response, ReceiptNumber = receipt.ReceiptId, ReceiptTime = String.Format("{0:dd/MM/yyyy}", DateTime.Now) + " - " + toJavaScriptDate(DateTime.Now), /*TellerName = account.UserId, BranchName = branch.BranchName, Balance = account.AmountE,*/ Serial = receiptid, FormatedSerial = GetSerialNumber(receiptid) } };
         }
 
   

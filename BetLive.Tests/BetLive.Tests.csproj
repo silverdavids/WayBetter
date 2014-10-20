@@ -111,6 +111,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="XmlLoaderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -122,6 +123,10 @@
     <ProjectReference Include="..\BetLive\BetLive.csproj">
       <Project>{376AC5F6-6C0E-4C46-A3FD-F16CA5448A81}</Project>
       <Name>BetLive</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebUI\WebUI.csproj">
+      <Project>{9176ba58-3796-4d5d-9f2f-8017a51300e3}</Project>
+      <Name>WebUI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

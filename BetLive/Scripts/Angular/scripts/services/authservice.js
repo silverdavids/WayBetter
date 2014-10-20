@@ -10,7 +10,7 @@
 
 bettingApp.service('authService',['$http','$q','localStorageService', function authService($http,$q,localStorageService) {
     // AngularJS will instantiate a singleton by calling "new" on this function
-        var serviceBase = 'http://localhost:7548/';
+    var serviceBase = 'http://localhost:54480/';
         var authServiceFactory = {};
 
         var _authentication = {
@@ -22,7 +22,7 @@ bettingApp.service('authService',['$http','$q','localStorageService', function a
 
             _logOut();
 
-            return $http.post(serviceBase + 'api/account/register', registration).then(function (response) {
+            return $http.post(serviceBase + 'api/Account/Register', registration).then(function (response) {
                 return response;
             });
 
