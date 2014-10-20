@@ -15,10 +15,5 @@ namespace WebUI.Controllers
         {
             return View();
         }
-
-        public ActionResult RemoveThis()
-        {
-            return null;
-        }
 	}
 }
