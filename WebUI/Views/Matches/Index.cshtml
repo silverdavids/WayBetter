@@ -1,4 +1,9 @@
 ﻿<style type="text/css">
+    .receipt-left {
+    position:relative;
+    
+    }
+
     body.modal-open, 
 .modal-open .navbar-fixed-top, 
 .modal-open .navbar-fixed-bottom {
@@ -48,6 +53,12 @@
          opacity: 0.8;
      }*/
      #maindiv {
+         -moz-border-radius:10px;
+         -ms-border-radius:10px;
+         -o-border-radius:10px;
+         border-radius:10px;
+         border:2px solid #191970;
+         z-index:1001;
          margin-top: 65px;
          max-height: 700px;
          overflow: scroll;
@@ -156,7 +167,7 @@
         </div>
     </div>
 
-    <div class="col-lg-12">
+    <div class="col-lg-12 receipt-left">
         <div class="col-md-8">
 
             <table class="table-striped table-hover" id="oddstable">

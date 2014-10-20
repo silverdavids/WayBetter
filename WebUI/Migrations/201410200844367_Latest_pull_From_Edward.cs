@@ -3,7 +3,7 @@ namespace WebUI.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Included_CoampanyStructure : DbMigration
+    public partial class Latest_pull_From_Edward : DbMigration
     {
         public override void Up()
         {

@@ -33,11 +33,11 @@ namespace WebUI.Controllers
                 //    a.AmountE
                 //}).SingleOrDefaultAsync(t => t.UserId == User.Identity.Name);
                 //ViewBag.Balance = account.AmountE;
-               return View();
+                return View();
             }
         
             //var currentSetNo = SetNumberGenerator.GetCurrentSetNumber;
-            var games = await BetDatabase.ShortMatchCodes.Include(s => s.Match).Include(mo=>mo.Match.GameOdds.Select(m=>m.BetOption)).OrderBy(x=>x.ShortCode).ToListAsync();
+            var games = await BetDatabase.ShortMatchCodes.Include(s => s.Match).OrderBy(x=>x.ShortCode).ToListAsync();
             var startTime = DateTime.Now;
             
             var filteredgames = games.Select(g => new GameViewModel
@@ -254,23 +254,23 @@ namespace WebUI.Controllers
         public  async Task<JsonResult> ReceiveReceipt(Receipt1 receipts)
         {  
             var bcg = new BarCodeGenerator();
-           // var account = await BetDatabase.Accounts.SingleOrDefaultAsync(x => x.UserId == User.Identity.Name);
-           // var branchId = Convert.ToInt32(account.AdminE);
-           // var branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
-            var receiptid = bcg.GenerateRandomString(8);
+            var account = await BetDatabase.Accounts.SingleOrDefaultAsync(x => x.UserId == User.Identity.Name);
+            var branchId = Convert.ToInt32(account.AdminE);
+            var branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
+            var receiptid = bcg.GenerateRandomString(16);
             var receipt = new Receipt
             {
                 UserId = User.Identity.Name,
-               // BranchId =Convert.ToInt16(account.AdminE),
+                BranchId =Convert.ToInt16(account.AdminE),
                 ReceiptStatus = 0,
-                SetNo = 20141011,
-                ReceiptId = int.Parse(receiptid)
+                SetNo = 2014927,
+               // ReceiptId = Convert.ToInt32(receiptid)
             }; //Start New Reciept
-            receipt.ReceiptId = int.Parse(receiptid);
+
             var betStake = receipts.TotalStake.ToString(CultureInfo.InvariantCulture);
             string response;        
-           // BetDatabase.Receipts.Add(receipt);
-            // BetDatabase.SaveChangesAsync();
+            BetDatabase.Receipts.Add(receipt);
+            await BetDatabase.SaveChangesAsync();
 
             var ttodd = receipts.TotalOdd;
             const float bettingLimit = 8000000;
@@ -299,8 +299,8 @@ namespace WebUI.Controllers
                             MatchId = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo,  
                             BetOdd = Convert.ToDecimal(betData.Odd),
                         };
-                        //BetDatabase.Bets.Add(bm);
-                        //BetDatabase.SaveChanges();
+                        BetDatabase.Bets.Add(bm);
+                        BetDatabase.SaveChanges();
                     }
                     catch (Exception er)
                     {
@@ -319,29 +319,29 @@ namespace WebUI.Controllers
                 receipt.SubmitedSize = 0;
                 receipt.ReceiptDate = DateTime.Now;
                 receipt.Serial = Int2Guid(receiptid);    
-               // account.DateE  = DateTime.Now;
+                account.DateE  = DateTime.Now;
                 // receipt.RecieptID = 34;                    
-                //BetDatabase.Entry(receipt).State = EntityState.Modified;
+                BetDatabase.Entry(receipt).State = EntityState.Modified;
                 var statement = new Statement
                 {
                     Account = receipt.UserId,
                     Amount = receipt.Stake,
                     Controller = receipt.UserId,
                     StatetmentDate = DateTime.Now,
-                   // BalBefore = account.AmountE,
-                   // BalAfter = account.AmountE + receipt.Stake,
-                    //Comment ="Bet Transaction for Ticket No"+receiptid
+                    BalBefore = account.AmountE,
+                    BalAfter = account.AmountE + receipt.Stake,
+                    Comment ="Bet Transaction for Ticket No"+receiptid
                 };
-               // account.AmountE = account.AmountE + receipt.Stake;
+                account.AmountE = account.AmountE + receipt.Stake;
                 statement.Transcation = "Teller Bet";
                 statement.Method = "Online";
                 statement.Serial = receiptid;
             
-               // branch.Balance = branch.Balance +Convert.ToDecimal( receipt.Stake);
-                //BetDatabase.Entry(branch).State = EntityState.Modified;
-               // BetDatabase.Accounts.AddOrUpdate(account);
-                //BetDatabase.Statements.Add(statement);
-                //BetDatabase.SaveChanges();
+                branch.Balance = branch.Balance +Convert.ToDecimal( receipt.Stake);
+                BetDatabase.Entry(branch).State = EntityState.Modified;
+                BetDatabase.Accounts.AddOrUpdate(account);
+                BetDatabase.Statements.Add(statement);
+                BetDatabase.SaveChanges();
                 var barcodeImage = bcg.CreateBarCode(receiptid);
                 var tempPath = Server.MapPath("~/Content/BarCodes/" + receiptid.Trim() + ".png");
                 try
@@ -364,7 +364,7 @@ namespace WebUI.Controllers
                 response = ("Maximum stake is UGX " + bettingLimit + ". Please enter amount less than UGX " + bettingLimit + ".");
             }
 
-            return new JsonResult { Data = new { message = response, ReceiptNumber = receipt.ReceiptId, ReceiptTime = String.Format("{0:dd/MM/yyyy}", DateTime.Now) + " - " + toJavaScriptDate(DateTime.Now), /*TellerName = account.UserId, BranchName = branch.BranchName, Balance = account.AmountE,*/ Serial = receiptid, FormatedSerial = GetSerialNumber(receiptid) } };
+            return new JsonResult { Data = new { message = response, ReceiptNumber = receipt.ReceiptId, ReceiptTime = String.Format("{0:dd/MM/yyyy}", DateTime.Now) + " - " + toJavaScriptDate(DateTime.Now), TellerName = account.UserId, BranchName = branch.BranchName, Balance = account.AmountE, Serial = receiptid, FormatedSerial = GetSerialNumber(receiptid) } };
         }
 
   
@@ -410,13 +410,13 @@ namespace WebUI.Controllers
               var serialArray = serialGuid.ToCharArray();
               var finalSerialNumber = "";
               var j = 0;
-              for (var i = 0; i < 8; i++)
+              for (var i = 0; i < 16; i++)
               {
                   for (j = i; j < 4 + i; j++)
                   {
                       finalSerialNumber += serialArray[j];
                   }
-                  if (j == 8)
+                  if (j == 16)
                   {
                       break;
                   }

@@ -298,33 +298,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Infrastructure\XmlHelper.cs" />
-    <Compile Include="Migrations\201410141731072_InitialCreate.cs" />
-    <Compile Include="Migrations\201410141731072_InitialCreate.Designer.cs">
-      <DependentUpon>201410141731072_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410161711350_BetOptionpatch.cs" />
-    <Compile Include="Migrations\201410161711350_BetOptionpatch.Designer.cs">
-      <DependentUpon>201410161711350_BetOptionpatch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410172202302_MatchOddError.cs" />
-    <Compile Include="Migrations\201410172202302_MatchOddError.Designer.cs">
-      <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410110532388_FromRepo.cs" />
-    <Compile Include="Migrations\201410110532388_FromRepo.Designer.cs">
-      <DependentUpon>201410110532388_FromRepo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410120854486_changed_the_recipt_id_to_long_data_type.cs" />
-    <Compile Include="Migrations\201410120854486_changed_the_recipt_id_to_long_data_type.Designer.cs">
-      <DependentUpon>201410120854486_changed_the_recipt_id_to_long_data_type.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410120957036_changed_the_recipt_id_to_long_data_type1.cs" />
-    <Compile Include="Migrations\201410120957036_changed_the_recipt_id_to_long_data_type1.Designer.cs">
-      <DependentUpon>201410120957036_changed_the_recipt_id_to_long_data_type1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410130820345_Included_CoampanyStructure.cs" />
-    <Compile Include="Migrations\201410130820345_Included_CoampanyStructure.Designer.cs">
-      <DependentUpon>201410130820345_Included_CoampanyStructure.cs</DependentUpon>
+    <Compile Include="Migrations\201410200844367_Latest_pull_From_Edward.cs" />
+    <Compile Include="Migrations\201410200844367_Latest_pull_From_Edward.Designer.cs">
+      <DependentUpon>201410200844367_Latest_pull_From_Edward.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1753,26 +1729,8 @@
     <Folder Include="Content\Files\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201410141731072_InitialCreate.resx">
-      <DependentUpon>201410141731072_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410161711350_BetOptionpatch.resx">
-      <DependentUpon>201410161711350_BetOptionpatch.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410172202302_MatchOddError.resx">
-      <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410110532388_FromRepo.resx">
-      <DependentUpon>201410110532388_FromRepo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410120854486_changed_the_recipt_id_to_long_data_type.resx">
-      <DependentUpon>201410120854486_changed_the_recipt_id_to_long_data_type.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410120957036_changed_the_recipt_id_to_long_data_type1.resx">
-      <DependentUpon>201410120957036_changed_the_recipt_id_to_long_data_type1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410130820345_Included_CoampanyStructure.resx">
-      <DependentUpon>201410130820345_Included_CoampanyStructure.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201410200844367_Latest_pull_From_Edward.resx">
+      <DependentUpon>201410200844367_Latest_pull_From_Edward.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -1793,7 +1751,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49193</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:49193/</IISUrl>
+          <IISUrl>http://localhost:49195/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

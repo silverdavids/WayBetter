@@ -64,7 +64,7 @@
                                     '<td><input type="button" class="' + oddHomeClass + '" value="' + (oddHome.Odd).toFixed(2) + '" data-odd-type="' + oddHome.BetOptionId + '" data-option-id="' + oddHome.BetOptionId + '" data-option-name="' + oddHome.BetOption + '"  data-bet-category="' + oddHome.BetCategory + '" /></td>' +
                                     '<td><input type="button" class="' + oddDrawClass + '" value="' + (oddDraw.Odd).toFixed(2) + '" data-odd-type="' + oddDraw.BetOptionId + '" data-option-id="' + oddDraw.BetOptionId + '" data-option-name="' + oddDraw.BetOption + '"  data-bet-category="' + oddDraw.BetCategory + '" /></td>' +
                                     '<td><input type="button" class="' + oddAwayClass + '" value="' + (oddAway.Odd).toFixed(2) + '" data-odd-type="' + oddAway.BetOptionId + '" data-option-id="' + oddAway.BetOptionId + '" data-option-name="' + oddAway.BetOption + '"  data-bet-category="' + oddAway.BetCategory + '" /></td>' +
-                                    '<td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+' + item.GameOdds.length + '" /></td>' +
+                                    '<td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+' + item.MatchOdds.length + '" /></td>' +
                                     '</tr>');
                         } else {
                             console.log(item);
@@ -196,7 +196,7 @@
                                     '<td><input type="button" class="' + oddHomeClass + '" value="' + (oddHome.Odd).toFixed(2) + '" data-odd-type="' + oddHome.BetOptionId + '" data-option-id="' + oddHome.BetOptionId + '" data-option-name="' + oddHome.BetOption + '"  data-bet-category="' + oddHome.BetCategory + '" /></td>' +
                                         '<td><input type="button" class="' + oddDrawClass + '" value="' + (oddDraw.Odd).toFixed(2) + '" data-odd-type="' + oddDraw.BetOptionId + '" data-option-id="' + oddDraw.BetOptionId + '" data-option-name="' + oddDraw.BetOption + '"  data-bet-category="' + oddDraw.BetCategory + '" /></td>' +
                                         '<td><input type="button" class="' + oddAwayClass + '" value="' + (oddAway.Odd).toFixed(2) + '" data-odd-type="' + oddAway.BetOptionId + '" data-option-id="' + oddAway.BetOptionId + '" data-option-name="' + oddAway.BetOption + '"  data-bet-category="' + oddAway.BetCategory + '" /></td>' +
-                                        '<td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+' + item.GameOdds.length + '" /></td>' +
+                                        '<td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+' + item.MatchOdds.length + '" /></td>' +
                                         '</tr>';
                             } else {
                                 console.log(item);
@@ -212,7 +212,7 @@
                         console.log(item);
 
                     }
-
+                } else if (category === 'Under/Over') {
                     var oddFtUnder05 = getOddOptionInBetCategory(requiredOdds, item.MatchNo, 'Under', '0.5');
                     var oddFtOver05 = getOddOptionInBetCategory(requiredOdds, item.MatchNo, 'Over', '0.5');
                     var oddFtUnder15 = getOddOptionInBetCategory(requiredOdds, item.MatchNo, 'Under', '1.5');

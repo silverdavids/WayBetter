@@ -35,7 +35,7 @@ namespace BetLive.Controllers.UI
             }
 
             var currentSetNo = SetNumberGenerator.GetCurrentSetNumber;
-            var games = await BetDatabase.ShortMatchCodes.Include(s => s.Match).Include(mo => mo.Match.GameOdds.Select(m => m.BetOption)).OrderBy(x => x.ShortCode).ToListAsync();
+            var games = await BetDatabase.ShortMatchCodes.Include(s => s.Match).OrderBy(x => x.ShortCode).ToListAsync();
             var startTime = DateTime.Now;
 
             var filteredgames = games.Select(g => new GameViewModel
@@ -43,15 +43,15 @@ namespace BetLive.Controllers.UI
                 AwayScore = g.Match.AwayScore,
                 AwayTeamId = g.Match.AwayTeamId,
                 AwayTeamName = g.Match.AwayTeam.TeamName,
-                Champ = g.Match.Champ,
-                GameOdds = g.Match.GameOdds.Select(go => new GameOddViewModel
+                Champ = g.Match.League,
+                MatchOdds = g.Match.MatchOdds.Select(go => new GameOddViewModel
                 {
                     BetCategory = go.BetOption.BetCategory.Name,
                     BetOptionId = go.BetOptionId,
                     BetOption = go.BetOption.Option,
                     LastUpdateTime = go.LastUpdateTime,
                     Odd = go.Odd,
-                    HandicapGoals = go.HandicapGoals
+                    //Line = go.Line
                 }).ToList(),
                 GameStatus = g.Match.GameStatus,
                 HalfTimeAwayScore = g.Match.HalfTimeAwayScore,
@@ -66,6 +66,7 @@ namespace BetLive.Controllers.UI
                 OldDateTime = g.Match.StartTime,
                 StartTime = String.Format("{0:dd/M/yyyy}", g.Match.StartTime)
             }).Where(x => x.OldDateTime > startTime).OrderBy(s => s.StartTime);
+          
             // .Where(x => x.OldDateTime>startTime)
             return Json(filteredgames, JsonRequestBehavior.AllowGet);
         }
@@ -282,7 +283,7 @@ namespace BetLive.Controllers.UI
                     {
                         var tempMatchId = Convert.ToInt32(betData.MatchId);
                         var _matchid = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo;
-                        Match _match = BetDatabase.Matches.Single(h => h.MatchNo == _matchid);
+                        Match _match = BetDatabase.Matches.Single(h => h.BetServiceMatchNo == _matchid);
                         DateTime _matchTime = _match.StartTime;
                         DateTime timenow = DateTime.Now;
                         if (_matchTime < timenow)

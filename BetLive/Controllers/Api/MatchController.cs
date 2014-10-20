@@ -31,7 +31,7 @@ namespace BetLive.Controllers.Api
         public async Task<IHttpActionResult> GetMatches()
         {
             var currentSetNo = SetNumberGenerator.GetCurrentSetNumber;
-            var games = await db.ShortMatchCodes.Include(s => s.Match).Include(mo => mo.Match.GameOdds.Select(m => m.BetOption)).OrderBy(x => x.ShortCode).ToListAsync();
+            var games = await db.ShortMatchCodes.Include(s => s.Match).OrderBy(x=>x.ShortCode).ToListAsync();
             var startTime = DateTime.Now;
 
             var filteredgames = games.Select(g => new GameViewModel
@@ -39,15 +39,15 @@ namespace BetLive.Controllers.Api
                 AwayScore = g.Match.AwayScore,
                 AwayTeamId = g.Match.AwayTeamId,
                 AwayTeamName = g.Match.AwayTeam.TeamName,
-                Champ = g.Match.Champ,
-                GameOdds = g.Match.GameOdds.Select(go => new GameOddViewModel
+                Champ = g.Match.League,
+                MatchOdds = g.Match.MatchOdds.Select(go => new GameOddViewModel
                 {
                     BetCategory = go.BetOption.BetCategory.Name,
                     BetOptionId = go.BetOptionId,
                     BetOption = go.BetOption.Option,
                     LastUpdateTime = go.LastUpdateTime,
                     Odd = go.Odd,
-                    HandicapGoals = go.HandicapGoals
+                    //Line = go.Line
                 }).ToList(),
                 GameStatus = g.Match.GameStatus,
                 HalfTimeAwayScore = g.Match.HalfTimeAwayScore,
@@ -61,7 +61,7 @@ namespace BetLive.Controllers.Api
                 SetNo = g.SetNo,
                 OldDateTime = g.Match.StartTime,
                 StartTime = String.Format("{0:dd/M/yyyy}", g.Match.StartTime)
-            }).Where(x => x.OldDateTime > startTime).OrderBy(s => s.StartTime);
+            }).Where(x => x.OldDateTime > startTime).OrderBy(s => s.StartTime); 
             return Ok(filteredgames);
         }
         #endregion
@@ -95,10 +95,13 @@ namespace BetLive.Controllers.Api
                 return BadRequest(ModelState);
             }
 
-            if (id != match.MatchNo)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
+                db.Entry(match).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return Ok("Index");
             }
+           
 
             db.Entry(match).State = System.Data.Entity.EntityState.Modified;
 
@@ -138,7 +141,7 @@ namespace BetLive.Controllers.Api
             }
             catch (DbUpdateException)
             {
-                if (MatchExists(match.MatchNo))
+                if (MatchExists(match.BetServiceMatchNo))
                 {
                     return Conflict();
                 }
@@ -148,7 +151,7 @@ namespace BetLive.Controllers.Api
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = match.MatchNo }, match);
+            return CreatedAtRoute("DefaultApi", new { id = match.BetServiceMatchNo }, match);
         }
 
         // DELETE: api/Match/5
@@ -178,7 +181,7 @@ namespace BetLive.Controllers.Api
 
         private bool MatchExists(int id)
         {
-            return db.Matches.Count(e => e.MatchNo == id) > 0;
+            return db.Matches.Count(e => e.BetServiceMatchNo == id) > 0;
         }
     }
 }
