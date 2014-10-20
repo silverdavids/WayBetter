@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
+using Domain.Models.Concrete;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 
@@ -25,7 +26,9 @@ namespace WebUI.Hubs
         private volatile bool _updatingGame = false;
         private readonly object _updateGameLock = new object();
         private readonly Random _updateOrNotRandom = new Random();
+        private ICollection<ShortMatchCode> ShortMatchCodes;
 
+        // ToDo: Add short code
         public LiveGameHub()
         {
             _gamesforLiveScore.Clear();
