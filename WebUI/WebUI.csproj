@@ -1718,11 +1718,12 @@
     <Content Include="Scripts\jtable\themes\metro\red\jtable.less" />
     <Content Include="Views\Shared\Scores.cshtml" />
     <Content Include="Views\Shared\_LiveLayoutPage.cshtml" />
-    <Content Include="Views\LiveGames\Index.cshtml" />
+    <Content Include="Views\Live\Index.cshtml" />
     <Content Include="Views\Matches\Create.cshtml" />
     <Content Include="Views\Matches\Delete.cshtml" />
     <Content Include="Views\Matches\Details.cshtml" />
     <Content Include="Views\Matches\Edit.cshtml" />
+    <Content Include="Views\Live\Games.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

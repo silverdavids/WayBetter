@@ -2,11 +2,16 @@
 
 namespace WebUI.Controllers
 {
-    public class LiveGamesController : Controller
+    public class LiveController : Controller
     {
         //
         // GET: /LiveGames/
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Games()
         {
             return View();
         }
