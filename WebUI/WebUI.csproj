@@ -209,7 +209,7 @@
     <Compile Include="Controllers\FixtureViewModel.cs" />
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LiveGamesController.cs" />
+    <Compile Include="Controllers\LiveController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\ManualResultController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
