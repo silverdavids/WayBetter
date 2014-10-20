@@ -20,6 +20,27 @@
     #MatchTable tbody > tr {
         color: #ffffff;
     }
+
+    .raised {
+        background-color: #2ecc71;
+    }
+    .dropped {
+        background-color: #b22222;
+    }
+
+    #MatchTable tbody > tr td.FT-1,
+    #MatchTable tbody > tr td.FT-X,
+    #MatchTable tbody > tr td.FT-2,
+    #MatchTable tbody > tr td.RM-1,
+    #MatchTable tbody > tr td.RM-X,
+    #MatchTable tbody > tr td.RM-2,
+    #MatchTable tbody > tr td.NG-1,
+    #MatchTable tbody > tr td.NG-X,
+    #MatchTable tbody > tr td.NG-2,
+    #MatchTable tbody > tr td.over,
+    #MatchTable tbody > tr td.under {
+        text-align: center;
+    }
 </style>
 
 <div>
@@ -152,26 +173,26 @@
                                 };
                             }
                             var rowTemplate = '<tr id="' + game.MatchNo + '">' +
-                                '<td>' + game.MatchNo + '</td>' +
-                                '<td>' + game.Minutes + '</td>' +
-                                '<td>' + game.LocalTeam + '</td>' +
-                                '<td>' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
-                                '<td>' + game.AwayTeam + '</td>' +
-                                '<td style="padding-bottom: 0px;">' + game.FullTimeOdds.HomeWins + '</td>' +
-                                '<td>' + game.FullTimeOdds.Draw + '</td>' +
-                                '<td>' + game.FullTimeOdds.AwayWins + '</td>' +
-                                '<td>' + game.UnderOverOdds.Under + '</td>' +
-                                '<td>' +
-                                '  <span style="color:#E9860D;">' + game.UnderOverOdds.ExtraValue + '</span>' +
-                                '</td>' +
-                                '<td>' + game.UnderOverOdds.Over + '</td>' +
-                                '<td style="padding-bottom: 0px;">' + game.RestofMatch.HomeWins + '</td>' +
-                                '<td>' + game.RestofMatch.Draw + '</td>' +
-                                '<td>' + game.RestofMatch.AwayWins + '</td>' +
-                                '<td style="padding-bottom: 0px;">' + game.NextGoal.HomeScores + '</td>' +
-                                '<td>' + game.NextGoal.Draw + '</td>' +
-                                '<td>' + game.NextGoal.AwayScores + '</td>' +
-                                '</tr>';
+                              '<td>' + game.MatchNo + '</td>' +
+                              '<td>' + game.Minutes + '</td>' +
+                              '<td>' + game.LocalTeam + '</td>' +
+                              '<td>' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
+                              '<td>' + game.AwayTeam + '</td>' +
+                              '<td class="FT-1" style="padding-bottom: 0px;">' + game.FullTimeOdds.HomeWins + '</td>' +
+                              '<td class="FT-X">' + game.FullTimeOdds.Draw + '</td>' +
+                              '<td class="FT-2">' + game.FullTimeOdds.AwayWins + '</td>' +
+                              '<td class="under">' + game.UnderOverOdds.Under + '</td>' +
+                              '<td class="text-center">' +
+                              '  <span style="color:#E9860D;">' + game.UnderOverOdds.ExtraValue + '</span>' +
+                              '</td>' +
+                              '<td class="over">' + game.UnderOverOdds.Over + '</td>' +
+                              '<td class="RM-1" style="padding-bottom: 0px;">' + game.RestofMatch.HomeWins + '</td>' +
+                              '<td class="RM-X">' + game.RestofMatch.Draw + '</td>' +
+                              '<td class="RM-2">' + game.RestofMatch.AwayWins + '</td>' +
+                              '<td class="NG-1" style="padding-bottom: 0px;">' + game.NextGoal.HomeScores + '</td>' +
+                              '<td class="NG-X">' + game.NextGoal.Draw + '</td>' +
+                              '<td class="NG-2">' + game.NextGoal.AwayScores + '</td>' +
+                              '</tr>';
                             $gamesTableBody.append(rowTemplate);
                         });
                     });
@@ -216,22 +237,23 @@
                                '<td>' + game.LocalTeam + '</td>' +
                                '<td>' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
                                '<td>' + game.AwayTeam + '</td>' +
-                               '<td style="padding-bottom: 0px;">' + game.FullTimeOdds.HomeWins + '</td>' +
-                               '<td>' + game.FullTimeOdds.Draw + '</td>' +
-                               '<td>' + game.FullTimeOdds.AwayWins + '</td>' +
-                               '<td>' + game.UnderOverOdds.Under + '</td>' +
-                               '<td>' +
+                               '<td class="FT-1" style="padding-bottom: 0px;">' + game.FullTimeOdds.HomeWins + '</td>' +
+                               '<td class="FT-X">' + game.FullTimeOdds.Draw + '</td>' +
+                               '<td class="FT-2">' + game.FullTimeOdds.AwayWins + '</td>' +
+                               '<td class="under">' + game.UnderOverOdds.Under + '</td>' +
+                               '<td class="text-center">' +
                                '  <span style="color:#E9860D;">' + game.UnderOverOdds.ExtraValue + '</span>' +
                                '</td>' +
-                               '<td>' + game.UnderOverOdds.Over + '</td>' +
-                               '<td style="padding-bottom: 0px;">' + game.RestofMatch.HomeWins + '</td>' +
-                               '<td>' + game.RestofMatch.Draw + '</td>' +
-                               '<td>' + game.RestofMatch.AwayWins + '</td>' +
-                               '<td style="padding-bottom: 0px;">' + game.NextGoal.HomeScores + '</td>' +
-                               '<td>' + game.NextGoal.Draw + '</td>' +
-                               '<td>' + game.NextGoal.AwayScores + '</td>' +
+                               '<td class="over">' + game.UnderOverOdds.Over + '</td>' +
+                               '<td class="RM-1" style="padding-bottom: 0px;">' + game.RestofMatch.HomeWins + '</td>' +
+                               '<td class="RM-X">' + game.RestofMatch.Draw + '</td>' +
+                               '<td class="RM-2">' + game.RestofMatch.AwayWins + '</td>' +
+                               '<td class="NG-1" style="padding-bottom: 0px;">' + game.NextGoal.HomeScores + '</td>' +
+                               '<td class="NG-X">' + game.NextGoal.Draw + '</td>' +
+                               '<td class="NG-2">' + game.NextGoal.AwayScores + '</td>' +
                                '</tr>';
                     var FT1 = $gamesTableBody.find('#' + game.MatchNo + ' > td.FT-1').html();
+                    console.log(FT1)
                     var FTX = $gamesTableBody.find('#' + game.MatchNo + ' > td.FT-X').html();
                     var FT2 = $gamesTableBody.find('#' + game.MatchNo + ' > td.FT-2').html();
 
@@ -254,100 +276,100 @@
                         $gamesTableBody.append(rowTemplate);
                     }
                     if (parseInt(FT1) > parseInt(game.FullTimeOdds.HomeWins)) {
-                        $('#' + game.MatchNo + ' > td.FT-1').addTemporaryClass("down", 3000);
+                        $('#' + game.MatchNo + ' > td.FT-1').addTemporaryClass("dropped", 3000);
 
                     }
                     if (parseInt(FT1) < parseInt(game.FullTimeOdds.HomeWins)) {
-                        $('#' + game.MatchNo + ' > td.FT-1').addTemporaryClass("up", 3000);
+                        $('#' + game.MatchNo + ' > td.FT-1').addTemporaryClass("raised", 3000);
                     }
                     if (parseInt(FTX) > parseInt(game.FullTimeOdds.Draw)) {
-                        $('#' + game.MatchNo + ' > td.FT-X').addTemporaryClass("down", 3000);
+                        $('#' + game.MatchNo + ' > td.FT-X').addTemporaryClass("dropped", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
 
                     }
                     if (parseInt(FTX) < parseInt(game.FullTimeOdds.Draw)) {
-                        $('#' + game.MatchNo + ' > td.FT-X').addTemporaryClass("up", 3000);
+                        $('#' + game.MatchNo + ' > td.FT-X').addTemporaryClass("raised", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
                     }
                     if (parseInt(FT2) > parseInt(game.FullTimeOdds.AwayWins)) {
-                        $('#' + game.MatchNo + ' > td.FT-2').addTemporaryClass("down", 3000);
+                        $('#' + game.MatchNo + ' > td.FT-2').addTemporaryClass("dropped", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
 
                     }
                     if (parseInt(FT2) < parseInt(game.FullTimeOdds.AwayWins)) {
-                        $('#' + game.MatchNo + ' > td.FT-2').addTemporaryClass("up", 3000);
+                        $('#' + game.MatchNo + ' > td.FT-2').addTemporaryClass("raised", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
                     }
 
                     // under/over
                     if (parseInt(under) > parseInt(game.UnderOverOdds.Under)) {
-                        $('#' + game.MatchNo + ' > td.under').addTemporaryClass("down", 3000);
+                        $('#' + game.MatchNo + ' > td.under').addTemporaryClass("dropped", 3000);
 
                     }
                     if (parseInt(under) < parseInt(game.UnderOverOdds.Under)) {
-                        $('#' + game.MatchNo + ' > td.under').addTemporaryClass("up", 3000);
+                        $('#' + game.MatchNo + ' > td.under').addTemporaryClass("raised", 3000);
                     }
                     if (parseInt(over) > parseInt(game.UnderOverOdds.Over)) {
-                        $('#' + game.MatchNo + ' > td.over').addTemporaryClass("down", 3000);
+                        $('#' + game.MatchNo + ' > td.over').addTemporaryClass("dropped", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
 
                     }
                     if (parseInt(over) < parseInt(game.UnderOverOdds.Over)) {
-                        $('#' + game.MatchNo + ' > td.over').addTemporaryClass("up", 3000);
+                        $('#' + game.MatchNo + ' > td.over').addTemporaryClass("raised", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
                     }
 
                     // rest of match
                     if (parseInt(RM1) > parseInt(game.RestofMatch.HomeWins)) {
-                        $('#' + game.MatchNo + ' > td.RM-1').addTemporaryClass("down", 3000);
+                        $('#' + game.MatchNo + ' > td.RM-1').addTemporaryClass("dropped", 3000);
 
                     }
                     if (parseInt(RM1) < parseInt(game.RestofMatch.HomeWins)) {
-                        $('#' + game.MatchNo + ' > td.RM-1').addTemporaryClass("up", 3000);
+                        $('#' + game.MatchNo + ' > td.RM-1').addTemporaryClass("raised", 3000);
                     }
                     if (parseInt(RMX) > parseInt(game.RestofMatch.Draw)) {
-                        $('#' + game.MatchNo + ' > td.RM-X').addTemporaryClass("down", 3000);
+                        $('#' + game.MatchNo + ' > td.RM-X').addTemporaryClass("dropped", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
 
                     }
                     if (parseInt(RMX) < parseInt(game.RestofMatch.Draw)) {
-                        $('#' + game.MatchNo + ' > td.RM-X').addTemporaryClass("up", 3000);
+                        $('#' + game.MatchNo + ' > td.RM-X').addTemporaryClass("raised", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
                     }
                     if (parseInt(RM2) > parseInt(game.RestofMatch.AwayWins)) {
-                        $('#' + game.MatchNo + ' > td.RM-2').addTemporaryClass("down", 3000);
+                        $('#' + game.MatchNo + ' > td.RM-2').addTemporaryClass("dropped", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
 
                     }
                     if (parseInt(RM2) < parseInt(game.RestofMatch.AwayWins)) {
-                        $('#' + game.MatchNo + ' > td.RM-2').addTemporaryClass("up", 3000);
+                        $('#' + game.MatchNo + ' > td.RM-2').addTemporaryClass("raised", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
                     }
 
                     // next goal
                     if (parseInt(NG1) > parseInt(game.NextGoal.HomeScores)) {
-                        $('#' + game.MatchNo + ' > td.NG-1').addTemporaryClass("down", 3000);
+                        $('#' + game.MatchNo + ' > td.NG-1').addTemporaryClass("dropped", 3000);
 
                     }
                     if (parseInt(NG1) < parseInt(game.NextGoal.HomeScores)) {
-                        $('#' + game.MatchNo + ' > td.NG-1').addTemporaryClass("up", 3000);
+                        $('#' + game.MatchNo + ' > td.NG-1').addTemporaryClass("raised", 3000);
                     }
                     if (parseInt(NGX) > parseInt(game.NextGoal.Draw)) {
-                        $('#' + game.MatchNo + ' > td.NG-X').addTemporaryClass("down", 3000);
+                        $('#' + game.MatchNo + ' > td.NG-X').addTemporaryClass("dropped", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
 
                     }
                     if (parseInt(NGX) < parseInt(game.NextGoal.Draw)) {
-                        $('#' + game.MatchNo + ' > td.NG-X').addTemporaryClass("up", 3000);
+                        $('#' + game.MatchNo + ' > td.NG-X').addTemporaryClass("raised", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
                     }
                     if (parseInt(NG2) > parseInt(game.NextGoal.AwayScores)) {
-                        $('#' + game.MatchNo + ' > td.NG-2').addTemporaryClass("down", 3000);
+                        $('#' + game.MatchNo + ' > td.NG-2').addTemporaryClass("dropped", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
 
                     }
                     if (parseInt(NG2) < parseInt(game.NextGoal.AwayScores)) {
-                        $('#' + game.MatchNo + ' > td.NG-2').addTemporaryClass("up", 3000);
+                        $('#' + game.MatchNo + ' > td.NG-2').addTemporaryClass("raised", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
                     }
                 };
