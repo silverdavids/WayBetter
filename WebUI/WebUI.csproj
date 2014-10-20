@@ -1045,10 +1045,6 @@
     <Content Include="Scripts\angularjs\upida.angular.js" />
     <Content Include="Scripts\angularjs\version.txt" />
     <Content Include="Scripts\app\autoNumeric.js" />
-    <Content Include="Scripts\app\BackUpFiles\bet.js" />
-    <Content Include="Scripts\app\BackUpFiles\receipt.js" />
-    <Content Include="Scripts\app\BackUpFiles\receiptGen.js" />
-    <Content Include="Scripts\app\BackUpFiles\receiptSender.js" />
     <Content Include="Scripts\app\renderTables.js" />
     <Content Include="Scripts\app\bet.js" />
     <Content Include="Scripts\app\bettingController.js" />
