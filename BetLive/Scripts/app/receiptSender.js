@@ -50,7 +50,7 @@ function SendReceipt() {
 
         }
         if (betList.getBets().length > 0) console.log(receipt);
-         var url = "../Match/ReceiveReceipt";
+        var url = "http://localhost:49195/Match/ReceiveReceipt";//"../Match/ReceiveReceipt";
         //var url = "http://localhost:49193/Match/ReceiveReceipt"
         $.ajax({
             url: url,

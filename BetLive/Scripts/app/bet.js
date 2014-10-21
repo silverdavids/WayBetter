@@ -18,6 +18,7 @@ function Bet(matchId) {
     this.odd = 1;
     this.betAmount = 0;
     this.handCapGoalString = null;
+    this.liveScores = null;
     //this.betTotal=0;
     //this.maxPayout=0;
 };

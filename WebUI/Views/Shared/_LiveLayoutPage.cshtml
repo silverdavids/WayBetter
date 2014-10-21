@@ -6,8 +6,8 @@
     <title>BetWay - @ViewBag.Title</title>
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/FontAwesome")
-        @Scripts.Render("~/bundles/modernizr")
-    <link href="~/Content/css/Custom.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+   
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top bet-way-header" style="background-color:#0D1F35 !important;">
@@ -39,5 +39,12 @@
     @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/angular.min.js"></script>
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/app/renderTables.js"></script>
+    <script src="~/Scripts/app/receipt.js"></script>
+    <script src="~/Scripts/app/bet.js"></script>
+    <script src="~/Scripts/app/receiptSender.js"></script>
+    <script src="~/Scripts/app/printExt.js"></script>
+    <script src="~/Scripts/app/receiptGen.js"></script>
+    <script src="~/Scripts/app/autoNumeric.js"></script><!---->
 </body>
 </html>

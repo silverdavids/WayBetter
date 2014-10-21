@@ -141,15 +141,15 @@
     }
 </style>
 
-<div class="container main-div">
+<div class=" ">
     <div class="col-lg-12">
-        <div class="col-md-8">
+        <div class="col-md-9 main-div-content">
             <!----Tab set---->
             <tabset>
                 <tab heading="FT 1x2">
                     <table class="table table-condensed">
                         <tbody>
-                            <tr><td><input type="text" id="search" class="form-input" ng-model="query" ></td></tr>
+                            <tr><td><input type="text" id="search" class="form-input" ng-model="query"></td></tr>
                         </tbody>
                     </table>
                     <full-time></full-time>
@@ -194,18 +194,18 @@
                 <tab heading="Live">
                     <live-games></live-games>
                 </tab>
-                
-            </tabset>
-        </div >
-        <div class="col-lg-4 selections-header">
 
-            <div class="col-md-12">
-                <div class="col-sm-12">
-                    @{
-                        @Html.Partial("Receipt")
-                    }
-                </div>
-            </div>
+            </tabset>
+        </div>
+        <div class="col-lg-3 main-div-content" id="receipt-col-lg-3">
+
+           
+
+                @{
+                    @Html.Partial("Receipt")
+                }
+
+           
         </div>
     </div>
 </div> <!-- container -->
@@ -416,7 +416,7 @@
                                 <td class="livebet"><span class="badge">Live</span></td>
                                 <td>1+</td>
                                 <td data-field="teamVersus" class="team-versus">{{item.match.HomeTeamName}} vs  {{ item.match.AwayTeamName }}</td>
-                                <td data-oddhc-home="{{item.oddhc1.HandicapGoals}}" data-oddhc-away="{{item.oddhc2.HandicapGoals}}">{{item.oddhc1.HandicapGoals}}:{{item.oddhc2.HandicapGoals}}</td>
+                                <td data-oddhc-home="{{item.oddhc1.HandicapGoals}}" data-oddhc-away="{{item.oddhc2.HandicapGoals}}">{{item.oddhc2.HandicapGoals}}</td>
                                 <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddhc1.Odd}}" data-odd-type="{{item.oddhc1.BetOptionId }}" data-option-id="{{ item.oddhc1.BetOptionId }}" data-option-name="{{item.oddhc1.BetOption }}" data-bet-category="{{item.oddhc1.BetCategory }}" /></td>
                                 <td><input type="button" class="btn btn-default btn-xs odd " value="{{item.oddhc2.Odd}}" data-odd-type="{{ item.oddhc2.BetOptionId }}" data-option-id="{{ item.oddhc2.BetOptionId }}" data-option-name="{{ item.oddhc2.BetOption }}" data-bet-category="{{ item.oddhc2.BetCategory }}" /></td>
                                 <td class="livebet"><input type="button" class="btn btn-primary btn-xs moreodds" value="+{{ item.TotalOdds }}" /></td>

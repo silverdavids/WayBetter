@@ -30,38 +30,40 @@ namespace BetLive.Controllers.Api
         #region getMatches
         public async Task<IHttpActionResult> GetMatches()
         {
-            var currentSetNo = SetNumberGenerator.GetCurrentSetNumber;
-            var games = await db.ShortMatchCodes.Include(s => s.Match).OrderBy(x=>x.ShortCode).ToListAsync();
-            var startTime = DateTime.Now;
+           
+
+            var games = await db.Matches.Include(m => m.HomeTeam).Include(m => m.AwayTeam).ToListAsync();
+            //var games = await BetDatabase.ShortMatchCodes.Include(s => s.Match).OrderBy(x => x.ShortCode).ToListAsync();
+            //var startTime = DateTime.Now;
 
             var filteredgames = games.Select(g => new GameViewModel
             {
-                AwayScore = g.Match.AwayScore,
-                AwayTeamId = g.Match.AwayTeamId,
-                AwayTeamName = g.Match.AwayTeam.TeamName,
-                Champ = g.Match.League,
-                MatchOdds = g.Match.MatchOdds.Select(go => new GameOddViewModel
+                AwayScore = g.AwayScore,
+                AwayTeamId = g.AwayTeamId,
+                AwayTeamName = g.AwayTeam.TeamName,
+                Champ = g.League,
+                MatchOdds = g.MatchOdds.Select(go => new GameOddViewModel
                 {
                     BetCategory = go.BetOption.BetCategory.Name,
                     BetOptionId = go.BetOptionId,
                     BetOption = go.BetOption.Option,
                     LastUpdateTime = go.LastUpdateTime,
                     Odd = go.Odd,
-                    //Line = go.Line
+                    Line = go.BetOption.Line
                 }).ToList(),
-                GameStatus = g.Match.GameStatus,
-                HalfTimeAwayScore = g.Match.HalfTimeAwayScore,
-                HalfTimeHomeScore = g.Match.HalfTimeHomeScore,
-                HomeScore = g.Match.HomeScore,
-                HomeTeamName = g.Match.HomeTeam.TeamName,
-                HomeTeamId = g.Match.HomeTeamId,
-                MatchNo = g.ShortCode,
-                RegistrationDate = g.Match.RegistrationDate,
-                ResultStatus = g.Match.ResultStatus,
-                SetNo = g.SetNo,
-                OldDateTime = g.Match.StartTime,
-                StartTime = String.Format("{0:dd/M/yyyy}", g.Match.StartTime)
-            }).Where(x => x.OldDateTime > startTime).OrderBy(s => s.StartTime); 
+                GameStatus = g.GameStatus,
+                HalfTimeAwayScore = g.HalfTimeAwayScore,
+                HalfTimeHomeScore = g.HalfTimeHomeScore,
+                HomeScore = g.HomeScore,
+                HomeTeamName = g.HomeTeam.TeamName,
+                HomeTeamId = g.HomeTeamId,
+                MatchNo = games.IndexOf(g) + 1,
+                RegistrationDate = g.RegistrationDate,
+                ResultStatus = g.ResultStatus,
+                SetNo = 1234,
+                OldDateTime = g.StartTime,
+                StartTime = String.Format("{0:dd/M/yyyy}", g.StartTime)
+            }).OrderBy(s => s.StartTime);
             return Ok(filteredgames);
         }
         #endregion

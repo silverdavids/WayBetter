@@ -370,6 +370,9 @@ function BettingApp() {
 };
 
 $(function () {
+    window.applicationCache.addEventListener('updateready', function (e) {
+        alert(" An new update is ready please refresh your browser to get it");
+    });
 
     //please avoid using the "this" as this in other languages like C# and Java means
     // the object you are inside of but here in javascripts it can mean  different things as follows

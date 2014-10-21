@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace WebUI
 {
@@ -7,7 +8,7 @@ namespace WebUI
         public static void Register(HttpConfiguration config)
         {
            
-          //  config.EnableCors(new EnableCorsAttribute(origins: "*", headers: "*", methods: "*"));
+            config.EnableCors(new EnableCorsAttribute(origins: "*", headers: "*", methods: "*"));
             // Web API configuration and services
 
             // Web API routes

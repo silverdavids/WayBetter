@@ -68,7 +68,7 @@ bettingApp.config(function ($routeProvider) {
 bettingApp.run(['authService',function(authService){
     authService.fillAuthData();
 }]);
-$betaData.settings.baseUrl = 'http://localhost:54480/api/';
+$betaData.settings.baseUrl = 'http://localhost:54481/api/';
 bettingApp.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
 });

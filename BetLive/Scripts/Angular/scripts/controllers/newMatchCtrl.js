@@ -1,4 +1,4 @@
-﻿bettingApp.controller('newMatchCtrl', ['$scope', 'dataService', '$rootScope',/* 'liveBetsSrvc',*/ function ($scope, dataService, $rootScope/*, liveBetsSrvc*/) {
+﻿bettingApp.controller('newMatchCtrl', ['$scope', 'dataService', '$rootScope','liveBetsSrvc', function ($scope, dataService, $rootScope, liveBetsSrvc) {
     //$scope.betCategoryRows = new Array();
     //dataService.get("Match/getBetCategories").then(function (results) {
     //    var betCategories = betCategories || {};
@@ -134,18 +134,18 @@
             mRow.matchDistinct.ResultStatus = data.ResultStatus;
             mRow.matchDistinct.AwayTeamName = data.AwayTeamName;
             mRow.matchDistinct.HomeTeamName = data.HomeTeamName;
-            mRow.GameOdds = data.GameOdds;
-            if(data.GameOdds.length!==0){
+            mRow.GameOdds = data.MatchOdds;
+            if(data.MatchOdds.length!==0){
             $scope.matches.push(mRow);
         }
 
         });
-        $scope.ft1X2Odds = getGameOddsByCategory("FT 1x2");
-        $scope.ftUOOdds = getGameOddsByCategory("FT U/O");
-        $scope.ht1X2Odds = getGameOddsByCategory("HT 1x2");
-        $scope.htUOOdds = getGameOddsByCategory("HT U/O");
+        $scope.ft1X2Odds = getGameOddsByCategory("1X2");//FT1X2
+        $scope.ftUOOdds = getGameOddsByCategory("Under/Over");
+        $scope.ht1X2Odds = getGameOddsByCategory("1st Period Winner");//HT !X2
+        $scope.htUOOdds = getGameOddsByCategory("Under/Over 1st Period");
         $scope.doubleChanceOdds = getGameOddsByCategory("Double Chance");
-        $scope.handicapOdds = getGameOddsByCategory("Handicap");
+        $scope.handicapOdds = getGameOddsByCategory("European Handicap");
         $scope.bothTeamsToScoreOdds = getGameOddsByCategory("Both Teams To Score");
         $scope.firstTeamToScoreOdds = getGameOddsByCategory("First Team To Score");
         $scope.drawNoBetOdds = getGameOddsByCategory("Draw No Bet");
@@ -156,72 +156,72 @@
             oddCategoryRow.match = item.matchDistinct;
             oddCategoryRow.TotalOdds = item.GameOdds.length;
             //Full time 1X2
-            oddCategoryRow.oddHome = getOddOptionInBetCategory($scope.ft1X2Odds, item.matchDistinct.MatchNo, 1);
-            oddCategoryRow.oddDraw = getOddOptionInBetCategory($scope.ft1X2Odds, item.matchDistinct.MatchNo, 2);
-            oddCategoryRow.oddAway = getOddOptionInBetCategory($scope.ft1X2Odds, item.matchDistinct.MatchNo, 3);
+            oddCategoryRow.oddHome = getOddOptionInBetCategory($scope.ft1X2Odds, item.matchDistinct.MatchNo,'1','');
+            oddCategoryRow.oddDraw = getOddOptionInBetCategory($scope.ft1X2Odds, item.matchDistinct.MatchNo, 'X','');
+            oddCategoryRow.oddAway = getOddOptionInBetCategory($scope.ft1X2Odds, item.matchDistinct.MatchNo, '2','');
             //Fulltime Under over
-            var _oddFtUnder05 = getOddOptionInBetCategory($scope.ftUOOdds,  item.matchDistinct.MatchNo, 32);
+            var _oddFtUnder05 = getOddOptionInBetCategory($scope.ftUOOdds,  item.matchDistinct.MatchNo,'Under','0.5' );
             oddCategoryRow.oddFtUnder05 = _oddFtUnder05 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddFtUnder05;
-            var _oddFtOver05 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 33);
+            var _oddFtOver05 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 'Over', '0.5');
             oddCategoryRow.oddFtOver05 = _oddFtOver05 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddFtOver05;
-            var _oddFtUnder15 = getOddOptionInBetCategory($scope.ftUOOdds,  item.matchDistinct.MatchNo, 4);
+            var _oddFtUnder15 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 'Under', '1.5');
             oddCategoryRow.oddFtUnder15 = _oddFtUnder15 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddFtUnder15;
-            var _oddFtOver15 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 5);
+            var _oddFtOver15 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 'Over', '1.5');
             oddCategoryRow.oddFtOver15 = _oddFtOver15 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddFtOver15;
-            var _oddFtUnder25 = getOddOptionInBetCategory($scope.ftUOOdds,  item.matchDistinct.MatchNo, 6);
+            var _oddFtUnder25 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 'Under', '2.5');
             oddCategoryRow.oddFtUnder25 = _oddFtUnder25 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddFtUnder25;
-            var _oddFtOver25 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 7);
+            var _oddFtOver25 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 'Over', '2.5');
             oddCategoryRow.oddFtOver25 = _oddFtOver25 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddFtOver25;
-            var _oddFtUnder35 = getOddOptionInBetCategory($scope.ftUOOdds,  item.matchDistinct.MatchNo, 8);
+            var _oddFtUnder35 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 'Under', '3.5');
             oddCategoryRow.oddFtUnder35 = _oddFtUnder35 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddFtUnder35;
-            var _oddFtOver35 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 9);
+            var _oddFtOver35 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 'Over', '3.5');
             oddCategoryRow.oddFtOver35 = _oddFtOver35 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddFtOver35;
-            var _oddFtUnder45 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 10);
+            var _oddFtUnder45 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 'Under', '4.5');
             oddCategoryRow.oddFtUnder45 = _oddFtUnder45 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddFtUnder45;
-            var _oddFtOver45 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 11);
+            var _oddFtOver45 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 'Over', '4.5');
             oddCategoryRow.oddFtOver45 = _oddFtOver45 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddFtOver45;
-            var _oddFtUnder55 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 34);
+            var _oddFtUnder55 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 'Under', '5.5');
             oddCategoryRow.oddFtUnder55 = _oddFtUnder55 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddFtUnder55;
-            var _oddFtOver55 = getOddOptionInBetCategory($scope.ftUOOdds,  item.matchDistinct.MatchNo, 35);
+            var _oddFtOver55 = getOddOptionInBetCategory($scope.ftUOOdds, item.matchDistinct.MatchNo, 'Over', '5.5');
             oddCategoryRow.oddFtOver55 = _oddFtOver55 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddFtOver55;
             //Half Time 1X2
-            var _oddht1 = getOddOptionInBetCategory($scope.ht1X2Odds, item.matchDistinct.MatchNo, 12);
+            var _oddht1 = getOddOptionInBetCategory($scope.ht1X2Odds, item.matchDistinct.MatchNo, '1', '');
             oddCategoryRow.oddht1 = _oddht1 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddht1;
-            var _oddhtx = getOddOptionInBetCategory($scope.ht1X2Odds, item.matchDistinct.MatchNo, 13);
+            var _oddhtx = getOddOptionInBetCategory($scope.ht1X2Odds, item.matchDistinct.MatchNo, 'X', '');
             oddCategoryRow.oddhtx = _oddhtx == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddhtx;
-            var _oddht2 = getOddOptionInBetCategory($scope.ht1X2Odds, item.matchDistinct.MatchNo, 14);
+            var _oddht2 = getOddOptionInBetCategory($scope.ht1X2Odds, item.matchDistinct.MatchNo, '2', '');
             oddCategoryRow.oddht2 = _oddht2 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddht2;
             //Halftime Under Over
-            var _oddHtUnder05 = getOddOptionInBetCategory($scope.htUOOdds, item.matchDistinct.MatchNo, 15);
+            var _oddHtUnder05 = getOddOptionInBetCategory($scope.htUOOdds, item.matchDistinct.MatchNo, 'Under', '0.5');
             oddCategoryRow.oddHtUnder05 = _oddHtUnder05 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddHtUnder05;
-            var _oddHtOver05 = getOddOptionInBetCategory($scope.htUOOdds,  item.matchDistinct.MatchNo, 16);
+            var _oddHtOver05 = getOddOptionInBetCategory($scope.htUOOdds, item.matchDistinct.MatchNo, 'Over', '0.5');
             oddCategoryRow.oddHtOver05 = _oddHtOver05 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddHtOver05;
-            var _oddHtUnder15 = getOddOptionInBetCategory($scope.htUOOdds,  item.matchDistinct.MatchNo, 17);
+            var _oddHtUnder15 = getOddOptionInBetCategory($scope.htUOOdds,  item.matchDistinct.MatchNo, 'Under','1.5');
             oddCategoryRow.oddHtUnder15 = _oddHtUnder15 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddHtUnder15;
-            var _oddHtOver15 = getOddOptionInBetCategory($scope.htUOOdds, item.matchDistinct.MatchNo, 18);
+            var _oddHtOver15 = getOddOptionInBetCategory($scope.htUOOdds, item.matchDistinct.MatchNo, 'Over', '1.5');
             oddCategoryRow.oddHtOver15 = _oddHtOver15 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddHtOver15;
-            var _oddHtUnder25 = getOddOptionInBetCategory($scope.htUOOdds, item.matchDistinct.MatchNo, 19);
+            var _oddHtUnder25 = getOddOptionInBetCategory($scope.htUOOdds, item.matchDistinct.MatchNo, 'Under', '2.5');
             oddCategoryRow.oddHtUnder25 = _oddHtUnder25 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddHtUnder25;
-            var _oddHtOver25 = getOddOptionInBetCategory($scope.htUOOdds, item.matchDistinct.MatchNo, 20);
+            var _oddHtOver25 = getOddOptionInBetCategory($scope.htUOOdds, item.matchDistinct.MatchNo, 'Over', '2.5');
             oddCategoryRow.oddHtOver25 = _oddHtOver25 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddHtOver25;
             //Double Chance
-            var _oddDchd = getOddOptionInBetCategory($scope.doubleChanceOdds, item.matchDistinct.MatchNo, 21);
+            var _oddDchd = getOddOptionInBetCategory($scope.doubleChanceOdds, item.matchDistinct.MatchNo, '1X', '');
             oddCategoryRow.oddDchd = _oddDchd == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddDchd;
-            var _oddDcha = getOddOptionInBetCategory($scope.doubleChanceOdds, item.matchDistinct.MatchNo, 22);
+            var _oddDcha = getOddOptionInBetCategory($scope.doubleChanceOdds, item.matchDistinct.MatchNo, '12', '');
             oddCategoryRow.oddDcha = _oddDcha == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddDcha;
-            var _oddDcda = getOddOptionInBetCategory($scope.doubleChanceOdds, item.matchDistinct.MatchNo, 23);
+            var _oddDcda = getOddOptionInBetCategory($scope.doubleChanceOdds, item.matchDistinct.MatchNo, 'X2', '');
             oddCategoryRow.oddDcda = _oddDcda == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddDcda;
             //Handicap
-            var _oddhc1 = getOddOptionInBetCategory($scope.handicapOdds, item.matchDistinct.MatchNo, 24);
+            var _oddhc1 = getOddOptionInBetCategory($scope.handicapOdds, item.matchDistinct.MatchNo, '1', '0:1');
             oddCategoryRow.oddhc1 = _oddhc1 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddhc1;
-            var _oddhcx = getOddOptionInBetCategory($scope.handicapOdds, item.matchDistinct.MatchNo, 31);
+            var _oddhcx = getOddOptionInBetCategory($scope.handicapOdds, item.matchDistinct.MatchNo, 'X', '0:1');
             oddCategoryRow.oddhcx = _oddhcx == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddhcx;
-            var _oddhc2 = getOddOptionInBetCategory($scope.handicapOdds, item.matchDistinct.MatchNo, 25);
+            var _oddhc2 = getOddOptionInBetCategory($scope.handicapOdds, item.matchDistinct.MatchNo, '2', '0:1');
             oddCategoryRow.oddhc2 = _oddhc2 == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddhc2;
             // Both Teams To Score
-            var _oddgg = getOddOptionInBetCategory($scope.bothTeamsToScoreOdds, item.matchDistinct.MatchNo, 26);
+            var _oddgg = getOddOptionInBetCategory($scope.bothTeamsToScoreOdds, item.matchDistinct.MatchNo, 'Yes', '');
             oddCategoryRow.oddgg = _oddgg == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddgg;
-            var _oddng = getOddOptionInBetCategory($scope.bothTeamsToScoreOdds, item.matchDistinct.MatchNo, 27);
+            var _oddng = getOddOptionInBetCategory($scope.bothTeamsToScoreOdds, item.matchDistinct.MatchNo, 'No', '');
             oddCategoryRow.oddng = _oddng == null ?  new  $scope.gameOdd(item.matchDistinct) : _oddng;
 
 
@@ -234,7 +234,7 @@
     });
 
    
-    //angular.forEach(getGameOddsByCategory("FT 1x2"), function (item, key) {
+    //angular.forEach(getGameOddsByCategory("1X2"), function (item, key) {
     //    $scope.ft1X2Odds.push(item);
 
     //});
@@ -252,7 +252,8 @@
                         LastUpdateTime: value.LastUpdateTime,
                         Odd: (typeof value.Odd === 'undefined' || value.Odd === null) ? 0 : value.Odd,
                         MatchNo: item.matchDistinct.MatchNo,
-                        HandicapGoals: (typeof value.HandicapGoals === 'undefined' ||  value.HandicapGoals === null) ? 0 : value.HandicapGoals
+                        HandicapGoals: (typeof value.Line === 'undefined') ? 0 : value.Line,
+                        Line: (typeof value.Line === 'undefined') ? 0 : value.Line
                     };
                     gameOdds.push(gameodd);
                 }
@@ -260,10 +261,10 @@
         });
         return gameOdds;
     }
-    function getOddOptionInBetCategory(gameOdds, matchno, requiredOption) {
+    function getOddOptionInBetCategory(gameOdds, matchno, requiredBetOption,line) {
         var gameodd;
         angular.forEach(gameOdds, function (value,key) {
-            if (value.MatchNo == matchno && value.BetOptionId == requiredOption) {
+            if (value.MatchNo == matchno && value.BetOption == requiredBetOption && value.Line === line) {
                 gameodd = {
                     BetCategory: value.BetCategory,
                     BetOptionId: value.BetOptionId,
@@ -271,7 +272,7 @@
                     Odd:  value.Odd === null ? 'NO' : value.Odd.toFixed(2),
                     MatchNo: value.MatchNo,
                     HandicapGoals: (typeof value.HandicapGoals === 'undefined'|| value.HandicapGoals === null) ? 0 : value.HandicapGoals,
-                    
+                    Line: (typeof value.Line === 'undefined') ? '' : value.Line
                 };
             }
         });
