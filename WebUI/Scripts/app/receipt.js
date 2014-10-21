@@ -72,10 +72,10 @@ function BettingApp() {
     function manageLogins($controlButtons) {
         if ($.trim($("p#userName").text()) == "" || $.trim($("p#userName").text()) == 'Anonymous') {
             $(".print-receipt", $controlButtons).val("Login In To Bet ")
-            alert("user nane is null");
+           // alert("user nane is null");
         } else {
             $(".print-receipt", $controlButtons).val("Print Receipt");
-            alert("user name  is  not null " + $.trim($("p#userName").text()));
+           // alert("user name  is  not null " + $.trim($("p#userName").text()));
         }
     }
     function bindControlButtons(betList) {
