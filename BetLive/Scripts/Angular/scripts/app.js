@@ -14,8 +14,8 @@ var bettingApp=angular.module('bettingApp', ['ngAnimate','ngCookies','ngResource
 bettingApp.config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: '/Management/main',
-        controller: 'MainCtrl'
+        templateUrl: '/Management/matches',
+        controller: 'newMatchCtrl'
       })
       .when('/about', {
         templateUrl: '/Management/about',
