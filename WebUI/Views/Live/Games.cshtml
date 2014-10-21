@@ -3,11 +3,9 @@
     Layout = "~/Views/Shared/_LiveLayoutPage.cshtml";
 }
 <style>
-    .table {
+    .table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
+        border-top: 0;
     }
-     .table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
-         border-top: 0;
-     }
 
     .table-striped tbody > tr:nth-child(odd) > td,
     .table-striped tbody > tr:nth-child(odd) > th {
@@ -26,16 +24,21 @@
     .raised {
         background-color: #2ecc71;
     }
+
     .dropped {
         background-color: #b22222;
+    }
+
+    #MatchTable tbody > tr > td.td-border {
+        border-left: 1px dotted #808080;
     }
 
     #MatchTable tbody > tr td.FT-1,
     #MatchTable tbody > tr td.FT-X,
     #MatchTable tbody > tr td.FT-2,
-    #MatchTable tbody > tr td.RM-1,
-    #MatchTable tbody > tr td.RM-X,
-    #MatchTable tbody > tr td.RM-2,
+    #MatchTable tbody > tr td.DC-1X,
+    #MatchTable tbody > tr td.DC-X2,
+    #MatchTable tbody > tr td.DC-12,
     #MatchTable tbody > tr td.NG-1,
     #MatchTable tbody > tr td.NG-X,
     #MatchTable tbody > tr td.NG-2,
@@ -53,7 +56,7 @@
             <div id="gameTable">
                 <table class="table table-condensed table-striped table-responsive" id="MatchTable">
                     <thead>
-                        <tr><th colspan="5"></th><th colspan="3" class="text-center">Full&nbsp;Time</th><th colspan="3" class="text-center">Under/Over</th><th colspan="3" class="text-center">Rest&nbsp;Of&nbsp;Match</th><th colspan="3" class="text-center">Next&nbsp;Goal</th></tr>
+                        <tr><th colspan="5"></th><th colspan="3" class="text-center">Full&nbsp;Time</th><th colspan="3" class="text-center">Under/Over</th><th colspan="3" class="text-center">Double&nbsp;Chance</th><th colspan="3" class="text-center">Next&nbsp;Goal</th></tr>
                         <tr style="background-color:#0D1F35 !important; color: #ffffff;">
                             <th>Match No</th>
                             <th>Min</th>
@@ -66,22 +69,22 @@
                             <th class="text-center"><i class="fa fa-sort-down"></i></th>
                             <th class="text-center"></th>
                             <th class="text-center"><i class="fa fa-sort-up"></i></th>
-                            <th class="text-center">1</th>
-                            <th class="text-center">X</th>
-                            <th class="text-center">2</th>
+                            <th class="text-center">1X</th>
+                            <th class="text-center">X2</th>
+                            <th class="text-center">12</th>
                             <th class="text-center">1</th>
                             <th class="text-center">X</th>
                             <th class="text-center">2</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
-                       
+
                         @*<tr class="loading text-center"><td colspan="11">loading...</td></tr>*@
                     </tbody>
                 </table>
             </div>
         </div>
-        
+
     </div>
 </div>
 
@@ -141,9 +144,10 @@
                     // get all livescores
                     ticker.server.getAllGames().done(function (games) {
                         $gamesTableBody.empty();
+                        console.log("Looping..")
                         console.log(games);
                         $.each(games, function () {
-
+                            
                             var game = this;
                             if (game.FullTimeOdds == null) {
                                 game.FullTimeOdds = {
@@ -152,11 +156,11 @@
                                     HomeWins: "N/A"
                                 };
                             }
-                            if (game.RestofMatch == null) {
-                                game.RestofMatch = {
-                                    AwayWins: "N/A",
-                                    Draw: "N/A",
-                                    HomeWins: "N/A"
+                            if (game.DoubleChance == null) {
+                                game.DoubleChance = {
+                                    HomeOrAway: "N/A",
+                                    AwayOrDraw: "N/A",
+                                    HomeOrDraw: "N/A"
                                 };
                             }
                             if (game.NextGoal == null) {
@@ -175,23 +179,23 @@
                                 };
                             }
                             var rowTemplate = '<tr id="' + game.MatchNo + '">' +
-                              '<td>' + game.MatchNo + '</td>' +
+                              '<td>' + game.ShortCode + '</td>' +
                               '<td>' + game.Minutes + '</td>' +
                               '<td>' + game.LocalTeam + '</td>' +
                               '<td>' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
                               '<td>' + game.AwayTeam + '</td>' +
-                              '<td class="FT-1" style="padding-bottom: 0px;">' + game.FullTimeOdds.HomeWins + '</td>' +
+                              '<td class="FT-1  td-border" style="padding-bottom: 0px;">' + game.FullTimeOdds.HomeWins + '</td>' +
                               '<td class="FT-X">' + game.FullTimeOdds.Draw + '</td>' +
                               '<td class="FT-2">' + game.FullTimeOdds.AwayWins + '</td>' +
-                              '<td class="under">' + game.UnderOverOdds.Under + '</td>' +
+                              '<td class="under  td-border">' + game.UnderOverOdds.Under + '</td>' +
                               '<td class="text-center">' +
                               '  <span style="color:#E9860D;">' + game.UnderOverOdds.ExtraValue + '</span>' +
                               '</td>' +
                               '<td class="over">' + game.UnderOverOdds.Over + '</td>' +
-                              '<td class="RM-1" style="padding-bottom: 0px;">' + game.RestofMatch.HomeWins + '</td>' +
-                              '<td class="RM-X">' + game.RestofMatch.Draw + '</td>' +
-                              '<td class="RM-2">' + game.RestofMatch.AwayWins + '</td>' +
-                              '<td class="NG-1" style="padding-bottom: 0px;">' + game.NextGoal.HomeScores + '</td>' +
+                              '<td class="DC-1X  td-border" style="padding-bottom: 0px;">' + game.DoubleChance.HomeOrDraw + '</td>' +
+                              '<td class="DC-X2">' + game.DoubleChance.AwayOrDraw + '</td>' +
+                              '<td class="DC-12">' + game.DoubleChance.HomeOrAway + '</td>' +
+                              '<td class="NG-1  td-border" style="padding-bottom: 0px;">' + game.NextGoal.HomeScores + '</td>' +
                               '<td class="NG-X">' + game.NextGoal.Draw + '</td>' +
                               '<td class="NG-2">' + game.NextGoal.AwayScores + '</td>' +
                               '</tr>';
@@ -202,8 +206,9 @@
 
                 // Add a client-side hub method that the server will call
                 ticker.client.updateGame = function (game) {
-                    console.clear();
-                    console.log(game);
+                    //console.clear();
+                    //console.log(game);
+
                     if (game.FullTimeOdds == null) {
                         game.FullTimeOdds = {
                             AwayWins: "N/A",
@@ -211,11 +216,11 @@
                             HomeWins: "N/A"
                         };
                     }
-                    if (game.RestofMatch == null) {
-                        game.RestofMatch = {
-                            AwayWins: "N/A",
-                            Draw: "N/A",
-                            HomeWins: "N/A"
+                    if (game.DoubleChance == null) {
+                        game.DoubleChance = {
+                            HomeOrAway: "N/A",
+                            AwayOrDraw: "N/A",
+                            HomeOrDraw: "N/A"
                         };
                     }
                     if (game.NextGoal == null) {
@@ -234,26 +239,27 @@
                         };
                     }
                     var rowTemplate = '<tr id="' + game.MatchNo + '">' +
-                               '<td>' + game.MatchNo + '</td>' +
-                               '<td>' + game.Minutes + '</td>' +
-                               '<td>' + game.LocalTeam + '</td>' +
-                               '<td>' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
-                               '<td>' + game.AwayTeam + '</td>' +
-                               '<td class="FT-1" style="padding-bottom: 0px;">' + game.FullTimeOdds.HomeWins + '</td>' +
-                               '<td class="FT-X">' + game.FullTimeOdds.Draw + '</td>' +
-                               '<td class="FT-2">' + game.FullTimeOdds.AwayWins + '</td>' +
-                               '<td class="under">' + game.UnderOverOdds.Under + '</td>' +
-                               '<td class="text-center">' +
-                               '  <span style="color:#E9860D;">' + game.UnderOverOdds.ExtraValue + '</span>' +
-                               '</td>' +
-                               '<td class="over">' + game.UnderOverOdds.Over + '</td>' +
-                               '<td class="RM-1" style="padding-bottom: 0px;">' + game.RestofMatch.HomeWins + '</td>' +
-                               '<td class="RM-X">' + game.RestofMatch.Draw + '</td>' +
-                               '<td class="RM-2">' + game.RestofMatch.AwayWins + '</td>' +
-                               '<td class="NG-1" style="padding-bottom: 0px;">' + game.NextGoal.HomeScores + '</td>' +
-                               '<td class="NG-X">' + game.NextGoal.Draw + '</td>' +
-                               '<td class="NG-2">' + game.NextGoal.AwayScores + '</td>' +
-                               '</tr>';
+                              '<td>' + game.ShortCode + '</td>' +
+                              '<td>' + game.Minutes + '</td>' +
+                              '<td>' + game.LocalTeam + '</td>' +
+                              '<td>' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
+                              '<td>' + game.AwayTeam + '</td>' +
+                              '<td class="FT-1  td-border" style="padding-bottom: 0px;">' + game.FullTimeOdds.HomeWins + '</td>' +
+                              '<td class="FT-X">' + game.FullTimeOdds.Draw + '</td>' +
+                              '<td class="FT-2">' + game.FullTimeOdds.AwayWins + '</td>' +
+                              '<td class="under  td-border">' + game.UnderOverOdds.Under + '</td>' +
+                              '<td class="text-center">' +
+                              '  <span style="color:#E9860D;">' + game.UnderOverOdds.ExtraValue + '</span>' +
+                              '</td>' +
+                              '<td class="over">' + game.UnderOverOdds.Over + '</td>' +
+                              '<td class="DC-1X  td-border" style="padding-bottom: 0px;">' + game.DoubleChance.HomeOrDraw + '</td>' +
+                              '<td class="DC-X2">' + game.DoubleChance.AwayOrDraw + '</td>' +
+                              '<td class="DC-12">' + game.DoubleChance.HomeOrAway + '</td>' +
+                              '<td class="NG-1  td-border" style="padding-bottom: 0px;">' + game.NextGoal.HomeScores + '</td>' +
+                              '<td class="NG-X">' + game.NextGoal.Draw + '</td>' +
+                              '<td class="NG-2">' + game.NextGoal.AwayScores + '</td>' +
+                              '</tr>';
+
                     var FT1 = $gamesTableBody.find('#' + game.MatchNo + ' > td.FT-1').html();
                     console.log(FT1)
                     var FTX = $gamesTableBody.find('#' + game.MatchNo + ' > td.FT-X').html();
@@ -262,9 +268,9 @@
                     var under = $gamesTableBody.find('#' + game.MatchNo + ' > td.under').html();
                     var over = $gamesTableBody.find('#' + game.MatchNo + ' > td.over').html();
 
-                    var RM1 = $gamesTableBody.find('#' + game.MatchNo + ' > td.RM-1').html();
-                    var RMX = $gamesTableBody.find('#' + game.MatchNo + ' > td.RM-X').html();
-                    var RM2 = $gamesTableBody.find('#' + game.MatchNo + ' > td.RM-2').html();
+                    var DC1 = $gamesTableBody.find('#' + game.MatchNo + ' > td.DC-1X').html();
+                    var DCX = $gamesTableBody.find('#' + game.MatchNo + ' > td.DC-X2').html();
+                    var DC2 = $gamesTableBody.find('#' + game.MatchNo + ' > td.DC-12').html();
 
                     var NG1 = $gamesTableBody.find('#' + game.MatchNo + ' > td.NG-1').html();
                     var NGX = $gamesTableBody.find('#' + game.MatchNo + ' > td.NG-X').html();
@@ -322,29 +328,29 @@
                     }
 
                     // rest of match
-                    if (parseInt(RM1) > parseInt(game.RestofMatch.HomeWins)) {
-                        $('#' + game.MatchNo + ' > td.RM-1').addTemporaryClass("dropped", 3000);
+                    if (parseInt(DC1) > parseInt(game.DoubleChance.HomeWins)) {
+                        $('#' + game.MatchNo + ' > td.DC-1X').addTemporaryClass("dropped", 3000);
 
                     }
-                    if (parseInt(RM1) < parseInt(game.RestofMatch.HomeWins)) {
-                        $('#' + game.MatchNo + ' > td.RM-1').addTemporaryClass("raised", 3000);
+                    if (parseInt(DC1) < parseInt(game.DoubleChance.HomeWins)) {
+                        $('#' + game.MatchNo + ' > td.DC-1X').addTemporaryClass("raised", 3000);
                     }
-                    if (parseInt(RMX) > parseInt(game.RestofMatch.Draw)) {
-                        $('#' + game.MatchNo + ' > td.RM-X').addTemporaryClass("dropped", 3000);
+                    if (parseInt(DCX) > parseInt(game.DoubleChance.Draw)) {
+                        $('#' + game.MatchNo + ' > td.DC-X2').addTemporaryClass("dropped", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
 
                     }
-                    if (parseInt(RMX) < parseInt(game.RestofMatch.Draw)) {
-                        $('#' + game.MatchNo + ' > td.RM-X').addTemporaryClass("raised", 3000);
+                    if (parseInt(DCX) < parseInt(game.DoubleChance.Draw)) {
+                        $('#' + game.MatchNo + ' > td.DC-X2').addTemporaryClass("raised", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
                     }
-                    if (parseInt(RM2) > parseInt(game.RestofMatch.AwayWins)) {
-                        $('#' + game.MatchNo + ' > td.RM-2').addTemporaryClass("dropped", 3000);
+                    if (parseInt(DC2) > parseInt(game.DoubleChance.AwayWins)) {
+                        $('#' + game.MatchNo + ' > td.DC-12').addTemporaryClass("dropped", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
 
                     }
-                    if (parseInt(RM2) < parseInt(game.RestofMatch.AwayWins)) {
-                        $('#' + game.MatchNo + ' > td.RM-2').addTemporaryClass("raised", 3000);
+                    if (parseInt(DC2) < parseInt(game.DoubleChance.AwayWins)) {
+                        $('#' + game.MatchNo + ' > td.DC-12').addTemporaryClass("raised", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
                     }
 
