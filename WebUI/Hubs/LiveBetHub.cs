@@ -72,7 +72,8 @@ namespace WebUI.Hubs
                 liveGames.Add(game);
             }
             _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
-            return liveGames;
+            //return liveGames;
+            return allGames;
         }
 
         private async void UpdateGames(object state)
