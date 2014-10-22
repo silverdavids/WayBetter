@@ -2,7 +2,16 @@
     ViewBag.Title = "Live";
     Layout = "~/Views/Shared/_LiveLayoutPage.cshtml";
 }
-<style>
+<style type="text/css">
+    .no-padding {
+        padding: 0;
+    }
+    .live {
+        margin-top: 65px;
+    }
+     .heading {
+         margin-top: 45px;
+     }
     .table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
         border-top: 0;
     }
@@ -21,6 +30,9 @@
         color: #ffffff;
     }
 
+    #MatchTable tbody > tr > td {
+        padding-top: 15px;
+    } 
     .raised {
         background-color: #00ff00 !important;
     }
@@ -30,7 +42,7 @@
     }
 
     #MatchTable tbody > tr > td.td-border {
-        border-left: 1px dotted #808080;
+        border-left: 1px dotted #E8860D;
     }
 
     #MatchTable tbody > tr td.FT-1,
@@ -46,46 +58,47 @@
     #MatchTable tbody > tr td.under {
         text-align: center;
     }
+
+    .FixedHeader_Cloned {
+        
+    }
 </style>
 
-<div>
-    <div class="row">
-        <div class="col-lg-12"><h2 class="heading">Live </h2></div>
-        <div class="col-lg-12">
+<div class="row fixed-table">
+    <div class="col-lg-12 no-padding live">
 
-            <div id="gameTable">
-                <table class="table table-condensed table-striped table-responsive" id="MatchTable">
-                    <thead>
-                        <tr><th colspan="5"></th><th colspan="3" class="text-center">Full&nbsp;Time</th><th colspan="3" class="text-center">Under/Over</th><th colspan="3" class="text-center">Double&nbsp;Chance</th><th colspan="3" class="text-center">Next&nbsp;Goal</th></tr>
-                        <tr style="background-color: #E8860D !important; color: #ffffff;">
-                            <th>No</th>
-                            <th>Min</th>
-                            <th>Home</th>
-                            <th>Score</th>
-                            <th>Away</th>
-                            <th class="text-center">1</th>
-                            <th class="text-center">X</th>
-                            <th class="text-center">2</th>
-                            <th class="text-center"><i class="fa fa-sort-down"></i></th>
-                            <th class="text-center"></th>
-                            <th class="text-center"><i class="fa fa-sort-up"></i></th>
-                            <th class="text-center">1X</th>
-                            <th class="text-center">X2</th>
-                            <th class="text-center">12</th>
-                            <th class="text-center">1</th>
-                            <th class="text-center">X</th>
-                            <th class="text-center">2</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody">
+        <div id="gameTable">
+            <table class="table table-condensed table-striped table-responsive" id="MatchTable">
+                <thead>
+                    <tr style="background-color: #ffffff"><th colspan="5"></th><th colspan="3" class="text-center">Full&nbsp;Time</th><th colspan="3" class="text-center">Under/Over</th><th colspan="3" class="text-center">Double&nbsp;Chance</th><th colspan="3" class="text-center">Next&nbsp;Goal</th></tr>
+                    <tr style="background-color: #E8860D !important; color: #ffffff;">
+                        <th class="text-center">No</th>
+                        <th>Min</th>
+                        <th>Home</th>
+                        <th class="text-center">Score</th>
+                        <th>Away</th>
+                        <th class="text-center">1</th>
+                        <th class="text-center">X</th>
+                        <th class="text-center">2</th>
+                        <th class="text-center"><i class="fa fa-sort-down"></i></th>
+                        <th class="text-center"></th>
+                        <th class="text-center"><i class="fa fa-sort-up"></i></th>
+                        <th class="text-center">1X</th>
+                        <th class="text-center">X2</th>
+                        <th class="text-center">12</th>
+                        <th class="text-center">1</th>
+                        <th class="text-center">X</th>
+                        <th class="text-center">2</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
 
-                        @*<tr class="loading text-center"><td colspan="11">loading...</td></tr>*@
-                    </tbody>
-                </table>
-            </div>
+                    @*<tr class="loading text-center"><td colspan="11">loading...</td></tr>*@
+                </tbody>
+            </table>
         </div>
-
     </div>
+
 </div>
 
 @section scripts {
@@ -97,6 +110,19 @@
     <script src="~/signalr/hubs"></script>
     <!--SignalR script to update the chat page and send messages.-->
     <script>
+        $(document).ready(function () {
+
+            var table = $('#MatchTable').dataTable({
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "filter":false
+        });
+            new $.fn.dataTable.FixedHeader(table, {
+                "offsetTop": 60
+            } );
+        });
+    
         (function ($) {
 
             $.fn.extend({
@@ -115,39 +141,42 @@
 
         })(jQuery);
 
-        $(function () {
+        $(function() {
             // A simple templating method for replacing placeholders enclosed in curly braces.
             if (!String.prototype.supplant) {
-                String.prototype.supplant = function (o) {
+                String.prototype.supplant = function(o) {
                     return this.replace(/{([^{}]*)}/g,
-                        function (a, b) {
+                        function(a, b) {
                             var r = o[b];
                             return typeof r === 'string' || typeof r === 'number' ? r : a;
                         }
                     );
                 };
             }
-
-            $(function () {
-
+            
+           
+            $(function() {
+                // make the header fixed on scroll
+                //$('.table-fixed-header').fixedHeader();
+                
+                
                 var ticker = $.connection.liveBetHub,
                     $gameTable = $('#MatchTable'),
                     $gamesTableBody = $gameTable.find('#tbody');
 
 
-
                 function init() {
-                    ticker.server.testString().done(function (string) {
+                    ticker.server.testString().done(function(string) {
                         console.log(string);
                     });
 
                     // get all livescores
-                    ticker.server.getAllGames().done(function (games) {
+                    ticker.server.getAllGames().done(function(games) {
                         $gamesTableBody.empty();
                         console.log("Looping..")
                         console.log(games);
-                        $.each(games, function () {
-                            
+                        $.each(games, function() {
+
                             var game = this;
                             if (game.FullTimeOdds == null) {
                                 game.FullTimeOdds = {
@@ -179,33 +208,33 @@
                                 };
                             }
                             var rowTemplate = '<tr id="' + game.MatchNo + '">' +
-                              '<td>' + game.ShortCode + '</td>' +
-                              '<td style="color:#F1C40F;">' + game.Minutes + '</td>' +
-                              '<td>' + game.LocalTeam + '</td>' +
-                              '<td style="color:#ff0000;">' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
-                              '<td>' + game.AwayTeam + '</td>' +
-                              '<td class="FT-1  td-border" style="padding-bottom: 0px;">' + game.FullTimeOdds.HomeWins + '</td>' +
-                              '<td class="FT-X">' + game.FullTimeOdds.Draw + '</td>' +
-                              '<td class="FT-2">' + game.FullTimeOdds.AwayWins + '</td>' +
-                              '<td class="under  td-border">' + game.UnderOverOdds.Under + '</td>' +
-                              '<td class="text-center">' +
-                              '  <span style="color:#F1C40F;">' + game.UnderOverOdds.ExtraValue + '</span>' +
-                              '</td>' +
-                              '<td class="over">' + game.UnderOverOdds.Over + '</td>' +
-                              '<td class="DC-1X  td-border" style="padding-bottom: 0px;">' + game.DoubleChance.HomeOrDraw + '</td>' +
-                              '<td class="DC-X2">' + game.DoubleChance.AwayOrDraw + '</td>' +
-                              '<td class="DC-12">' + game.DoubleChance.HomeOrAway + '</td>' +
-                              '<td class="NG-1  td-border" style="padding-bottom: 0px;">' + game.NextGoal.HomeScores + '</td>' +
-                              '<td class="NG-X">' + game.NextGoal.Draw + '</td>' +
-                              '<td class="NG-2">' + game.NextGoal.AwayScores + '</td>' +
-                              '</tr>';
+                                '<td class="text-center">' + game.ShortCode + '</td>' +
+                                '<td style="color:#F1C40F;">' + game.Minutes + '</td>' +
+                                '<td>' + game.LocalTeam + '</td>' +
+                                '<td class="text-center" style="color:#ff0000;">' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
+                                '<td>' + game.AwayTeam + '</td>' +
+                                '<td class="FT-1  td-border" style="padding-bottom: 0px;">' + game.FullTimeOdds.HomeWins + '</td>' +
+                                '<td class="FT-X">' + game.FullTimeOdds.Draw + '</td>' +
+                                '<td class="FT-2">' + game.FullTimeOdds.AwayWins + '</td>' +
+                                '<td class="under  td-border">' + game.UnderOverOdds.Under + '</td>' +
+                                '<td class="text-center">' +
+                                '  <span style="color:#F1C40F;">' + game.UnderOverOdds.ExtraValue + '</span>' +
+                                '</td>' +
+                                '<td class="over">' + game.UnderOverOdds.Over + '</td>' +
+                                '<td class="DC-1X  td-border" style="padding-bottom: 0px;">' + game.DoubleChance.HomeOrDraw + '</td>' +
+                                '<td class="DC-X2">' + game.DoubleChance.AwayOrDraw + '</td>' +
+                                '<td class="DC-12">' + game.DoubleChance.HomeOrAway + '</td>' +
+                                '<td class="NG-1  td-border" style="padding-bottom: 0px;">' + game.NextGoal.HomeScores + '</td>' +
+                                '<td class="NG-X">' + game.NextGoal.Draw + '</td>' +
+                                '<td class="NG-2">' + game.NextGoal.AwayScores + '</td>' +
+                                '</tr>';
                             $gamesTableBody.append(rowTemplate);
                         });
                     });
                 }
 
                 // Add a client-side hub method that the server will call
-                ticker.client.updateGame = function (game) {
+                ticker.client.updateGame = function(game) {
                     //console.clear();
                     //console.log(game);
 
@@ -239,26 +268,26 @@
                         };
                     }
                     var rowTemplate = '<tr id="' + game.MatchNo + '">' +
-                              '<td>' + game.ShortCode + '</td>' +
-                              '<td style="color:#F1C40F;">' + game.Minutes + '</td>' +
-                              '<td>' + game.LocalTeam + '</td>' +
-                              '<td style="color:#ff0000;">' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
-                              '<td>' + game.AwayTeam + '</td>' +
-                              '<td class="FT-1 td-border" style="padding-bottom: 0px;">' + game.FullTimeOdds.HomeWins + '</td>' +
-                              '<td class="FT-X">' + game.FullTimeOdds.Draw + '</td>' +
-                              '<td class="FT-2">' + game.FullTimeOdds.AwayWins + '</td>' +
-                              '<td class="under  td-border">' + game.UnderOverOdds.Under + '</td>' +
-                              '<td class="text-center">' +
-                              '  <span style="color:#F1C40F;">' + game.UnderOverOdds.ExtraValue + '</span>' +
-                              '</td>' +
-                              '<td class="over">' + game.UnderOverOdds.Over + '</td>' +
-                              '<td class="DC-1X  td-border" style="padding-bottom: 0px;">' + game.DoubleChance.HomeOrDraw + '</td>' +
-                              '<td class="DC-X2">' + game.DoubleChance.AwayOrDraw + '</td>' +
-                              '<td class="DC-12">' + game.DoubleChance.HomeOrAway + '</td>' +
-                              '<td class="NG-1  td-border" style="padding-bottom: 0px;">' + game.NextGoal.HomeScores + '</td>' +
-                              '<td class="NG-X">' + game.NextGoal.Draw + '</td>' +
-                              '<td class="NG-2">' + game.NextGoal.AwayScores + '</td>' +
-                              '</tr>';
+                        '<td class="text-center">' + game.ShortCode + '</td>' +
+                        '<td style="color:#F1C40F;">' + game.Minutes + '</td>' +
+                        '<td>' + game.LocalTeam + '</td>' +
+                        '<td class="text-center" style="color:#ff0000;">' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
+                        '<td>' + game.AwayTeam + '</td>' +
+                        '<td class="FT-1 td-border" style="padding-bottom: 0px;">' + game.FullTimeOdds.HomeWins + '</td>' +
+                        '<td class="FT-X">' + game.FullTimeOdds.Draw + '</td>' +
+                        '<td class="FT-2">' + game.FullTimeOdds.AwayWins + '</td>' +
+                        '<td class="under  td-border">' + game.UnderOverOdds.Under + '</td>' +
+                        '<td class="text-center">' +
+                        '  <span style="color:#F1C40F;">' + game.UnderOverOdds.ExtraValue + '</span>' +
+                        '</td>' +
+                        '<td class="over">' + game.UnderOverOdds.Over + '</td>' +
+                        '<td class="DC-1X  td-border" style="padding-bottom: 0px;">' + game.DoubleChance.HomeOrDraw + '</td>' +
+                        '<td class="DC-X2">' + game.DoubleChance.AwayOrDraw + '</td>' +
+                        '<td class="DC-12">' + game.DoubleChance.HomeOrAway + '</td>' +
+                        '<td class="NG-1  td-border" style="padding-bottom: 0px;">' + game.NextGoal.HomeScores + '</td>' +
+                        '<td class="NG-X">' + game.NextGoal.Draw + '</td>' +
+                        '<td class="NG-2">' + game.NextGoal.AwayScores + '</td>' +
+                        '</tr>';
 
                     var FT1 = $gamesTableBody.find('#' + game.MatchNo + ' > td.FT-1').html();
                     var FTX = $gamesTableBody.find('#' + game.MatchNo + ' > td.FT-X').html();
@@ -282,7 +311,7 @@
                     } else {
                         $gamesTableBody.append(rowTemplate);
                     }
-                    
+
                     if (parseInt(FT1) > parseInt(game.FullTimeOdds.HomeWins)) {
                         $('#' + game.MatchNo + ' > td.FT-1').addTemporaryClass("dropped", 3000);
                     }
@@ -323,7 +352,7 @@
                     // double chance
                     if (parseInt(DC1) > parseInt(game.DoubleChance.HomeOrDraw)) {
                         $('#' + game.MatchNo + ' > td.DC-1X').addTemporaryClass("dropped", 3000);
-                        console.log(DC1+' ' + ' down');
+                        console.log(DC1 + ' ' + ' down');
                     }
                     if (parseInt(DC1) < parseInt(game.DoubleChance.HomeOrDraw)) {
                         $('#' + game.MatchNo + ' > td.DC-1X').addTemporaryClass("raised", 3000);
@@ -370,10 +399,34 @@
                         $('#' + game.MatchNo + ' > td.NG-2').addTemporaryClass("raised", 3000);
                     }
                 };
+                
+                ticker.client.getUpdatedGames = function (games) {
+                    console.clear();
+                    //var test = $($gameTable + ' tr td:first-child').htkcml();
+                    $('#MatchTable tbody tr').each(function () {
+                        var gameToRemoveId = $(this).attr('id');
+                        var count = 0;
+                        $(games).each(function () {
+                            var NeWgame = this;
+                            console.log(NeWgame);
+                            if (gameToRemoveId== NeWgame.MatchNo) {
+                                count += 1;
+                            }
+
+
+                        })
+
+                        if (count <=0) {
+                            $gamesTableBody.find('#' + gameToRemoveId + '').remove();
+                        }
+                    });
+                }
                 // Start the connection
                 $.connection.hub.start().done(init);
 
             });
-        })
+            
+           
+        });
 
     </script>}
