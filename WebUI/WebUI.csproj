@@ -207,7 +207,7 @@
     <Compile Include="Controllers\FixtureViewModel.cs" />
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LiveGamesController.cs" />
+    <Compile Include="Controllers\LiveController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\ManualResultController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
@@ -1036,10 +1036,6 @@
     <Content Include="Scripts\angularjs\upida.angular.js" />
     <Content Include="Scripts\angularjs\version.txt" />
     <Content Include="Scripts\app\autoNumeric.js" />
-    <Content Include="Scripts\app\BackUpFiles\bet.js" />
-    <Content Include="Scripts\app\BackUpFiles\receipt.js" />
-    <Content Include="Scripts\app\BackUpFiles\receiptGen.js" />
-    <Content Include="Scripts\app\BackUpFiles\receiptSender.js" />
     <Content Include="Scripts\app\renderTables.js" />
     <Content Include="Scripts\app\bet.js" />
     <Content Include="Scripts\app\bettingController.js" />
@@ -1116,16 +1112,10 @@
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\errors.json" />
-    <Content Include="Scripts\app\BackUpFiles\Receipt.cshtml" />
     <Content Include="Content\themes\blue\jtable.less" />
     <Content Include="Xml\soccer_in_play_live_Odds.xml" />
     <Content Include="Xml\soccer_in_play_scores.xml" />
     <None Include="Properties\PublishProfiles\BetWay.pubxml" />
-    <None Include="Properties\PublishProfiles\betwaysystem.pubxml" />
-    <None Include="Properties\PublishProfiles\DavidProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\Davidworking.pubxml" />
-    <None Include="Properties\PublishProfiles\FestoTerwane.pubxml" />
-    <None Include="Properties\PublishProfiles\TestDeploy.pubxml" />
     <Content Include="Scripts\DataTables-1.10.2\datagrid_data1.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
@@ -1709,11 +1699,12 @@
     <Content Include="Scripts\jtable\themes\metro\red\jtable.less" />
     <Content Include="Views\Shared\Scores.cshtml" />
     <Content Include="Views\Shared\_LiveLayoutPage.cshtml" />
-    <Content Include="Views\LiveGames\Index.cshtml" />
+    <Content Include="Views\Live\Index.cshtml" />
     <Content Include="Views\Matches\Create.cshtml" />
     <Content Include="Views\Matches\Delete.cshtml" />
     <Content Include="Views\Matches\Details.cshtml" />
     <Content Include="Views\Matches\Edit.cshtml" />
+    <Content Include="Views\Live\Games.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

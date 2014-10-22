@@ -8,9 +8,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
+using Domain.Models.Concrete;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
-using WebUI.Helpers;
+using WebUI.DataAccessLayer;
 
 
 namespace WebUI.Hubs
@@ -26,37 +27,29 @@ namespace WebUI.Hubs
         private volatile bool _updatingGame = false;
         private readonly object _updateGameLock = new object();
         private readonly Random _updateOrNotRandom = new Random();
-        private MyController myController = new MyController();
-        
+        private IList<ShortMatchCode> _shortMatchCodes;
+        private ApplicationDbContext _dbContext;
+
+        // ToDo: Add short code
         public LiveGameHub()
         {
             _gamesforLiveScore.Clear();
-            _liveBetUrls = new List<LiveBetSource>
-            {
-                new LiveBetSource
-                {
-                    Name = "Scores",
-                    Url = "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/inplay"
-                },
-                new LiveBetSource
-                {
-                    Name = "Odds",
-                    Url = "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/lines/soccer-inplay"
-                }
-            };
+            _shortMatchCodes = BetDatabase.ShortMatchCodes.ToList();
 
         }
 
         public async Task<IEnumerable<Game>> GetAllGames()
         {
-            var scores = await /*myController.GetGamesScoresFromXml();*/ GetGamesScores();
-            var odds = await /*myController.GetGamesOddsFromXml();*/ GetGamesOdds();
+            var scores = await GetGamesScores();
+            var odds = await GetGamesOdds();
             var allGames = (from gamescore in scores
                             from gameodds in odds
                             where gamescore.MatchNo == gameodds.MatchNo
+                            //&& Convert.ToInt32(gamescore.MatchNo) == shortCode.MatchNo
                             select new Game
                             {
                                 MatchNo = gamescore.MatchNo,
+                                //ShortCode = gamescore.ShortCode,
                                 Minutes = gamescore.Minutes,
                                 AwayTeam = gamescore.AwayTeam,
                                 LocalTeam = gamescore.LocalTeam,
@@ -64,10 +57,22 @@ namespace WebUI.Hubs
                                 LocalTeamScore = gamescore.LocalTeamScore,
                                 FullTimeOdds = gameodds.FullTimeOdds,
                                 UnderOverOdds = gameodds.UnderOverOdds,
-                                RestofMatch = gameodds.RestofMatch,
+                                DoubleChance = gameodds.DoubleChance,
                                 NextGoal = gameodds.NextGoal
                             }).ToList();
-           // _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
+
+            IList<Game> liveGames = new List<Game>();
+
+            foreach (var game in allGames)
+            {
+                if (_shortMatchCodes.All(x => x.MatchNo != Convert.ToInt32(game.MatchNo))) continue;
+                var shortMatchCode = _shortMatchCodes.FirstOrDefault(g => g.MatchNo == Convert.ToInt32(game.MatchNo));
+                if (shortMatchCode == null) continue;
+                game.ShortCode = shortMatchCode.ShortCode;
+                liveGames.Add(game);
+            }
+            _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
+            //return liveGames;
             return allGames;
         }
 
@@ -96,10 +101,10 @@ namespace WebUI.Hubs
             }
             catch (Exception e)
             {
-                
-                
+
+
             }
-            
+
 
         }
 
@@ -145,13 +150,13 @@ namespace WebUI.Hubs
                     if (match.Attributes != null)
                     {
                         testGame.MatchNo = match.Attributes["id"].InnerText;
-                        testGame.Minutes = match.Attributes["minute"].InnerText.Substring(0,2)+"'";
+                        testGame.Minutes = match.Attributes["minute"].InnerText.Substring(0, 2) + "'";
                     }
 
                     foreach (XmlNode team in teams)
                     {
                         var local = team.Name;
-                        if (team.Name=="localteam")
+                        if (team.Name == "localteam")
                         {
 
                             var localTeamAttributes = team.Attributes;
@@ -173,7 +178,7 @@ namespace WebUI.Hubs
 
                         _gamesforLiveScore.TryAdd(testGame.MatchNo, testGame);
                     }
-                    
+
 
                 }
             return _gamesforLiveScore.Values;
@@ -231,7 +236,7 @@ namespace WebUI.Hubs
                                         testGame.FullTimeOdds = new FullTimeOdds();
                                         foreach (XmlNode FTO in odd.ChildNodes)
                                         {
-                                            if (FTO.Attributes!=null)
+                                            if (FTO.Attributes != null)
                                             {
                                                 if (FTO.Attributes["extravalue"].InnerText == "1")
                                                 {
@@ -296,6 +301,30 @@ namespace WebUI.Hubs
                                             }
                                         }
                                         break;
+                                    case "Double Chance":
+                                        testGame.DoubleChance = new DoubleChance();
+                                        foreach (XmlNode DC in odd.ChildNodes)
+                                        {
+                                            if (DC.Attributes != null)
+                                            {
+                                                if (DC.Attributes["extravalue"].InnerText == "1X")
+                                                {
+                                                    var homeOrDraw = DC.Attributes["odd"].InnerText;
+                                                    testGame.DoubleChance.HomeOrDraw = homeOrDraw;
+                                                }
+                                                if (DC.Attributes["extravalue"].InnerText == "X2")
+                                                {
+                                                    var awayOrDraw = DC.Attributes["odd"].InnerText;
+                                                    testGame.DoubleChance.AwayOrDraw = awayOrDraw;
+                                                }
+                                                if (DC.Attributes["extravalue"].InnerText == "12")
+                                                {
+                                                    var homeOrAway = DC.Attributes["odd"].InnerText;
+                                                    testGame.DoubleChance.HomeOrAway = homeOrAway;
+                                                }
+                                            }
+                                        }
+                                        break;
 
                                 }
 
@@ -344,167 +373,19 @@ namespace WebUI.Hubs
             return "Connected to the hub.....";
         }
 
-
-    }
-
-    #region stub controller to load lives from xml files
-    public class MyController : CustomController
-    {
-        private readonly ConcurrentDictionary<string, Game> _gamesforLiveScore = new ConcurrentDictionary<string, Game>();
-        private readonly ConcurrentDictionary<string, Game> _gamesforLiveOdds = new ConcurrentDictionary<string, Game>();
-        #region GetGamesScoresFromXml
-        public async Task<IEnumerable<Game>> GetGamesScoresFromXml()
+        private ApplicationDbContext BetDatabase
         {
-            var xmldoc = new XmlDocument();
-            _gamesforLiveScore.Clear();
-            xmldoc.Load(Server.MapPath("~/Xml/soccer_in_play_scores.xml"));
-            var categoryList = xmldoc.SelectNodes("/scores/category");
-
-
-            if (categoryList == null) return _gamesforLiveScore.Values; // if the stream is null return the games the way they are
-
-
-            // check the url that has been loaded
-
-            if (categoryList != null)
-                foreach (XmlNode category in categoryList)
-                {
-                    var match = category;
-                    var teams = match.ChildNodes;
-                    var testGame = new Game();
-
-                    if (match.Attributes != null)
-                    {
-                        testGame.MatchNo = match.Attributes["id"].InnerText;
-                        testGame.Minutes = match.Attributes["minute"].InnerText;
-                    }
-
-                    foreach (XmlNode team in teams)
-                    {
-                        var local = team.Name;
-                        if (team.Name == "localteam")
-                        {
-
-                            var localTeamAttributes = team.Attributes;
-                            if (localTeamAttributes != null)
-                            {
-                                testGame.LocalTeam = localTeamAttributes["name"].InnerText;
-                                testGame.LocalTeamScore = localTeamAttributes["score"].InnerText == "" ? "?" : localTeamAttributes["score"].InnerText;
-                            }
-                        }
-                        else
-                        {
-                            var awayTeamattributes = team.Attributes;
-                            if (awayTeamattributes != null)
-                            {
-                                testGame.AwayTeam = awayTeamattributes["name"].InnerText;
-                                testGame.AwayTeamScore = awayTeamattributes["score"].InnerText == "" ? "?" : awayTeamattributes["score"].InnerText;
-                            }
-                        }
-
-                        _gamesforLiveScore.TryAdd(testGame.MatchNo, testGame);
-                    }
-
-
-                }
-            return _gamesforLiveScore.Values;
-        }
-
-        #endregion
-        #region GetGamesOddsFromXml
-        public async Task<IEnumerable<Game>> GetGamesOddsFromXml()
-        {
-
-
-
-
-            var xmldoc = new XmlDocument();
-            xmldoc.Load(Server.MapPath("~/Xml/soccer_in_play_live_Odds.xml"));
-            var categoryList = xmldoc.SelectNodes("/scores/category");
-            if (categoryList == null) return _gamesforLiveOdds.Values; // if the stream is null return the games the way they are
-
-            // Get a UTF-32 encoding by name.
-
-
-            // check the url that has been loaded
-
-            if (categoryList != null)
+            get { return _dbContext ?? (_dbContext = new ApplicationDbContext()); }
+            set
             {
-                //get the odds from the xml
-                foreach (XmlNode category in categoryList)
-                {
-                    var testGame = new Game();
-                    var match = category.ChildNodes[0];
-                    if (match.Attributes != null)
-                    {
-                        testGame.MatchNo = match.Attributes["id"].InnerText;
-                        var odds = match.LastChild;
-                        foreach (XmlNode odd in odds)
-                        {
-                            if (odd.Attributes != null)
-                                switch (odd.Attributes["name"].InnerText)
-                                {
-                                    case "Fulltime Result":
-                                        testGame.FullTimeOdds = new FullTimeOdds();
-                                        foreach (XmlNode FTO in odd.ChildNodes)
-                                        {
-                                            if (FTO.Attributes != null)
-                                            {
-                                                if (FTO.Attributes["extravalue"].InnerText == "1")
-                                                {
-                                                    var homeWin = FTO.Attributes["odd"].InnerText;
-                                                    testGame.FullTimeOdds.HomeWins = homeWin;
-                                                }
-                                                if (FTO.Attributes["extravalue"].InnerText == "X")
-                                                {
-                                                    var draw = FTO.Attributes["odd"].InnerText;
-                                                    testGame.FullTimeOdds.Draw = draw;
-                                                }
-                                                if (FTO.Attributes["extravalue"].InnerText == "2")
-                                                {
-                                                    var awayWin = FTO.Attributes["odd"].InnerText;
-                                                    testGame.FullTimeOdds.AwayWins = awayWin;
-                                                }
-                                            }
-                                        }
-                                        break;
-                                    case "Match Goals":
-                                        testGame.UnderOverOdds = new UnderOverOdds();
-                                        foreach (XmlNode game in odd.ChildNodes)
-                                        {
-                                            if (game.Attributes != null)
-                                            {
-                                                if (game.Attributes["name"].InnerText.Contains("Over"))
-                                                {
-                                                    var over = game.Attributes["odd"].InnerText;
-                                                    testGame.UnderOverOdds.Over = over;
-                                                    testGame.UnderOverOdds.ExtraValue = game.Attributes["extravalue"].InnerText;
-                                                }
-                                                if (game.Attributes["name"].InnerText.Contains("Under"))
-                                                {
-                                                    var under = game.Attributes["odd"].InnerText;
-                                                    testGame.UnderOverOdds.Under = under;
-                                                    testGame.UnderOverOdds.ExtraValue = game.Attributes["extravalue"].InnerText;
-                                                }
-                                            }
-                                        }
-                                        break;
-
-                                }
-
-                            _gamesforLiveOdds.TryAdd(testGame.MatchNo, testGame);
-                        }
-                    }
-                }
-
+                _dbContext = value;
             }
-            return _gamesforLiveOdds.Values;
         }
-        #endregion
+
 
     }
 
-    #endregion
+
     public class LiveBetSource
     {
         public string Name { get; set; }
@@ -514,6 +395,7 @@ namespace WebUI.Hubs
     public class Game
     {
         public string MatchNo { get; set; }
+        public int ShortCode { get; set; }
         public string Minutes { get; set; }
         public string LocalTeam { get; set; }
         public string AwayTeam { get; set; }
@@ -521,7 +403,7 @@ namespace WebUI.Hubs
         public string AwayTeamScore { get; set; }
         public FullTimeOdds FullTimeOdds { get; set; }
         public UnderOverOdds UnderOverOdds { get; set; }
-        public RestofMatch RestofMatch { get; set; }
+        public DoubleChance DoubleChance { get; set; }
         public NextGoal NextGoal { get; set; }
     }
 
@@ -538,11 +420,11 @@ namespace WebUI.Hubs
         public string Over { get; set; }
         public string ExtraValue { get; set; }
     }
-    public class RestofMatch
+    public class DoubleChance
     {
-        public string HomeWins { get; set; }
-        public string Draw { get; set; }
-        public string AwayWins { get; set; }
+        public string HomeOrDraw { get; set; }
+        public string AwayOrDraw { get; set; }
+        public string HomeOrAway { get; set; }
     }
     public class NextGoal
     {
@@ -550,4 +432,6 @@ namespace WebUI.Hubs
         public string Draw { get; set; }
         public string AwayScores { get; set; }
     }
+
+
 }
