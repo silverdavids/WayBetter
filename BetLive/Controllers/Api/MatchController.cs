@@ -28,7 +28,7 @@ namespace BetLive.Controllers.Api
         private readonly ApplicationDbContext db = new ApplicationDbContext();
         // GET: api/Match
         #region getMatches
-        public async Task<IHttpActionResult> GetMatches()
+        public async Task<IEnumerable<GameViewModel>> GetMatches()
         {
            
 
@@ -64,7 +64,7 @@ namespace BetLive.Controllers.Api
                 OldDateTime = g.StartTime,
                 StartTime = String.Format("{0:dd/M/yyyy}", g.StartTime)
             }).OrderBy(s => s.StartTime);
-            return Ok(filteredgames);
+            return filteredgames.ToList();
         }
         #endregion
         #region getBetCategories

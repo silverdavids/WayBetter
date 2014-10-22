@@ -274,6 +274,7 @@
     <Content Include="Content\Images\betway2.png" />
     <Content Include="Content\Images\icons.png" />
     <Content Include="Content\Images\loadingAnim.gif" />
+    <Content Include="Content\jasny-bootstrap.css" />
     <Content Include="Content\loading-bar.css" />
     <Content Include="Content\loading-bar.js" />
     <Content Include="Content\printReceipt.css" />
@@ -698,6 +699,7 @@
     <Content Include="Scripts\app\test.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\Bootstrap\jasny-bootstrap.js" />
     <Content Include="Scripts\Bootstrap\ui-bootstrap-tpls-0.11.2.min.js" />
     <Content Include="Xml\england_shedule.xml">
       <SubType>Designer</SubType>

@@ -210,6 +210,30 @@
     </div>
 </div> <!-- container -->
                 <!--Match Templates for each category-->
+<script id="login.html" type="text/ng-template">
+    <form class="form-login" role="form">
+        <h2 class="form-login-heading">Login</h2>
+        <input type="text" class="form-control" placeholder="Username" data-ng-model="loginData.userName" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" data-ng-model="loginData.password" required>
+        <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="login()">Login</button>
+        <div data-ng-hide="message == ''" class="alert alert-danger">
+            {{message}}
+        </div>
+    </form>
+</script>
+<script id="signup.html" type="text/ng-template">
+    <form class="form-login" role="form">
+        <h2 class="form-login-heading">Sign up</h2>
+        <input type="text" class="form-control" placeholder="Username" data-ng-model="registration.userName" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" data-ng-model="registration.password" required>
+        <input type="password" class="form-control" placeholder="Confirm Password" data-ng-model="registration.confirmPassword" required>
+        <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="signUp()">Submit</button>
+        <div data-ng-hide="message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+            {{message}}
+        </div>
+    </form>
+
+</script>
                 <script id="fullTime.html" type="text/ng-template">
                    
                     <table class="table-striped table-hover oddstable" >
@@ -222,6 +246,7 @@
                                 <th><b>X</b></th>
                                 <th><b>2</b></th>
                                 <th><b>More</b></th>
+                               
                                 
                             </tr>
                         </thead>
@@ -458,10 +483,12 @@
         <div class="row">
             <div class="col-lg-9">
                 <h2 class="heading">Live </h2>
+                <p class="heading"><input type="button" class="btn btn-primary" value="Reconnect" ng-click="reconnect()"/> </p>
+                <p ng-bind="NoGamesInPlay" ng-show="areNoGamesInPlay"></p>
                 <div id="gameTable" >
                     <table class="table table-condensed  oddstable">
                         <thead>
-                            <tr><th colspan="5"></th><th colspan="3" class="text-center">Full&nbsp;Time</th><th colspan="3" class="text-center">Under/Over</th><th colspan="3" class="text-center">Rest&nbsp;Of&nbsp;Match</th><th colspan="3" class="text-center">Next&nbsp;Goal</th></tr>
+                            <tr><th colspan="5"></th><th colspan="3" class="text-center">Full&nbsp;Time</th><th colspan="3" class="text-center">Under/Over</th><th colspan="3" class="text-center">Double&nbsp;Chance&nbsp;</th><th colspan="3" class="text-center">Next&nbsp;Goal</th></tr>
                             <tr style="background-color:#0D1F35 !important; color: #ffffff;">
                                 <th>Match No</th>
                                 <th>Min</th>
@@ -537,25 +564,25 @@
 
                                              
                                                 <td style="padding-bottom: 0px;">                                                   
-                                                    <input type="button" class="btn btn-sm btn-default FT-1 odd" value="{{game.RestOfMatchOddsOdds.HomeWins}}" data-odd-type="Live" data-option-id="7" data-option-name="NG-1" data-bet-category="FT1X2-ROM" />
+                                                    <input type="button" class="btn btn-sm btn-default FT-1 odd" value="{{game.DoubleChance.HomeWinsOrDraw}}" data-odd-type="Live" data-option-id="7" data-option-name="DC-1" data-bet-category="Double Chance" />
                                                  
                                                 </td>
                                                
                                                 <td>
                                                    
-                                                   <input type="button" class="btn btn-sm btn-default FT-X odd" value="{{game.RestOfMatchOdds.Draw}}" data-odd-type="Live" data-option-id="7" data-option-name="NG-X" data-bet-category="FT1X2-ROM" />
+                                                    <input type="button" class="btn btn-sm btn-default FT-X odd" value="{{game.DoubleChance.HomeWinsOrAwayWins}}" data-odd-type="Live" data-option-id="7" data-option-name="DC-X" data-bet-category="Double Chance" />
                                                    
                                                 </td>
                                               
                                                 <td>
                                                    
-                                                  <input type="button" class="btn btn-sm btn-default FT-2 odd" value="{{game.RestOfMatchOdds.AwayWins}}" data-odd-type="Live" data-option-id="7" data-option-name="NG-2" data-bet-category="FT1X2-ROM" />
+                                                    <input type="button" class="btn btn-sm btn-default FT-2 odd" value="{{game.DoubleChance.AwayWinsOrDraw}}" data-odd-type="Live" data-option-id="7" data-option-name="DC-2" data-bet-category="Double Chance" />
                                                    
                                                 </td>
                                                
                                                 <td style="padding-bottom: 0px;">
                                                    
-                                                   <input type="button" class="btn btn-sm btn-default FT-1 odd" value="{{game.NextGoalOddsOdds.HomeScores}}" data-odd-type="Live" data-option-id="7" data-option-name="FT1-NG" data-bet-category="FT1X2-NG" />
+                                                   <input type="button" class="btn btn-sm btn-default FT-1 odd" value="{{game.NextGoalOdds.HomeScores}}" data-odd-type="Live" data-option-id="7" data-option-name="FT1-NG" data-bet-category="FT1X2-NG" />
                                                   
                                                 </td>
                                                

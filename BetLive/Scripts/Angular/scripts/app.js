@@ -26,11 +26,11 @@ bettingApp.config(function ($routeProvider) {
             controller: 'homeCtrl'
         })
         .when('/login',{
-            templateUrl:'/Management/login',
+            templateUrl:'login.html',
             controller:'loginCtrl'
         })
         .when('/signup',{
-            templateUrl:'/Management/signup',
+            templateUrl:'signup.html',
             controller:'signUpCtrl'
         })
         .when('/matches',{

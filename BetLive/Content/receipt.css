@@ -16,15 +16,16 @@ button{
     display:none;
 }
 #app{
-    position: fixed;
+   /* position: fixed;
     top: 145px;
-    right: 4%;/**/
+    right: 4%;*/
     margin:0px;
     min-width: 30em;
     background-color: #ffffff;
     max-height: 600px;
     overflow-y: auto;
     z-index: 1000;
+    right:-30em;
 }
 #app>header{
     padding: 0 0.5px;
@@ -40,7 +41,7 @@ button{
 #main{
     margin: 1em auto;
     min-width: 9em;
-    max-width: 35em;
+    max-width: 30em;
     border-radius: 4px;
     border: 2px solid darkblue;
     box-shadow: 2px 2px 3px  rgba(0,0,0,0.6);

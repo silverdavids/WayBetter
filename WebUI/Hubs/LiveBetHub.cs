@@ -27,7 +27,7 @@ namespace WebUI.Hubs
         private readonly object _updateGameLock = new object();
         private readonly Random _updateOrNotRandom = new Random();
         private MyController myController = new MyController();
-
+        
         public LiveGameHub()
         {
             _gamesforLiveScore.Clear();
@@ -67,7 +67,7 @@ namespace WebUI.Hubs
                                 RestofMatch = gameodds.RestofMatch,
                                 NextGoal = gameodds.NextGoal
                             }).ToList();
-            _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
+           // _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
             return allGames;
         }
 

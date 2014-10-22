@@ -1,13 +1,14 @@
 ﻿body{
-    background-color:rgb(0,0,0);
+    background-color:whitesmoke;
 }
 .main-div-content {
-    border:1px solid orange;
+    border:1px solid #FFFFFF;
     border-radius:10px;
     margin-top:70px;
     min-height:1000px;
     padding-bottom:10px;
-    background-color:#ffffff;
+    background-color:beige;
+    box-shadow:10px 10px 10px 10px 10px #eea236  ;
 }
 
 .offset-margin {

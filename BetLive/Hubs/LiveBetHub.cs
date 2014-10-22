@@ -13,6 +13,9 @@ using System.Text;
 using System.IO;
 using System.Threading;
 using WebUI.Helpers;
+using BetLive.Controllers.Api;
+using System.Web.Http;
+using Domain.Models.ViewModels;
 
 namespace BetLive.Hubs
 {
@@ -28,11 +31,14 @@ namespace BetLive.Hubs
         private readonly object _updateGameLock = new object();
         private readonly Random _updateOrNotRandom = new Random();
         private MyController myController;
+        private MatchController myApiController;
+
 
         public LiveGameHub()
         {
             //the controller below is for testing please comment it initailisation to save server resources
             myController = new MyController();
+            myApiController = new MatchController();
             _gamesforLiveScore.Clear();
             _liveBetUrls = new List<LiveBetSource>
             {
@@ -49,6 +55,16 @@ namespace BetLive.Hubs
             };
 
         }
+
+        #region getAllNormalGames
+        public async Task<List<GameViewModel>> getAllNormalGames()
+        {
+
+            var games = await myApiController.GetMatches();
+            return games.ToList();
+        
+        }
+        #endregion
         #region GetAllGames
         public async Task<IEnumerable<Game>> GetAllGames()
         {
@@ -67,10 +83,11 @@ namespace BetLive.Hubs
                                 LocalTeamScore = gamescore.LocalTeamScore,
                                 FullTimeOdds = gameodds.FullTimeOdds,
                                 UnderOverOdds = gameodds.UnderOverOdds,
-                                RestofMatch = gameodds.RestofMatch,
-                                NextGoal = gameodds.NextGoal
+                                RestOfMatch = gameodds.RestOfMatch,
+                                NextGoal = gameodds.NextGoal,
+                                DoubleChance=gameodds.DoubleChance
                             }).ToList();
-            _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
+           // _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
             return allGames;
         }
         #endregion
@@ -304,6 +321,30 @@ namespace BetLive.Hubs
                                             }
                                         }
                                         break;
+                                    case "Double Chance":
+                                        testGame.DoubleChance = new DoubleChance();
+                                        foreach (XmlNode FTO in odd.ChildNodes)
+                                        {
+                                            if (FTO.Attributes != null)
+                                            {
+                                                if (FTO.Attributes["extravalue"].InnerText == "1X")
+                                                {
+                                                    var homeWinsOrDraw = FTO.Attributes["odd"].InnerText;
+                                                    testGame.DoubleChance.HomeWinsOrDraw = homeWinsOrDraw;
+                                                }
+                                                if (FTO.Attributes["extravalue"].InnerText == "12")
+                                                {
+                                                    var homeOrAwayWins = FTO.Attributes["odd"].InnerText;
+                                                    testGame.DoubleChance.HomeWinsOrAwayWins = homeOrAwayWins;
+                                                }
+                                                if (FTO.Attributes["extravalue"].InnerText == "X2")
+                                                {
+                                                    var awayWinsOrDraw = FTO.Attributes["odd"].InnerText;
+                                                    testGame.DoubleChance.AwayWinsOrDraw = awayWinsOrDraw;
+                                                }
+                                            }
+                                        }
+                                        break;
 
                                 }
 
@@ -373,7 +414,7 @@ namespace BetLive.Hubs
                 //StreamReader strReader = new StreamReader(Server.MapPath("~/Xml/england_shedule.xml"));
                // var stream= await strReader.ReadToEndAsync();
 
-                xmldoc.Load(Server.MapPath("H:\\MyWorks\\BettingAppDirectory9\\BetLive\\Xml\\soccerInPlayScores.xml"));
+                xmldoc.Load(Server.MapPath("H:/MyWorks/BettingAppDirectory9/BetLive/Xml/soccerInPlayScores.xml"));
             }
             catch (Exception e)
             {
@@ -440,7 +481,7 @@ namespace BetLive.Hubs
            
            
             var xmldoc = new XmlDocument();
-            xmldoc.Load(Server.MapPath("~/Xml/soccer_in_play_live_Odds.xml"));
+            xmldoc.Load(Server.MapPath("H:/MyWorks/BettingAppDirectory9/BetLive/Xml/soccerInPlayLliveOdds.xml"));
             var categoryList = xmldoc.SelectNodes("/scores/category");
             if (categoryList == null) return _gamesforLiveOdds.Values; // if the stream is null return the games the way they are
 
@@ -543,8 +584,9 @@ namespace BetLive.Hubs
         public string AwayTeamScore { get; set; }
         public FullTimeOdds FullTimeOdds { get; set; }
         public UnderOverOdds UnderOverOdds { get; set; }
-        public RestofMatch RestofMatch { get; set; }
+        public RestofMatch RestOfMatch { get; set; }
         public NextGoal NextGoal { get; set; }
+        public DoubleChance DoubleChance{get;set;}
     }
 
     public class FullTimeOdds
@@ -571,6 +613,12 @@ namespace BetLive.Hubs
         public string HomeScores { get; set; }
         public string Draw { get; set; }
         public string AwayScores { get; set; }
+    }
+    public class DoubleChance
+    {
+     public string HomeWinsOrDraw { get; set; }
+        public string HomeWinsOrAwayWins { get; set; }
+        public string AwayWinsOrDraw { get; set; }
     }
 #endregion
 }

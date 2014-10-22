@@ -519,5 +519,6 @@ $(function () {
 
         thisApp.mockBets(bet);
     }
+   // $("#app").offcanvas('show')
     }, 12000);
 });
