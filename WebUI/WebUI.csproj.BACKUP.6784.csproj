@@ -33,7 +33,6 @@
       <Objects>
       </Objects>
     </PublishDatabaseSettings>
-    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -1725,8 +1724,11 @@
     <Content Include="Views\Matches\Delete.cshtml" />
     <Content Include="Views\Matches\Details.cshtml" />
     <Content Include="Views\Matches\Edit.cshtml" />
+<<<<<<< Updated upstream
     <Content Include="Views\Live\Games.cshtml" />
+=======
     <Content Include="Views\OddsService\Index.cshtml" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
