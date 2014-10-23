@@ -455,6 +455,7 @@ $(function () {
                 matchCode = $.trim($matchCode.text()),
                 optionName = $that.data("option-name"),
                 liveScores = $that.parent().siblings("td.live-scores").text(),
+                extraValue = $that.parent().siblings("td span.extra-value").text();
                 bet = new Bet(matchCode);
             // $that.tooltip({ placement: 'top', title:''+ matchCode + " " + optionName +''});
             // console.log(handCapGoalString);
@@ -465,6 +466,7 @@ $(function () {
             bet["betCategory"] = $that.data("bet-category");
             bet["optionName"] = $that.data("option-name");
             bet["liveScores"] = liveScores;
+            bet["extraValue"] = extraValue;
             $matchCode.siblings("td").each(function () {
                 var fieldName = $(this).data("field");
                 bet[fieldName] = $(this).text();

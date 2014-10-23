@@ -19,6 +19,7 @@ function Bet(matchId) {
     this.betAmount = 0;
     this.handCapGoalString = null;
     this.liveScores = null;
+    this.extraValue = null;
     //this.betTotal=0;
     //this.maxPayout=0;
 };
