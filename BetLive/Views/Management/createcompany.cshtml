@@ -1,0 +1,20 @@
+<span class="error" mainerror></span>
+<hr />
+<table class="table table-condensed">
+    <tr>
+        <td>Name</td>
+        <td>
+            <input type="text" ng-model="company.companyName" />
+            <span class="error" errorkey="company.companyName"></span>
+        </td>
+    </tr>
+    <tr>
+        <td>Location</td>
+        <td>
+            <input type="text" ng-model="company.companyLocation" />
+            <span class="error" errorkey="company.companyLocation"></span>
+        </td>
+    </tr>
+</table>
+<hr />
+<input type="button" ng-click="onSave()" value="Save" />

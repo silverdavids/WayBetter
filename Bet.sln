@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.Tests", "UnitTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZeusConsole", "ZeusConsole\ZeusConsole.csproj", "{D5E502BC-2EAD-4C15-A2EE-FD5F2268835E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetLive", "BetLive\BetLive.csproj", "{376AC5F6-6C0E-4C46-A3FD-F16CA5448A81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D5E502BC-2EAD-4C15-A2EE-FD5F2268835E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5E502BC-2EAD-4C15-A2EE-FD5F2268835E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5E502BC-2EAD-4C15-A2EE-FD5F2268835E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{376AC5F6-6C0E-4C46-A3FD-F16CA5448A81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{376AC5F6-6C0E-4C46-A3FD-F16CA5448A81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{376AC5F6-6C0E-4C46-A3FD-F16CA5448A81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{376AC5F6-6C0E-4C46-A3FD-F16CA5448A81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
