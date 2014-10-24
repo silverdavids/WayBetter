@@ -10,13 +10,11 @@ namespace Domain.Models.Concrete
         public Match()
         {
             Bets = new HashSet<Bet>();
-            ShortMatchCodes = new HashSet<ShortMatchCode>();
             AwayScore = 0;
             HomeScore = 0;
             HalfTimeHomeScore = 0;
             HalfTimeAwayScore = 0;
             RegistrationDate = DateTime.Now;
-            LiveBetFlag = false;
         }
 
         [Key]
@@ -35,17 +33,12 @@ namespace Domain.Models.Concrete
         public int HalfTimeHomeScore { get; set; }
         public int HalfTimeAwayScore { get; set; }
         public int? ResultStatus { get; set; }
-
-        public bool LiveBetFlag
-        {
-            get; set;
-        }
         [Required]
-        public Team AwayTeam { get; set; }
+        public virtual Team AwayTeam { get; set; }
         [Required]
-        public Team HomeTeam { get; set; }
+        public virtual Team HomeTeam { get; set; }
         public ICollection<Bet> Bets { get; set; }
-        public ICollection<MatchOdd> MatchOdds { get; set; }
-        public ICollection<ShortMatchCode> ShortMatchCodes { get; set; }
+        public virtual ICollection<MatchOdd> MatchOdds { get; set; }
+        public virtual ShortMatchCode ShortMatchCode { get; set; }
     }
 }

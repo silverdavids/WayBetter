@@ -112,5 +112,5 @@ angularExample.app.config(function ($routeProvider) {
 
 
 
-$upida.settings.baseUrl = "http://shop.betway.ug/";
+upida.settings.baseUrl = "http://shop.betway.ug/";
  //$upida.settings.baseUrl = "http://localhost:49193/";
