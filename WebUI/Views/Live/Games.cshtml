@@ -233,8 +233,8 @@
 
                 // Add a client-side hub method that the server will call
                 ticker.client.updateGame = function(game) {
-                    //console.clear();
-                    //console.log(game);
+                    console.clear();
+                    console.log(game);
 
                     if (game.FullTimeOdds == null) {
                         game.FullTimeOdds = {
@@ -399,19 +399,16 @@
                 };
                 
                 ticker.client.getUpdatedGames = function (games) {
-                    console.clear();
+                    //console.clear();
                     //var test = $($gameTable + ' tr td:first-child').htkcml();
                     $('#MatchTable tbody tr').each(function () {
                         var gameToRemoveId = $(this).attr('id');
                         var count = 0;
                         $(games).each(function () {
                             var NeWgame = this;
-                            console.log(NeWgame);
                             if (gameToRemoveId== NeWgame.MatchNo) {
                                 count += 1;
                             }
-
-
                         })
 
                         if (count <=0) {
