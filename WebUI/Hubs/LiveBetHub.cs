@@ -34,7 +34,7 @@ namespace WebUI.Hubs
         public LiveGameHub()
         {
             _gamesforLiveScore.Clear();
-            _shortMatchCodes = BetDatabase.ShortMatchCodes.ToList();
+            //_shortMatchCodes = BetDatabase.ShortMatchCodes.ToList();
 
         }
 
@@ -43,8 +43,8 @@ namespace WebUI.Hubs
             var scores = await GetGamesScores();
             var odds = await GetGamesOdds();
             var allGames = (from gamescore in scores
-                            from gameodds in odds
-                            where gamescore.MatchNo == gameodds.MatchNo
+                            join gameodds in odds
+                            on gamescore.MatchNo equals gameodds.MatchNo
                             //&& Convert.ToInt32(gamescore.MatchNo) == shortCode.MatchNo
                             select new Game
                             {
@@ -86,8 +86,10 @@ namespace WebUI.Hubs
                 {
                     if (!_updatingGame)
                     {
+                        var updates = updatedGames as Game[] ?? updatedGames.ToArray();
+                        BroadcastNewGames(updates);
                         _updatingGame = true;
-                        foreach (var game in updatedGames)
+                        foreach (var game in updates)
                         {
                             if (TryUpdateGame(game))
                             {
@@ -368,6 +370,16 @@ namespace WebUI.Hubs
             }
         }
 
+        // ToDo: re-implement this block
+        private void BroadcastNewGames(IEnumerable<Game> games)
+        {
+            var hubContext = GlobalHost.ConnectionManager.GetHubContext<LiveGameHub>();
+            if (hubContext != null)
+            {
+
+                hubContext.Clients.All.getUpdatedGames(games);
+            }
+        }
         public string TestString()
         {
             return "Connected to the hub.....";
