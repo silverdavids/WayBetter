@@ -14,10 +14,15 @@ namespace BetLive
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
+                name: "DefaultWithControllerAndActionMethod",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Management", action = "matches", id = UrlParameter.Optional }
+                defaults: new { controller = "MyMatches", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+               name: "Default",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "Management", action = "matches", id = UrlParameter.Optional }
+           );
         }
     }
 }

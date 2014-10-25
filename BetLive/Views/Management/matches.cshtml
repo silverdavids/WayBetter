@@ -520,7 +520,7 @@
                         <tbody id="tbody">
                             <!--<tr class="loading text-center"><td colspan="11">loading...</td></tr>-->
 
-                            <tr  ng-repeat="game in gameRows" data-symbol="{{ game.MatchNo }}">
+                            <tr  ng-repeat="game in gameRows|orderBy:game.Minutes:true" data-symbol="{{ game.MatchNo }}">
 
                                 <td data-field="shortCode" class="short-code"> {{ game.ShortCode }} </td>
                                 <td data-field="matchId" class="match-code hidden">{{game.MatchNo }}</td>
@@ -537,72 +537,72 @@
                                
                                 <td style="padding-bottom: 0px;">
                                    
-                                    <input type="button" class="btn btn-sm btn-default FT-1 odd" value="{{ game.FullTimeOdds.HomeWins }}" data-odd-type="Live" data-option-id="7" data-option-name="FT1" data-bet-category="FT1X2" />
+                                    <input type="button" class="btn btn-sm btn-default FT-1 odd" value="{{ game.FullTimeOdds.HomeWins }}" data-odd-type="Live" data-option-id="80" data-option-name="FT1" data-bet-category="FT1X2" />
                                     
                                 </td>
                                 
                                 <td>
                                    
-                                    <input type="button" class="btn btn-sm btn-default FT-X odd" value="{{ game.FullTimeOdds.Draw }}" data-odd-type="Live" data-option-id="7" data-option-name="FTX" data-bet-category="FT1X2" />
+                                    <input type="button" class="btn btn-sm btn-default FT-X odd" value="{{ game.FullTimeOdds.Draw }}" data-odd-type="Live" data-option-id="81" data-option-name="FTX" data-bet-category="FT1X2" />
                                   
                                 </td>
                                 
                                 <td>
                                    
-                                   <input type="button" class="btn btn-sm btn-default FT-2 odd" value="{{ game.FullTimeOdds.AwayWins }}" data-odd-type="Live" data-option-id="7" data-option-name="FT2" data-bet-category="FT1X2" />
+                                   <input type="button" class="btn btn-sm btn-default FT-2 odd" value="{{ game.FullTimeOdds.AwayWins }}" data-odd-type="Live" data-option-id="83" data-option-name="FT2" data-bet-category="FT1X2" />
                                   
                                 </td>
                                 
                                 <td>
                                    
-                                    <input type="button" class="btn btn-sm btn-default odd" value="{{ game.UnderOverOdds.Under }}" data-odd-type="Live" data-option-id="7" data-option-name="U" data-bet-category="U/O" />
+                                    <input type="button" class="btn btn-sm btn-default odd" value="{{ game.UnderOverOdds.Under }}" data-odd-type="Live" data-option-id="78" data-option-name="U" data-bet-category="U/O" />
                                     
                                 </td>                            
                                 <td style="padding-top: 14px;">
                                    
-                                      <span style="color:#E9860D;">{{ game.UnderOverOdds.ExtraValue }}</span>
+                                      <span style="color:#E9860D;"class="extra-value" data-field="extraValue">{{ game.UnderOverOdds.ExtraValue }}</span>
                                     
                                 </td>
                                 
                                 <td>
                                    
-                                    <input type="button" class="btn btn-sm btn-default odd" value="{{ game.UnderOverOdds.Over }}" data-odd-type="Live" data-option-id="7" data-option-name="O" data-bet-category="U/O" />
+                                    <input type="button" class="btn btn-sm btn-default odd" value="{{ game.UnderOverOdds.Over }}" data-odd-type="Live" data-option-id="79" data-option-name="O" data-bet-category="U/O" />
                                     
                                 </td>
 
                                              
                                                 <td style="padding-bottom: 0px;">                                                   
-                                                    <input type="button" class="btn btn-sm btn-default FT-1 odd" value="{{game.DoubleChance.HomeWinsOrDraw}}" data-odd-type="Live" data-option-id="7" data-option-name="DC-1" data-bet-category="Double Chance" />
+                                                    <input type="button" class="btn btn-sm btn-default FT-1 odd" value="{{game.DoubleChance.HomeWinsOrDraw}}" data-odd-type="Live" data-option-id="75" data-option-name="DC-1" data-bet-category="Double Chance" />
                                                  
                                                 </td>
                                                
                                                 <td>
                                                    
-                                                    <input type="button" class="btn btn-sm btn-default FT-X odd" value="{{game.DoubleChance.HomeWinsOrAwayWins}}" data-odd-type="Live" data-option-id="7" data-option-name="DC-X" data-bet-category="Double Chance" />
+                                                    <input type="button" class="btn btn-sm btn-default FT-X odd" value="{{game.DoubleChance.HomeWinsOrAwayWins}}" data-odd-type="Live" data-option-id="76" data-option-name="DC-X" data-bet-category="Double Chance" />
                                                    
                                                 </td>
                                               
                                                 <td>
                                                    
-                                                    <input type="button" class="btn btn-sm btn-default FT-2 odd" value="{{game.DoubleChance.AwayWinsOrDraw}}" data-odd-type="Live" data-option-id="7" data-option-name="DC-2" data-bet-category="Double Chance" />
+                                                    <input type="button" class="btn btn-sm btn-default FT-2 odd" value="{{game.DoubleChance.AwayWinsOrDraw}}" data-odd-type="Live" data-option-id="77" data-option-name="DC-2" data-bet-category="Double Chance" />
                                                    
                                                 </td>
                                                
                                                 <td style="padding-bottom: 0px;">
                                                    
-                                                   <input type="button" class="btn btn-sm btn-default FT-1 odd" value="{{game.NextGoalOdds.HomeScores}}" data-odd-type="Live" data-option-id="7" data-option-name="FT1-NG" data-bet-category="FT1X2-NG" />
+                                                   <input type="button" class="btn btn-sm btn-default FT-1 odd" value="{{game.NextGoalOdds.HomeScores}}" data-odd-type="Live" data-option-id="71" data-option-name="FT1-NG" data-bet-category="FT1X2-NG" />
                                                   
                                                 </td>
                                                
                                                 <td>
                                                    
-                                                   <input type="button" class="btn btn-sm btn-default FT-X odd" value="{{game.NextGoalOdds.Draw}}" data-odd-type="Live" data-option-id="7" data-option-name="FTX-NG" data-bet-category="FT1X2-NG" />
+                                                   <input type="button" class="btn btn-sm btn-default FT-X odd" value="{{game.NextGoalOdds.Draw}}" data-odd-type="Live" data-option-id="72" data-option-name="FTX-NG" data-bet-category="FT1X2-NG" />
                                                     
                                                 </td>
                                                
                                                 <td>
                                                    
-                                                   <input type="button" class="btn btn-sm btn-default FT-2 odd" value="{{game.NextGoalOdds.AwayScores}}" data-odd-type="Live" data-option-id="7" data-option-name="FT2-NG" data-bet-category="FT1X2-NG" />
+                                                   <input type="button" class="btn btn-sm btn-default FT-2 odd" value="{{game.NextGoalOdds.AwayScores}}" data-odd-type="Live" data-option-id="73" data-option-name="FT2-NG" data-bet-category="FT1X2-NG" />
                                                    
                                                 </td>                                               
                                             

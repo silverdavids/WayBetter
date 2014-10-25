@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<scores sport="soccer" updated="635496067693857581">
+  <match id="26552435" minute="77:31" v="0" stop="False">
+    <localteam name="Herediano" score="2" />
+    <awayteam name="Perez Zeledon" score="1" />
+  </match>
+  <match id="26552496" minute="59:34" v="0" stop="True">
+    <localteam name="Tigres" score="1" />
+    <awayteam name="Toluca" score="0" />
+  </match>
+  <match id="26552414" minute="69:53" v="0" stop="False">
+    <localteam name="Real Espana" score="3" />
+    <awayteam name="Pachuca" score="2" />
+  </match>
+</scores>

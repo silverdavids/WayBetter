@@ -40,10 +40,12 @@ bettingApp.factory('liveBetsSrvc', [ '$rootScope', function ( $rootScope) {
             $rootScope.$emit('getAllGames', games);
         });
     }
+
     function reconnect() {
         connection = connection || $.hubConnection();      
         ticker = ticker || connection.createHubProxy('liveBetHubAng');
-        if (connIsStarted != true) {
+        if (connIsStarted!==true) {
+
             connection.start().done(function () {
                 ticker.invoke('getAllGames').done(function (games) {
                     console.log("Reconnecting to the service");

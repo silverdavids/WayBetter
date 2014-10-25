@@ -50,8 +50,9 @@ function SendReceipt() {
 
         }
         if (betList.getBets().length > 0) console.log(receipt);
-        var url = "http://localhost:49195/Match/ReceiveReceipt";//"../Match/ReceiveReceipt";
+       // var url = "http://localhost:49195/Match/ReceiveReceipt";//"../Match/ReceiveReceipt";
         //var url = "http://localhost:49193/Match/ReceiveReceipt"
+        var url = "http://localhost:49193/api/ReceiptPrint/ReceiveReceipt";
         $.ajax({
             url: url,
             type: "POST",
@@ -60,7 +61,8 @@ function SendReceipt() {
             dataType: "json",
         }).done(function(response) {
             var Message = response.message;
-
+            alert(response);
+            console.log(response);
             if (Message == "Success") {
               
                 $("#rcpTorderId").text(response.ReceiptNumber);
@@ -70,7 +72,7 @@ function SendReceipt() {
                 $("#rcpTteller").text(response.TellerName);
                 $("#rcpTbarCode img").attr({
                     src: "http://localhost:54480/Content/Barcodes/" + response.Serial + ".png",
-                    alt: response.Serial.toString()
+                    alt: response.Serial//.toString()
                 });
                // ReceiptNumber
                

@@ -14,7 +14,7 @@ var bettingApp=angular.module('bettingApp', ['ngAnimate','ngCookies','ngResource
 bettingApp.config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-          templateUrl: '/Management/matches',
+          templateUrl: '/MyMatches/matches',
         controller: 'newMatchCtrl'
       })
       .when('/about', {
@@ -34,7 +34,7 @@ bettingApp.config(function ($routeProvider) {
             controller:'signUpCtrl'
         })
         .when('/matches',{
-            templateUrl: '/Management/matches',
+            templateUrl: '/MyMatches/matches',
             controller:'newMatchCtrl'
         })
         .when('/company',{
@@ -69,6 +69,7 @@ bettingApp.run(['authService',function(authService){
     authService.fillAuthData();
 }]);
 $betaData.settings.baseUrl = 'http://localhost:54482/api/';
+//$betaData.settings.baseUrl = 'http://localhost/testlive.betway.ug/api/';
 bettingApp.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
 });

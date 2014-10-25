@@ -214,6 +214,7 @@
     <Compile Include="Controllers\ManualResultController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
+    <Compile Include="Controllers\ReceiptPrintController.cs" />
     <Compile Include="Controllers\ReceptController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
@@ -311,6 +312,10 @@
     <Compile Include="Migrations\201410172202302_MatchOddError.cs" />
     <Compile Include="Migrations\201410172202302_MatchOddError.Designer.cs">
       <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410241503176_New_Migration.cs" />
+    <Compile Include="Migrations\201410241503176_New_Migration.Designer.cs">
+      <DependentUpon>201410241503176_New_Migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1126,6 +1131,7 @@
     <Content Include="Content\themes\blue\jtable.less" />
     <None Include="Properties\PublishProfiles\BetWay.pubxml" />
     <Content Include="Scripts\DataTables-1.10.2\datagrid_data1.json" />
+    <None Include="Properties\PublishProfiles\WebUi1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
@@ -1743,6 +1749,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410172202302_MatchOddError.resx">
       <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410241503176_New_Migration.resx">
+      <DependentUpon>201410241503176_New_Migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

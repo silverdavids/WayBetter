@@ -94,7 +94,8 @@ function BettingApp() {
             var $oddsTable = $("table.oddstable");
             $(".odd", $oddsTable).each(function () {
                 $(this).removeClass("selected_option");
-
+                $(this).attr("disabled", false);
+                $(this).parent("td").removeClass("selected_option");
             });
             if (betList.getBets().length > 0)
                 logToConsole();
@@ -126,6 +127,9 @@ function BettingApp() {
                     var $oddsTable = $("table.oddstable");
                     $(".odd", $oddsTable).each(function () {
                         $(this).removeClass("selected_option");
+                       
+                        $(this).attr("disabled", false);
+                        $(this).parent("td").removeClass("selected_option");
 
                     });
                 }).fail(function (error) {
@@ -336,6 +340,17 @@ function BettingApp() {
         $("#betList").append($bet);
         $("button.delete", $bet).on("click", function () {
             removeBet(bet.betId, $bet);
+            var $oddsTable = $("table.oddstable");
+            $(".odd", $oddsTable).each(function () {             
+
+                    var $me = $(this).parent().siblings("td.match-code");
+                    if ($.trim($me.text()) === $("span.match-code", $bet).text()) {
+
+                $(this).removeClass("selected_option");
+                $(this).attr("disabled", false);
+                $(this).parent("td").removeClass("selected_option");
+            }
+            });
         });
 
         $("span", $bet).each(function () {
@@ -455,7 +470,7 @@ $(function () {
                 matchCode = $.trim($matchCode.text()),
                 optionName = $that.data("option-name"),
                 liveScores = $that.parent().siblings("td.live-scores").text(),
-                extraValue = $that.parent().siblings("td span.extra-value").text();
+                extraValue = $that.parent().siblings("td span.extra-value").text(),
                 bet = new Bet(matchCode);
             // $that.tooltip({ placement: 'top', title:''+ matchCode + " " + optionName +''});
             // console.log(handCapGoalString);
@@ -482,16 +497,29 @@ $(function () {
                 //alert("fired click");
             });
 
-
+           
             // betList.push(bet);
             makeBet(bet);
+            $that.parent("td").addClass("selected_option");
             scrollReceiptToBottom();
 
 
             console.log(bet);
+            //disable all input elements  for this match
+            var $oddsTable = $("table.oddstable");
+            $(".odd", $oddsTable).each(function () {
+                var $me = $(this).parent().siblings("td.match-code");
+                if ($.trim($me.text()) === matchCode)
+                {
+                 $(this).attr("disabled","disabled");
 
+                }
+               // $(this).removeCla ss("selected_option");
 
+            });
+           
         } else {
+            //$that.removeClass("selected_option");
             alert("Match already exits on the receipt remove it first to select again");
         }
 

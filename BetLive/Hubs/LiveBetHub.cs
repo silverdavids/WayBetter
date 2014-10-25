@@ -15,7 +15,7 @@ using System.Threading;
 using WebUI.Helpers;
 using BetLive.Controllers.Api;
 using System.Web.Http;
-using Domain.Models.ViewModels; 
+using Domain.Models.ViewModels;
 
 namespace BetLive.Hubs
 {
@@ -26,7 +26,7 @@ namespace BetLive.Hubs
         private readonly TimeSpan _updateInterval = TimeSpan.FromSeconds(2);
         private readonly ConcurrentDictionary<string, Game> _gamesforLiveScore = new ConcurrentDictionary<string, Game>();
         private readonly ConcurrentDictionary<string, Game> _gamesforLiveOdds = new ConcurrentDictionary<string, Game>();
-        private readonly IDictionary<string, int> _shortMatchCodes ;
+        private readonly IDictionary<string, int> _shortMatchCodes;
 
         private Timer _timer;
         private volatile bool _updatingGame = false;
@@ -34,7 +34,8 @@ namespace BetLive.Hubs
         private readonly Random _updateOrNotRandom = new Random();
         private MyController myController;
         private MatchController myApiController;
-        private static int shortMatchCode=0;
+        private static int shortMatchCode = 0;
+        public static int mockXmlFileExt= 0;
 
 
         public LiveGameHub()
@@ -66,14 +67,22 @@ namespace BetLive.Hubs
 
             var games = await myApiController.GetMatches();
             return games.ToList();
-        
+
         }
         #endregion
         #region GetAllGames
         public async Task<IEnumerable<Game>> GetAllGames()
         {
-            var scores = await /*myController.GetGamesScoresFromXml();*/ GetGamesScores();
-            var odds = await /*myController.GetGamesOddsFromXml();*/ GetGamesOdds();
+            if (mockXmlFileExt < 7)
+            {
+                ++mockXmlFileExt;
+            }
+            else
+            {
+                --mockXmlFileExt;
+            }
+            var scores = await /*myController.GetGamesScoresFromXml(mockXmlFileExt);*/GetGamesScores();
+            var odds = await /*myController.GetGamesOddsFromXml(mockXmlFileExt);*/ GetGamesOdds();
             var allGames = (from gamescore in scores
                             join gameodds in odds
                             on gamescore.MatchNo equals gameodds.MatchNo
@@ -90,7 +99,7 @@ namespace BetLive.Hubs
                                 UnderOverOdds = gameodds.UnderOverOdds,
                                 RestOfMatch = gameodds.RestOfMatch,
                                 NextGoal = gameodds.NextGoal,
-                                DoubleChance=gameodds.DoubleChance
+                                DoubleChance = gameodds.DoubleChance
                             }).ToList();
             _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
             return allGames;
@@ -98,15 +107,16 @@ namespace BetLive.Hubs
 
         private int generateOrGetShortMatchCode(string matchCode)
         {
-            if (_shortMatchCodes.ContainsKey(matchCode)) {
+            if (_shortMatchCodes.ContainsKey(matchCode))
+            {
                 return _shortMatchCodes[matchCode];
             }
             var _shortMatchCode = ++shortMatchCode;
-            _shortMatchCodes.Add(matchCode,_shortMatchCode);
+            _shortMatchCodes.Add(matchCode, _shortMatchCode);
             return shortMatchCode;
         }
         #endregion
-#region UpdateGames
+        #region UpdateGames
         private async void UpdateGames(object state)
         {
 
@@ -138,7 +148,7 @@ namespace BetLive.Hubs
 
 
         }
-#endregion
+        #endregion
         #region GetGamesScores
         public async Task<IEnumerable<Game>> GetGamesScores()
         {
@@ -199,7 +209,6 @@ namespace BetLive.Hubs
                             }
                         }
                         if (team.Name == "awayteam")
-
                         {
                             var awayTeamattributes = team.Attributes;
                             if (awayTeamattributes != null)
@@ -372,7 +381,7 @@ namespace BetLive.Hubs
             return _gamesforLiveOdds.Values;
         }
         #endregion
-      
+
         /// <summary>
         /// Updates the Db
         /// </summary>
@@ -399,10 +408,10 @@ namespace BetLive.Hubs
             var hubContext = GlobalHost.ConnectionManager.GetHubContext<LiveGameHub>();
             if (hubContext != null)
             {
-           
+
                 hubContext.Clients.All.updateGame(game);
             }
-            
+
         }
 
         public string TestString()
@@ -419,28 +428,28 @@ namespace BetLive.Hubs
         private readonly ConcurrentDictionary<string, Game> _gamesforLiveScore = new ConcurrentDictionary<string, Game>();
         private readonly ConcurrentDictionary<string, Game> _gamesforLiveOdds = new ConcurrentDictionary<string, Game>();
         #region GetGamesScoresFromXml
-        public async Task<IEnumerable<Game>> GetGamesScoresFromXml()
+        public async Task<IEnumerable<Game>> GetGamesScoresFromXml(int mockXmlFileExt)
         {
             var xmldoc = new XmlDocument();
             _gamesforLiveScore.Clear();
-           // xmldoc.Load(Server.MapPath("~/soccerInPlayScores.xml"));
+            // xmldoc.Load(Server.MapPath("~/soccerInPlayScores.xml"));
             try
             {
                 //StreamReader strReader = new StreamReader(Server.MapPath("~/Xml/england_shedule.xml"));
-               // var stream= await strReader.ReadToEndAsync();
+                // var stream= await strReader.ReadToEndAsync();
 
-                xmldoc.Load(Server.MapPath("H:/MyWorks/BettingAppDirectory9/BetLive/Xml/soccerInPlayScores.xml"));
+                xmldoc.Load("H:/MyWorks/BettingAppDirectory11/BetLive/Xml/soccerInPlayScores" + mockXmlFileExt.ToString() + ".xml");
             }
             catch (Exception e)
             {
                 e.StackTrace.ToString();
             }
-            var categoryList = xmldoc.SelectNodes("/scores/category");
+            var categoryList = xmldoc.SelectNodes("/scores/match");
 
 
             if (categoryList == null) return _gamesforLiveScore.Values; // if the stream is null return the games the way they are
 
-            
+
             // check the url that has been loaded
 
             if (categoryList != null)
@@ -489,22 +498,22 @@ namespace BetLive.Hubs
 
         #endregion
         #region GetGamesOddsFromXml
-        public async Task<IEnumerable<Game>> GetGamesOddsFromXml()
+        public async Task<IEnumerable<Game>> GetGamesOddsFromXml(int mockXmlFileExt)
         {
-           
 
-           
-           
+
+
+
             var xmldoc = new XmlDocument();
-            xmldoc.Load(Server.MapPath("H:/MyWorks/BettingAppDirectory9/BetLive/Xml/soccerInPlayLliveOdds.xml"));
+            xmldoc.Load("H:/MyWorks/BettingAppDirectory11/BetLive/Xml/soccerInPlayLliveOdds" + mockXmlFileExt + ".xml");
             var categoryList = xmldoc.SelectNodes("/scores/category");
             if (categoryList == null) return _gamesforLiveOdds.Values; // if the stream is null return the games the way they are
 
             // Get a UTF-32 encoding by name.
-           
+
 
             // check the url that has been loaded
-            
+
             if (categoryList != null)
             {
                 //get the odds from the xml
@@ -602,7 +611,7 @@ namespace BetLive.Hubs
         public UnderOverOdds UnderOverOdds { get; set; }
         public RestofMatch RestOfMatch { get; set; }
         public NextGoal NextGoal { get; set; }
-        public DoubleChance DoubleChance{get;set;}
+        public DoubleChance DoubleChance { get; set; }
     }
 
     public class FullTimeOdds
@@ -632,9 +641,9 @@ namespace BetLive.Hubs
     }
     public class DoubleChance
     {
-     public string HomeWinsOrDraw { get; set; }
+        public string HomeWinsOrDraw { get; set; }
         public string HomeWinsOrAwayWins { get; set; }
         public string AwayWinsOrDraw { get; set; }
     }
-#endregion
+    #endregion
 }

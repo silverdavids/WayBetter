@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<scores sport="soccer" updated="635496044942556281">
+  <match id="26552410" minute="90:00" v="0" stop="False">
+    <localteam name="Chapecoense" score="0" />
+    <awayteam name="Sao Paulo" score="0" />
+  </match>
+  <match id="26552435" minute="00:00" v="0" stop="True">
+    <localteam name="Herediano" score="0" />
+    <awayteam name="Perez Zeledon" score="0" />
+  </match>
+  <match id="26552429" minute="92:56" v="0" stop="False">
+    <localteam name="CD FAS" score="0" />
+    <awayteam name="Juventud Independiente" score="0" />
+  </match>
+  <match id="26552496" minute="00:00" v="0" stop="True">
+    <localteam name="Tigres" score="0" />
+    <awayteam name="Toluca" score="0" />
+  </match>
+  <match id="26552434" minute="59:43" v="0" stop="True">
+    <localteam name="Real Salt Lake" score="1" />
+    <awayteam name="Chivas USA" score="0" />
+  </match>
+  <match id="26552414" minute="00:00" v="0" stop="True">
+    <localteam name="Real Espana" score="2" />
+    <awayteam name="Pachuca" score="1" />
+  </match>
+</scores>

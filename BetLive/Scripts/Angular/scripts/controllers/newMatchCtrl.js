@@ -70,7 +70,8 @@
 
     $scope.$parent.$on('getAllNormalGames', function (e, games) {
         $scope.$apply(function () {
-            console.log(games);
+
+            if (logToConsole()) { console.log(games); }
             loopOverAllNormalGames(games);
             liveBetsSrvc.getLiveGames();
         });
@@ -344,7 +345,7 @@
     
     $scope.$parent.$on('getAllGames',function(e,games){
         $scope.$apply(function () {
-            console.log(games);
+            if (logToConsole()) { console.log(games); }
             loopOverAllGames(games); 
         
         });
@@ -361,7 +362,7 @@
             if (games.length > 1) {
                 $scope.areNoGamesInPlay = false;
                 $scope.NoGamesInPlay = null;
-                console.log(games);               
+                if (logToConsole()) { console.log(games); }
                 angular.forEach(games,function(game,i){
                     var gameRow = new $scope.gameRow();
                     gameRow.ShortCode = game.ShortCode;
@@ -395,7 +396,7 @@
                     //    gameRow.RestOfMatchOdds.ExtraValue = game.RestOfMatch.ExtraValue;
                     //}
                     if (game.NextGoal == null) {
-                        gameRow.NextGoalOdds = gameRow.NextGoal;
+                        gameRow.NextGoalOdds = gameRow.NextGoalOdds;
                     } else {
                         gameRow.NextGoalOdds.HomeScores = game.NextGoal.HomeScores;
                         gameRow.NextGoalOdds.Draw = game.NextGoal.Draw;
@@ -421,7 +422,7 @@
             }
            
         } else {
-            console.log("no games to display");
+            if (logToConsole()) { console.log("no games to display"); }
         }
         
     }
@@ -433,93 +434,113 @@
     });
    
     mergeGame = function (game) {
-        var gameRow = new $scope.gameRow();
-        gameRow.ShortCode = game.ShortCode;
-        gameRow.MatchNo = game.MatchNo;
-        gameRow.Minutes = game.Minutes;
-        gameRow.LocalTeam = game.LocalTeam;
-        gameRow.AwayTeam = game.AwayTeam;
-        gameRow.LocalTeamScore = game.LocalTeamScore;
-        gameRow.AwayTeamScore = game.AwayTeamScore;
+        if (game.MatchNo != null) {
+            var gameRow = new $scope.gameRow();
+            gameRow.ShortCode = game.ShortCode;
+            gameRow.MatchNo = game.MatchNo;
+            gameRow.Minutes = game.Minutes;
+            gameRow.LocalTeam = game.LocalTeam;
+            gameRow.AwayTeam = game.AwayTeam;
+            gameRow.LocalTeamScore = game.LocalTeamScore;
+            gameRow.AwayTeamScore = game.AwayTeamScore;
 
-        if (game.FullTimeOdds == null) {
-            gameRow.FullTimeOdds = gameRow.FullTimeOdds;
-        } else {           
-            gameRow.FullTimeOdds.AwayWins = game.FullTimeOdds.AwayWins;
-            gameRow.FullTimeOdds.Draw = game.FullTimeOdds.Draw;
-            gameRow.FullTimeOdds.HomeWins = game.FullTimeOdds.HomeWins;
-        }
-
-        if (game.UnderOverOdds == null) {
-            gameRow.UnderOverOdds = gameRow.UnderOverOdds;
-        } else {
-
-            gameRow.UnderOverOdds.Under = game.UnderOverOdds.Under;
-            gameRow.UnderOverOdds.Over = game.UnderOverOdds.Over;
-            gameRow.UnderOverOdds.ExtraValue = game.UnderOverOdds.ExtraValue;
-        }
-        //if (game.RestOfMatch == null) {
-        //    gameRow.RestOfMatchOdds = gameRow.RestOfMatch;
-        //} else {
-        //    gameRow.RestOfMatchOdds.Under = game.RestOfMatch.Under;
-        //    gameRow.RestOfMatchOdds.Over = game.RestOfMatch.Over;
-        //    gameRow.RestOfMatchOdds.ExtraValue = game.RestOfMatch.ExtraValue;
-        //}
-        if (game.NextGoal == null) {
-            gameRow.NextGoalOdds = gameRow.NextGoal;
-        } else {
-            gameRow.NextGoalOdds.HomeScores = game.NextGoal.HomeScores;
-            gameRow.NextGoalOdds.Draw = game.NextGoal.Draw;
-            gameRow.NextGoalOdds.AwayScores = game.NextGoal.AwayScores;
-        }
-        if (game.DoubleChance == null) {
-            gameRow.DoubleChance = gameRow.DoubleChance;
-        } else {
-            gameRow.DoubleChance.HomeWinsOrDraw = game.DoubleChance.HomeWinsOrDraw
-            gameRow.DoubleChance.HomeWinsOrAwayWins = game.DoubleChance.HomeWinsOrAwayWins;
-            gameRow.DoubleChance.AwayWinsOrDraw = game.DoubleChance.AwayWinsOrDraw;
-        }
-        $scope.updatedGameRow = gameRow;
-        console.log(gameRow);
-        //var objectRowToBeUpdated = $filter('filter')($scope.gameRows, { MatchNo: $scope.updatedGameRow.MatchNo });
-        //objectRowToBeUpdated = $scope.updatedGameRow;
-        //$scope.$apply();
-        if ($scope.gameRows) {
-            //variable to check if the match is already in the array or its new
-            var found = false;
-           
-
-            for (var i = 0; i < $scope.gameRows.length; i++) {
-                if ($scope.gameRows[i].MatchNo === gameRow.MatchNo) {
-                    $scope.gameRows[i] = gameRow;
-                    found = true;
-                    console.log("updated existing game");
-                    //$scope.$apply();
-                    break;
-                }   
+            if (game.FullTimeOdds == null) {
+                gameRow.FullTimeOdds = gameRow.FullTimeOdds;
+            } else {
+                gameRow.FullTimeOdds.AwayWins = game.FullTimeOdds.AwayWins;
+                gameRow.FullTimeOdds.Draw = game.FullTimeOdds.Draw;
+                gameRow.FullTimeOdds.HomeWins = game.FullTimeOdds.HomeWins;
             }
-            if (found == false) {
+
+            if (game.UnderOverOdds == null) {
+                gameRow.UnderOverOdds = gameRow.UnderOverOdds;
+            } else {
+
+                gameRow.UnderOverOdds.Under = game.UnderOverOdds.Under;
+                gameRow.UnderOverOdds.Over = game.UnderOverOdds.Over;
+                gameRow.UnderOverOdds.ExtraValue = game.UnderOverOdds.ExtraValue;
+            }
+            //if (game.RestOfMatch == null) {
+            //    gameRow.RestOfMatchOdds = gameRow.RestOfMatch;
+            //} else {
+            //    gameRow.RestOfMatchOdds.Under = game.RestOfMatch.Under;
+            //    gameRow.RestOfMatchOdds.Over = game.RestOfMatch.Over;
+            //    gameRow.RestOfMatchOdds.ExtraValue = game.RestOfMatch.ExtraValue;
+            //}
+            if (game.NextGoal == null) {
+                gameRow.NextGoalOdds = gameRow.NextGoalOdds;
+            } else {
+                gameRow.NextGoalOdds.HomeScores = game.NextGoal.HomeScores;
+                gameRow.NextGoalOdds.Draw = game.NextGoal.Draw;
+                gameRow.NextGoalOdds.AwayScores = game.NextGoal.AwayScores;
+            }
+            if (game.DoubleChance == null) {
+                gameRow.DoubleChance = gameRow.DoubleChance;
+            } else {
+                gameRow.DoubleChance.HomeWinsOrDraw = game.DoubleChance.HomeWinsOrDraw
+                gameRow.DoubleChance.HomeWinsOrAwayWins = game.DoubleChance.HomeWinsOrAwayWins;
+                gameRow.DoubleChance.AwayWinsOrDraw = game.DoubleChance.AwayWinsOrDraw;
+            }
+            $scope.updatedGameRow = gameRow;
+            if (logToConsole()) { console.log(gameRow); }
+            //var objectRowToBeUpdated = $filter('filter')($scope.gameRows, { MatchNo: $scope.updatedGameRow.MatchNo });
+            //objectRowToBeUpdated = $scope.updatedGameRow;
+            //$scope.$apply();
+            if ($scope.gameRows) {
+                //variable to check if the match is already in the array or its new
+                var found = false;
+
+
+                for (var i = 0; i < $scope.gameRows.length; i++) {
+                    if ($scope.gameRows[i].MatchNo === gameRow.MatchNo) {
+                        $scope.gameRows[i] = gameRow;
+                        found = true;
+                        if (logToConsole()) { console.log("updated existing game");}
+                        //$scope.$apply();
+                        break;
+                    }
+                }
+                if (found == false) {
+                    $scope.gameRows.push(gameRow);
+                    if (logToConsole()) { console.log("added new game");}
+                }
+
+            } else {
+                $scope.gameRows = new Array();
                 $scope.gameRows.push(gameRow);
-                console.log("added new game");
+                loopOverAllGames($scope.gameRows);
+                if (logToConsole()) { console.log("First  Match to added");}
             }
 
-        } else {
-            $scope.gameRows = new Array();
-            $scope.gameRows.push(gameRow);
-            loopOverAllGames($scope.gameRows);
-            console.log("First  Match to added");
-        }
 
-    };
+        
+        }else{
+            if (logToConsole()) { console.log("No game to dispaly for live") ;}   
+    }
+
+       };
     $scope.reconnect = function () {
 
         liveBetsSrvc.reconnect();
     }
     //$timeout(function () {
     //    if ($scope.gameRows == null) {
-    //        console.log("reconnecting to the hub");
+    //       logToConsole("reconnecting to the hub");
     //        liveBetsSrvc.init();
 
     //    }
     //}, 3000)
+
+
+
+
+    function logToConsole(data) {
+        //console.log(data);
+        return false;
+
+    };
+
+
+
+  
 }]);

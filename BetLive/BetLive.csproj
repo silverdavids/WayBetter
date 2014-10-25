@@ -68,9 +68,9 @@
       <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.1.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+      <HintPath>..\..\BettingAppDirectory9\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Cors">
       <HintPath>..\packages\Microsoft.Owin.Cors.3.0.0\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
@@ -254,6 +254,7 @@
     <Compile Include="Controllers\UI\GeneralController.cs" />
     <Compile Include="Controllers\UI\ManagementController.cs" />
     <Compile Include="Controllers\UI\MatchController.cs" />
+    <Compile Include="Controllers\UI\MyMatchesController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -337,7 +338,6 @@
     <Content Include="Content\yetiBootstrapTheme.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Index.html" />
     <Content Include="Scripts\Angular\angularjs\angular-animate.js" />
     <Content Include="Scripts\Angular\angularjs\angular-animate.min.js" />
     <Content Include="Scripts\Angular\angularjs\angular-cookies.js" />
@@ -705,9 +705,40 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Xml\soccerInPlayLliveOdds.xml" />
+    <Content Include="Xml\soccerInPlayLliveOdds1.xml" />
+    <Content Include="Xml\soccerInPlayLliveOdds10.xml" />
+    <Content Include="Xml\soccerInPlayLliveOdds11.xml" />
+    <Content Include="Xml\soccerInPlayLliveOdds12.xml" />
+    <Content Include="Xml\soccerInPlayLliveOdds13.xml" />
+    <Content Include="Xml\soccerInPlayLliveOdds2.xml" />
+    <Content Include="Xml\soccerInPlayLliveOdds3.xml" />
+    <Content Include="Xml\soccerInPlayLliveOdds4.xml" />
+    <Content Include="Xml\soccerInPlayLliveOdds5.xml" />
+    <Content Include="Xml\soccerInPlayLliveOdds6.xml" />
+    <Content Include="Xml\soccerInPlayLliveOdds7.xml" />
+    <Content Include="Xml\soccerInPlayLliveOdds8.xml" />
+    <Content Include="Xml\soccerInPlayLliveOdds9.xml" />
     <Content Include="Xml\soccerInPlayScores.xml" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="app.appcache" />
+    <Content Include="Xml\soccerInPlayScores1.xml" />
+    <Content Include="Xml\soccerInPlayScores10.xml" />
+    <Content Include="Xml\soccerInPlayScores11.xml" />
+    <Content Include="Xml\soccerInPlayScores12.xml" />
+    <Content Include="Xml\soccerInPlayScores13.xml" />
+    <Content Include="Xml\soccerInPlayScores2.xml" />
+    <Content Include="Xml\soccerInPlayScores3.xml" />
+    <Content Include="Xml\soccerInPlayScores4.xml" />
+    <Content Include="Xml\soccerInPlayScores5.xml" />
+    <Content Include="Xml\soccerInPlayScores6.xml" />
+    <Content Include="Xml\soccerInPlayScores7.xml" />
+    <Content Include="Xml\soccerInPlayScores8.xml" />
+    <Content Include="Xml\soccerInPlayScores9.xml" />
+    <None Include="Properties\PublishProfiles\FirtstLiveDeploy.pubxml" />
+    <None Include="Properties\PublishProfiles\FourthDeploy.pubxml" />
+    <None Include="Properties\PublishProfiles\SecondDeploy.pubxml" />
+    <None Include="Properties\PublishProfiles\ThirdDeploy.pubxml" />
+    <None Include="Properties\PublishProfiles\ThirdPublish.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -760,7 +791,6 @@
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -779,6 +809,8 @@
     <Content Include="Views\Management\signup.cshtml" />
     <Content Include="Views\Management\terminallist.cshtml" />
     <Content Include="Views\Management\test.cshtml" />
+    <Content Include="Views\MyMatches\matches.cshtml" />
+    <Content Include="Views\MyMatches\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
