@@ -319,7 +319,6 @@
     <Compile Include="Migrations\201410241503176_New_Migration.cs" />
     <Compile Include="Migrations\201410241503176_New_Migration.Designer.cs">
       <DependentUpon>201410241503176_New_Migration.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201410201930493_LiveFlagMigration.cs" />
     <Compile Include="Migrations\201410201930493_LiveFlagMigration.Designer.cs">
       <DependentUpon>201410201930493_LiveFlagMigration.cs</DependentUpon>
@@ -1766,7 +1765,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410241503176_New_Migration.resx">
       <DependentUpon>201410241503176_New_Migration.cs</DependentUpon>
-       </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410201930493_LiveFlagMigration.resx">
       <DependentUpon>201410201930493_LiveFlagMigration.cs</DependentUpon>
     </EmbeddedResource>
