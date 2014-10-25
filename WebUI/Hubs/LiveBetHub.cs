@@ -71,7 +71,7 @@ namespace WebUI.Hubs
                 game.ShortCode = shortMatchCode.ShortCode;
                 liveGames.Add(game);
             }
-            _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
+         //   _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
             //return liveGames;
             return allGames;
         }

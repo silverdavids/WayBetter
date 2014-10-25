@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<scores sport="soccer" updated="635496068145348280">
+  <category name="Real Espana v Pachuca" id="26552414">
+    <match formatted_date="23.10.2014" time="03:00" league="" leagueid="999" id="26552414">
+      <localteam name="Real Espana" id="22815" />
+      <visitorteam name="Pachuca" id="18427" />
+      <odds date="23.10.2014" time="03:00">
+        <bet name="Fulltime Result" id="1777">
+          <res id="634655288" name="Real Espana WIN" extravalue="1" option="" odd="1.22" last_updated="23/10/14 04:30:57" oddfraction="2/9" />
+          <res id="634655289" name="Draw" extravalue="X" option="" odd="4.75" last_updated="23/10/14 04:29:56" oddfraction="15/4" />
+          <res id="634655290" name="Pachuca WIN" extravalue="2" option="" odd="21.00" last_updated="23/10/14 04:31:47" oddfraction="20/1" />
+        </bet>
+        <bet name="Next Goal" id="1778">
+          <res id="635488564" name="Real Espana" extravalue="1" option="" odd="2.88" last_updated="23/10/14 04:32:52" oddfraction="15/8" />
+          <res id="635488565" name="No 6th goal" extravalue="X" option="" odd="2.10" last_updated="23/10/14 04:33:04" oddfraction="11/10" />
+          <res id="635488566" name="Pachuca" extravalue="2" option="" odd="3.40" last_updated="23/10/14 04:32:52" oddfraction="12/5" />
+        </bet>
+        <bet name="Total Corners" id="1780">
+          <res id="634655294" name="Over 10" extravalue="10" option="" odd="2.63" last_updated="23/10/14 04:32:52" oddfraction="13/8" />
+          <res id="634655295" name="Exactly 10" extravalue="10" option="" odd="4.33" last_updated="23/10/14 04:28:14" oddfraction="10/3" />
+          <res id="634655296" name="Under 10" extravalue="10" option="" odd="2.10" last_updated="23/10/14 04:32:52" oddfraction="11/10" />
+        </bet>
+        <bet name="Final Score" id="10001">
+          <res id="634655778" name="Real Espana # 3-2" extravalue="3-2" option="" odd="OFF" last_updated="23/10/14 04:33:04" oddfraction="OFF" />
+          <res id="634655781" name="Real Espana # 4-2" extravalue="4-2" option="" odd="OFF" last_updated="23/10/14 04:29:56" oddfraction="OFF" />
+          <res id="634655782" name="Real Espana # 4-3" extravalue="4-3" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+          <res id="634655785" name="Real Espana # 5-2" extravalue="5-2" option="" odd="OFF" last_updated="23/10/14 04:31:47" oddfraction="OFF" />
+          <res id="634655786" name="Real Espana # 5-3" extravalue="5-3" option="" odd="OFF" last_updated="23/10/14 04:30:58" oddfraction="OFF" />
+          <res id="634655787" name="Real Espana # 5-4" extravalue="5-4" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+          <res id="634655790" name="Real Espana # 6-2" extravalue="6-2" option="" odd="OFF" last_updated="23/10/14 04:30:58" oddfraction="OFF" />
+          <res id="635471991" name="Real Espana # 6-3" extravalue="6-3" option="" odd="OFF" last_updated="23/10/14 04:33:04" oddfraction="OFF" />
+          <res id="635471992" name="Real Espana # 6-4" extravalue="6-4" option="" odd="OFF" last_updated="23/10/14 04:31:47" oddfraction="OFF" />
+          <res id="635471996" name="Real Espana # 7-2" extravalue="7-2" option="" odd="OFF" last_updated="23/10/14 04:30:58" oddfraction="OFF" />
+          <res id="635478348" name="Real Espana # 7-3" extravalue="7-3" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+          <res id="634655796" name="Draw # 3-3" extravalue="3-3" option="" odd="OFF" last_updated="23/10/14 04:28:58" oddfraction="OFF" />
+          <res id="634655797" name="Draw # 4-4" extravalue="4-4" option="" odd="OFF" last_updated="23/10/14 04:30:58" oddfraction="OFF" />
+          <res id="635471990" name="Draw # 5-5" extravalue="5-5" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+          <res id="634655807" name="Pachuca # 4-3" extravalue="4-3" option="" odd="OFF" last_updated="23/10/14 04:31:47" oddfraction="OFF" />
+          <res id="634655811" name="Pachuca # 5-3" extravalue="5-3" option="" odd="OFF" last_updated="23/10/14 04:29:56" oddfraction="OFF" />
+          <res id="634655812" name="Pachuca # 5-4" extravalue="5-4" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+          <res id="634655816" name="Pachuca # 6-3" extravalue="6-3" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+        </bet>
+        <bet name="Double Chance" id="10115">
+          <res id="634655297" name="Real Espana or Draw" extravalue="1X" option="" odd="1.02" last_updated="23/10/14 04:31:47" oddfraction="1/66" />
+          <res id="634655298" name="Pachuca or Draw" extravalue="X2" option="" odd="4.00" last_updated="23/10/14 04:30:58" oddfraction="3/1" />
+          <res id="634655299" name="Real Espana or Pachuca" extravalue="12" option="" odd="1.17" last_updated="23/10/14 04:29:56" oddfraction="1/6" />
+        </bet>
+        <bet name="Match Goals" id="10124">
+          <res id="634655300" name="Over 5.5" extravalue="5.5" option="" odd="1.67" last_updated="23/10/14 04:33:04" oddfraction="4/6" />
+          <res id="634655301" name="Under 5.5" extravalue="5.5" option="" odd="2.10" last_updated="23/10/14 04:33:04" oddfraction="11/10" />
+        </bet>
+        <bet name="Asian Handicap In-Play" id="10147">
+          <res id="635488560" name="(3-2) Real Espana 0" extravalue="0" option="" odd="1.725" last_updated="23/10/14 04:29:56" oddfraction="29/40" />
+          <res id="635488561" name="(3-2) Pachuca 0" extravalue="0" option="" odd="2.149" last_updated="23/10/14 04:29:56" oddfraction="23/20" />
+        </bet>
+        <bet name="Goal Line In-Play" id="10148">
+          <res id="635488595" name="(3-2) Over 5.75" extravalue="5.75" option="" odd="2.024" last_updated="23/10/14 04:32:52" oddfraction="41/40" />
+          <res id="635488596" name="(3-2) Under 5.75" extravalue="5.75" option="" odd="1.825" last_updated="23/10/14 04:32:52" oddfraction="33/40" />
+        </bet>
+        <bet name="3-Way Handicap" id="10159" hand_score="0:1">
+          <res id="634655309" name="Real Espana -1" extravalue="-1" option="1" odd="OFF" last_updated="23/10/14 04:33:04" oddfraction="OFF" />
+          <res id="634655310" name="Draw (Pachuca ) +1" extravalue="+1" option="X" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+          <res id="634655311" name="Pachuca +1" extravalue="+1" option="2" odd="OFF" last_updated="23/10/14 04:30:58" oddfraction="OFF" />
+        </bet>
+        <bet name="Last Corner" id="10515">
+          <res id="634655323" name="Real Espana" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:28:58" oddfraction="OFF" />
+          <res id="634655324" name="Pachuca" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:28:58" oddfraction="OFF" />
+        </bet>
+        <bet name="Next but One Corner" id="10516">
+          <res id="635487507" name="9th Corner - Real Espana" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:27:13" oddfraction="OFF" />
+          <res id="635487508" name="9th Corner - Pachuca" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:27:13" oddfraction="OFF" />
+        </bet>
+        <bet name="Goals Odd/Even" id="10562">
+          <res id="634655355" name="Odd" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+          <res id="634655357" name="Even" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+        </bet>
+        <bet name="Draw No Bet" id="10563">
+          <res id="634655361" name="Real Espana" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:29:56" oddfraction="OFF" />
+          <res id="634655363" name="Pachuca" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:29:56" oddfraction="OFF" />
+        </bet>
+        <bet name="Last Team to Score" id="10564">
+          <res id="634655367" name="Real Espana" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+          <res id="634655370" name="Pachuca" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+        </bet>
+        <bet name="Home Team Goals" id="82">
+          <res id="634655375" name="Real Espana - Over 3.5" extravalue="3.5" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+          <res id="634655376" name="Real Espana - Under 3.5" extravalue="3.5" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+        </bet>
+        <bet name="Away Team Goals" id="85">
+          <res id="634655386" name="Pachuca - Over 2.5" extravalue="2.5" option="" odd="OFF" last_updated="23/10/14 04:31:47" oddfraction="OFF" />
+          <res id="634655389" name="Pachuca - Under 2.5" extravalue="2.5" option="" odd="OFF" last_updated="23/10/14 04:31:47" oddfraction="OFF" />
+        </bet>
+        <bet name="Alternative Total Corners" id="50176">
+          <res id="634655392" name="Over 11" extravalue="11" option="" odd="5.00" last_updated="23/10/14 04:32:52" oddfraction="4/1" />
+          <res id="634655395" name="Exactly 11" extravalue="11" option="" odd="5.50" last_updated="23/10/14 04:32:52" oddfraction="9/2" />
+          <res id="634655396" name="Under 11" extravalue="11" option="" odd="1.44" last_updated="23/10/14 04:32:52" oddfraction="4/9" />
+        </bet>
+        <bet name="Alternative Total Corners" id="50177">
+          <res id="634655398" name="Over 12" extravalue="12" option="" odd="10.00" last_updated="23/10/14 04:32:52" oddfraction="9/1" />
+          <res id="634655400" name="Exactly 12" extravalue="12" option="" odd="8.00" last_updated="23/10/14 04:32:52" oddfraction="7/1" />
+          <res id="634655402" name="Under 12" extravalue="12" option="" odd="1.17" last_updated="23/10/14 04:32:52" oddfraction="1/6" />
+        </bet>
+        <bet name="Alternative Total Corners" id="50178">
+          <res id="634655403" name="Over 9" extravalue="9" option="" odd="1.67" last_updated="23/10/14 04:32:52" oddfraction="4/6" />
+          <res id="634655404" name="Exactly 9" extravalue="9" option="" odd="4.00" last_updated="23/10/14 04:32:52" oddfraction="3/1" />
+          <res id="634655405" name="Under 9" extravalue="9" option="" odd="4.00" last_updated="23/10/14 04:32:52" oddfraction="3/1" />
+        </bet>
+        <bet name="Alternative Total Corners" id="50179">
+          <res id="634655408" name="Over 8" extravalue="8" option="" odd="1.22" last_updated="23/10/14 04:32:52" oddfraction="2/9" />
+          <res id="634655409" name="Exactly 8" extravalue="8" option="" odd="5.50" last_updated="23/10/14 04:32:52" oddfraction="9/2" />
+          <res id="634655410" name="Under 8" extravalue="8" option="" odd="13.00" last_updated="23/10/14 04:32:52" oddfraction="12/1" />
+        </bet>
+        <bet name="To Score in 2nd Half" id="50181">
+          <res id="634655413" name="Pachuca to score in 2nd half" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:31:47" oddfraction="OFF" />
+          <res id="634655414" name="Pachuca not to score in 2nd half" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:31:47" oddfraction="OFF" />
+        </bet>
+        <bet name="Asian Corners" id="50185">
+          <res id="634655416" name="Over 9.5" extravalue="9.5" option="" odd="1.70" last_updated="23/10/14 04:32:52" oddfraction="7/10" />
+          <res id="634655418" name="Under 9.5" extravalue="9.5" option="" odd="2.10" last_updated="23/10/14 04:32:52" oddfraction="11/10" />
+        </bet>
+        <bet name="2-Way Corners" id="50187">
+          <res id="634655422" name="Over 9.5" extravalue="9.5" option="" odd="1.67" last_updated="23/10/14 04:32:52" oddfraction="4/6" />
+          <res id="634655423" name="Under 9.5" extravalue="9.5" option="" odd="2.10" last_updated="23/10/14 04:32:52" oddfraction="11/10" />
+        </bet>
+        <bet name="80 mins Result" id="50210">
+          <res id="634655476" name="Real Espana" extravalue="" option="" odd="1.10" last_updated="23/10/14 04:32:52" oddfraction="1/10" />
+          <res id="634655479" name="Draw" extravalue="" option="" odd="7.00" last_updated="23/10/14 04:32:52" oddfraction="6/1" />
+          <res id="634655482" name="Pachuca" extravalue="" option="" odd="81.00" last_updated="23/10/14 04:33:04" oddfraction="80/1" />
+        </bet>
+        <bet name="Alternative Match Goals" id="108">
+          <res id="634655494" name="Over 6.5 " extravalue="6.5" option="" odd="4.33" last_updated="23/10/14 04:32:52" oddfraction="10/3" />
+          <res id="634655495" name="Under 6.5 " extravalue="6.5" option="" odd="1.20" last_updated="23/10/14 04:32:52" oddfraction="1/5" />
+        </bet>
+        <bet name="Alternative Match Goals" id="112">
+          <res id="634655496" name="Over 7.5 " extravalue="7.5" option="" odd="15.00" last_updated="23/10/14 04:32:52" oddfraction="14/1" />
+          <res id="634655497" name="Under 7.5 " extravalue="7.5" option="" odd="1.03" last_updated="23/10/14 04:32:52" oddfraction="1/33" />
+        </bet>
+        <bet name="Race to 7 Corners" id="50219">
+          <res id="634655500" name="Real Espana" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+          <res id="634655501" name="Pachuca" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+          <res id="634655502" name="Neither" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+        </bet>
+        <bet name="Race to 9 Corners" id="50220">
+          <res id="634655504" name="Real Espana" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:28:58" oddfraction="OFF" />
+          <res id="634655506" name="Pachuca" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+          <res id="634655508" name="Neither" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:32:52" oddfraction="OFF" />
+        </bet>
+        <bet name="Alternative Asian Handicap" id="50281">
+          <res id="635488567" name="(3-2) Real Espana +0.5" extravalue="+0.5" option="" odd="1.23" last_updated="23/10/14 04:32:52" oddfraction="23/100" />
+          <res id="635488568" name="(3-2) Pachuca -0.5" extravalue="-0.5" option="" odd="4.00" last_updated="23/10/14 04:32:52" oddfraction="3/1" />
+        </bet>
+        <bet name="Alternative Asian Handicap" id="50282">
+          <res id="635488569" name="(3-2) Real Espana +0.25" extravalue="+0.25" option="" odd="1.35" last_updated="23/10/14 04:32:52" oddfraction="7/20" />
+          <res id="635488570" name="(3-2) Pachuca -0.25" extravalue="-0.25" option="" odd="3.10" last_updated="23/10/14 04:32:52" oddfraction="21/10" />
+        </bet>
+        <bet name="Alternative Asian Handicap" id="50283">
+          <res id="635488571" name="(3-2) Real Espana -0.25" extravalue="-0.25" option="" odd="2.50" last_updated="23/10/14 04:31:52" oddfraction="6/4" />
+          <res id="635488572" name="(3-2) Pachuca +0.25" extravalue="+0.25" option="" odd="1.50" last_updated="23/10/14 04:31:52" oddfraction="1/2" />
+        </bet>
+        <bet name="Alternative Asian Handicap" id="50284">
+          <res id="635488573" name="(3-2) Real Espana -0.5" extravalue="-0.5" option="" odd="3.20" last_updated="23/10/14 04:30:58" oddfraction="11/5" />
+          <res id="635488574" name="(3-2) Pachuca +0.5" extravalue="+0.5" option="" odd="1.32" last_updated="23/10/14 04:30:58" oddfraction="13/40" />
+        </bet>
+        <bet name="Alternative Goal Line" id="50286">
+          <res id="635488599" name="(3-2) Over 5.5" extravalue="5.5" option="" odd="1.68" last_updated="23/10/14 04:33:04" oddfraction="27/40" />
+          <res id="635488600" name="(3-2) Under 5.5" extravalue="5.5" option="" odd="2.15" last_updated="23/10/14 04:33:04" oddfraction="23/20" />
+        </bet>
+        <bet name="Alternative Goal Line" id="50287">
+          <res id="635488601" name="(3-2) Over 6" extravalue="6" option="" odd="2.75" last_updated="23/10/14 04:32:53" oddfraction="7/4" />
+          <res id="635488602" name="(3-2) Under 6" extravalue="6" option="" odd="1.43" last_updated="23/10/14 04:32:53" oddfraction="17/40" />
+        </bet>
+        <bet name="Alternative Goal Line" id="50288">
+          <res id="635488603" name="(3-2) Over 6.25" extravalue="6.25" option="" odd="3.55" last_updated="23/10/14 04:33:04" oddfraction="51/20" />
+          <res id="635488604" name="(3-2) Under 6.25" extravalue="6.25" option="" odd="1.27" last_updated="23/10/14 04:33:04" oddfraction="11/40" />
+        </bet>
+        <bet name="Alternative 3-Way Handicap" id="50302" hand_score="1:0">
+          <res id="634655563" name="Real Espana +1" extravalue="+1" option="1" odd="OFF" last_updated="23/10/14 04:31:47" oddfraction="OFF" />
+          <res id="634655564" name="Draw (Pachuca) -1" extravalue="-1" option="X" odd="OFF" last_updated="23/10/14 04:29:58" oddfraction="OFF" />
+          <res id="634655565" name="Pachuca -1" extravalue="-1" option="2" odd="OFF" last_updated="23/10/14 04:27:14" oddfraction="OFF" />
+        </bet>
+        <bet name="Alternative 3-Way Handicap" id="50303" hand_score="0:2">
+          <res id="634655566" name="Real Espana -2" extravalue="-2" option="1" odd="OFF" last_updated="23/10/14 04:32:53" oddfraction="OFF" />
+          <res id="634655567" name="Draw (Pachuca) +2" extravalue="+2" option="X" odd="OFF" last_updated="23/10/14 04:32:53" oddfraction="OFF" />
+          <res id="634655568" name="Pachuca +2" extravalue="+2" option="2" odd="OFF" last_updated="23/10/14 04:32:53" oddfraction="OFF" />
+        </bet>
+        <bet name="Alternative 3-Way Handicap" id="50304" hand_score="0:3">
+          <res id="634655569" name="Real Espana -3" extravalue="-3" option="1" odd="OFF" last_updated="23/10/14 04:33:04" oddfraction="OFF" />
+          <res id="634655570" name="Draw (Pachuca) +3" extravalue="+3" option="X" odd="OFF" last_updated="23/10/14 04:27:14" oddfraction="OFF" />
+          <res id="634655571" name="Pachuca +3" extravalue="+3" option="2" odd="OFF" last_updated="23/10/14 04:32:53" oddfraction="OFF" />
+        </bet>
+        <bet name="Home Team Goals" id="83">
+          <res id="634655572" name="Real Espana - Over 4.5" extravalue="4.5" option="" odd="OFF" last_updated="23/10/14 04:32:53" oddfraction="OFF" />
+          <res id="634655573" name="Real Espana - Under 4.5" extravalue="4.5" option="" odd="OFF" last_updated="23/10/14 04:32:53" oddfraction="OFF" />
+        </bet>
+        <bet name="Away Team Goals" id="92">
+          <res id="634655580" name="Pachuca - Over 3.5" extravalue="3.5" option="" odd="OFF" last_updated="23/10/14 04:30:58" oddfraction="OFF" />
+          <res id="634655582" name="Pachuca - Under 3.5" extravalue="3.5" option="" odd="OFF" last_updated="23/10/14 04:30:58" oddfraction="OFF" />
+        </bet>
+        <bet name="Time Of Next Goal" id="50342">
+          <res id="635488587" name="6th Goal Before 80:00" extravalue="" option="" odd="3.50" last_updated="23/10/14 04:33:04" oddfraction="5/2" />
+          <res id="635488588" name="No 6th Goal Before 80:00" extravalue="" option="" odd="1.29" last_updated="23/10/14 04:33:04" oddfraction="2/7" />
+        </bet>
+        <bet name="Home Team Time Of Next Goal" id="50356">
+          <res id="635488593" name="Real Espana - 4th Goal Before 80:00" extravalue="" option="" odd="6.00" last_updated="23/10/14 04:33:04" oddfraction="5/1" />
+          <res id="635488594" name="Real Espana - No 4th Goal Before 80:00" extravalue="" option="" odd="1.13" last_updated="23/10/14 04:33:04" oddfraction="1/8" />
+        </bet>
+        <bet name="Away Team Time Of Next Goal" id="50364">
+          <res id="635485616" name="Pachuca - 3rd Goal Before 80:00" extravalue="" option="" odd="6.50" last_updated="23/10/14 04:32:52" oddfraction="11/2" />
+          <res id="635485618" name="Pachuca - No 3rd Goal Before 80:00" extravalue="" option="" odd="1.11" last_updated="23/10/14 04:32:52" oddfraction="1/9" />
+        </bet>
+        <bet name="Both Teams To Score In 2nd Half" id="50391">
+          <res id="634655671" name="Yes" extravalue="Yes" option="" odd="OFF" last_updated="23/10/14 04:31:47" oddfraction="OFF" />
+          <res id="634655672" name="No" extravalue="No" option="" odd="OFF" last_updated="23/10/14 04:31:47" oddfraction="OFF" />
+        </bet>
+        <bet name="Exact Away Goals" id="50397">
+          <res id="634655702" name="2 Goals" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:31:47" oddfraction="OFF" />
+          <res id="634655704" name="3+ Goals" extravalue="" option="" odd="OFF" last_updated="23/10/14 04:31:47" oddfraction="OFF" />
+        </bet>
+      </odds>
+    </match>
+  </category>
+  <category name="Herediano v Perez Zeledon" id="26552435">
+    <match formatted_date="23.10.2014" time="03:00" league="Costa Rica Primera Division" leagueid="1033" id="26552435">
+      <localteam name="Herediano" id="19942" />
+      <visitorteam name="Perez Zeledon" id="27080" />
+      <odds date="23.10.2014" time="03:00">
+        <bet name="Fulltime Result" id="1777">
+          <res id="634661171" name="Herediano WIN" extravalue="1" option="" odd="1.08" last_updated="23/10/14 04:32:02" oddfraction="1/12" />
+          <res id="634661172" name="Draw" extravalue="X" option="" odd="7.50" last_updated="23/10/14 04:32:54" oddfraction="13/2" />
+          <res id="634661173" name="Perez Zeledon WIN" extravalue="2" option="" odd="81.00" last_updated="23/10/14 04:32:19" oddfraction="80/1" />
+        </bet>
+        <bet name="Next Goal" id="1778">
+          <res id="635488126" name="Herediano" extravalue="1" option="" odd="2.88" last_updated="23/10/14 04:32:54" oddfraction="15/8" />
+          <res id="635488127" name="No 4th goal" extravalue="X" option="" odd="1.67" last_updated="23/10/14 04:32:19" oddfraction="4/6" />
+          <res id="635488128" name="Perez Zeledon" extravalue="2" option="" odd="6.00" last_updated="23/10/14 04:32:54" oddfraction="5/1" />
+        </bet>
+        <bet name="Total Corners" id="1780">
+          <res id="634661182" name="Over 9" extravalue="9" option="" odd="3.50" last_updated="23/10/14 04:32:54" oddfraction="5/2" />
+          <res id="634661184" name="Exactly 9" extravalue="9" option="" odd="3.60" last_updated="23/10/14 04:31:38" oddfraction="13/5" />
+          <res id="634661185" name="Under 9" extravalue="9" option="" odd="1.91" last_updated="23/10/14 04:32:54" oddfraction="10/11" />
+        </bet>
+        <bet name="Final Score" id="10001">
+          <res id="634661549" name="Herediano # 2-1" extravalue="2-1" option="" odd="1.67" last_updated="23/10/14 04:32:19" oddfraction="4/6" />
+          <res id="634661552" name="Herediano # 3-1" extravalue="3-1" option="" odd="3.50" last_updated="23/10/14 04:32:54" oddfraction="5/2" />
+          <res id="634661553" name="Herediano # 3-2" extravalue="3-2" option="" odd="19.00" last_updated="23/10/14 04:32:19" oddfraction="18/1" />
+          <res id="634661555" name="Herediano # 4-1" extravalue="4-1" option="" odd="19.00" last_updated="23/10/14 04:32:54" oddfraction="18/1" />
+          <res id="634661556" name="Herediano # 4-2" extravalue="4-2" option="" odd="51.00" last_updated="23/10/14 04:32:02" oddfraction="50/1" />
+          <res id="634661557" name="Herediano # 4-3" extravalue="4-3" option="" odd="251.00" last_updated="23/10/14 04:32:19" oddfraction="250/1" />
+          <res id="634661559" name="Herediano # 5-1" extravalue="5-1" option="" odd="67.00" last_updated="23/10/14 04:32:54" oddfraction="66/1" />
+          <res id="634661560" name="Herediano # 5-2" extravalue="5-2" option="" odd="201.00" last_updated="23/10/14 04:32:54" oddfraction="200/1" />
+          <res id="634661565" name="Herediano # 6-1" extravalue="6-1" option="" odd="301.00" last_updated="23/10/14 04:32:54" oddfraction="300/1" />
+          <res id="634661570" name="Draw # 2-2" extravalue="2-2" option="" odd="7.50" last_updated="23/10/14 04:32:54" oddfraction="13/2" />
+          <res id="634661571" name="Draw # 3-3" extravalue="3-3" option="" odd="81.00" last_updated="23/10/14 04:32:02" oddfraction="80/1" />
+          <res id="634661579" name="Perez Zeledon # 3-2" extravalue="3-2" option="" odd="81.00" last_updated="23/10/14 04:32:19" oddfraction="80/1" />
+          <res id="634661582" name="Perez Zeledon # 4-2" extravalue="4-2" option="" odd="351.00" last_updated="23/10/14 04:32:19" oddfraction="350/1" />
+        </bet>
+        <bet name="Double Chance" id="10115">
+          <res id="634661186" name="Herediano or Draw" extravalue="1X" option="" odd="1.00" last_updated="23/10/14 04:32:19" oddfraction="1/1000" />
+          <res id="634661187" name="Perez Zeledon or Draw" extravalue="X2" option="" odd="7.50" last_updated="23/10/14 04:32:54" oddfraction="13/2" />
+          <res id="634661188" name="Herediano or Perez Zeledon" extravalue="12" option="" odd="1.08" last_updated="23/10/14 04:32:02" oddfraction="1/12" />
+        </bet>
+        <bet name="Match Goals" id="10124">
+          <res id="634661190" name="Over 3.5" extravalue="3.5" option="" odd="2.10" last_updated="23/10/14 04:32:19" oddfraction="11/10" />
+          <res id="634661192" name="Under 3.5" extravalue="3.5" option="" odd="1.67" last_updated="23/10/14 04:32:19" oddfraction="4/6" />
+        </bet>
+        <bet name="Asian Handicap In-Play" id="10147">
+          <res id="635488122" name="(2-1) Herediano -0.25" extravalue="-0.25" option="" odd="2.299" last_updated="23/10/14 04:32:54" oddfraction="13/10" />
+          <res id="635488123" name="(2-1) Perez Zeledon +0.25" extravalue="+0.25" option="" odd="1.600" last_updated="23/10/14 04:32:54" oddfraction="3/5" />
+        </bet>
+        <bet name="Goal Line In-Play" id="10148">
+          <res id="635488515" name="(2-1) Over 3.5" extravalue="3.5" option="" odd="2.149" last_updated="23/10/14 04:32:54" oddfraction="23/20" />
+          <res id="635488516" name="(2-1) Under 3.5" extravalue="3.5" option="" odd="1.675" last_updated="23/10/14 04:32:54" oddfraction="27/40" />
+        </bet>
+        <bet name="3-Way Handicap" id="10159" hand_score="0:1">
+          <res id="634661197" name="Herediano -1" extravalue="-1" option="1" odd="3.00" last_updated="23/10/14 04:32:54" oddfraction="2/1" />
+          <res id="634661198" name="Draw (Perez Zeledon ) +1" extravalue="+1" option="X" odd="1.57" last_updated="23/10/14 04:32:19" oddfraction="4/7" />
+          <res id="634661199" name="Perez Zeledon +1" extravalue="+1" option="2" odd="7.50" last_updated="23/10/14 04:32:54" oddfraction="13/2" />
+        </bet>
+        <bet name="Last Corner" id="10515">
+          <res id="634661214" name="Herediano" extravalue="" option="" odd="1.62" last_updated="23/10/14 04:32:54" oddfraction="8/13" />
+          <res id="634661215" name="Perez Zeledon" extravalue="" option="" odd="2.20" last_updated="23/10/14 04:32:54" oddfraction="6/5" />
+        </bet>
+        <bet name="Next but One Corner" id="10516">
+          <res id="635489326" name="9th Corner - Herediano" extravalue="" option="" odd="1.91" last_updated="23/10/14 04:31:38" oddfraction="10/11" />
+          <res id="635489327" name="9th Corner - Perez Zeledon" extravalue="" option="" odd="1.80" last_updated="23/10/14 04:31:38" oddfraction="4/5" />
+        </bet>
+        <bet name="Goals Odd/Even" id="10562">
+          <res id="634661235" name="Odd" extravalue="" option="" odd="1.50" last_updated="23/10/14 04:31:06" oddfraction="1/2" />
+          <res id="634661237" name="Even" extravalue="" option="" odd="2.50" last_updated="23/10/14 04:31:06" oddfraction="6/4" />
+        </bet>
+        <bet name="Draw No Bet" id="10563">
+          <res id="634661239" name="Herediano" extravalue="" option="" odd="1.00" last_updated="23/10/14 04:32:02" oddfraction="1/500" />
+          <res id="634661240" name="Perez Zeledon" extravalue="" option="" odd="51.00" last_updated="23/10/14 04:32:02" oddfraction="50/1" />
+        </bet>
+        <bet name="Last Team to Score" id="10564">
+          <res id="634661241" name="Herediano" extravalue="" option="" odd="3.00" last_updated="23/10/14 04:32:54" oddfraction="2/1" />
+          <res id="634661244" name="Perez Zeledon" extravalue="" option="" odd="1.36" last_updated="23/10/14 04:32:54" oddfraction="4/11" />
+        </bet>
+        <bet name="Home Team Goals" id="90">
+          <res id="634661248" name="Herediano - Over 2.5" extravalue="2.5" option="" odd="2.75" last_updated="23/10/14 04:32:54" oddfraction="7/4" />
+          <res id="634661249" name="Herediano - Under 2.5" extravalue="2.5" option="" odd="1.40" last_updated="23/10/14 04:32:54" oddfraction="2/5" />
+        </bet>
+        <bet name="Away Team Goals" id="89">
+          <res id="634661258" name="Perez Zeledon - Over 1.5" extravalue="1.5" option="" odd="5.50" last_updated="23/10/14 04:32:54" oddfraction="9/2" />
+          <res id="634661259" name="Perez Zeledon - Under 1.5" extravalue="1.5" option="" odd="1.14" last_updated="23/10/14 04:32:54" oddfraction="1/7" />
+        </bet>
+        <bet name="Alternative Total Corners" id="50176">
+          <res id="634661260" name="Over 10" extravalue="10" option="" odd="8.00" last_updated="23/10/14 04:32:19" oddfraction="7/1" />
+          <res id="634661261" name="Exactly 10" extravalue="10" option="" odd="5.50" last_updated="23/10/14 04:32:02" oddfraction="9/2" />
+          <res id="634661262" name="Under 10" extravalue="10" option="" odd="1.29" last_updated="23/10/14 04:32:54" oddfraction="2/7" />
+        </bet>
+        <bet name="Alternative Total Corners" id="50177">
+          <res id="634661263" name="Over 11" extravalue="11" option="" odd="19.00" last_updated="23/10/14 04:32:19" oddfraction="18/1" />
+          <res id="634661264" name="Exactly 11" extravalue="11" option="" odd="10.00" last_updated="23/10/14 04:32:54" oddfraction="9/1" />
+          <res id="634661265" name="Under 11" extravalue="11" option="" odd="1.08" last_updated="23/10/14 04:32:19" oddfraction="1/12" />
+        </bet>
+        <bet name="Alternative Total Corners" id="50178">
+          <res id="634661267" name="Over 8" extravalue="8" option="" odd="1.80" last_updated="23/10/14 04:32:54" oddfraction="4/5" />
+          <res id="634661269" name="Exactly 8" extravalue="8" option="" odd="3.20" last_updated="23/10/14 04:32:54" oddfraction="11/5" />
+          <res id="634661271" name="Under 8" extravalue="8" option="" odd="5.00" last_updated="23/10/14 04:32:19" oddfraction="4/1" />
+        </bet>
+        <bet name="Asian Corners" id="50185">
+          <res id="634661282" name="Over 8.5" extravalue="8.5" option="" odd="1.85" last_updated="23/10/14 04:32:54" oddfraction="17/20" />
+          <res id="634661283" name="Under 8.5" extravalue="8.5" option="" odd="1.95" last_updated="23/10/14 04:32:54" oddfraction="19/20" />
+        </bet>
+        <bet name="2-Way Corners" id="50187">
+          <res id="634661286" name="Over 8.5" extravalue="8.5" option="" odd="1.80" last_updated="23/10/14 04:32:54" oddfraction="4/5" />
+          <res id="634661287" name="Under 8.5" extravalue="8.5" option="" odd="1.91" last_updated="23/10/14 04:32:54" oddfraction="10/11" />
+        </bet>
+        <bet name="Alternative Match Goals" id="106">
+          <res id="634661306" name="Over 4.5 " extravalue="4.5" option="" odd="9.00" last_updated="23/10/14 04:32:54" oddfraction="8/1" />
+          <res id="634661307" name="Under 4.5 " extravalue="4.5" option="" odd="1.07" last_updated="23/10/14 04:32:54" oddfraction="1/14" />
+        </bet>
+        <bet name="Alternative Match Goals" id="107">
+          <res id="634661310" name="Over 5.5 " extravalue="5.5" option="" odd="26.00" last_updated="23/10/14 04:32:19" oddfraction="25/1" />
+          <res id="634661312" name="Under 5.5 " extravalue="5.5" option="" odd="1.01" last_updated="23/10/14 04:32:19" oddfraction="1/100" />
+        </bet>
+        <bet name="Race to 7 Corners" id="50219">
+          <res id="634661320" name="Herediano" extravalue="" option="" odd="19.00" last_updated="23/10/14 04:32:54" oddfraction="18/1" />
+          <res id="634661321" name="Perez Zeledon" extravalue="" option="" odd="9.00" last_updated="23/10/14 04:32:54" oddfraction="8/1" />
+          <res id="634661322" name="Neither" extravalue="" option="" odd="1.07" last_updated="23/10/14 04:32:54" oddfraction="1/14" />
+        </bet>
+        <bet name="Race to 9 Corners" id="50220">
+          <res id="634661323" name="Herediano" extravalue="" option="" odd="34.00" last_updated="23/10/14 04:31:38" oddfraction="33/1" />
+          <res id="634661326" name="Perez Zeledon" extravalue="" option="" odd="34.00" last_updated="23/10/14 04:32:02" oddfraction="33/1" />
+          <res id="634661327" name="Neither" extravalue="" option="" odd="1.00" last_updated="23/10/14 04:32:02" oddfraction="1/200" />
+        </bet>
+        <bet name="Alternative Asian Handicap" id="50281">
+          <res id="635488131" name="(2-1) Herediano +0.25" extravalue="+0.25" option="" odd="1.16" last_updated="23/10/14 04:32:54" oddfraction="4/25" />
+          <res id="635488132" name="(2-1) Perez Zeledon -0.25" extravalue="-0.25" option="" odd="5.25" last_updated="23/10/14 04:32:54" oddfraction="17/4" />
+        </bet>
+        <bet name="Alternative Asian Handicap" id="50282">
+          <res id="635488133" name="(2-1) Herediano 0" extravalue="0" option="" odd="1.35" last_updated="23/10/14 04:32:54" oddfraction="7/20" />
+          <res id="635488134" name="(2-1) Perez Zeledon 0" extravalue="0" option="" odd="3.10" last_updated="23/10/14 04:32:54" oddfraction="21/10" />
+        </bet>
+        <bet name="Alternative Asian Handicap" id="50283">
+          <res id="635488135" name="(2-1) Herediano -0.5" extravalue="-0.5" option="" odd="3.10" last_updated="23/10/14 04:32:54" oddfraction="21/10" />
+          <res id="635488136" name="(2-1) Perez Zeledon +0.5" extravalue="+0.5" option="" odd="1.35" last_updated="23/10/14 04:32:54" oddfraction="7/20" />
+        </bet>
+        <bet name="Alternative Asian Handicap" id="50284">
+          <res id="635488137" name="(2-1) Herediano -0.75" extravalue="-0.75" option="" odd="4.65" last_updated="23/10/14 04:32:54" oddfraction="73/20" />
+          <res id="635488138" name="(2-1) Perez Zeledon +0.75" extravalue="+0.75" option="" odd="1.18" last_updated="23/10/14 04:32:54" oddfraction="9/50" />
+        </bet>
+        <bet name="Alternative Goal Line" id="50287">
+          <res id="635488521" name="(2-1) Over 3.75" extravalue="3.75" option="" odd="2.85" last_updated="23/10/14 04:32:54" oddfraction="37/20" />
+          <res id="635488522" name="(2-1) Under 3.75" extravalue="3.75" option="" odd="1.40" last_updated="23/10/14 04:32:54" oddfraction="2/5" />
+        </bet>
+        <bet name="Alternative Goal Line" id="50288">
+          <res id="635488523" name="(2-1) Over 4" extravalue="4" option="" odd="6.25" last_updated="23/10/14 04:32:54" oddfraction="21/4" />
+          <res id="635488524" name="(2-1) Under 4" extravalue="4" option="" odd="1.12" last_updated="23/10/14 04:32:54" oddfraction="3/25" />
+        </bet>
+        <bet name="Alternative 3-Way Handicap" id="50303" hand_score="0:2">
+          <res id="634661395" name="Herediano -2" extravalue="-2" option="1" odd="19.00" last_updated="23/10/14 04:32:54" oddfraction="18/1" />
+          <res id="634661396" name="Draw (Perez Zeledon) +2" extravalue="+2" option="X" odd="3.50" last_updated="23/10/14 04:32:54" oddfraction="5/2" />
+          <res id="634661398" name="Perez Zeledon +2" extravalue="+2" option="2" odd="1.30" last_updated="23/10/14 04:32:54" oddfraction="3/10" />
+        </bet>
+        <bet name="Alternative 3-Way Handicap" id="50304" hand_score="0:3">
+          <res id="634661400" name="Herediano -3" extravalue="-3" option="1" odd="29.00" last_updated="23/10/14 04:31:36" oddfraction="28/1" />
+          <res id="634661402" name="Draw (Perez Zeledon) +3" extravalue="+3" option="X" odd="17.00" last_updated="23/10/14 04:32:54" oddfraction="16/1" />
+          <res id="634661404" name="Perez Zeledon +3" extravalue="+3" option="2" odd="1.02" last_updated="23/10/14 04:32:54" oddfraction="1/40" />
+        </bet>
+        <bet name="Home Team Goals" id="82">
+          <res id="634661405" name="Herediano - Over 3.5" extravalue="3.5" option="" odd="15.00" last_updated="23/10/14 04:32:19" oddfraction="14/1" />
+          <res id="634661406" name="Herediano - Under 3.5" extravalue="3.5" option="" odd="1.03" last_updated="23/10/14 04:32:19" oddfraction="1/33" />
+        </bet>
+        <bet name="Exact Home Goals" id="50396">
+          <res id="634661484" name="2 Goals" extravalue="" option="" odd="1.40" last_updated="23/10/14 04:32:54" oddfraction="2/5" />
+          <res id="634661485" name="3+ Goals" extravalue="" option="" odd="2.75" last_updated="23/10/14 04:32:54" oddfraction="7/4" />
+        </bet>
+        <bet name="Exact Away Goals" id="50397">
+          <res id="634661487" name="1 Goal" extravalue="" option="" odd="1.14" last_updated="23/10/14 04:32:54" oddfraction="1/7" />
+          <res id="634661488" name="2 Goals" extravalue="" option="" odd="5.50" last_updated="23/10/14 04:32:54" oddfraction="9/2" />
+          <res id="634661489" name="3+ Goals" extravalue="" option="" odd="41.00" last_updated="23/10/14 04:32:02" oddfraction="40/1" />
+        </bet>
+      </odds>
+    </match>
+  </category>
+  <category name="Tigres v Toluca" id="26552496">
+    <match formatted_date="23.10.2014" time="03:15" league="Mexico Cup" leagueid="1014" id="26552496">
+      <localteam name="Tigres" id="17947" />
+      <visitorteam name="Toluca" id="18675" />
+      <odds date="23.10.2014" time="03:15">
+        <bet name="Fulltime Result" id="1777">
+          <res id="634692515" name="Tigres WIN" extravalue="1" option="" odd="1.02" last_updated="23/10/14 04:32:56" oddfraction="1/40" />
+          <res id="634692517" name="Draw" extravalue="X" option="" odd="17.00" last_updated="23/10/14 04:32:56" oddfraction="16/1" />
+          <res id="634692520" name="Toluca WIN" extravalue="2" option="" odd="101.00" last_updated="23/10/14 04:32:56" oddfraction="100/1" />
+        </bet>
+        <bet name="Next Goal" id="1778">
+          <res id="635489517" name="Tigres" extravalue="1" option="" odd="2.50" last_updated="23/10/14 04:32:56" oddfraction="6/4" />
+          <res id="635489519" name="No 3rd goal" extravalue="X" option="" odd="2.38" last_updated="23/10/14 04:33:13" oddfraction="11/8" />
+          <res id="635489521" name="Toluca" extravalue="2" option="" odd="3.50" last_updated="23/10/14 04:33:13" oddfraction="5/2" />
+        </bet>
+        <bet name="To Qualify" id="1786">
+          <res id="634692535" name="Tigres" extravalue="" option="" odd="1.01" last_updated="23/10/14 04:32:56" oddfraction="1/100" />
+          <res id="634692538" name="Toluca" extravalue="" option="" odd="26.00" last_updated="23/10/14 04:32:56" oddfraction="25/1" />
+        </bet>
+        <bet name="Final Score" id="10001">
+          <res id="634693049" name="Tigres # 2-0" extravalue="2-0" option="" odd="2.38" last_updated="23/10/14 04:33:13" oddfraction="11/8" />
+          <res id="634693050" name="Tigres # 2-1" extravalue="2-1" option="" odd="5.50" last_updated="23/10/14 04:32:56" oddfraction="9/2" />
+          <res id="634693051" name="Tigres # 3-0" extravalue="3-0" option="" odd="3.75" last_updated="23/10/14 04:32:56" oddfraction="11/4" />
+          <res id="634693052" name="Tigres # 3-1" extravalue="3-1" option="" odd="9.00" last_updated="23/10/14 04:32:56" oddfraction="8/1" />
+          <res id="634693053" name="Tigres # 3-2" extravalue="3-2" option="" odd="34.00" last_updated="23/10/14 04:32:56" oddfraction="33/1" />
+          <res id="634693055" name="Tigres # 4-0" extravalue="4-0" option="" odd="11.00" last_updated="23/10/14 04:33:20" oddfraction="10/1" />
+          <res id="634693057" name="Tigres # 4-1" extravalue="4-1" option="" odd="26.00" last_updated="23/10/14 04:32:56" oddfraction="25/1" />
+          <res id="634693058" name="Tigres # 4-2" extravalue="4-2" option="" odd="67.00" last_updated="23/10/14 04:32:56" oddfraction="66/1" />
+          <res id="634693059" name="Tigres # 4-3" extravalue="4-3" option="" odd="301.00" last_updated="23/10/14 04:33:13" oddfraction="300/1" />
+          <res id="634693060" name="Tigres # 5-0" extravalue="5-0" option="" odd="41.00" last_updated="23/10/14 04:32:56" oddfraction="40/1" />
+          <res id="634693061" name="Tigres # 5-1" extravalue="5-1" option="" odd="67.00" last_updated="23/10/14 04:32:56" oddfraction="66/1" />
+          <res id="634693062" name="Tigres # 5-2" extravalue="5-2" option="" odd="201.00" last_updated="23/10/14 04:33:13" oddfraction="200/1" />
+          <res id="634693067" name="Tigres # 6-0" extravalue="6-0" option="" odd="126.00" last_updated="23/10/14 04:33:14" oddfraction="125/1" />
+          <res id="634693068" name="Tigres # 6-1" extravalue="6-1" option="" odd="301.00" last_updated="23/10/14 04:32:56" oddfraction="300/1" />
+          <res id="634693078" name="Draw # 2-2" extravalue="2-2" option="" odd="19.00" last_updated="23/10/14 04:32:56" oddfraction="18/1" />
+          <res id="634693079" name="Draw # 3-3" extravalue="3-3" option="" odd="101.00" last_updated="23/10/14 04:32:56" oddfraction="100/1" />
+          <res id="634693098" name="Toluca # 3-2" extravalue="3-2" option="" odd="101.00" last_updated="23/10/14 04:32:56" oddfraction="100/1" />
+          <res id="634693104" name="Toluca # 4-2" extravalue="4-2" option="" odd="451.00" last_updated="23/10/14 04:33:14" oddfraction="450/1" />
+        </bet>
+        <bet name="Double Chance" id="10115">
+          <res id="634692543" name="Tigres or Draw" extravalue="1X" option="" odd="1.00" last_updated="23/10/14 04:32:56" oddfraction="1/1000" />
+          <res id="634692546" name="Toluca or Draw" extravalue="X2" option="" odd="17.00" last_updated="23/10/14 04:32:56" oddfraction="16/1" />
+          <res id="634692547" name="Tigres or Toluca" extravalue="12" option="" odd="1.02" last_updated="23/10/14 04:32:56" oddfraction="1/40" />
+        </bet>
+        <bet name="Match Goals" id="10124">
+          <res id="634692548" name="Over 2.5" extravalue="2.5" option="" odd="1.53" last_updated="23/10/14 04:33:13" oddfraction="8/15" />
+          <res id="634692550" name="Under 2.5" extravalue="2.5" option="" odd="2.38" last_updated="23/10/14 04:33:13" oddfraction="11/8" />
+        </bet>
+        <bet name="Asian Handicap In-Play" id="10147">
+          <res id="635489507" name="(2-0) Tigres -0.25" extravalue="-0.25" option="" odd="2.200" last_updated="23/10/14 04:33:20" oddfraction="6/5" />
+          <res id="635489509" name="(2-0) Toluca +0.25" extravalue="+0.25" option="" odd="1.649" last_updated="23/10/14 04:33:20" oddfraction="13/20" />
+        </bet>
+        <bet name="Goal Line In-Play" id="10148">
+          <res id="635489550" name="(2-0) Over 2.75" extravalue="2.75" option="" odd="1.800" last_updated="23/10/14 04:33:13" oddfraction="4/5" />
+          <res id="635489551" name="(2-0) Under 2.75" extravalue="2.75" option="" odd="2.000" last_updated="23/10/14 04:33:13" oddfraction="1/1" />
+        </bet>
+        <bet name="3-Way Handicap" id="10159" hand_score="0:2">
+          <res id="634692561" name="Tigres -2" extravalue="-2" option="1" odd="2.75" last_updated="23/10/14 04:32:56" oddfraction="7/4" />
+          <res id="634692562" name="Draw (Toluca ) +2" extravalue="+2" option="X" odd="1.95" last_updated="23/10/14 04:33:20" oddfraction="20/21" />
+          <res id="634692564" name="Toluca +2" extravalue="+2" option="2" odd="4.33" last_updated="23/10/14 04:32:56" oddfraction="10/3" />
+        </bet>
+        <bet name="Goals Odd/Even" id="10562">
+          <res id="634692600" name="Odd" extravalue="" option="" odd="2.20" last_updated="23/10/14 04:32:56" oddfraction="6/5" />
+          <res id="634692601" name="Even" extravalue="" option="" odd="1.62" last_updated="23/10/14 04:32:56" oddfraction="8/13" />
+        </bet>
+        <bet name="Last Team to Score" id="10564">
+          <res id="634692604" name="Tigres" extravalue="" option="" odd="1.29" last_updated="23/10/14 04:33:14" oddfraction="2/7" />
+          <res id="634692606" name="Toluca" extravalue="" option="" odd="3.50" last_updated="23/10/14 04:33:14" oddfraction="5/2" />
+        </bet>
+        <bet name="Both Teams to Score" id="10565">
+          <res id="634692607" name="Yes" extravalue="Yes" option="" odd="2.75" last_updated="23/10/14 04:33:13" oddfraction="7/4" />
+          <res id="634692609" name="No" extravalue="No" option="" odd="1.40" last_updated="23/10/14 04:33:13" oddfraction="2/5" />
+        </bet>
+        <bet name="Home Team Goals" id="90">
+          <res id="634692611" name="Tigres - Over 2.5" extravalue="2.5" option="" odd="2.10" last_updated="23/10/14 04:33:20" oddfraction="11/10" />
+          <res id="634692613" name="Tigres - Under 2.5" extravalue="2.5" option="" odd="1.67" last_updated="23/10/14 04:33:20" oddfraction="4/6" />
+        </bet>
+        <bet name="Clean Sheet" id="10567">
+          <res id="634692614" name="Tigres - Yes" extravalue="" option="" odd="1.40" last_updated="23/10/14 04:33:13" oddfraction="2/5" />
+          <res id="634692615" name="Tigres - No" extravalue="" option="" odd="2.75" last_updated="23/10/14 04:33:13" oddfraction="7/4" />
+        </bet>
+        <bet name="Away Team Goals" id="89">
+          <res id="634692646" name="Toluca - Over 1.5" extravalue="1.5" option="" odd="13.00" last_updated="23/10/14 04:32:56" oddfraction="12/1" />
+          <res id="634692649" name="Toluca - Under 1.5" extravalue="1.5" option="" odd="1.04" last_updated="23/10/14 04:32:56" oddfraction="1/25" />
+        </bet>
+        <bet name="To Score in 2nd Half" id="50181">
+          <res id="634692671" name="Toluca to score in 2nd half" extravalue="" option="" odd="2.75" last_updated="23/10/14 04:33:14" oddfraction="7/4" />
+          <res id="634692673" name="Toluca not to score in 2nd half" extravalue="" option="" odd="1.40" last_updated="23/10/14 04:33:14" oddfraction="2/5" />
+        </bet>
+        <bet name="Alternative Match Goals" id="105">
+          <res id="634692693" name="Over 3.5 " extravalue="3.5" option="" odd="3.50" last_updated="23/10/14 04:32:56" oddfraction="5/2" />
+          <res id="634692695" name="Under 3.5 " extravalue="3.5" option="" odd="1.29" last_updated="23/10/14 04:32:56" oddfraction="2/7" />
+        </bet>
+        <bet name="Alternative Match Goals" id="106">
+          <res id="634692696" name="Over 4.5 " extravalue="4.5" option="" odd="10.00" last_updated="23/10/14 04:33:13" oddfraction="9/1" />
+          <res id="634692697" name="Under 4.5 " extravalue="4.5" option="" odd="1.06" last_updated="23/10/14 04:33:13" oddfraction="1/16" />
+        </bet>
+        <bet name="Alternative Asian Handicap" id="50281">
+          <res id="635489524" name="(2-0) Tigres +0.25" extravalue="+0.25" option="" odd="1.30" last_updated="23/10/14 04:33:20" oddfraction="3/10" />
+          <res id="635489526" name="(2-0) Toluca -0.25" extravalue="-0.25" option="" odd="3.35" last_updated="23/10/14 04:33:20" oddfraction="47/20" />
+        </bet>
+        <bet name="Alternative Asian Handicap" id="50282">
+          <res id="635489529" name="(2-0) Tigres 0" extravalue="0" option="" odd="1.55" last_updated="23/10/14 04:33:20" oddfraction="11/20" />
+          <res id="635489531" name="(2-0) Toluca 0" extravalue="0" option="" odd="2.38" last_updated="23/10/14 04:33:20" oddfraction="11/8" />
+        </bet>
+        <bet name="Alternative Asian Handicap" id="50283">
+          <res id="635489535" name="(2-0) Tigres -0.5" extravalue="-0.5" option="" odd="2.75" last_updated="23/10/14 04:33:20" oddfraction="7/4" />
+          <res id="635489538" name="(2-0) Toluca +0.5" extravalue="+0.5" option="" odd="1.43" last_updated="23/10/14 04:33:20" oddfraction="17/40" />
+        </bet>
+        <bet name="Alternative Asian Handicap" id="50284">
+          <res id="635489540" name="(2-0) Tigres -0.75" extravalue="-0.75" option="" odd="3.80" last_updated="23/10/14 04:33:20" oddfraction="14/5" />
+          <res id="635489541" name="(2-0) Toluca +0.75" extravalue="+0.75" option="" odd="1.25" last_updated="23/10/14 04:33:20" oddfraction="1/4" />
+        </bet>
+        <bet name="Alternative Goal Line" id="50286">
+          <res id="635489554" name="(2-0) Over 2.5" extravalue="2.5" option="" odd="1.55" last_updated="23/10/14 04:33:14" oddfraction="11/20" />
+          <res id="635489555" name="(2-0) Under 2.5" extravalue="2.5" option="" odd="2.38" last_updated="23/10/14 04:33:14" oddfraction="11/8" />
+        </bet>
+        <bet name="Alternative Goal Line" id="50287">
+          <res id="635489557" name="(2-0) Over 3" extravalue="3" option="" odd="2.38" last_updated="23/10/14 04:33:14" oddfraction="11/8" />
+          <res id="635489559" name="(2-0) Under 3" extravalue="3" option="" odd="1.55" last_updated="23/10/14 04:33:14" oddfraction="11/20" />
+        </bet>
+        <bet name="Alternative Goal Line" id="50288">
+          <res id="635489560" name="(2-0) Over 3.25" extravalue="3.25" option="" odd="3.00" last_updated="23/10/14 04:33:14" oddfraction="2/1" />
+          <res id="635489561" name="(2-0) Under 3.25" extravalue="3.25" option="" odd="1.38" last_updated="23/10/14 04:33:14" oddfraction="3/8" />
+        </bet>
+        <bet name="Alternative 3-Way Handicap" id="50302" hand_score="0:1">
+          <res id="634692786" name="Tigres -1" extravalue="-1" option="1" odd="1.17" last_updated="23/10/14 04:33:20" oddfraction="1/6" />
+          <res id="634692787" name="Draw (Toluca) +1" extravalue="+1" option="X" odd="5.00" last_updated="23/10/14 04:32:56" oddfraction="4/1" />
+          <res id="634692788" name="Toluca +1" extravalue="+1" option="2" odd="17.00" last_updated="23/10/14 04:32:56" oddfraction="16/1" />
+        </bet>
+        <bet name="Alternative 3-Way Handicap" id="50303" hand_score="0:3">
+          <res id="634692789" name="Tigres -3" extravalue="-3" option="1" odd="9.50" last_updated="23/10/14 04:33:20" oddfraction="17/2" />
+          <res id="634692790" name="Draw (Toluca) +3" extravalue="+3" option="X" odd="3.50" last_updated="23/10/14 04:32:56" oddfraction="5/2" />
+          <res id="634692791" name="Toluca +3" extravalue="+3" option="2" odd="1.40" last_updated="23/10/14 04:33:20" oddfraction="2/5" />
+        </bet>
+        <bet name="Alternative 3-Way Handicap" id="50304" hand_score="0:4">
+          <res id="634692796" name="Tigres -4" extravalue="-4" option="1" odd="23.00" last_updated="23/10/14 04:32:56" oddfraction="22/1" />
+          <res id="634692797" name="Draw (Toluca) +4" extravalue="+4" option="X" odd="11.00" last_updated="23/10/14 04:32:56" oddfraction="10/1" />
+          <res id="634692799" name="Toluca +4" extravalue="+4" option="2" odd="1.05" last_updated="23/10/14 04:32:56" oddfraction="1/20" />
+        </bet>
+        <bet name="Home Team Goals" id="82">
+          <res id="634692804" name="Tigres - Over 3.5" extravalue="3.5" option="" odd="8.00" last_updated="23/10/14 04:32:56" oddfraction="7/1" />
+          <res id="634692807" name="Tigres - Under 3.5" extravalue="3.5" option="" odd="1.08" last_updated="23/10/14 04:32:56" oddfraction="1/12" />
+        </bet>
+        <bet name="Both Teams To Score In 2nd Half" id="50391">
+          <res id="634692885" name="Yes" extravalue="Yes" option="" odd="2.75" last_updated="23/10/14 04:33:14" oddfraction="7/4" />
+          <res id="634692887" name="No" extravalue="No" option="" odd="1.40" last_updated="23/10/14 04:33:14" oddfraction="2/5" />
+        </bet>
+        <bet name="Exact Home Goals" id="50396">
+          <res id="634692916" name="2 Goals" extravalue="" option="" odd="1.67" last_updated="23/10/14 04:33:20" oddfraction="4/6" />
+          <res id="634692918" name="3+ Goals" extravalue="" option="" odd="2.10" last_updated="23/10/14 04:33:20" oddfraction="11/10" />
+        </bet>
+        <bet name="Exact Away Goals" id="50397">
+          <res id="634692920" name="0 Goals" extravalue="" option="" odd="1.40" last_updated="23/10/14 04:33:14" oddfraction="2/5" />
+          <res id="634692922" name="1 Goal" extravalue="" option="" odd="3.25" last_updated="23/10/14 04:31:56" oddfraction="9/4" />
+          <res id="634692924" name="2 Goals" extravalue="" option="" odd="13.00" last_updated="23/10/14 04:32:57" oddfraction="12/1" />
+          <res id="634692926" name="3+ Goals" extravalue="" option="" odd="51.00" last_updated="23/10/14 04:32:57" oddfraction="50/1" />
+        </bet>
+      </odds>
+    </match>
+  </category>
+</scores>
