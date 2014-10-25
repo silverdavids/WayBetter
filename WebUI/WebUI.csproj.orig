@@ -33,7 +33,6 @@
       <Objects>
       </Objects>
     </PublishDatabaseSettings>
-    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -215,8 +214,11 @@
     <Compile Include="Controllers\ManualResultController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
+<<<<<<< HEAD
+=======
     <Compile Include="Controllers\ReceiptPrintController.cs" />
     <Compile Include="Controllers\OddsServiceController.cs" />
+>>>>>>> efb4919a8d49983bb7b21d843983326ffbae4519
     <Compile Include="Controllers\ReceptController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
@@ -263,7 +265,6 @@
     <Compile Include="Helpers\Notification.cs" />
     <Compile Include="Helpers\SetNumberGenerator.cs" />
     <Compile Include="Hubs\LiveBetHub.cs" />
-    <Compile Include="Hubs\OddsServiceHub.cs" />
     <Compile Include="Infrastructure\AdminClass.cs" />
     <Compile Include="Infrastructure\Agentclass.cs" />
     <Compile Include="Infrastructure\BarCodeGenerator.cs" />
@@ -316,19 +317,22 @@
     <Compile Include="Migrations\201410172202302_MatchOddError.Designer.cs">
       <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+=======
     <Compile Include="Migrations\201410241503176_New_Migration.cs" />
     <Compile Include="Migrations\201410241503176_New_Migration.Designer.cs">
       <DependentUpon>201410241503176_New_Migration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201410201930493_LiveFlagMigration.cs" />
     <Compile Include="Migrations\201410201930493_LiveFlagMigration.Designer.cs">
       <DependentUpon>201410201930493_LiveFlagMigration.cs</DependentUpon>
     </Compile>
+>>>>>>> efb4919a8d49983bb7b21d843983326ffbae4519
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\adminPatch.css" />
     <Content Include="Content\angularcss\ngDialog-theme-default.css" />
     <Content Include="Content\angularcss\ngDialog-theme-plain.css" />
     <Content Include="Content\angularcss\ngDialog.css" />
@@ -338,8 +342,6 @@
     <Content Include="Content\bootstrap-datepicker3.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootstrapcss\bootstrap-progressbar-2.0.0.css" />
-    <Content Include="Content\bootstrapcss\bootstrap-progressbar-2.0.0.min.css" />
     <Content Include="Content\bootstrapcss\bootstrap.css" />
     <Content Include="Content\bootstrapcss\bootstrap.min.css" />
     <Content Include="Content\css\bootstrap-responsive.css" />
@@ -739,8 +741,6 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angularjs\ui-bootstrap-tpls-0.11.2.min.js" />
-    <Content Include="Scripts\bootstrap\bootstrap-progressbar.js" />
-    <Content Include="Scripts\bootstrap\bootstrap-progressbar.min.js" />
     <Content Include="Scripts\charts\exporting.js" />
     <Content Include="Scripts\charts\highcharts-3d.js" />
     <Content Include="Scripts\charts\highcharts-3d.src.js" />
@@ -1602,7 +1602,6 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.vi.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.js" />
-    <Content Include="Scripts\LveScripts\table-fixed-header.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.7.2.js" />
     <Content Include="Scripts\parsley.js" />
@@ -1732,7 +1731,6 @@
     <Content Include="Views\Matches\Details.cshtml" />
     <Content Include="Views\Matches\Edit.cshtml" />
     <Content Include="Views\Live\Games.cshtml" />
-    <Content Include="Views\OddsService\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1763,11 +1761,15 @@
     <EmbeddedResource Include="Migrations\201410172202302_MatchOddError.resx">
       <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
+=======
     <EmbeddedResource Include="Migrations\201410241503176_New_Migration.resx">
       <DependentUpon>201410241503176_New_Migration.cs</DependentUpon>
+       </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410201930493_LiveFlagMigration.resx">
       <DependentUpon>201410201930493_LiveFlagMigration.cs</DependentUpon>
     </EmbeddedResource>
+>>>>>>> efb4919a8d49983bb7b21d843983326ffbae4519
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
