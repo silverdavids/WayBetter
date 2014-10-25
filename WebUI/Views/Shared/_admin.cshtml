@@ -9,6 +9,7 @@
     <link href="~/Content/bootstrapcss/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/css/local.css" rel="stylesheet" />
+    <link href="~/Content/adminPatch.css" rel="stylesheet"/>
 
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
@@ -20,12 +21,6 @@
     <script src="~/Scripts/jscontrollers/app.js"></script>
     <script src="~/Scripts/angularjs/ngDialog.js"></script>
     <script src="~/Scripts/angularjs/ui-bootstrap-tpls-0.11.2.min.js"></script>
-
-    <style>
-        div {
-            padding-bottom: 20px;
-        }
-    </style>
 </head>
 
 <body>
@@ -43,13 +38,12 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
 
-                    <li> @Html.ActionLink("Report", "SummaryReport", "Admin")</li>
-                    <li> @Html.ActionLink("Tickets", "TicketSales", "Admin")</li>
-                    <li> @Html.ActionLink("Fixtures", "Fixtures", "Match")</li>
-              
-
-                    <li> @Html.ActionLink("Shops", "Index", "Branch")</li>
-                    <li> @Html.ActionLink("Manager Users", "Register", "Account")</li>
+                    <li>@Html.ActionLink("Report", "SummaryReport", "Admin")</li>
+                    <li>@Html.ActionLink("Tickets", "TicketSales", "Admin")</li>
+                    <li>@Html.ActionLink("Fixtures", "Fixtures", "Match")</li>
+                    <li>@Html.ActionLink("Odds Service", "Index", "OddsService")</li>
+                    <li>@Html.ActionLink("Shops", "Index", "Branch")</li>
+                    <li>@Html.ActionLink("Manager Users", "Register", "Account")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right navbar-user">
             
@@ -86,7 +80,7 @@
 
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/common")
+    @*@Scripts.Render("~/bundles/common")*@
     @RenderSection("scripts", required: false)
 </body>
 

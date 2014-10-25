@@ -33,7 +33,6 @@
       <Objects>
       </Objects>
     </PublishDatabaseSettings>
-    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -215,7 +214,6 @@
     <Compile Include="Controllers\ManualResultController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
-    <Compile Include="Controllers\ReceiptPrintController.cs" />
     <Compile Include="Controllers\OddsServiceController.cs" />
     <Compile Include="Controllers\ReceptController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
@@ -316,9 +314,6 @@
     <Compile Include="Migrations\201410172202302_MatchOddError.Designer.cs">
       <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201410241503176_New_Migration.cs" />
-    <Compile Include="Migrations\201410241503176_New_Migration.Designer.cs">
-      <DependentUpon>201410241503176_New_Migration.cs</DependentUpon>
     <Compile Include="Migrations\201410201930493_LiveFlagMigration.cs" />
     <Compile Include="Migrations\201410201930493_LiveFlagMigration.Designer.cs">
       <DependentUpon>201410201930493_LiveFlagMigration.cs</DependentUpon>
@@ -1142,7 +1137,6 @@
     <Content Include="Content\themes\blue\jtable.less" />
     <None Include="Properties\PublishProfiles\BetWay.pubxml" />
     <Content Include="Scripts\DataTables-1.10.2\datagrid_data1.json" />
-    <None Include="Properties\PublishProfiles\WebUi1.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
@@ -1602,7 +1596,6 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.vi.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.js" />
-    <Content Include="Scripts\LveScripts\table-fixed-header.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.7.2.js" />
     <Content Include="Scripts\parsley.js" />
@@ -1731,8 +1724,11 @@
     <Content Include="Views\Matches\Delete.cshtml" />
     <Content Include="Views\Matches\Details.cshtml" />
     <Content Include="Views\Matches\Edit.cshtml" />
+<<<<<<< Updated upstream
     <Content Include="Views\Live\Games.cshtml" />
+=======
     <Content Include="Views\OddsService\Index.cshtml" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1763,8 +1759,6 @@
     <EmbeddedResource Include="Migrations\201410172202302_MatchOddError.resx">
       <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410241503176_New_Migration.resx">
-      <DependentUpon>201410241503176_New_Migration.cs</DependentUpon>
     <EmbeddedResource Include="Migrations\201410201930493_LiveFlagMigration.resx">
       <DependentUpon>201410201930493_LiveFlagMigration.cs</DependentUpon>
     </EmbeddedResource>

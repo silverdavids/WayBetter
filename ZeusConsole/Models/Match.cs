@@ -15,16 +15,11 @@ namespace ZeusConsole.Models
             HalfTimeHomeScore = 0;
             HalfTimeAwayScore = 0;
             RegistrationDate = DateTime.Now;
-            SetNo = 0;
-            ShortMatchCode = 0;
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Column(Order = 100)]
         public int BetServiceMatchNo { get; set; }
-        public int SetNo { get; set; }
-        public int ShortMatchCode { get; set; }
         public string League { get; set; }
         public DateTime StartTime { get; set; }
         public string GameStatus { get; set; }

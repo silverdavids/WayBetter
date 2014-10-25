@@ -23,79 +23,85 @@ namespace WebUI.Controllers
     {
         private Team _awayTeam, _homeTeam;
         // GET: Fixture
-        private readonly string[] _urls =
+        private IEnumerable<string> _urls
         {
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/eurocups_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/qatar_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/malta_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/iran_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/africa_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/argentina_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/asia_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/australia_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/austria_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/belarus_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/belgium_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/brazil_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/bulgaria_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/chile_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/china_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/colombia_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/concacaf_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/costarica_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/croatia_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/cyprus_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/czechia_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/denmark_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/egypt_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/england_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/equador_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/estonia_shedule?odds=bet365",   
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/finland_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/france_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/germany_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/greece_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/holland_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/hungary_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/iceland_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/ireland_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/israel_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/italy_shedule?odds=bet365",     
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/japan_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/korea_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/latvia_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/lithuania_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/malta_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/mexico_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/moldova_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/Iran_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/norway_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/paraguay_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/peru_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/poland_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/portugal_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/romania_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/russia_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/saudi_arabia_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/scotland_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/serbia_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/singapore_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/slovakia_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/slovenia_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/southafrica_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/southamerica_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/spain_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/sweden_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/switzerland_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/turkey_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/uae_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/ukraine_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/uruguay_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/usa_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/venezuela_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/wales_shedule?odds=bet365",
-            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/worldcup_shedule?odds=bet365"
-        };
+            get
+            {
+                return new[]
+                {
+                    "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/eurocups_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/qatar_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/malta_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/iran_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/africa_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/argentina_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/asia_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/australia_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/austria_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/belarus_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/belgium_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/brazil_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/bulgaria_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/chile_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/china_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/colombia_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/concacaf_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/costarica_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/croatia_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/cyprus_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/czechia_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/denmark_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/egypt_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/england_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/equador_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/estonia_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/finland_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/france_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/germany_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/greece_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/holland_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/hungary_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/iceland_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/ireland_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/israel_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/italy_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/japan_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/korea_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/latvia_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/lithuania_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/malta_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/mexico_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/moldova_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/Iran_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/norway_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/paraguay_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/peru_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/poland_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/portugal_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/romania_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/russia_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/saudi_arabia_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/scotland_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/serbia_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/singapore_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/slovakia_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/slovenia_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/southafrica_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/southamerica_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/spain_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/sweden_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/switzerland_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/turkey_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/uae_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/ukraine_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/uruguay_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/usa_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/venezuela_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/wales_shedule?odds=bet365",
+                    //"http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/worldcup_shedule?odds=bet365"
+                };
+            }
+        }
 
         public ActionResult Index()
         {
@@ -121,830 +127,592 @@ namespace WebUI.Controllers
             return View();
         }
 
-        public async Task<int> UploadGamesFromDani()
+        public ActionResult OddsService()
         {
-            var matches = new List<Match>();
-            var matchodds = new List<MatchOdd>();
-            var xmldoc = new XmlDocument();
-            xmldoc.Load(Server.MapPath("~/gbl/GetSportEventsItalyEngland.xml"));
-            var oddServiceNode = xmldoc.ChildNodes[1];
-            var resultsNode = oddServiceNode.ChildNodes[1];
-
-            foreach (XmlNode eventNode in resultsNode)
-            {
-                var eventId = eventNode.ChildNodes[0].InnerText;
-                var unformattedStartDate = eventNode.ChildNodes[1].InnerText;
-                var startDateTime = DateTime.Parse(unformattedStartDate);
-
-                //var sportIdNode = eventNode.ChildNodes[2];
-                //var sportId = sportIdNode.InnerText;
-                //var sportName = (sportIdNode.Attributes != null) ? sportIdNode.Attributes["Name"].InnerText : String.Empty;
-
-                var locationIdNode = eventNode.ChildNodes[4];
-                //var locationId = locationIdNode.InnerText;
-                var locationName = (locationIdNode.Attributes != null) ? locationIdNode.Attributes["Name"].InnerText : String.Empty;
-
-                var country = new Country
-                {
-                    CountryName = locationName
-                };
-
-                BetDatabase.Countries.AddOrUpdate(c => c.CountryName, country);
-                await BetDatabase.SaveChangesAsync();
-
-                var leagueIdNode = eventNode.ChildNodes[3];
-                //var leagueId = leagueIdNode.InnerText;
-                var leagueName = (leagueIdNode.Attributes != null) ? leagueIdNode.Attributes["Name"].InnerText : String.Empty;
-
-                var league = new League
-                {
-                    LeagueName = leagueName,
-                    CountryId = country.CountryId
-                };
-
-                BetDatabase.Leagues.AddOrUpdate(key => new { key.LeagueName }, league);
-                await BetDatabase.SaveChangesAsync();
-                
-
-                //var lastUpdateTime = eventNode.ChildNodes[6].InnerText;
-                var homeTeamNode = eventNode.ChildNodes[8];
-                var homeTeam = (homeTeamNode.Attributes != null) ? homeTeamNode.Attributes["Name"].InnerText : String.Empty;
-                var homeTeamObj = new Team
-                {
-                    TeamName = homeTeam,
-                    CountryId =  country.CountryId
-                };
-                var awayTeamNode = eventNode.ChildNodes[9];
-                var awayTeam = awayTeamNode.Attributes != null ? awayTeamNode.Attributes["Name"].InnerText : String.Empty;
-                var awayTeamObj = new Team
-                {
-                    TeamName = awayTeam,
-                    CountryId = country.CountryId
-                };
-
-                BetDatabase.Teams.AddOrUpdate(t => t.TeamName, new []{ homeTeamObj, awayTeamObj });
-                await BetDatabase.SaveChangesAsync();
-                var outcomesNode = eventNode.ChildNodes[14];
-
-                matches.Add(new Match
-                {
-                    AwayTeamId = awayTeamObj.TeamId,
-                    BetServiceMatchNo = Convert.ToInt32(eventId),
-                    GameStatus = "Not Started",
-                    HomeTeamId = homeTeamObj.TeamId,
-                    League = leagueName,
-                    RegistrationDate = DateTime.Now,
-                    ResultStatus = 0,
-                    StartTime = startDateTime
-                });
-
-                if (!outcomesNode.HasChildNodes) continue;
-                #region OutComes
-                foreach (XmlNode outcomeNode in outcomesNode.ChildNodes)
-                {
-                    if (outcomeNode.Attributes == null) continue;
-                    var outcome = outcomeNode.Attributes["name"].InnerText;
-                    //Console.WriteLine("{0} Odds", outcome);
-                    var bookmakerNode = outcomeNode.ChildNodes[0];
-                    var oddsNodes = bookmakerNode.ChildNodes;
-
-                    // Locate an out ome in the datbase with that particular name
-                    var betcategory = new BetCategory
-                    {
-                        Name = outcome
-                    };
-
-                    BetDatabase.BetCategories.AddOrUpdate(bc => bc.Name, betcategory);
-                    BetDatabase.SaveChanges();
-                    switch (outcome)
-                    {
-                        #region 1x2 Odds
-                        case "1X2":
-                            foreach (XmlNode odd in oddsNodes)
-                            {
-                                if (odd.Attributes == null) continue;
-                                var bet = odd.Attributes["bet"].InnerText;
-                                var line = odd.Attributes["line"].InnerText;
-                                var unformattedLastUpdateTime = odd.Attributes["LastUpdate"].InnerText;
-                                var betoption = new BetOption
-                                {
-                                    BetCategoryId = betcategory.CategoryId,
-                                    Option = bet,
-                                    Line = line
-                                };
-
-                                BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
-                                await BetDatabase.SaveChangesAsync();
-                                var matchodd = new MatchOdd
-                                {
-                                    BetServiceMatchNo = Convert.ToInt32(eventId),
-                                    BetOptionId = betoption.BetOptionId,
-                                    LastUpdateTime = DateTime.Parse(unformattedLastUpdateTime),
-                                    Odd = Convert.ToDecimal(odd.Attributes["currentPrice"].InnerText)
-                                };
-                                matchodds.Add(matchodd);
-                            }
-                            break;
-                        #endregion
-
-                        #region Under/Over Odds
-                        case "Under/Over":
-                            foreach (XmlNode odd in oddsNodes)
-                            {
-
-                                if (odd.Attributes == null) continue;
-                                var bet = odd.Attributes["bet"].InnerText;
-                                var line = odd.Attributes["line"].InnerText;
-                                var unformattedLastUpdateTime = odd.Attributes["LastUpdate"].InnerText;
-                                var betoption = new BetOption
-                                {
-                                    BetCategoryId = betcategory.CategoryId,
-                                    Option = bet,
-                                    Line = line
-                                };
-
-                                BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
-                                await BetDatabase.SaveChangesAsync();
-                                if (line != "0.5" && line != "1.5" && line != "2.5" && line != "3.5" &&
-                                    line != "4.5" && line != "5.5" && line != "6.5") continue;
-                                var matchodd = new MatchOdd
-                                {
-                                    BetServiceMatchNo = Convert.ToInt32(eventId),
-                                    BetOptionId = betoption.BetOptionId,
-                                    LastUpdateTime = DateTime.Parse(unformattedLastUpdateTime),
-                                    Odd = Convert.ToDecimal(odd.Attributes["currentPrice"].InnerText)
-                                };
-                                matchodds.Add(matchodd);
-                            }
-                            break;
-                        #endregion
-
-                        #region Double Chance Odds
-                        case "Double Chance":
-                            foreach (XmlNode odd in oddsNodes)
-                            {
-                                if (odd.Attributes == null) continue;
-                                var bet = odd.Attributes["bet"].InnerText;
-                                var line = odd.Attributes["line"].InnerText;
-                                var unformattedLastUpdateTime = odd.Attributes["LastUpdate"].InnerText;
-                                var betoption = new BetOption
-                                {
-                                    BetCategoryId = betcategory.CategoryId,
-                                    Option = bet,
-                                    Line = line
-                                };
-
-                                BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
-                                await BetDatabase.SaveChangesAsync();
-                                var matchodd = new MatchOdd
-                                {
-                                    BetServiceMatchNo = Convert.ToInt32(eventId),
-                                    BetOptionId = betoption.BetOptionId,
-                                    LastUpdateTime = DateTime.Parse(unformattedLastUpdateTime),
-                                    Odd = Convert.ToDecimal(odd.Attributes["currentPrice"].InnerText)
-                                };
-                                matchodds.Add(matchodd);
-                            }
-                            break;
-                        #endregion
-
-                        #region European Handicap
-                        case "European Handicap":
-                            foreach (XmlNode odd in oddsNodes)
-                            {
-                                if (odd.Attributes == null) continue;
-                                var bet = odd.Attributes["bet"].InnerText;
-                                var line = odd.Attributes["line"].InnerText;
-                                var unformattedLastUpdateTime = odd.Attributes["LastUpdate"].InnerText;
-                                var betoption = new BetOption
-                                {
-                                    BetCategoryId = betcategory.CategoryId,
-                                    Option = bet,
-                                    Line = line
-                                };
-
-                                BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line },
-                                    betoption);
-                                await BetDatabase.SaveChangesAsync();
-                                var matchodd = new MatchOdd
-                                {
-                                    BetServiceMatchNo = Convert.ToInt32(eventId),
-                                    BetOptionId = betoption.BetOptionId,
-                                    LastUpdateTime = DateTime.Parse(unformattedLastUpdateTime),
-                                    Odd = Convert.ToDecimal(odd.Attributes["currentPrice"].InnerText)
-                                };
-                                matchodds.Add(matchodd);
-                            }
-                            break;
-                        #endregion
-
-                        #region Both Teams To Score Odds
-                        case "Both Teams To Score":
-                            foreach (XmlNode odd in oddsNodes)
-                            {
-                                if (odd.Attributes == null) continue;
-                                var bet = odd.Attributes["bet"].InnerText;
-                                var line = odd.Attributes["line"].InnerText;
-                                var unformattedLastUpdateTime = odd.Attributes["LastUpdate"].InnerText;
-                                var betoption = new BetOption
-                                {
-                                    BetCategoryId = betcategory.CategoryId,
-                                    Option = bet,
-                                    Line = line
-                                };
-
-                                BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
-                                await BetDatabase.SaveChangesAsync();
-                                var matchodd = new MatchOdd
-                                {
-                                    BetServiceMatchNo = Convert.ToInt32(eventId),
-                                    BetOptionId = betoption.BetOptionId,
-                                    LastUpdateTime = DateTime.Parse(unformattedLastUpdateTime),
-                                    Odd = Convert.ToDecimal(odd.Attributes["currentPrice"].InnerText)
-                                };
-                                matchodds.Add(matchodd);
-                            }
-                            break;
-                        #endregion
-
-                        #region Under/Over 1st Period
-                        case "Under/Over 1st Period":
-                            foreach (XmlNode odd in oddsNodes)
-                            {
-                                if (odd.Attributes == null) continue;
-                                var bet = odd.Attributes["bet"].InnerText;
-                                var line = odd.Attributes["line"].InnerText;
-                                var unformattedLastUpdateTime = odd.Attributes["LastUpdate"].InnerText;
-                                var betoption = new BetOption
-                                {
-                                    BetCategoryId = betcategory.CategoryId,
-                                    Option = bet,
-                                    Line = line
-                                };
-
-                                BetDatabase.BetOptions.AddOrUpdate(
-                                    bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
-                                await BetDatabase.SaveChangesAsync();
-                                var matchodd = new MatchOdd
-                                {
-                                    BetServiceMatchNo = Convert.ToInt32(eventId),
-                                    BetOptionId = betoption.BetOptionId,
-                                    LastUpdateTime = DateTime.Parse(unformattedLastUpdateTime),
-                                    Odd = Convert.ToDecimal(odd.Attributes["currentPrice"].InnerText)
-                                };
-                                matchodds.Add(matchodd);
-                            }
-                            break;
-                        #endregion
-
-                        #region 1st Period Winner
-                        case "1st Period Winner":
-                            foreach (XmlNode odd in oddsNodes)
-                            {
-                                if (odd.Attributes == null) continue;
-                                var bet = odd.Attributes["bet"].InnerText;
-                                var line = odd.Attributes["line"].InnerText;
-                                var unformattedLastUpdateTime = odd.Attributes["LastUpdate"].InnerText;
-                                var betoption = new BetOption
-                                {
-                                    BetCategoryId = betcategory.CategoryId,
-                                    Option = bet,
-                                    Line = line
-                                };
-
-                                BetDatabase.BetOptions.AddOrUpdate(bo => new { bo.Option, bo.BetCategoryId, bo.Line }, betoption);
-                                await BetDatabase.SaveChangesAsync();
-                                var matchodd = new MatchOdd
-                                {
-                                    BetServiceMatchNo = Convert.ToInt32(eventId),
-                                    BetOptionId = betoption.BetOptionId,
-                                    LastUpdateTime = DateTime.Parse(unformattedLastUpdateTime),
-                                    Odd = Convert.ToDecimal(odd.Attributes["currentPrice"].InnerText)
-                                };
-                                matchodds.Add(matchodd);
-                            }
-                            break;
-                        #endregion
-
-                    }
-                }
-                #endregion
-
-                
-            }
-            try
-            {
-                const int chunkSize = 100;
-                var totalMatches = matches.Count;
-                var chunksToSave = (totalMatches % chunkSize) > 0 ? (totalMatches / chunkSize) + 1 : totalMatches / chunkSize;
-                for (var i = 0; i < chunksToSave; i++)
-                {
-                    var chunk = matches.Skip(i * chunkSize).Take(chunkSize);
-                    var startTime = DateTime.Now;
-                    BetDatabase.Matches.AddOrUpdate(m => m.BetServiceMatchNo, chunk.ToArray());
-                    BetDatabase.SaveChanges();
-                    var endTime = DateTime.Now;
-                    var timeSpan = endTime - startTime;
-                    //Console.WriteLine("Matches in Chunk {0} Updated Successfully in {1} Seconds", i + 1, timeSpan.Seconds);
-                }
-
-                //Console.WriteLine("Matches Updated Successfully");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error updating games: {0}.", ex.Message);
-            }
-            try
-            {
-                const int chunkSize = 100;
-                var totalMatchOdds = matchodds.Count;
-                var chunksToSave = (totalMatchOdds % chunkSize) > 0
-                    ? (totalMatchOdds / chunkSize) + 1
-                    : totalMatchOdds / chunkSize;
-
-                for (var i = 0; i < chunksToSave; i++)
-                {
-                    var chunk = matchodds.Skip(i * chunkSize).Take(chunkSize);
-                    var startTime = new DateTime();
-                    BetDatabase.MatchOdds.AddOrUpdate(key => new { key.BetServiceMatchNo, key.BetOptionId }, chunk.ToArray());
-                    BetDatabase.SaveChanges();
-                    var endTime = new DateTime();
-                    var timeSpan = endTime - startTime;
-                    //Console.WriteLine("MatchOdds in Chunk {0} Updated Successfully in {1} Seconds", i + 1, timeSpan.Seconds);
-                }
-                //Console.WriteLine("All MatchOdds Updated Successfully");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error updating odds: {0}.", ex.Message);
-            }
-            return 1;
+            return View();
         }
+
+
 
 
         private async Task<int> UploadGames()
         {
-            foreach (var url in _urls)
+            try
             {
-                var req = (HttpWebRequest)WebRequest.Create(url);
-                var res = (HttpWebResponse)req.GetResponse();
-                var stream = res.GetResponseStream();
-                var xmldoc = new XmlDocument();
+                // start of files urls 
+                foreach (var url in _urls)
                 {
+                    var req = (HttpWebRequest)WebRequest.Create(url);
+                    var res = (HttpWebResponse)req.GetResponse();
+                    var stream = res.GetResponseStream();
+                    var xmldoc = new XmlDocument();
                     xmldoc.Load(stream);
-                    var categoryList = xmldoc.SelectNodes("/scores/category");
 
-                    if (categoryList == null) return 0;
-                    foreach (XmlNode node in categoryList)
+                    var scoresNode = xmldoc.ChildNodes.Item(1);
+                    if (scoresNode == null || !scoresNode.HasChildNodes)
                     {
-                        var matches = node.ChildNodes;
-                        foreach (XmlNode matchesNode in matches)
+                        return await Task.FromResult(0);
+                    }
+
+                    // get the categories or leagues
+                    var categoryNodes = scoresNode.ChildNodes;
+
+                    foreach (XmlNode categoryNode in categoryNodes)
+                    {
+                        // check if the category has attributes and child nodes
+                        if (categoryNode == null || !categoryNode.HasChildNodes) continue;
+
+                        if (categoryNode.Attributes == null) continue;
+                        var league = categoryNode.Attributes["name"].InnerText;
+
+                        var databaseLeague = new League
                         {
-                            var games = matchesNode.ChildNodes;
-                            foreach (XmlNode gameNode in games)
+                            LeagueName = league
+                        };
+
+                        BetDatabase.Leagues.AddOrUpdate(l => l.LeagueName, databaseLeague);
+                        await BetDatabase.SaveChangesAsync();
+
+                        var matchesNode = categoryNode.FirstChild;
+                        if (matchesNode == null || !matchesNode.HasChildNodes) continue; 
+                        var matchNodes = matchesNode.ChildNodes;
+                        if (matchNodes.Count <= 0) continue;
+
+                        foreach (XmlNode matchNode in matchNodes)
+                        {
+                            // don't boter saving a match that has no details
+                            if (matchNode == null || !matchNode.HasChildNodes || matchNode.Attributes == null) continue;
+
+                            var betServiceMatchCode = Int32.Parse(matchNode.Attributes["id"].InnerText.Trim());
+                            var unformattedStartDate = matchNode.Attributes["formatted_date"].InnerText;
+                            var unformattedStartTime = matchNode.Attributes["time"].InnerText;
+
+                            #region Start Date Time Patch
+
+                            var startDateArray = unformattedStartDate.Split(new[] {'.'});
+                            var startTimeArray = unformattedStartTime.Split(new[] {':'});
+
+                            var year = Int32.Parse(startDateArray[2]);
+                            var month = Int32.Parse(startDateArray[1]);
+                            var day = Int32.Parse(startDateArray[0]);
+                            var hour = Int32.Parse(startTimeArray[0]);
+                            var mins = Int32.Parse(startTimeArray[1]);
+
+                            #endregion
+
+                            var startDateTime = new DateTime(year, month, day, hour, mins, 00);
+                            var homeTeamNode = matchNode.ChildNodes[0];
+                            var awayTeamNode = matchNode.ChildNodes[1];
+                            var oddCategoriesNode = matchNode.ChildNodes[4];
+
+                            // we can not determine the home or away team then retreat
+                            if (homeTeamNode.Attributes == null || awayTeamNode.Attributes == null ||
+                                !oddCategoriesNode.HasChildNodes || oddCategoriesNode.Attributes == null) continue;
+                            var liveBettingAttr = oddCategoriesNode.Attributes["live_betting"].InnerText;
+                            var liveBetFlag = liveBettingAttr == "True";
+                            var homeTeamName = homeTeamNode.Attributes["name"].InnerText;
+                            var awayTeamName = awayTeamNode.Attributes["name"].InnerText;
+
+                            var homeTeam = new Team
                             {
-                                var home = gameNode.ChildNodes[0];
-                                var away = gameNode.ChildNodes[1];
-                                var odd = gameNode.ChildNodes[4];
-                                var gameOdds = odd.ChildNodes;
-                                var league = node.Attributes["name"] != null
-                                    ? node.Attributes["name"].InnerText
-                                    : "FailedLeague";
-                                var countryName = node.Attributes["file_group"].InnerText;
-                                char[] del = { '.' };
-                                var stdate = gameNode.Attributes["formatted_date"].InnerText.Split(del);
-                                var stDateTime = stdate[1] + "-" + stdate[0] + "-" + stdate[2]
-                                                 + " " + gameNode.Attributes["time"].InnerText + ":00";
-                               
-                                if (Convert.ToDateTime(stDateTime) > DateTime.Now.AddDays(3))
-                                {
-                                    continue;
-                                }
-                                var country = BetDatabase.Countries.SingleOrDefault(c => c.CountryName == countryName);
-                                if (country == null)
-                                {
-                                    country = new Country
-                                    {
-                                        CountryName = countryName
-                                    };
-                                    BetDatabase.Countries.AddOrUpdate(c => c.CountryName, country);
-                                    await BetDatabase.SaveChangesAsync();
-                                }
+                                TeamName = homeTeamName
+                            };
+                            var awayTeam = new Team
+                            {
+                                TeamName = awayTeamName
+                            };
 
-                                // save the league
-                                BetDatabase.Leagues.AddOrUpdate(l => l.LeagueName, new League
-                                {
-                                    LeagueName = league,
-                                    Country = country
+                            BetDatabase.Teams.AddOrUpdate(ht => ht.TeamName, new[] { homeTeam , awayTeam });
+                            await BetDatabase.SaveChangesAsync();
 
-                                });
-                                await BetDatabase.SaveChangesAsync();
+                            var match = new Match
+                            {
+                                AwayTeamId = awayTeam.TeamId,
+                                BetServiceMatchNo = betServiceMatchCode,
+                                GameStatus = "Not Started",
+                                HomeTeamId = homeTeam.TeamId,
+                                League = league,
+                                RegistrationDate = DateTime.Now,
+                                StartTime = startDateTime,
+                                LiveBetFlag = liveBetFlag
+                            };
 
-                                var game = new Match();
-                                var gameodds = new List<MatchOdd>();
-                                game.League = league;
-                                game.StartTime = Convert.ToDateTime(stDateTime).ToLocalTime();
-                               
-                                if (home.Name == "localteam")
-                                {
-                                    _homeTeam = new Team
-                                    {
-                                        TeamName = home.Attributes["name"].InnerText,
-                                        CountryId = country.CountryId
-                                    };
-                                    BetDatabase.Teams.AddOrUpdate(t => t.TeamName, _homeTeam);
-                                    await BetDatabase.SaveChangesAsync();
-                                    game.HomeTeamId = _homeTeam.TeamId;
-                                }
-                                if (away.Name == "visitorteam")
-                                {
-                                    _awayTeam = new Team
-                                    {
-                                        TeamName = away.Attributes["name"].InnerText,
-                                        CountryId = country.CountryId
-                                    };
-                                    BetDatabase.Teams.AddOrUpdate(t => t.TeamName, _awayTeam);
-                                    await BetDatabase.SaveChangesAsync();
-                                    game.AwayTeamId = _awayTeam.TeamId;
-
-                                }
-
-                              
-                              
-                                var goalServeMatchId = gameNode.Attributes["id"].InnerText;
-
-                                foreach (XmlNode oddType in gameOdds) 
-                                {
-                                    var bettype = oddType.Attributes["name"].InnerText;
-                                    switch (bettype)
-                                    {
-                                        case "Full Time Result":
-                                            var normalOdds = oddType.ChildNodes;
-                                            foreach (XmlNode normalodd in normalOdds)
-                                            {
-                                                var choice = normalodd.Attributes.GetNamedItem("name").Value;
-                                                if (choice == _homeTeam.TeamName + " Win")
-                                                {
-                                                    gameodds.Add(new MatchOdd
-                                                    {
-                                                        //1
-                                                        BetOptionId = 1,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                normalodd.Attributes.GetNamedItem("odd").Value)
-                                                    });
-                                                }
-                                                else if (choice == "Draw")
-                                                {
-                                                    gameodds.Add(new MatchOdd
-                                                    {
-                                                        // X
-                                                        BetOptionId = 2,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                normalodd.Attributes.GetNamedItem("odd").Value)
-                                                    });
-                                                }
-                                                else if (choice == _awayTeam.TeamName + " Win")
-                                                {
-                                                    gameodds.Add(new MatchOdd
-                                                    {
-                                                        // 2
-                                                        BetOptionId = 3,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                normalodd.Attributes.GetNamedItem("odd").Value)
-                                                    });
-                                                }
-                                            }
-                                            break;
-                                        case "Double Chance":
-                                            gameodds.AddRange(new[]
-                                            {
-                                                new MatchOdd
-                                                {
-                                                    //1X
-                                                    BetOptionId = 21,
-                                                    Odd =
-                                                        oddType.ChildNodes[2].Attributes != null
-                                                            ? Convert.ToDecimal(
-                                                                oddType.ChildNodes[2].Attributes["odd"].Value)
-                                                            : 0
-                                                },
-                                                new MatchOdd
-                                                {
-                                                    //12
-                                                    BetOptionId = 22,
-                                                    Odd =
-                                                        oddType.ChildNodes[1].Attributes != null
-                                                            ? Convert.ToDecimal(
-                                                                oddType.ChildNodes[1].Attributes["odd"].Value)
-                                                            : 0
-                                                },
-                                                new MatchOdd
-                                                {
-                                                    //X2
-                                                    BetOptionId = 23,
-                                                    Odd =
-                                                        oddType.ChildNodes[0].Attributes != null
-                                                            ? Convert.ToDecimal(
-                                                                oddType.ChildNodes[0].Attributes["odd"].Value)
-                                                            : 0
-                                                }
-                                            });
-                                            break;
-                                        case "Half-Time":
-                                            gameodds.AddRange(new[]
-                                            {
-                                                new MatchOdd
-                                                {
-                                                    //1X
-                                                    BetOptionId = 12,
-                                                    Odd =
-                                                        oddType.ChildNodes[0].Attributes != null
-                                                            ? Convert.ToDecimal(
-                                                                oddType.ChildNodes[0].Attributes["odd"].Value)
-                                                            : 0
-                                                },
-                                                new MatchOdd
-                                                {
-                                                    //12
-                                                    BetOptionId = 13,
-                                                    Odd =
-                                                        oddType.ChildNodes[1].Attributes != null
-                                                            ? Convert.ToDecimal(
-                                                                oddType.ChildNodes[1].Attributes["odd"].Value)
-                                                            : 0
-                                                },
-                                                new MatchOdd
-                                                {
-                                                    //X2
-                                                    BetOptionId = 14,
-                                                    Odd =
-                                                        oddType.ChildNodes[2].Attributes != null
-                                                            ? Convert.ToDecimal(
-                                                                oddType.ChildNodes[2].Attributes["odd"].Value)
-                                                            : 0
-                                                }
-                                            });
-                                            break;
-                                        case "Handicap Result":
-                                            //var hhome = Convert.ToInt16(oddType.ChildNodes[0].Attributes["extravalue"].Value);
-                                            //var haway = Convert.ToInt16(oddType.ChildNodes[2].Attributes["extravalue"].Value);
-                                            gameodds.AddRange(new[]
-                                            {
-                                                new MatchOdd
-                                                {
-                                                    // Handicap Home HC1
-                                                    BetOptionId = 24,
-                                                    Odd =
-                                                        Convert.ToDecimal(
-                                                            oddType.ChildNodes[0].Attributes["odd"].Value),
-                                                    //Line = hhome < 0 ? hhome - hhome : hhome
-                                                },
-                                                new MatchOdd
-                                                {
-                                                    // HAndicap Away HC2
-                                                    BetOptionId = 31,
-                                                    Odd =
-                                                        Convert.ToDecimal(
-                                                            oddType.ChildNodes[1].Attributes["odd"].Value),
-                                                    //Line = haway < 0 ? (haway - haway) : haway
-                                                },
-                                                new MatchOdd
-                                                {
-                                                    // HAndicap Away HC2
-                                                    BetOptionId = 25,
-                                                    Odd =
-                                                        Convert.ToDecimal(
-                                                            oddType.ChildNodes[2].Attributes["odd"].Value),
-                                                    //Line = haway < 0 ? (haway - haway) : haway
-                                                }
-
-                                            });
-                                            break;
-
-                                        case "Draw No Bet":
-                                            gameodds.AddRange(new[]
-                                            {
-                                                new MatchOdd
-                                                {
-                                                    //DNB1
-                                                    BetOptionId = 28,
-                                                    Odd =
-                                                        Convert.ToDecimal(
-                                                            oddType.ChildNodes[0].Attributes["odd"].Value)
-                                                },
-                                                new MatchOdd
-                                                {
-                                                    //DNB2
-                                                    BetOptionId = 29,
-                                                    Odd =
-                                                        Convert.ToDecimal(
-                                                            oddType.ChildNodes[1].Attributes["odd"].Value)
-                                                }
-                                            });
-                                            break;
-
-                                        case "Both Teams to Score":
-                                                gameodds.AddRange(new[]
-                                                {
-                                                    new MatchOdd
-                                                    {
-                                                        // GG
-                                                        BetOptionId = 26,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[0].Attributes["odd"].Value)
-                                                    },
-                                                    new MatchOdd
-                                                    {
-                                                        // NG
-                                                        BetOptionId = 27,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[1].Attributes["odd"].Value)
-                                                    }
-                                                });
-                                            break;
-
-                                        case "Total Goals":
-                                                gameodds.AddRange(new[]
-                                                {
-                                                    new MatchOdd
-                                                    {
-                                                        // FTUnder2.5
-                                                        BetOptionId = 6,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[1].Attributes["odd"].Value)
-                                                    },
-                                                    new MatchOdd
-                                                    {
-                                                        // FTOver2.5
-                                                        BetOptionId = 7,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[0].Attributes["odd"].Value)
-                                                    }
-                                                });
-                                            break;
-
-                                        case "Alternative Total Goals":
-                                                gameodds.AddRange(new[]
-                                                {
-                                                    new MatchOdd
-                                                    {
-                                                        // FTUnder0.5
-                                                        BetOptionId = 32,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[1].Attributes["odd"].Value)
-                                                    },
-                                                    new MatchOdd
-                                                    {
-                                                        // FTOver0.5
-                                                        BetOptionId = 33,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[0].Attributes["odd"].Value)
-                                                    },
-                                                    new MatchOdd
-                                                    {
-                                                        // FTUnder1.5
-                                                        BetOptionId = 4,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[3].Attributes["odd"].Value)
-                                                    },
-                                                    new MatchOdd
-                                                    {
-                                                        // FTOver1.5
-                                                        BetOptionId = 5,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[2].Attributes["odd"].Value)
-                                                    },
-                                                
-                                                    new MatchOdd
-                                                    {
-                                                        // FTOver3.5
-                                                        BetOptionId = 9,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[4].Attributes["odd"].Value)
-                                                    },
-                                                        new MatchOdd
-                                                    {
-                                                        // FTUnder3.5
-                                                        BetOptionId = 8,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[5].Attributes["odd"].Value)
-                                                    },
-                                                    new MatchOdd
-                                                    {
-                                                        // FTUnder4.5
-                                                        BetOptionId = 10,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[7].Attributes["odd"].Value)
-                                                    },
-                                                    new MatchOdd
-                                                    {
-                                                        // FTOver4.5
-                                                        BetOptionId = 11,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[6].Attributes["odd"].Value)
-                                                    },
-                                                    new MatchOdd
-                                                    {
-                                                        // FTUnder5.5
-                                                        BetOptionId = 34,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[7].Attributes["odd"].Value)
-                                                    },
-                                                    new MatchOdd
-                                                    {
-                                                        // FTOver5.5
-                                                        BetOptionId = 35,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[6].Attributes["odd"].Value)
-                                                    }
-                                                });
-                                            break;
-                                        case "First Half Goals":
-                                                gameodds.AddRange(new[]
-                                                {
-                                                    new MatchOdd
-                                                    {
-                                                        //HTUnder0.5
-                                                        BetOptionId = 15,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[1].Attributes["odd"].Value)
-                                                    },
-                                                    new MatchOdd
-                                                    {
-                                                        //HTOver0.5
-                                                        BetOptionId = 16,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[0].Attributes["odd"].Value)
-                                                    },
-                                                    new MatchOdd
-                                                    {
-                                                        //HTUnder1.5
-                                                        BetOptionId = 17,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[3].Attributes["odd"].Value)
-                                                    },
-                                                    new MatchOdd
-                                                    {
-                                                        //HTOver1.5
-                                                        BetOptionId = 18,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[2].Attributes["odd"].Value)
-                                                    },
-                                                    new MatchOdd
-                                                    {
-                                                        //HTUnder2.5
-                                                        BetOptionId = 19,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[5].Attributes["odd"].Value)
-                                                    },
-                                                    new MatchOdd
-                                                    {
-                                                        //HTOver2.5
-                                                        BetOptionId = 20,
-                                                        Odd =
-                                                            Convert.ToDecimal(
-                                                                oddType.ChildNodes[4].Attributes["odd"].Value)
-                                                    }
-                                                });
-                                            break;
-                                    }
-                                } 
-                                game.MatchOdds = gameodds;
-                                game.BetServiceMatchNo = Convert.ToInt32(goalServeMatchId);
-                                game.StartTime = Convert.ToDateTime(stDateTime).ToLocalTime();
-                                game.ResultStatus = 1;
-                                game.MatchOdds.ForEach(g => g.BetServiceMatchNo = game.BetServiceMatchNo);
-                                BetDatabase.Matches.AddOrUpdate(game);
-                                await BetDatabase.SaveChangesAsync();
-                            }
+                            BetDatabase.Matches.AddOrUpdate(m => m.BetServiceMatchNo, match);
+                            await BetDatabase.SaveChangesAsync();
                         }
                     }
+
                 }
             }
-            return 1;
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+            }
+            return await Task.FromResult(1);
         }
+
+        #region OldCode
+                //foreach (var url in _urls)
+                //{
+                //    var req = (HttpWebRequest)WebRequest.Create(url);
+                //    var res = (HttpWebResponse)req.GetResponse();
+                //    var stream = res.GetResponseStream();
+                //    var xmldoc = new XmlDocument();
+                //    {
+                //        xmldoc.Load(stream);
+                //        var categoryList = xmldoc.SelectNodes("/scores/category");
+
+                //        if (categoryList == null) return 0;
+                //        foreach (XmlNode node in categoryList)
+                //        {
+                //            var matches = node.ChildNodes;
+                //            foreach (XmlNode matchesNode in matches)
+                //            {
+                //                var games = matchesNode.ChildNodes;
+                //                foreach (XmlNode gameNode in games)
+                //                {
+                //                    var home = gameNode.ChildNodes[0];
+                //                    var away = gameNode.ChildNodes[1];
+                //                    var odd = gameNode.ChildNodes[4];
+                //                    var gameOdds = odd.ChildNodes;
+                //                    var league = node.Attributes["name"] != null
+                //                        ? node.Attributes["name"].InnerText
+                //                        : "FailedLeague";
+                //                    var countryName = node.Attributes["file_group"].InnerText;
+                //                    char[] del = { '.' };
+                //                    var stdate = gameNode.Attributes["formatted_date"].InnerText.Split(del);
+                //                    var stDateTime = stdate[1] + "-" + stdate[0] + "-" + stdate[2]
+                //                                     + " " + gameNode.Attributes["time"].InnerText + ":00";
+                               
+                //                    if (Convert.ToDateTime(stDateTime) > DateTime.Now.AddDays(3))
+                //                    {
+                //                        continue;
+                //                    }
+                //                    var country = BetDatabase.Countries.SingleOrDefault(c => c.CountryName == countryName);
+                //                    if (country == null)
+                //                    {
+                //                        country = new Country
+                //                        {
+                //                            CountryName = countryName
+                //                        };
+                //                        BetDatabase.Countries.AddOrUpdate(c => c.CountryName, country);
+                //                        await BetDatabase.SaveChangesAsync();
+                //                    }
+
+                //                    // save the league
+                //                    BetDatabase.Leagues.AddOrUpdate(l => l.LeagueName, new League
+                //                    {
+                //                        LeagueName = league,
+                //                        Country = country
+
+                //                    });
+                //                    await BetDatabase.SaveChangesAsync();
+
+                //                    var game = new Match();
+                //                    var gameodds = new List<MatchOdd>();
+                //                    game.League = league;
+                //                    game.StartTime = Convert.ToDateTime(stDateTime).ToLocalTime();
+                               
+                //                    if (home.Name == "localteam")
+                //                    {
+                //                        _homeTeam = new Team
+                //                        {
+                //                            TeamName = home.Attributes["name"].InnerText,
+                //                            CountryId = country.CountryId
+                //                        };
+                //                        BetDatabase.Teams.AddOrUpdate(t => t.TeamName, _homeTeam);
+                //                        await BetDatabase.SaveChangesAsync();
+                //                        game.HomeTeamId = _homeTeam.TeamId;
+                //                    }
+                //                    if (away.Name == "visitorteam")
+                //                    {
+                //                        _awayTeam = new Team
+                //                        {
+                //                            TeamName = away.Attributes["name"].InnerText,
+                //                            CountryId = country.CountryId
+                //                        };
+                //                        BetDatabase.Teams.AddOrUpdate(t => t.TeamName, _awayTeam);
+                //                        await BetDatabase.SaveChangesAsync();
+                //                        game.AwayTeamId = _awayTeam.TeamId;
+
+                //                    }
+
+                              
+                              
+                //                    var goalServeMatchId = gameNode.Attributes["id"].InnerText;
+
+                //                    foreach (XmlNode oddType in gameOdds) 
+                //                    {
+                //                        var bettype = oddType.Attributes["name"].InnerText;
+                //                        switch (bettype)
+                //                        {
+                //                            case "Full Time Result":
+                //                                var normalOdds = oddType.ChildNodes;
+                //                                foreach (XmlNode normalodd in normalOdds)
+                //                                {
+                //                                    var choice = normalodd.Attributes.GetNamedItem("name").Value;
+                //                                    if (choice == _homeTeam.TeamName + " Win")
+                //                                    {
+                //                                        gameodds.Add(new MatchOdd
+                //                                        {
+                //                                            //1
+                //                                            BetOptionId = 1,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    normalodd.Attributes.GetNamedItem("odd").Value)
+                //                                        });
+                //                                    }
+                //                                    else if (choice == "Draw")
+                //                                    {
+                //                                        gameodds.Add(new MatchOdd
+                //                                        {
+                //                                            // X
+                //                                            BetOptionId = 2,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    normalodd.Attributes.GetNamedItem("odd").Value)
+                //                                        });
+                //                                    }
+                //                                    else if (choice == _awayTeam.TeamName + " Win")
+                //                                    {
+                //                                        gameodds.Add(new MatchOdd
+                //                                        {
+                //                                            // 2
+                //                                            BetOptionId = 3,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    normalodd.Attributes.GetNamedItem("odd").Value)
+                //                                        });
+                //                                    }
+                //                                }
+                //                                break;
+                //                            case "Double Chance":
+                //                                gameodds.AddRange(new[]
+                //                                {
+                //                                    new MatchOdd
+                //                                    {
+                //                                        //1X
+                //                                        BetOptionId = 21,
+                //                                        Odd =
+                //                                            oddType.ChildNodes[2].Attributes != null
+                //                                                ? Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[2].Attributes["odd"].Value)
+                //                                                : 0
+                //                                    },
+                //                                    new MatchOdd
+                //                                    {
+                //                                        //12
+                //                                        BetOptionId = 22,
+                //                                        Odd =
+                //                                            oddType.ChildNodes[1].Attributes != null
+                //                                                ? Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[1].Attributes["odd"].Value)
+                //                                                : 0
+                //                                    },
+                //                                    new MatchOdd
+                //                                    {
+                //                                        //X2
+                //                                        BetOptionId = 23,
+                //                                        Odd =
+                //                                            oddType.ChildNodes[0].Attributes != null
+                //                                                ? Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[0].Attributes["odd"].Value)
+                //                                                : 0
+                //                                    }
+                //                                });
+                //                                break;
+                //                            case "Half-Time":
+                //                                gameodds.AddRange(new[]
+                //                                {
+                //                                    new MatchOdd
+                //                                    {
+                //                                        //1X
+                //                                        BetOptionId = 12,
+                //                                        Odd =
+                //                                            oddType.ChildNodes[0].Attributes != null
+                //                                                ? Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[0].Attributes["odd"].Value)
+                //                                                : 0
+                //                                    },
+                //                                    new MatchOdd
+                //                                    {
+                //                                        //12
+                //                                        BetOptionId = 13,
+                //                                        Odd =
+                //                                            oddType.ChildNodes[1].Attributes != null
+                //                                                ? Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[1].Attributes["odd"].Value)
+                //                                                : 0
+                //                                    },
+                //                                    new MatchOdd
+                //                                    {
+                //                                        //X2
+                //                                        BetOptionId = 14,
+                //                                        Odd =
+                //                                            oddType.ChildNodes[2].Attributes != null
+                //                                                ? Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[2].Attributes["odd"].Value)
+                //                                                : 0
+                //                                    }
+                //                                });
+                //                                break;
+                //                            case "Handicap Result":
+                //                                //var hhome = Convert.ToInt16(oddType.ChildNodes[0].Attributes["extravalue"].Value);
+                //                                //var haway = Convert.ToInt16(oddType.ChildNodes[2].Attributes["extravalue"].Value);
+                //                                gameodds.AddRange(new[]
+                //                                {
+                //                                    new MatchOdd
+                //                                    {
+                //                                        // Handicap Home HC1
+                //                                        BetOptionId = 24,
+                //                                        Odd =
+                //                                            Convert.ToDecimal(
+                //                                                oddType.ChildNodes[0].Attributes["odd"].Value),
+                //                                        //Line = hhome < 0 ? hhome - hhome : hhome
+                //                                    },
+                //                                    new MatchOdd
+                //                                    {
+                //                                        // HAndicap Away HC2
+                //                                        BetOptionId = 31,
+                //                                        Odd =
+                //                                            Convert.ToDecimal(
+                //                                                oddType.ChildNodes[1].Attributes["odd"].Value),
+                //                                        //Line = haway < 0 ? (haway - haway) : haway
+                //                                    },
+                //                                    new MatchOdd
+                //                                    {
+                //                                        // HAndicap Away HC2
+                //                                        BetOptionId = 25,
+                //                                        Odd =
+                //                                            Convert.ToDecimal(
+                //                                                oddType.ChildNodes[2].Attributes["odd"].Value),
+                //                                        //Line = haway < 0 ? (haway - haway) : haway
+                //                                    }
+
+                //                                });
+                //                                break;
+
+                //                            case "Draw No Bet":
+                //                                gameodds.AddRange(new[]
+                //                                {
+                //                                    new MatchOdd
+                //                                    {
+                //                                        //DNB1
+                //                                        BetOptionId = 28,
+                //                                        Odd =
+                //                                            Convert.ToDecimal(
+                //                                                oddType.ChildNodes[0].Attributes["odd"].Value)
+                //                                    },
+                //                                    new MatchOdd
+                //                                    {
+                //                                        //DNB2
+                //                                        BetOptionId = 29,
+                //                                        Odd =
+                //                                            Convert.ToDecimal(
+                //                                                oddType.ChildNodes[1].Attributes["odd"].Value)
+                //                                    }
+                //                                });
+                //                                break;
+
+                //                            case "Both Teams to Score":
+                //                                    gameodds.AddRange(new[]
+                //                                    {
+                //                                        new MatchOdd
+                //                                        {
+                //                                            // GG
+                //                                            BetOptionId = 26,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[0].Attributes["odd"].Value)
+                //                                        },
+                //                                        new MatchOdd
+                //                                        {
+                //                                            // NG
+                //                                            BetOptionId = 27,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[1].Attributes["odd"].Value)
+                //                                        }
+                //                                    });
+                //                                break;
+
+                //                            case "Total Goals":
+                //                                    gameodds.AddRange(new[]
+                //                                    {
+                //                                        new MatchOdd
+                //                                        {
+                //                                            // FTUnder2.5
+                //                                            BetOptionId = 6,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[1].Attributes["odd"].Value)
+                //                                        },
+                //                                        new MatchOdd
+                //                                        {
+                //                                            // FTOver2.5
+                //                                            BetOptionId = 7,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[0].Attributes["odd"].Value)
+                //                                        }
+                //                                    });
+                //                                break;
+
+                //                            case "Alternative Total Goals":
+                //                                    gameodds.AddRange(new[]
+                //                                    {
+                //                                        new MatchOdd
+                //                                        {
+                //                                            // FTUnder0.5
+                //                                            BetOptionId = 32,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[1].Attributes["odd"].Value)
+                //                                        },
+                //                                        new MatchOdd
+                //                                        {
+                //                                            // FTOver0.5
+                //                                            BetOptionId = 33,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[0].Attributes["odd"].Value)
+                //                                        },
+                //                                        new MatchOdd
+                //                                        {
+                //                                            // FTUnder1.5
+                //                                            BetOptionId = 4,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[3].Attributes["odd"].Value)
+                //                                        },
+                //                                        new MatchOdd
+                //                                        {
+                //                                            // FTOver1.5
+                //                                            BetOptionId = 5,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[2].Attributes["odd"].Value)
+                //                                        },
+                                                
+                //                                        new MatchOdd
+                //                                        {
+                //                                            // FTOver3.5
+                //                                            BetOptionId = 9,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[4].Attributes["odd"].Value)
+                //                                        },
+                //                                            new MatchOdd
+                //                                        {
+                //                                            // FTUnder3.5
+                //                                            BetOptionId = 8,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[5].Attributes["odd"].Value)
+                //                                        },
+                //                                        new MatchOdd
+                //                                        {
+                //                                            // FTUnder4.5
+                //                                            BetOptionId = 10,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[7].Attributes["odd"].Value)
+                //                                        },
+                //                                        new MatchOdd
+                //                                        {
+                //                                            // FTOver4.5
+                //                                            BetOptionId = 11,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[6].Attributes["odd"].Value)
+                //                                        },
+                //                                        new MatchOdd
+                //                                        {
+                //                                            // FTUnder5.5
+                //                                            BetOptionId = 34,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[7].Attributes["odd"].Value)
+                //                                        },
+                //                                        new MatchOdd
+                //                                        {
+                //                                            // FTOver5.5
+                //                                            BetOptionId = 35,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[6].Attributes["odd"].Value)
+                //                                        }
+                //                                    });
+                //                                break;
+                //                            case "First Half Goals":
+                //                                    gameodds.AddRange(new[]
+                //                                    {
+                //                                        new MatchOdd
+                //                                        {
+                //                                            //HTUnder0.5
+                //                                            BetOptionId = 15,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[1].Attributes["odd"].Value)
+                //                                        },
+                //                                        new MatchOdd
+                //                                        {
+                //                                            //HTOver0.5
+                //                                            BetOptionId = 16,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[0].Attributes["odd"].Value)
+                //                                        },
+                //                                        new MatchOdd
+                //                                        {
+                //                                            //HTUnder1.5
+                //                                            BetOptionId = 17,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[3].Attributes["odd"].Value)
+                //                                        },
+                //                                        new MatchOdd
+                //                                        {
+                //                                            //HTOver1.5
+                //                                            BetOptionId = 18,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[2].Attributes["odd"].Value)
+                //                                        },
+                //                                        new MatchOdd
+                //                                        {
+                //                                            //HTUnder2.5
+                //                                            BetOptionId = 19,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[5].Attributes["odd"].Value)
+                //                                        },
+                //                                        new MatchOdd
+                //                                        {
+                //                                            //HTOver2.5
+                //                                            BetOptionId = 20,
+                //                                            Odd =
+                //                                                Convert.ToDecimal(
+                //                                                    oddType.ChildNodes[4].Attributes["odd"].Value)
+                //                                        }
+                //                                    });
+                //                                break;
+                //                        }
+                //                    } 
+                //                    game.MatchOdds = gameodds;
+                //                    game.BetServiceMatchNo = Convert.ToInt32(goalServeMatchId);
+                //                    game.StartTime = Convert.ToDateTime(stDateTime).ToLocalTime();
+                //                    game.ResultStatus = 1;
+                //                    game.MatchOdds.ForEach(g => g.BetServiceMatchNo = game.BetServiceMatchNo);
+                //                    BetDatabase.Matches.AddOrUpdate(game);
+                //                    await BetDatabase.SaveChangesAsync();
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
+                //return 1;
+                #endregion
 
         public void AddOdd(MatchOddsVm odds)
         {

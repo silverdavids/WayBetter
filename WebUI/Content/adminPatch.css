@@ -1,0 +1,134 @@
+﻿body {
+    background-color: #ffffff;
+    font-family: 'latoregular';
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.form-control {
+    border-radius: 0;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+.btn-primary {
+    background-color: #022a50;
+}
+
+.navbar {
+    background-color: #022a50;
+}
+
+#logoutForm {
+    padding-top: 8px;
+    font-size: 0.9em;
+    padding-bottom: 12px;
+}
+
+#logoutForm a, a:hover {
+    text-decoration: none;
+}
+
+/*a.mycustom-logout {
+    padding-bottom: 20px;
+}*/
+
+ul.main-menu > li a {
+    background-color: white;
+    color: #555555;
+}
+
+.main-header {
+    margin-bottom: 5px;
+}
+
+.top-bar .notifications .count {
+    border-color: #4ba84b;
+}
+
+.content-wrapper {
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.bottom .container .content-wrapper {
+    background-color: #ffffff;
+    border-left: 1px solid #e4e4e4;
+}
+
+#form1 .form-group {
+    padding-left: 15px;
+}
+
+.col-lg-12 {
+    padding-left: 0;
+}
+
+
+/*  Wizard Styles */
+.step-content {
+    margin-top: 5px;
+    padding-left: 0;
+}
+
+.step-pane input[type="text"] {
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: #000000;
+}
+
+.step-pane .form-group {
+    padding-bottom: 10px;
+}
+
+.wizard ul li {
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.col-md-4 .form-group {
+    padding-left: 0;
+}
+
+.widget-content {
+    background-color: #ffffff;
+}
+
+legend {
+    font-size: 1.0em;
+    font-weight: bold;
+}
+
+fieldset .form-group {
+    padding-left: 15px;
+}
+
+.main-content {
+    padding-bottom: 0;
+}
+
+
+/* Profile Page Styles */
+.col-md-3, .col-md-5, .col-md-6, .col-md-4, .col-sm-12, .col-sm-8, .col-md-12, .col-sm-6 {
+    padding-left: 0;
+}
+
+.profile .user-info-left, .profile .user-info-right {
+    padding: 10px 5px;
+}
+
+.user-info-right > div {
+    margin-bottom: 60px;
+}
+
+.content .row {
+    margin-left: 0;
+    margin-right: 0;
+}

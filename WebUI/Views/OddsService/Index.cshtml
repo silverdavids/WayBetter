@@ -1,0 +1,213 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_admin.cshtml";
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/bootstrapcss/bootstrap-progressbar-2.0.0.css" type="text/css" rel="stylesheet" />
+<style>
+    thead {
+        background-color: #022a50;
+        border-color: #022a50;
+        color: #fff;
+    }
+
+    .progress {
+        height: 6px;
+        font-size: 4px;
+        margin-bottom: 2px;
+        border-radius: 0;
+    }
+
+    #gamesTable {
+        font-size: 10px;
+    }
+
+    #gamesTable thead {
+        text-align: center;
+    }
+
+    #gamesTable tbody {
+        font-size: 12px;
+    }
+
+    #gamesTable > tbody > tr> td {
+        padding: 4px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="form-group">
+            <div class="col-md-4">
+                <div class="col-sm-5">
+                    Choose Country:
+                </div>
+                <div class="col-sm-7">
+                    @Html.DropDownList("Country", new SelectList(new[] { "Uganda", "Tanzania" }), new { @class = "form-control" })    
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-sm-12">
+                    <input type="button" value="Test Odds Upload" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="col-md-2" id="totalGames">
+            </div>
+            <div class="col-md-3" id="progress"></div>
+        </div>
+    </div>    
+</div>
+<div class="row" style="margin-top: 2px;">
+    <div class="col-lg-12 progress">
+        <div class="progress-bar progress-bar-success" role="progressbar">
+        </div>
+    </div>
+</div>
+<div class="row col-lg-12" style="margin-top: 2px; overflow-x: scroll; overflow-y: scroll;">
+    <table id="gamesTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th><th>
+                <th></th>
+                <th colspan="4"></th>
+                <th colspan="2">Under/Over<br />0.5</th>
+                <th colspan="2">Under/Over<br />1.5</th>
+                <th colspan="2">Under/Over<br />2.5</th>
+                <th colspan="2">Under/Over<br />3.5</th>
+                <th colspan="2">Under/Over<br />4.5</th>
+                <th colspan="2">Under/Over<br />5.5</th>
+                <th colspan="2">Under/Over<br />6.5</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Saved</th>
+                <th>MatchNo</th>
+                <th>League</th>
+                <th>Start Time</th>
+                <th>Teams</th>
+                <th>1</th>
+                <th>X</th>
+                <th>2</th>
+                <th><i class="fa fa-sort-down"></i></th>
+                <th><i class="fa fa-sort-up"></i></th>
+                <th><i class="fa fa-sort-down"></i></th>
+                <th><i class="fa fa-sort-up"></i></th>
+                <th><i class="fa fa-sort-down"></i></th>
+                <th><i class="fa fa-sort-up"></i></th>
+                <th><i class="fa fa-sort-down"></i></th>
+                <th><i class="fa fa-sort-up"></i></th>
+                <th><i class="fa fa-sort-down"></i></th>
+                <th><i class="fa fa-sort-up"></i></th>
+                <th><i class="fa fa-sort-down"></i></th>
+                <th><i class="fa fa-sort-up"></i></th>
+                <th><i class="fa fa-sort-down"></i></th>
+                <th><i class="fa fa-sort-up"></i></th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/bootstrap/bootstrap-progressbar.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.1.2.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        $(document).ready(function () {
+            var oddshub = $.connection.oddsServiceHub;
+            oddshub.client.preprogress = function (data) {
+                console.log(data);
+            };
+
+            // Call for a game that has been read
+            oddshub.client.uploadprogress = function(data) {
+                console.log(data);
+            };
+            
+
+            // start the hub
+            $.connection.hub.start().done(function () {
+                // Initiate a call to the upload service
+                oddshub.server.goalServeUpload();
+            });
+        });
+    </script>
+        @*(function() {
+
+            //var bar = $('.progress .progress-bar').progressbar({
+            //    display_text: 'none',
+            //    use_percentage: false,
+            //    transition_delay: 15,
+            //    refresh_speed: 25
+            //});
+
+
+            //var totalgames = 0;
+
+            //var servicehub = $.connection.betServiceUpdateHub;
+            //$.connection.betServiceUpdateHub.logging = true;        
+
+            // Initiate a server's process
+            //servicehub.client.SendStartProcessData = function(data) {
+            //    totalgames = data.Count;
+            //    $('#totalGames').append('<b>Found ' + data.Count + ' games.</b>');
+            //    if (totalgames > 0) $('#progress').append('<p>Please wait while we upload the games and odds......</p>');
+            //};
+
+            
+
+            testhub.client.uploadprogress = function(data) {
+                console.log(data);
+            };
+            //    //var statusInput;
+            //    //if (match.status === 'Yes') {
+            //    //    statusInput = '<i class="fa fa-check" style="color: green;"></i>';
+            //    //} else {
+            //    //    statusInput = '<i class="fa fa-times" style="color: red;"></i>';
+            //    //}
+            //    //$('#gamesTable').find('tbody').append('<tr>'
+            //    //    + '<td>' + statusInput + '</td>'
+            //    //    + '<td>' + match.feedmatch.BetServiceMatchNo + '</td>'
+            //    //    + '<td>' + match.feedmatch.League + '</td>'
+            //    //    + '<td>' + match.FormattedTime + '</td>'
+            //    //    + '<td>' + match.feedmatch.HomeTeam.TeamName + " vs " + match.feedmatch.HomeTeam.TeamName + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, '1X2', '1', '') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, '1X2', 'X', '') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, '1X2', '2', '') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, 'Under/Over', 'Under', '0.5') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, 'Under/Over', 'Over', '0.5') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, 'Under/Over', 'Under', '1.5') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, 'Under/Over', 'Over', '1.5') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, 'Under/Over', 'Under', '2.5') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, 'Under/Over', 'Over', '2.5') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, 'Under/Over', 'Under', '3.5') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, 'Under/Over', 'Over', '3.5') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, 'Under/Over', 'Under', '4.5') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, 'Under/Over', 'Over', '4.5') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, 'Under/Over', 'Under', '5.5') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, 'Under/Over', 'Over', '5.5') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, 'Under/Over', 'Under', '6.5') + '</td>'
+            //    //    + '<td>' + searchOdd(match.feedmatch.MatchOdds, 'Under/Over', 'Over', '6.5') + '</td>'
+            //    //    + '</tr>');
+
+            //    //$('#progress').html('<p>Uploaded ' + match.totalSaved + ' out of ' + totalgames + ' games.</p>');
+
+            //    //var percentage = parseInt((match.totalSaved / totalgames) * 100);
+            //    //bar.attr('data-transitiongoal', percentage).progressbar();
+            //};
+
+            
+
+            function searchOdd(odds, category, betoption, line) {
+                var odd = 0;
+                if (odds.length == 0) return odd;
+                $.each(odds, function(key, value) {
+                    if (value.BetOption.BetCategory.Name === category && value.BetOption.Option === betoption && value.BetOption.Line === line) {
+                        odd = value.Odd;
+                    }
+                });
+                return odd;
+            }*@
+}
