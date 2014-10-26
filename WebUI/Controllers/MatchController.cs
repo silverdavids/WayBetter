@@ -250,8 +250,8 @@ namespace WebUI.Controllers
         }
 
 
-       // [HttpPost]
-        //public  async Task<JsonResult> ReceiveReceipt(Receipt1 receipts)
+    // [HttpPost]
+       //public  async Task<JsonResult> ReceiveReceipt(Receipt1 receipts)
         //{  
     //        var bcg = new BarCodeGenerator();
     //        var account = await BetDatabase.Accounts.SingleOrDefaultAsync(x => x.UserId == User.Identity.Name);

@@ -42,7 +42,7 @@ namespace WebUI.Controllers
                     return RedirectToAction("Index", "Matches");
                     //return RedirectToLocal("~/Match/Index");
                 }
-                return UserManager.IsInRole(user.Id, "Manager") ? RedirectToAction("Index", "Match") : RedirectToLocal(UserManager.IsInRole(user.Id, "Admin") ? "~/Admin/SummaryReport" : returnUrl);
+                return UserManager.IsInRole(user.Id, "Manager") ? RedirectToAction("Index", "Manager") : RedirectToLocal(UserManager.IsInRole(user.Id, "Admin") ? "~/Admin/SummaryReport" : returnUrl);
             }
             ModelState.AddModelError("", "Invalid username or password.");
 

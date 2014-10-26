@@ -63,11 +63,27 @@ function BetList(bets) {
            
             if (bet.matchId === matchId || bet.matchId===0) {
                 //alert(" " + bet.matchId + "Froma Ui " +  matchId+ "in bet");
-                found=true;
+                found = true;
+
             }
            
         });
         return found;
+    };
+    this.checkRemoveBetByMatchId = function (matchId, optionId) {
+
+        var betMatchId = null;
+       for(var i in bets) {
+
+           if (bets[i].matchId === matchId && bets[i].optionId === optionId) {
+                alert(" " + bets[i].matchId + "Froma Ui " +  matchId+ "in bet");
+                betMatchId = bets[i].matchId
+                this.removeBet(bets[i].betId);
+                break;
+            }
+
+        };
+       return betMatchId;
     };
     this.getBetByOptionNameAndMatchId = function (matchId, optionName) {
 

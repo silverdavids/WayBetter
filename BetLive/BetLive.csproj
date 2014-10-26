@@ -278,6 +278,9 @@
     <Content Include="Content\jasny-bootstrap.css" />
     <Content Include="Content\loading-bar.css" />
     <Content Include="Content\loading-bar.js" />
+    <Content Include="Content\ngDialog-theme-default.css" />
+    <Content Include="Content\ngDialog-theme-plain.css" />
+    <Content Include="Content\ngDialog.css" />
     <Content Include="Content\printReceipt.css" />
     <Content Include="Content\receipt.css" />
     <Content Include="Content\Site.css" />
@@ -673,6 +676,7 @@
     <Content Include="Scripts\Angular\vender\jquery.js" />
     <Content Include="Scripts\Angular\vender\json3.js" />
     <Content Include="Scripts\Angular\vender\loading-bar.js" />
+    <Content Include="Scripts\Angular\vender\ngDialog.js" />
     <Content Include="Scripts\Angular\views\about.html" />
     <Content Include="Scripts\Angular\views\branchlist.html" />
     <Content Include="Scripts\Angular\views\company.html" />

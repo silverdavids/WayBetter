@@ -29,10 +29,13 @@ function ReceiptGen() {
             } else {
                 if (fieldName == "teamVersus" && bet.betCategory == "Handicap") {
                     $input.text(bet[fieldName] + "-     " + bet["handCapGoalString"]);
-                } else {
+                } else if (fieldName == "teamVersus" && bet.liveScores!="") {
+                    $input.text(bet[fieldName] + "( " + "Live " + bet["startTime"] + " : " + bet["liveScores"] + ")");
+                }else {
                     $input.text(bet[fieldName]);
                 }
             }
+            
         });
 
     };

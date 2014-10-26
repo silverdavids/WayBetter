@@ -212,21 +212,44 @@
 </div> <!-- container -->
 <!--Match Templates for each category-->
 <script id="login.html" type="text/ng-template">
-    <div class="col-lg-4">
+    <form class="form-login" role="form">
+    <h2 class="form-login-heading">Login</h2>
+    <input type="text" class="form-control" placeholder="Username" data-ng-model="loginData.userName" required autofocus>
+    <input type="password" class="form-control" placeholder="Password" data-ng-model="loginData.password" required>
+    <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="login()">Login</button>
+    <div data-ng-hide="message == ''" class="alert alert-danger">
+        {{message}}
     </div>
-    <div class="col-lg-4">
+</form>
+   <!-- <div class="modal-content" ng-controller="loginCtrl">
         <form class="form-login" role="form">
-            <h2 class="form-login-heading">Login</h2>
-            <input type="text" class="form-control" placeholder="Username" data-ng-model="loginData.userName" required autofocus>
-            <input type="password" class="form-control" placeholder="Password" data-ng-model="loginData.password" required>
-            <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="login()">Login</button>
-            <div data-ng-hide="message == ''" class="alert alert-danger">
-                {{message}}
-            </div>
-        </form>
+            <div class="col-lg-12">
+               
+                    <h2 class="form-login-heading">Login</h2>
+                    <input type="text" class="form-control" placeholder="Username" data-ng-model="loginData.userName" required autofocus>
+                    <input type="password" class="form-control" placeholder="Password" data-ng-model="loginData.password" required>
+                
+                                   
+                        <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="signin()">Login</button>
+                    </div>
+                    
+                    <div data-ng-hide="message == ''" class="alert alert-danger">
+                        {{message}}
+                    </div>
+                    
+               
+           </form>
+        <div class="ngdialog-buttons">
+            <button class="btn btn-lg btn-warning btn-block" data-ng-click="cancel()">Cancel</button>
+        </div>
+                 
     </div>
-    <div class="col-lg-4"></div>
+-->
 </script>
+
+
+
+
 <script id="signup.html" type="text/ng-template">
     <div class="col-lg-4"></div>
     <div class="col-lg-4">
@@ -525,95 +548,53 @@
 
                                 <td data-field="shortCode" class="short-code"> {{ game.ShortCode }} </td>
                                 <td data-field="matchId" class="match-code hidden">{{game.MatchNo }}</td>
-
                                 <td data-field="startTime" class="start-time">{{ game.Minutes }}</td>
-
-                                <td data-field="teamVersus" class="team-versus hidden">{{ game.LocalTeam }} +" vs " +{{ game.AwayTeam}}</td>
-
+                                <td data-field="startDate" class="start-date hidden"> {{ game.StartDate}}</td>
+                                <td data-field="teamVersus" class="team-versus hidden">{{ game.LocalTeam }}  vs  {{ game.AwayTeam}}</td>
                                 <td>{{ game.LocalTeam }}</td>
-
                                 <td data-field="liveScores" class="live-scores">{{ game.LocalTeamScore }} - {{ game.AwayTeamScore }}</td>
-
                                 <td>{{ game.AwayTeam }}</td>
-
                                 <td style="padding-bottom: 0px;">
-
                                     <input type="button" class="btn btn-sm btn-default FT-1 odd" value="{{ game.FullTimeOdds.HomeWins }}" data-odd-type="Live" data-option-id="80" data-option-name="FT1" data-bet-category="FT1X2" />
-
+                                    
                                 </td>
-
                                 <td>
-
                                     <input type="button" class="btn btn-sm btn-default FT-X odd" value="{{ game.FullTimeOdds.Draw }}" data-odd-type="Live" data-option-id="81" data-option-name="FTX" data-bet-category="FT1X2" />
-
                                 </td>
-
                                 <td>
-
                                     <input type="button" class="btn btn-sm btn-default FT-2 odd" value="{{ game.FullTimeOdds.AwayWins }}" data-odd-type="Live" data-option-id="83" data-option-name="FT2" data-bet-category="FT1X2" />
-
                                 </td>
-
                                 <td>
-
                                     <input type="button" class="btn btn-sm btn-default odd" value="{{ game.UnderOverOdds.Under }}" data-odd-type="Live" data-option-id="78" data-option-name="U" data-bet-category="U/O" />
-
                                 </td>
                                 <td style="padding-top: 14px;">
-
                                     <span style="color:#E9860D;" class="extra-value" data-field="extraValue">{{ game.UnderOverOdds.ExtraValue }}</span>
-
                                 </td>
-
                                 <td>
-
                                     <input type="button" class="btn btn-sm btn-default odd" value="{{ game.UnderOverOdds.Over }}" data-odd-type="Live" data-option-id="79" data-option-name="O" data-bet-category="U/O" />
-
                                 </td>
-
-
                                 <td style="padding-bottom: 0px;">
                                     <input type="button" class="btn btn-sm btn-default FT-1 odd" value="{{game.DoubleChance.HomeWinsOrDraw}}" data-odd-type="Live" data-option-id="75" data-option-name="DC-1" data-bet-category="Double Chance" />
-
                                 </td>
-
                                 <td>
-
                                     <input type="button" class="btn btn-sm btn-default FT-X odd" value="{{game.DoubleChance.HomeWinsOrAwayWins}}" data-odd-type="Live" data-option-id="76" data-option-name="DC-X" data-bet-category="Double Chance" />
-
                                 </td>
-
                                 <td>
-
                                     <input type="button" class="btn btn-sm btn-default FT-2 odd" value="{{game.DoubleChance.AwayWinsOrDraw}}" data-odd-type="Live" data-option-id="77" data-option-name="DC-2" data-bet-category="Double Chance" />
-
                                 </td>
-
                                 <td style="padding-bottom: 0px;">
-
                                     <input type="button" class="btn btn-sm btn-default FT-1 odd" value="{{game.NextGoalOdds.HomeScores}}" data-odd-type="Live" data-option-id="71" data-option-name="FT1-NG" data-bet-category="FT1X2-NG" />
-
                                 </td>
-
                                 <td>
-
                                     <input type="button" class="btn btn-sm btn-default FT-X odd" value="{{game.NextGoalOdds.Draw}}" data-odd-type="Live" data-option-id="72" data-option-name="FTX-NG" data-bet-category="FT1X2-NG" />
-
                                 </td>
-
                                 <td>
-
                                     <input type="button" class="btn btn-sm btn-default FT-2 odd" value="{{game.NextGoalOdds.AwayScores}}" data-odd-type="Live" data-option-id="73" data-option-name="FT2-NG" data-bet-category="FT1X2-NG" />
-
                                 </td>
-
                             </tr>
                         </tbody>
                     </table>
-                    </td>
-                    </tr>
-                    </tbody>
-                    </table>
+                   
                 </div>
             </div>
             <div class="col-lg-3">

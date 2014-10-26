@@ -19,7 +19,9 @@
     <link href="@Url.Content("~/Content/receipt.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/printReceipt.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/jasny-bootstrap.css")" rel="stylesheet" />
-
+    <link href="@Url.Content("~/Content/ngDialog.css")" rel="stylesheet" />
+    ><link href="@Url.Content("~/Content/ngDialog-theme-default.css")" rel="stylesheet" />
+    ><link href="@Url.Content("~/Content/ngDialog-theme-plain.css")" rel="stylesheet" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -54,7 +56,7 @@
                     <li data-ng-hide="!authentication.isAuth"><a href="#/company">Companies</a></li>
                     <li><a href="#/matches">Matches</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>
-                    <li data-ng-hide="authentication.isAuth"> <a href="#/login">Login</a></li>
+                    <li data-ng-hide="authentication.isAuth" > <a href= "#/login">Login</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>
                     <li><input type="button" value="Ticket" data-target="#app" data-toggle="offcanvas" class="btn  btn-warning" /></li>
                 </ul>
@@ -115,7 +117,7 @@
     <script src="@Url.Content("~/Scripts/Angular/vender/angular-local-storage.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Angular/vender/loading-bar.js")"></script>
     <script src="@Url.Content("~/Scripts/Bootstrap/ui-bootstrap-tpls-0.11.2.min.js")"></script>
-
+  
     <!--Receipt js files-->
     <script src="@Url.Content("~/Scripts/app/autoNumeric.js")"></script>
     <script src="@Url.Content("~/Scripts/app/bet.js")"></script>
@@ -149,7 +151,7 @@
     <script src="@Url.Content("~/Scripts/Angular/scripts/controllers/shift.js")"></script>
     <script src="@Url.Content("~/Scripts/Angular/directives/tablesDirectives.js")"></script>
     <script src="@Url.Content("~/Scripts/Bootstrap/jasny-bootstrap.js")"></script>
-
+    <script src="@Url.Content("~/Scripts/Angular/vender/ngDialog.js")"></script>
 
 
     <!-- endbuild -->

@@ -81,8 +81,8 @@ namespace BetLive.Hubs
             {
                 --mockXmlFileExt;
             }
-            var scores = await /*myController.GetGamesScoresFromXml(mockXmlFileExt);*/GetGamesScores();
-            var odds = await /*myController.GetGamesOddsFromXml(mockXmlFileExt);*/ GetGamesOdds();
+            var scores = await myController.GetGamesScoresFromXml(mockXmlFileExt);/*GetGamesScores();*/
+            var odds = await myController.GetGamesOddsFromXml(mockXmlFileExt);/* GetGamesOdds();*/
             var allGames = (from gamescore in scores
                             join gameodds in odds
                             on gamescore.MatchNo equals gameodds.MatchNo
@@ -91,6 +91,7 @@ namespace BetLive.Hubs
                                 ShortCode = generateOrGetShortMatchCode(gamescore.MatchNo),
                                 MatchNo = gamescore.MatchNo,
                                 Minutes = gamescore.Minutes,
+                                StartDate = gameodds.StartDate,
                                 AwayTeam = gamescore.AwayTeam,
                                 LocalTeam = gamescore.LocalTeam,
                                 AwayTeamScore = gamescore.AwayTeamScore,
@@ -193,6 +194,7 @@ namespace BetLive.Hubs
                     {
                         testGame.MatchNo = match.Attributes["id"].InnerText;
                         testGame.Minutes = match.Attributes["minute"].InnerText;
+                       // testGame.StartDate = DateTime.Now.Date.ToString();
                     }
 
                     foreach (XmlNode team in teams)
@@ -270,6 +272,7 @@ namespace BetLive.Hubs
                     if (match.Attributes != null)
                     {
                         testGame.MatchNo = match.Attributes["id"].InnerText;
+                        testGame.StartDate = match.Attributes["formatted_date"].InnerText;
                         var odds = match.LastChild;
                         foreach (XmlNode odd in odds)
                         {
@@ -463,6 +466,7 @@ namespace BetLive.Hubs
                     {
                         testGame.MatchNo = match.Attributes["id"].InnerText;
                         testGame.Minutes = match.Attributes["minute"].InnerText;
+                       // testGame.StartDate = DateTime.Now.Date.ToString();
                     }
 
                     foreach (XmlNode team in teams)
@@ -524,6 +528,8 @@ namespace BetLive.Hubs
                     if (match.Attributes != null)
                     {
                         testGame.MatchNo = match.Attributes["id"].InnerText;
+                        testGame.StartDate = match.Attributes["formatted_date"].InnerText;
+                       // testGame.StartDate = match.Attributes["date"].InnerText;
                         var odds = match.LastChild;
                         foreach (XmlNode odd in odds)
                         {
@@ -603,6 +609,7 @@ namespace BetLive.Hubs
         public int ShortCode { get; set; }
         public string MatchNo { get; set; }
         public string Minutes { get; set; }
+        public string StartDate { get; set; }
         public string LocalTeam { get; set; }
         public string AwayTeam { get; set; }
         public string LocalTeamScore { get; set; }

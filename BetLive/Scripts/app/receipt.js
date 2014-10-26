@@ -24,7 +24,7 @@ function BettingApp() {
        // bet = _tax || 0.15;
        // Bet.localTax = _tax||0.15;
         maximumNumBet = _maximumNumBet || 12;
-        minStake = _minStake || 1000;
+        minStake = _minStake || 3000;
         Bet.setMaxPayoutPossible = _setMaxPayoutPossible || 50000000;
         updateSummaryFields();
        
@@ -521,6 +521,80 @@ $(function () {
         } else {
             //$that.removeClass("selected_option");
             alert("Match already exits on the receipt remove it first to select again");
+        }
+
+    });
+        //listening to the change event of the table odds
+    $('table.oddstable').delegate('.oddinput', 'change', function () {
+
+         alert("fired change");
+
+        var $that = $(this);
+        //check if the match has already been selected on the receipt, if yes update it on the receipt
+        $matchCode1 = $that.parent().siblings("td.match-code"),
+               matchCode1 = $.trim($matchCode.text());
+        var     optionId1 = $that.data("option-id");
+        if (checkRemoveBetByMatchId(matchCode1, optionId1) == matchCode1) {
+
+            var chosenOdd = $that.val(),
+                optionId = $that.data("option-id"),
+                handCapGoalString = $that.data("hc-homegoal") + ":" + $that.data("hc-awaygoal"),
+                $matchCode = $that.parent().siblings("td.match-code"),
+                matchCode = $.trim($matchCode.text()),
+                optionName = $that.data("option-name"),
+                liveScores = $that.parent().siblings("td.live-scores").text(),
+                extraValue = $that.parent().siblings("td span.extra-value").text(),
+                bet = new Bet(matchCode);
+            // $that.tooltip({ placement: 'top', title:''+ matchCode + " " + optionName +''});
+            // console.log(handCapGoalString);
+            bet.handCapGoalString = handCapGoalString;
+            bet.odd = chosenOdd;
+            bet.optionId = optionId;
+            bet["optionName"] = optionName;
+            bet["betCategory"] = $that.data("bet-category");
+            bet["optionName"] = $that.data("option-name");
+            bet["liveScores"] = liveScores;
+            bet["extraValue"] = extraValue;
+            $matchCode.siblings("td").each(function () {
+                var fieldName = $(this).data("field");
+                bet[fieldName] = $(this).text();
+            });
+            var $parentTr = $matchCode.parent();
+            $("td>input.odd", $parentTr).each(function () {
+                var fieldName = $(this).data("field");
+                if (fieldName) {
+                    //bet[fieldName] = $(this).val();
+                    // bet["betCategory"] = $(this).data("bet-category");
+                    // bet["optionName"] = $(this).data("option-name");
+                }
+                //alert("fired click");
+            });
+
+
+            // betList.push(bet);
+            if ($.isNumeric(bet.odd)) {
+            makeBet(bet);
+        }
+            $that.parent("td").addClass("selected_option");
+            scrollReceiptToBottom();
+
+
+            console.log(bet);
+            //disable all input elements  for this match
+            var $oddsTable = $("table.oddstable");
+            $(".odd", $oddsTable).each(function () {
+                var $me = $(this).parent().siblings("td.match-code");
+                if ($.trim($me.text()) === matchCode) {
+                    $(this).attr("disabled", "disabled");
+
+                }
+                // $(this).removeCla ss("selected_option");
+
+            });
+
+        } else {
+            //$that.removeClass("selected_option");
+            console.log("Match not found continuing");
         }
 
     });

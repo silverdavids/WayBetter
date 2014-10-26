@@ -29,12 +29,14 @@ namespace WebUI.Controllers
 
          public  async Task<IHttpActionResult> ReceiveReceipt(Receipt1 receipts)
         {
-            return Ok(new { message = "Success" });
+           
             var bcg = new BarCodeGenerator();
+           
             var account = await BetDatabase.Accounts.SingleOrDefaultAsync(x => x.UserId == User.Identity.Name);
             var branchId = Convert.ToInt32(account.AdminE);
             var branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
             var receiptid = bcg.GenerateRandomString(16);
+            return Ok(new { message = "Success", receiptFromServer = receipts, ReceiptNumber = receiptid });
             var receipt = new Receipt
             {
                 UserId = User.Identity.Name,
@@ -245,6 +247,9 @@ namespace WebUI.Controllers
         public string OptionId { get; set; }
         public double Odd { get; set; }
         public long BetAmount { get; set; }
+         public string LiveScores{ get; set; }
+        public string StartTime { get; set; }
+        public string ExtraValue{ get; set; }
          //public string LiveScores{get;set;}
          //public string ExtraValue { get; set; }
     }

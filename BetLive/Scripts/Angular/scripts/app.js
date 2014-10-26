@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 var bettingApp=angular.module('bettingApp', ['ngAnimate','ngCookies','ngResource','ngRoute','ngSanitize','ngTouch',
-        'LocalStorageModule', 'angular-loading-bar', 'betaDataModule','ui.bootstrap'
+        'LocalStorageModule', 'angular-loading-bar', 'betaDataModule','ui.bootstrap','ngDialog'
   ]);
 bettingApp.config(function ($routeProvider) {
     $routeProvider

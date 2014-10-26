@@ -306,7 +306,8 @@
      $scope.gameRow = function () {
          this.ShortCode=0;
         this.MatchNo = null;      
-        this.Minutes=null;
+        this.Minutes = null;
+        this.StartDate = null;
         this.LocalTeam = null;
         this.AwayTeam = null;
         this.LocalTeamScore = null;
@@ -368,6 +369,7 @@
                     gameRow.ShortCode = game.ShortCode;
                     gameRow.MatchNo = game.MatchNo;
                     gameRow.Minutes = game.Minutes;
+                    gameRow.StartDate = game.StartDate;
                     gameRow.LocalTeam = game.LocalTeam;
                     gameRow.AwayTeam = game.AwayTeam;
                     gameRow.LocalTeamScore = game.LocalTeamScore;
@@ -439,6 +441,7 @@
             gameRow.ShortCode = game.ShortCode;
             gameRow.MatchNo = game.MatchNo;
             gameRow.Minutes = game.Minutes;
+            gameRow.StartDate = game.StartDate;
             gameRow.LocalTeam = game.LocalTeam;
             gameRow.AwayTeam = game.AwayTeam;
             gameRow.LocalTeamScore = game.LocalTeamScore;
