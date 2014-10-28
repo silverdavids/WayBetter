@@ -5,7 +5,7 @@ using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OnlineBeting;
-using OnlineBeting.Controllers;
+
 
 namespace OnlineBeting.Tests.Controllers
 {

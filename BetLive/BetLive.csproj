@@ -738,6 +738,7 @@
     <Content Include="Xml\soccerInPlayScores7.xml" />
     <Content Include="Xml\soccerInPlayScores8.xml" />
     <Content Include="Xml\soccerInPlayScores9.xml" />
+    <None Include="Properties\PublishProfiles\DavidLive.pubxml" />
     <None Include="Properties\PublishProfiles\FirtstLiveDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\FourthDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\SecondDeploy.pubxml" />

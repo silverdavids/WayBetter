@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{C47AC6E7-3B76-4661-A22F-474ADD356589}"
 EndProject
@@ -14,8 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetLive", "BetLive\BetLive.csproj", "{376AC5F6-6C0E-4C46-A3FD-F16CA5448A81}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetLiveTestProject1", "BetLiveTestProject1\BetLiveTestProject1.csproj", "{AC96F965-9D83-4F41-B756-CD5E239EBE28}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineBeting", "OnlineBeting\OnlineBeting.csproj", "{916AD9F7-C49A-4D38-A2CD-5748ABF032E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineBeting.Tests", "OnlineBeting.Tests\OnlineBeting.Tests.csproj", "{F308C304-C8F2-45B9-9757-447C20D9C4D8}"
 EndProject
@@ -49,10 +47,6 @@ Global
 		{AC96F965-9D83-4F41-B756-CD5E239EBE28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC96F965-9D83-4F41-B756-CD5E239EBE28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC96F965-9D83-4F41-B756-CD5E239EBE28}.Release|Any CPU.Build.0 = Release|Any CPU
-		{916AD9F7-C49A-4D38-A2CD-5748ABF032E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{916AD9F7-C49A-4D38-A2CD-5748ABF032E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{916AD9F7-C49A-4D38-A2CD-5748ABF032E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{916AD9F7-C49A-4D38-A2CD-5748ABF032E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F308C304-C8F2-45B9-9757-447C20D9C4D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F308C304-C8F2-45B9-9757-447C20D9C4D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F308C304-C8F2-45B9-9757-447C20D9C4D8}.Release|Any CPU.ActiveCfg = Release|Any CPU

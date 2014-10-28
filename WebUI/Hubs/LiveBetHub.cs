@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -29,6 +30,7 @@ namespace WebUI.Hubs
         private readonly Random _updateOrNotRandom = new Random();
         private IList<ShortMatchCode> _shortMatchCodes;
         private ApplicationDbContext _dbContext;
+        private Team _awayTeam, _homeTeam;
 
         // ToDo: Add short code
         public LiveGameHub()
@@ -71,7 +73,7 @@ namespace WebUI.Hubs
                 game.ShortCode = shortMatchCode.ShortCode;
                 liveGames.Add(game);
             }
-         //   _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
+            _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
             //return liveGames;
             return allGames;
         }
@@ -352,11 +354,24 @@ namespace WebUI.Hubs
             {
                 return false;
             }
-
+            //DateTime matchTime = DateTime.Now.AddHours(-2);
+            //_homeTeam = BetDatabase.Teams.Single(t => t.TeamName==game.LocalTeam);        
+            //_awayTeam =BetDatabase.Teams.Single(t => t.TeamName==game.LocalTeam);
+            //Match playingMatch =
+            //   BetDatabase.Matches.Single(m => m.StartTime> matchTime && m.HomeTeamId == _homeTeam.TeamId && m.AwayTeamId == _awayTeam.TeamId);
+            //if (playingMatch == null)
+            //{
+            //    return false;
+            //}
+            //else
+            //{
+            //    game.ShortCode = playingMatch.ShortMatchCode.ShortCode;
+            //}
             //Todo: update the records in the DB
 
             ////_games.Clear();
             //_games.TryAdd(game.BetServiceMatchNo, game);
+        
             return true;
         }
 

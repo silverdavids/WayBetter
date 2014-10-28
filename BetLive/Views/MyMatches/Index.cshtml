@@ -51,13 +51,13 @@
             </div>
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right" ng-cloak>
-
                     <li data-ng-hide="!authentication.isAuth"><a href="#">Welcome:<span ng-bind="authentication.userName"></span></a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#/company">Companies</a></li>
                     <li><a href="#/matches">Matches</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>
                     <li data-ng-hide="authentication.isAuth" > <a href= "#/login">Login</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>
+                    <li>@ViewBag.Balance</li>
                     <li><input type="button" value="Ticket" data-target="#app" data-toggle="offcanvas" class="btn  btn-warning" /></li>
                 </ul>
             </div>

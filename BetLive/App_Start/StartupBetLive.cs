@@ -36,6 +36,7 @@ namespace BetLive.App_Start
             //TokenGeneration
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+
         
         }
     }
