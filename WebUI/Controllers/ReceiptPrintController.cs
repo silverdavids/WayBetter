@@ -1,4 +1,5 @@
-﻿using Domain.Models.Concrete;
+﻿using System.Web;
+using Domain.Models.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,38 +10,71 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Mvc;
+using WebUI.App_Start;
 using WebUI.DataAccessLayer;
 using WebUI.Helpers;
 using System.Data.Entity.Migrations;
 using System.Drawing.Imaging;
-
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 namespace WebUI.Controllers
 {
     public class ReceiptPrintController : ApiController
     {
-          private ApplicationDbContext BetDatabase;
-        private ICustomController _userManager;
-        //private readonly ApplicationDbContext db = new ApplicationDbContext();
+          //private ApplicationDbContext BetDatabase;
+          private ApplicationDbContext _dbContext;
+          private ApplicationUserManager _userManager;
+     //   private ICustomController _userManager;
+          private readonly ApplicationDbContext BetDatabase = new ApplicationDbContext();
         public ReceiptPrintController(){}
         public ReceiptPrintController(ICustomController _db) {
             BetDatabase = _db.getDbContext();
         
         }
-
-         public  async Task<IHttpActionResult> ReceiveReceipt(Receipt1 receipts)
+        public ApplicationUserManager UserManager
         {
-           
+            get
+            {
+                return null;
+                    //  return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            set
+            {
+                _userManager = value;
+            }
+        }
+        public ApplicationDbContext BetDatabases
+        {
+            get { return _dbContext ?? (_dbContext = new ApplicationDbContext()); }
+            set
+            {
+                _dbContext = value;
+            }
+        }
+
+         public  async  Task<IHttpActionResult> ReceiveReceipt(Receipt1 receipts)
+         {
+          
             var bcg = new BarCodeGenerator();
+            var userName = "TellerTest";
+             if (!string.IsNullOrEmpty(User.Identity.Name))
+             {
+                 userName = User.Identity.Name;
+             }
            
-            var account = await BetDatabase.Accounts.SingleOrDefaultAsync(x => x.UserId == User.Identity.Name);
-            var branchId = Convert.ToInt32(account.AdminE);
-            var branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
+            //var account = await BetDatabase.Accounts.SingleOrDefaultAsync(x => x.UserId == User.Identity.Name);
+             var account =await BetDatabase.Accounts.SingleOrDefaultAsync(x => x.UserId == userName);
+             
+            // Account account=new Account();
+             var branchId = 1;// Convert.ToInt32(account.AdminE);
+             Branch branch =await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
+
             var receiptid = bcg.GenerateRandomString(16);
-            return Ok(new { message = "Success", receiptFromServer = receipts, ReceiptNumber = receiptid });
+           
             var receipt = new Receipt
             {
-                UserId = User.Identity.Name,
-                BranchId =Convert.ToInt16(account.AdminE),
+                UserId ="TellerTest",// User.Identity.Name,
+                BranchId =1,//Convert.ToInt16(account.AmountE),
                 ReceiptStatus = 0,
                 SetNo = 2014927,
                // ReceiptId = Convert.ToInt32(receiptid)
@@ -49,7 +83,7 @@ namespace WebUI.Controllers
             var betStake = receipts.TotalStake.ToString(CultureInfo.InvariantCulture);
             string response;        
             BetDatabase.Receipts.Add(receipt);
-            await BetDatabase.SaveChangesAsync();
+             await BetDatabase.SaveChangesAsync();
 
             var ttodd = receipts.TotalOdd;
             const float bettingLimit = 8000000;
@@ -57,13 +91,40 @@ namespace WebUI.Controllers
             if ((cost >= 1000) && (cost <= bettingLimit))//betting limit
             {
 
-            foreach(var betData in receipts.BetData)
+                List<BetData> bd = new List<BetData>();
+              
+                var num = new Random();
+                int[] testgames =
+                {
+                    1934720, 1934721, 1934722, 1934723, 1934725, 1936051, 1936052, 1936692, 1937588,
+                    1937589
+                };
+                var receiptGames = receipts.BetInfo.Split('_');
+                for (int i = 0; i < receiptGames.Length-1; i++)
+                {
+                    if (string.IsNullOrEmpty(receiptGames[i]))
+                    {
+                        return Ok("An Error Occured");
+                    }
+                    string[] gameData = receiptGames[i].Split('S');
+                    BetData gamedata = new BetData
+                    {
+                        MatchId = testgames[i].ToString(),//(gameData[0]).ToString(),
+                        OptionId = (gameData[1]).ToString(),
+                        Odd = Double.Parse(gameData[2]),
+                        // ExtraValue = (gameData[3]).ToString(), 
+                    };
+                    bd.Add(gamedata);
+
+                }
+            foreach(var betData in bd)
                 {            
                     try
                     {
-                        var tempMatchId = Convert.ToInt32(betData.MatchId);
-                        var matchid = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo;
-                        Match match = BetDatabase.Matches.Single(h => h.BetServiceMatchNo == matchid);
+                        var tempMatchId =Convert.ToInt32(betData.MatchId);
+                       // var matchid = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo;
+                        Match match = await BetDatabase.Matches.SingleOrDefaultAsync(h => h.BetServiceMatchNo == tempMatchId);
+
                         DateTime  _matchTime = match.StartTime;
                         DateTime timenow = DateTime.Now;
                         if (_matchTime < timenow)
@@ -76,7 +137,7 @@ namespace WebUI.Controllers
                         {
                             BetOptionId = Int32.Parse(betData.OptionId),
                             RecieptId = receipt.ReceiptId,
-                            MatchId = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo,  
+                            MatchId =tempMatchId, //BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo,  
                             BetOdd = Convert.ToDecimal(betData.Odd),
                         };
                         BetDatabase.Bets.Add(bm);
@@ -121,7 +182,7 @@ namespace WebUI.Controllers
                 BetDatabase.Entry(branch).State = EntityState.Modified;
                 BetDatabase.Accounts.AddOrUpdate(account);
                 BetDatabase.Statements.Add(statement);
-                BetDatabase.SaveChanges();
+                await  BetDatabase.SaveChangesAsync();
                 var barcodeImage = bcg.CreateBarCode(receiptid);
                 var tempPath = System.Web.Hosting.HostingEnvironment.MapPath("~/Content/BarCodes/" + receiptid.Trim() + ".png");
                 try
@@ -237,6 +298,7 @@ namespace WebUI.Controllers
             set { _betData = value; }
         }
         public long MultipleBetAmount { get; set; }
+        public string BetInfo { get; set; }
 
 
     }
@@ -250,6 +312,7 @@ namespace WebUI.Controllers
          public string LiveScores{ get; set; }
         public string StartTime { get; set; }
         public string ExtraValue{ get; set; }
+        
          //public string LiveScores{get;set;}
          //public string ExtraValue { get; set; }
     }
