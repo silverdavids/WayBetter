@@ -14,7 +14,7 @@ function BetData() {
 
     this.MatchId = null;
 
-    this.MetCategory = null;
+    this.BetCategory = null;
 
     this.OptionId = 0;
 
@@ -54,15 +54,31 @@ function SendReceipt() {
 
         }
         if (betList.getBets().length > 0) console.log(receipt);
-       // var url = "http://localhost:49195/Match/ReceiveReceipt";//"../Match/ReceiveReceipt";
-        //var url = "http://localhost:49193/Match/ReceiveReceipt"
-        var url = "http://localhost:49193/api/ReceiptPrint/ReceiveReceipt";
+      
+        var url = "http://localhost:54482/api/ReceiptPrint/ReceiveReceipt";
+        
         $.ajax({
             url: url,
             type: "POST",
-            data: JSON.stringify(receipt),
-            contentType: "application/json; charset=utf-8",
+            data:receipt,
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
             dataType: "json",
+            beforeSend: function (jqXHR, settings) {
+               // config.headers = config.headers || {};
+                var authData = {};
+                authData = JSON.parse(localStorage.getItem("ls.authorizationData"));
+                //console.log("got it " + authData.token);
+                if (authData) {
+                    //config.headers.Authorization = 'Bearer ' + authData.token;
+                    jqXHR.setRequestHeader('Authorization', 'Bearer ' + authData.token)
+                    jqXHR.setRequestHeader('UN', authData.userName)
+                    console.log(authData.token);
+
+                    //$.extend(settings, { headers: { 'Authorization': 'Bearer ' + authData.token } })
+                }
+            }
+
+
         }).done(function(response) {
             var Message = response.message;
             alert(response);

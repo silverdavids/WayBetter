@@ -45,12 +45,12 @@ namespace WebUI.Helpers
 
         public ApplicationUserManager getUserManager()
         {
-            return _userManager;
+            return UserManager;
         }
 
         public ApplicationDbContext getDbContext()
         {
-            return _dbContext;
+            return BetDatabase;
         }
     }
 
@@ -63,7 +63,7 @@ namespace WebUI.Helpers
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _userManager!=null?_userManager: HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             set
             {

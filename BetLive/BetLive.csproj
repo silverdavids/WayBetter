@@ -248,6 +248,7 @@
     <Compile Include="Controllers\Api\EmployeeController.cs" />
     <Compile Include="Controllers\Api\MatchController.cs" />
     <Compile Include="Controllers\Api\MyController.cs" />
+    <Compile Include="Controllers\Api\ReceiptPrintController.cs" />
     <Compile Include="Controllers\Api\ShiftController.cs" />
     <Compile Include="Controllers\Api\TerminalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

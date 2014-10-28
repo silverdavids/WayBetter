@@ -71,7 +71,7 @@ bettingApp.service('authService',['$http','$q','localStorageService', function a
                 _authentication.isAuth = true;
                 _authentication.userName = authData.userName;
             }
-
+            return authData;
         }
 
         authServiceFactory.saveRegistration = _saveRegistration;
