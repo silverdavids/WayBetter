@@ -20,8 +20,10 @@ namespace Domain.Models.ViewModels
         //so instead of the BetServiceNo for the lives ,we use the shorts
          [ForeignKey("Match")]
         public int? BetServiceMatchNo  { get; set; }//this is meant for the bet service match number in the macthes table just for reference
-      [Required]
-        public virtual Match Match { get; set; }       
+        [Required]
+        public virtual Match Match { get; set; }
+       //For the mean time we shall increment these numbers daily by date 
+        public DateTime SetDate { get; set; }
        
        
     }

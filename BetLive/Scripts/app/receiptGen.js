@@ -18,7 +18,7 @@ function ReceiptGen() {
         var $bet = $("#rcpTbet-template .bet>tr.receipt").clone();
 
         
-        $("td.match-code", $bet).text(bet.matchCode);
+       // $("td.match-code", $bet).text(bet.matchCode);
      //   $bet.data("betId", bet.betId);
   
 

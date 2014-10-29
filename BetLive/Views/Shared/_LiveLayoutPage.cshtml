@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetWay - @ViewBag.Title</title>
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/FontAwesome")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/css/Custom.css" rel="stylesheet" />
+    @*<link href="~/Content/DataTables-1.10.2/css/dataTables.bootstrap.css" rel="stylesheet" />*@
+    <style type="text/css">
+        /* Clock CSS*/
+        .navbar-header {
+            padding-top: 5px;
+        }
+
+        .clock {
+            margin: 0 auto;
+            color: #fff;
+        }
+
+        #Date {
+            font-family: 'BebasNeueRegular', Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            text-align: center;
+            text-shadow: 0 0 5px #00c6ff;
+        }
+
+        ul {
+            /*width: 800px;*/
+            margin: 0 auto;
+            padding: 0px;
+            list-style: none;
+            text-align: center;
+        }
+
+            ul li {
+                display: inline;
+                font-size: 1.5em;
+                text-align: center;
+                font-family: 'BebasNeueRegular', Arial, Helvetica, sans-serif;
+                text-shadow: 0 0 5px #00c6ff;
+            }
+
+        #point {
+            position: relative;
+            -moz-animation: mymove 1s ease infinite;
+            -webkit-animation: mymove 1s ease infinite;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        /**
+            fixed table header */
+        .fixed-table .header-fixed {
+            position: absolute;
+            top: 0px;
+            z-index: 1020; /* 10 less than .navbar-fixed to prevent any overlap */
+            border-bottom: 2px solid #d5d5d5;
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            border-radius: 0;
+        }
+
+        .fixed-table {
+            display: block;
+            position: relative;
+        }
+
+            /*.fixed-table th {
+                padding: 8px;
+                line-height: 18px;
+                text-align: left;
+            }*/
+
+            .fixed-table .table-content {
+                display: block;
+                position: relative;
+                height: 200px; /*FIX THE HEIGHT YOU NEED*/
+                overflow-y: auto;
+            }
+
+            .fixed-table .header-copy {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+                .fixed-table .header-copy th {
+                    background-color: #fff;
+                }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top bet-way-header" style="background-color:#0D1F35 !important;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>*@
+                <a href="#"><img src="~/Content/Images/betway1.png" height="50px" width="100px" /></a>
+                <h1 class="sr-only">BETWAY Sports Betting</h1>
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="clock">
+                            <div id="Date"></div>
+                            <ul>
+                                <li id="hours"> </li>
+                                <li id="point">:</li>
+                                <li id="min"> </li>
+                                <li id="point">:</li>
+                                <li id="sec"> </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="container-fluid">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Betway Uganda Ltd</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.2/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.2/dataTables.bootstrap.js"></script>
+    <script src="~/Scripts/DataTables-1.10.2/dataTables.fixedHeader.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.2/dataTables.scroller.min.js"></script>
+    <script type="text/javascript">
+        // clock
+
+        $(document).ready(function () {
+            // Create two variable with the names of the months and days in an array
+            var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+
+            // Create a newDate() object
+            var newDate = new Date();
+            // Extract the current date from Date object
+            newDate.setDate(newDate.getDate());
+            // Output the day, date, month and year
+            $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ', ' + newDate.getFullYear());
+
+            setInterval(function () {
+                // Create a newDate() object and extract the seconds of the current time on the visitor's
+                var seconds = new Date().getSeconds();
+                // Add a leading zero to seconds value
+                $("#sec").html((seconds < 10 ? "0" : "") + seconds);
+            }, 1000);
+
+            setInterval(function () {
+                // Create a newDate() object and extract the minutes of the current time on the visitor's
+                var minutes = new Date().getMinutes();
+                // Add a leading zero to the minutes value
+                $("#min").html((minutes < 10 ? "0" : "") + minutes);
+            }, 1000);
+
+            setInterval(function () {
+                // Create a newDate() object and extract the hours of the current time on the visitor's
+                var hours = new Date().getHours();
+                // Add a leading zero to the hours value
+                $("#hours").html((hours < 10 ? "0" : "") + hours);
+            }, 1000);
+
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

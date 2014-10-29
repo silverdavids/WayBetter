@@ -27,5 +27,25 @@ namespace BetLive.TestsBetLiveTestProject1
            
             Assert.IsNotNull(odds);
         }
+
+        [TestMethod]
+        public void CanReturnMaximmumShortCodeFromLiveMatchestable()
+        {
+            MyController _myController = new MyController();
+
+            var maximumShortcode = _myController.setInitialStaticCodeFromDb();
+
+            Assert.IsNotNull(maximumShortcode);
+        }
+
+        [TestMethod]
+        public void CanReturnInitialGamesFromLiveMatchestable()
+        {
+            MyController _myController = new MyController();
+
+            var maximumShortcode = _myController.setInitialGamesFromDb();
+
+            Assert.IsNotNull(maximumShortcode);
+        }
     }
 }

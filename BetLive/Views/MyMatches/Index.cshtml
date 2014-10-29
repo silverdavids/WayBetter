@@ -47,12 +47,16 @@
                 </button>
                 <a href="#"><img src="@Url.Content("~/Content/Images/betway1.png")" height="50px" width="150px" alt="BETWAY UG" /></a>
                 <h1 class="sr-only">BETWAY Sports Betting</h1>
+               
                 <!--<a class="navbar-brand" href="#/">Home</a>-->
             </div>
+
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right" ng-cloak>
+                    <li class="btn  btn-warning "><a href="../Live/Games"> live in play</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="#">Welcome:<span ng-bind="authentication.userName"></span></a></li>
-                    <li data-ng-hide="!authentication.isAuth"><a href="#/company">Companies</a></li>
+                   
+                   <!-- <li data-ng-hide="!authentication.isAuth"><a href="#/company">Companies</a></li>-->
                     <li><a href="#/matches">Matches</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>
                     <li data-ng-hide="authentication.isAuth" > <a href= "#/login">Login</a></li>
