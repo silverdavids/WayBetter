@@ -348,6 +348,10 @@
     <Compile Include="Migrations\201410291155424_Included_liveMatchesTable7.Designer.cs">
       <DependentUpon>201410291155424_Included_liveMatchesTable7.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410292029194_Added_SetDate_Field_ToLiveMatch_Entity.cs" />
+    <Compile Include="Migrations\201410292029194_Added_SetDate_Field_ToLiveMatch_Entity.Designer.cs">
+      <DependentUpon>201410292029194_Added_SetDate_Field_ToLiveMatch_Entity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -1804,6 +1808,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410291155424_Included_liveMatchesTable7.resx">
       <DependentUpon>201410291155424_Included_liveMatchesTable7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410292029194_Added_SetDate_Field_ToLiveMatch_Entity.resx">
+      <DependentUpon>201410292029194_Added_SetDate_Field_ToLiveMatch_Entity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
