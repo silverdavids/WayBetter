@@ -468,12 +468,15 @@ $(function () {
                 handCapGoalString = $that.data("hc-homegoal") + ":" + $that.data("hc-awaygoal"),
                 $matchCode = $that.parent().siblings("td.match-code"),
                 matchCode = $.trim($matchCode.text()),
+                 $shortCode = $that.parent().siblings("td.short-code"),
+                 shortCode = $.trim($shortCode.text()),
                 optionName = $that.data("option-name"),
                 liveScores = $that.parent().siblings("td.live-scores").text(),
                 extraValue = $that.parent().siblings("td span.extra-value").text(),
                 bet = new Bet(matchCode);
             // $that.tooltip({ placement: 'top', title:''+ matchCode + " " + optionName +''});
             // console.log(handCapGoalString);
+            bet.shortCode = shortCode;
             bet.handCapGoalString = handCapGoalString;
             bet.odd = chosenOdd;
             bet.optionId = optionId;

@@ -84,6 +84,7 @@
     <Compile Include="Models\ViewModels\FixtureVm.cs" />
     <Compile Include="Models\ViewModels\GameViewModel.cs" />
     <Compile Include="Models\Concrete\Payment.cs" />
+    <Compile Include="Models\ViewModels\LiveMatch.cs" />
     <Compile Include="Models\ViewModels\ManagerSummaryVM.cs" />
     <Compile Include="Models\ViewModels\MatchOddsVM.cs" />
     <Compile Include="Models\ViewModels\MatchScores.cs" />

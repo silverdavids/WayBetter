@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using Domain.Models.Concrete;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Domain.Models.ViewModels;
 
 namespace WebUI.DataAccessLayer
 {
@@ -15,6 +16,8 @@ namespace WebUI.DataAccessLayer
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<LiveMatch> LiveMatches { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<BetCategory> BetCategories { get; set; }

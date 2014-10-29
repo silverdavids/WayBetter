@@ -17,6 +17,11 @@ function ReceiptGen() {
     this.addBetElement = function (bet) {
         var $bet = $("#rcpTbet-template .bet>tr.receipt").clone();
 
+        if (bet["liveScores"] != null) {
+            $("td.match-code", $bet).text(bet.shortCode);
+        } else {
+            $("td.match-code", $bet).text(bet.matchCode);
+        }
         $("td.match-code", $bet).text(bet.matchCode);
         $bet.data("betId", bet.betId);
         $("#rcpTbetList").append($bet);

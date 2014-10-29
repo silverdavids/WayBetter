@@ -23,6 +23,7 @@ namespace WebUI.Controllers
     {
         private Team _awayTeam, _homeTeam;
         // GET: Fixture
+        #region urls
         private readonly string[] _urls =
         {
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/eurocups_shedule?odds=bet365",
@@ -96,7 +97,7 @@ namespace WebUI.Controllers
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/wales_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/worldcup_shedule?odds=bet365"
         };
-
+        #endregion
         public ActionResult Index()
         {
             return View();
@@ -572,7 +573,7 @@ namespace WebUI.Controllers
                               
                               
                                 var goalServeMatchId = gameNode.Attributes["id"].InnerText;
-
+                                #region odtypes
                                 foreach (XmlNode oddType in gameOdds) 
                                 {
                                     var bettype = oddType.Attributes["name"].InnerText;
@@ -931,6 +932,7 @@ namespace WebUI.Controllers
                                             break;
                                     }
                                 } 
+#endregion
                                 game.MatchOdds = gameodds;
                                 game.BetServiceMatchNo = Convert.ToInt32(goalServeMatchId);
                                 game.StartTime = Convert.ToDateTime(stDateTime).ToLocalTime();

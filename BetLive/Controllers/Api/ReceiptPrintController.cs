@@ -13,6 +13,7 @@ using WebUI.Helpers;
 using Domain.Models.Concrete;
 using System.Globalization;
 using System.Drawing.Imaging;
+using System.Security.Claims;
 
 
 namespace BetLive.Controllers.Api
@@ -35,14 +36,16 @@ namespace BetLive.Controllers.Api
         //    BetDatabase = _db.getDbContext();
 
         //}
-        [Authorize]
+       // [Authorize]
         public async Task<IHttpActionResult> ReceiveReceipt([FromBody]Receipt1 receipts)
         {
            // IEnumerable<string> headerValues =RequestContext.Principal.Identity request.Headers.GetValues("MyCustomID");
             //var id = headerValues.FirstOrDefault();
+            var identity = (ClaimsIdentity)User.Identity;
+            Claim claims = identity.FindFirst("UserName");
             var un = RequestContext.Principal.Identity.Name; 
             var bcg = new BarCodeGenerator();
-            var user=this.User.Identity;
+            var user = this.User.Identity; ;
             var account = await BetDatabase.Accounts.SingleOrDefaultAsync(x => x.UserId == user.Name);
             var branchId = Convert.ToInt32(account.AdminE);
             var branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
@@ -261,6 +264,7 @@ namespace BetLive.Controllers.Api
         public string LiveScores { get; set; }
         public string StartTime { get; set; }
         public string ExtraValue { get; set; }
+        public string ShortCode { get; set; }
         //public string LiveScores{get;set;}
         //public string ExtraValue { get; set; }
     }

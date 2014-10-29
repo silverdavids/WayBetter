@@ -23,6 +23,7 @@ function BetData() {
     this.LiveScores = null;
     this.StartTime = null;
     this.ExtraValue = null;
+    this.ShortCode = 0;
 
 };
 
@@ -50,6 +51,7 @@ function SendReceipt() {
             _betData.LiveScores = _bet.liveScores;
             _betData.StartTime = _bet.startTime;
             _betData.ExtraValue = _bet.extraValue;
+            _betData.ShortCode = _bet.shortCode;
             receipt.betData.push(_betData);
 
         }
