@@ -33,6 +33,7 @@
       <Objects>
       </Objects>
     </PublishDatabaseSettings>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -59,9 +60,21 @@
       <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.1.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.0.2\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -89,6 +102,9 @@
     </Reference>
     <Reference Include="System.Web.Http.Cors">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.2\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.2\lib\net45\System.Web.Http.Owin.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -166,20 +182,11 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin">
-      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security">
-      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Owin.Security.Facebook">
       <HintPath>..\packages\Microsoft.Owin.Security.Facebook.2.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.Cookies">
       <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.Google">
       <HintPath>..\packages\Microsoft.Owin.Security.Google.2.1.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
@@ -214,10 +221,7 @@
     <Compile Include="Controllers\ManualResultController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
-<<<<<<< HEAD
-=======
     <Compile Include="Controllers\ReceiptPrintController.cs" />
->>>>>>> efb4919a8d49983bb7b21d843983326ffbae4519
     <Compile Include="Controllers\ReceptController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
     <Compile Include="Controllers\ShiftController.cs" />
@@ -317,13 +321,39 @@
       <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
     </Compile>
 <<<<<<< HEAD
+    <Compile Include="Migrations\201410290332063_Included_liveMatchesTable.cs" />
+    <Compile Include="Migrations\201410290332063_Included_liveMatchesTable.Designer.cs">
+      <DependentUpon>201410290332063_Included_liveMatchesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410290809130_Included_liveMatchesTable1.cs" />
+    <Compile Include="Migrations\201410290809130_Included_liveMatchesTable1.Designer.cs">
+      <DependentUpon>201410290809130_Included_liveMatchesTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410291030422_Included_liveMatchesTable2.cs" />
+    <Compile Include="Migrations\201410291030422_Included_liveMatchesTable2.Designer.cs">
+      <DependentUpon>201410291030422_Included_liveMatchesTable2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410291051352_Included_liveMatchesTable3.cs" />
+    <Compile Include="Migrations\201410291051352_Included_liveMatchesTable3.Designer.cs">
+      <DependentUpon>201410291051352_Included_liveMatchesTable3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410291117080_Included_liveMatchesTable5.cs" />
+    <Compile Include="Migrations\201410291117080_Included_liveMatchesTable5.Designer.cs">
+      <DependentUpon>201410291117080_Included_liveMatchesTable5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410291138427_Included_liveMatchesTable6.cs" />
+    <Compile Include="Migrations\201410291138427_Included_liveMatchesTable6.Designer.cs">
+      <DependentUpon>201410291138427_Included_liveMatchesTable6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410291155424_Included_liveMatchesTable7.cs" />
+    <Compile Include="Migrations\201410291155424_Included_liveMatchesTable7.Designer.cs">
+      <DependentUpon>201410291155424_Included_liveMatchesTable7.cs</DependentUpon>
 =======
-    <Compile Include="Migrations\201410241503176_New_Migration.cs" />
-    <Compile Include="Migrations\201410241503176_New_Migration.Designer.cs">
-      <DependentUpon>201410241503176_New_Migration.cs</DependentUpon>
+    <Compile Include="Migrations\201410260729325_livebets.cs" />
+    <Compile Include="Migrations\201410260729325_livebets.Designer.cs">
+      <DependentUpon>201410260729325_livebets.cs</DependentUpon>
+>>>>>>> dc90c452fac2c5dd71d4109e0104e2b930b7418c
     </Compile>
-    </Compile>
->>>>>>> efb4919a8d49983bb7b21d843983326ffbae4519
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -1139,6 +1169,7 @@
     <None Include="Properties\PublishProfiles\BetWay.pubxml" />
     <Content Include="Scripts\DataTables-1.10.2\datagrid_data1.json" />
     <None Include="Properties\PublishProfiles\WebUi1.pubxml" />
+    <None Include="Properties\PublishProfiles\WebUI2.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap\bootstrap.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
@@ -1616,7 +1647,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -1758,12 +1791,31 @@
       <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
     </EmbeddedResource>
 <<<<<<< HEAD
-=======
-    <EmbeddedResource Include="Migrations\201410241503176_New_Migration.resx">
-      <DependentUpon>201410241503176_New_Migration.cs</DependentUpon>
-       </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410290332063_Included_liveMatchesTable.resx">
+      <DependentUpon>201410290332063_Included_liveMatchesTable.cs</DependentUpon>
     </EmbeddedResource>
->>>>>>> efb4919a8d49983bb7b21d843983326ffbae4519
+    <EmbeddedResource Include="Migrations\201410290809130_Included_liveMatchesTable1.resx">
+      <DependentUpon>201410290809130_Included_liveMatchesTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410291030422_Included_liveMatchesTable2.resx">
+      <DependentUpon>201410291030422_Included_liveMatchesTable2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410291051352_Included_liveMatchesTable3.resx">
+      <DependentUpon>201410291051352_Included_liveMatchesTable3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410291117080_Included_liveMatchesTable5.resx">
+      <DependentUpon>201410291117080_Included_liveMatchesTable5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410291138427_Included_liveMatchesTable6.resx">
+      <DependentUpon>201410291138427_Included_liveMatchesTable6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410291155424_Included_liveMatchesTable7.resx">
+      <DependentUpon>201410291155424_Included_liveMatchesTable7.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="Migrations\201410260729325_livebets.resx">
+      <DependentUpon>201410260729325_livebets.cs</DependentUpon>
+>>>>>>> dc90c452fac2c5dd71d4109e0104e2b930b7418c
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
