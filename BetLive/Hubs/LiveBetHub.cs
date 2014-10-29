@@ -44,7 +44,7 @@ namespace BetLive.Hubs
         private MyController myController;
         private MatchController myApiController;
         private static int shortMatchCode = 0;
-        public static int mockXmlFileExt= 0;
+        public static int mockXmlFileExt= 1;
 
         #region LiveGameHubConstructor
         public LiveGameHub()
@@ -86,16 +86,16 @@ namespace BetLive.Hubs
         #region GetAllGames
         public async Task<IEnumerable<Game>> GetAllGames()
         {
-            if (mockXmlFileExt < 1)//7
+            if (mockXmlFileExt < 7)//7
             {
                 ++mockXmlFileExt;
             }
             else
             {
-               // --mockXmlFileExt;
+                --mockXmlFileExt;
             }
-            var scores = await GetGamesScores();/* await myController.GetGamesScoresFromXml(mockXmlFileExt);*/
-            var odds  =await GetGamesOdds();   /*await myController.GetGamesOddsFromXml(mockXmlFileExt);=*/
+            var scores = await  GetGamesScores();/*await myController.GetGamesScoresFromXml(mockXmlFileExt);*/
+            var odds  =await GetGamesOdds();  /* await  myController.GetGamesOddsFromXml(mockXmlFileExt);*/
             var allGames = (from gamescore in scores
                             join gameodds in odds
                             on gamescore.MatchNo equals gameodds.MatchNo
@@ -119,13 +119,13 @@ namespace BetLive.Hubs
                                 DoubleChance = gameodds.DoubleChance
                             }).ToList();
                            
-           // _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);           
-            // allGames.ForEach(g=>gameToSave.Add(g));
-             foreach (var g in allGames)
-             {
-                 gameToSave.Add(g);
-            }
-             DoUpdateGames();
+           // _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
+
+            //foreach (var g in allGames)
+            //{
+            //    gameToSave.Add(g);
+            //}
+            //DoUpdateGames();
             return allGames;
         }
 
@@ -157,16 +157,11 @@ namespace BetLive.Hubs
         }
         private SavedMatch isMatchAlreadySavedToDb(string matchCode)
         {
-            //if (_shortMatchCodes.ContainsKey(matchCode))
-            //{
+            
                SavedMatch savedMatchInList= _shortMatchCodes[matchCode];
-              // if (savedMatchInList.IsAlreadysaved)
-              // {
-                   return savedMatchInList;// _shortMatchCodes[matchCode].ShortMatchCode;
-              // }
-               
-            //}
-            //return false;
+              
+                   return savedMatchInList;
+             
         }
         #endregion
         #region UpdateGames
@@ -175,8 +170,8 @@ namespace BetLive.Hubs
 
             try
             {
-                var updatedGames = gameToSave;
-                //var updatedGames = await GetAllGames();
+                //var updatedGames = gameToSave;
+                var updatedGames = await GetAllGames();
                 lock (_updateGameLock)
                 {
                     if (!_updatingGame)
@@ -187,7 +182,7 @@ namespace BetLive.Hubs
                             if (TryUpdateGame(game))
                             {
                                 //broadcast on the UI
-                               // BroadcastLiveGame(game);
+                                BroadcastLiveGame(game);
                             }
                         }
                         _updatingGame = false;
@@ -204,7 +199,7 @@ namespace BetLive.Hubs
         }
 
 
-        private  void DoUpdateGames()
+        private void DoUpdateGames()
         {
 
             try
@@ -221,7 +216,7 @@ namespace BetLive.Hubs
                             if (TryUpdateGame(game))
                             {
                                 //broadcast on the UI
-                                // BroadcastLiveGame(game);
+                                 BroadcastLiveGame(game);
                             }
                         }
                         _updatingGame = false;
@@ -675,7 +670,7 @@ namespace BetLive.Hubs
                 //StreamReader strReader = new StreamReader(Server.MapPath("~/Xml/england_shedule.xml"));
                 // var stream= await strReader.ReadToEndAsync();
 
-                xmldoc.Load("C:/inetpub/wwwroot/BetWayLive/BetLive/Xml/soccerInPlayScores" + mockXmlFileExt.ToString() + ".xml");
+                xmldoc.Load("H:/MyWorks/BettingAppDirectory11/BetLive/Xml/soccerInPlayScores" + mockXmlFileExt.ToString() + ".xml");
             }
             catch (Exception e)
             {
@@ -743,7 +738,7 @@ namespace BetLive.Hubs
 
 
             var xmldoc = new XmlDocument();
-            xmldoc.Load("C:/inetpub/wwwroot/BetWayLive/BetLive/Xml/soccerInPlayLliveOdds" + mockXmlFileExt + ".xml");
+            xmldoc.Load("H:/MyWorks/BettingAppDirectory11/BetLive/Xml/soccerInPlayLliveOdds" + mockXmlFileExt + ".xml");
             var categoryList = xmldoc.SelectNodes("/scores/category");
             if (categoryList == null) return _gamesforLiveOdds.Values; // if the stream is null return the games the way they are
 

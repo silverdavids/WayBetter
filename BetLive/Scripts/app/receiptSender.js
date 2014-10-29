@@ -8,7 +8,6 @@ function Receipt() {
     this.TotalStake = 0;
     this.betData = new Array();
     this.MultipleBetAmount = 0;
-    this.BetInfo = 10;
 }
 
 function BetData() {
@@ -25,7 +24,6 @@ function BetData() {
     this.StartTime = null;
     this.ExtraValue = null;
     this.ShortCode = 0;
-    
 
 };
 
@@ -33,57 +31,41 @@ function BetData() {
 function SendReceipt() {
 
 
-    this.postReceipt = function(betList) {
+    this.postReceipt = function (betList) {
         var diferred = $.Deferred();
         var receipt = new Receipt();
         var bets = betList.getBets();
         receipt.ReceiptSize = bets.length;
-     
         receipt.TotalOdd = betList.getTotalBettedOdd();
         receipt.TotalStake = betList.getTotalBettedAmount();
         receipt.MultipleBetAmount = Bet.multipleBetAmount;
-       
-        receipt.BetInfo = 90;
-  
-        for (var i in bets)
-        {
+        for (var i in bets) {
             var _betData = new BetData(),
                 _bet = bets[i];
             _betData.MatchId = _bet.matchId;
             _betData.BetCategory = _bet.betCategory;
             _betData.OptionId = _bet.optionId;
             _betData.Odd = _bet.odd;
-            _betData.BetAmount = _bet.betAmount;
+            _betData.BetAmount = _bet.betAmount
             _betData.LiveScores = _bet.liveScores;
             _betData.StartTime = _bet.startTime;
             _betData.ExtraValue = _bet.extraValue;
             _betData.ShortCode = _bet.shortCode;
             receipt.betData.push(_betData);
-           // strReceipt += strReceipt + "_" + JSON.stringify(_betData);
-            receipt.BetInfo += _betData.MatchId + "S" + _betData.OptionId + "S" + _betData.Odd + "S" + _betData.ExtraValue;
-            receipt.BetInfo += "_";
-         
-          //  alert();
+
         }
-        var strReceipt = JSON.stringify(receipt);
-        if (betList.getBets().length > 0) {
-            console.log(receipt);
-            console.log(strReceipt);
-          //  console.log(betData);
-        
-        }
-        // var url = "http://localhost:49195/Match/ReceiveReceipt";//"../Match/ReceiveReceipt";
-        var url = "http://localhost:54482/api/ReceiptPrint/ReceiveReceipt";
-        
-       //alert(receipt.BetInfo);
+        if (betList.getBets().length > 0) console.log(receipt);
+
+        var url = "http://localhost:49193/api/ReceiptPrint/ReceiveReceipt";
+
         $.ajax({
             url: url,
             type: "POST",
-            data: strReceipt,
+            data: receipt,
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             dataType: "json",
             beforeSend: function (jqXHR, settings) {
-               // config.headers = config.headers || {};
+                // config.headers = config.headers || {};
                 var authData = {};
                 authData = JSON.parse(localStorage.getItem("ls.authorizationData"));
                 //console.log("got it " + authData.token);
@@ -98,12 +80,12 @@ function SendReceipt() {
             }
 
 
-        }).done(function(response) {
+        }).done(function (response) {
             var Message = response.message;
-           // alert(response);
+            alert(response);
             console.log(response);
             if (Message == "Success") {
-                console.log(response.receiptFromServer);
+                console.log(response.receiptFromServer)
                 console.log(response.FormatedSerial);
                 $("#rcpTorderId").text(response.ReceiptNumber);
                 $("#rcpTbarCode span.caption").text(response.FormatedSerial);
@@ -111,11 +93,11 @@ function SendReceipt() {
                 $("#rcpTbranch").text(response.BranchName);
                 $("#rcpTteller").text(response.TellerName);
                 $("#rcpTbarCode img").attr({
-                    src: "http://localhost:49193//Content/Barcodes/" + response.Serial + ".png",
+                    src: "http://localhost:49193/Content/Barcodes/" + response.Serial + ".png",
                     alt: response.Serial//.toString()
                 });
-               // ReceiptNumber
-               
+                // ReceiptNumber
+
                 $("#tellerBalance").text("Teller Balance is Ugx " + response.Balance);
                 var $receiptDiv = $("#rcpTreceiptTemplate");
                 var receiptGen = new ReceiptGen();
