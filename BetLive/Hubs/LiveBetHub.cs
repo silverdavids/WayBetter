@@ -119,7 +119,7 @@ namespace BetLive.Hubs
                                 DoubleChance = gameodds.DoubleChance
                             }).ToList();
                            
-           // _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
+           _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
 
             //foreach (var g in allGames)
             //{
