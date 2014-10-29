@@ -94,8 +94,8 @@ namespace BetLive.Hubs
             {
                // --mockXmlFileExt;
             }
-            var scores = await myController.GetGamesScoresFromXml(mockXmlFileExt);/*GetGamesScores();*/
-            var odds = await myController.GetGamesOddsFromXml(mockXmlFileExt);/* GetGamesOdds();*/
+            var scores = await GetGamesScores();/* await myController.GetGamesScoresFromXml(mockXmlFileExt);*/
+            var odds  =await GetGamesOdds();   /*await myController.GetGamesOddsFromXml(mockXmlFileExt);=*/
             var allGames = (from gamescore in scores
                             join gameodds in odds
                             on gamescore.MatchNo equals gameodds.MatchNo
@@ -675,7 +675,7 @@ namespace BetLive.Hubs
                 //StreamReader strReader = new StreamReader(Server.MapPath("~/Xml/england_shedule.xml"));
                 // var stream= await strReader.ReadToEndAsync();
 
-                xmldoc.Load("H:/MyWorks/BettingAppDirectory11/BetLive/Xml/soccerInPlayScores" + mockXmlFileExt.ToString() + ".xml");
+                xmldoc.Load("C:/inetpub/wwwroot/BetWayLive/BetLive/Xml/soccerInPlayScores" + mockXmlFileExt.ToString() + ".xml");
             }
             catch (Exception e)
             {
@@ -743,7 +743,7 @@ namespace BetLive.Hubs
 
 
             var xmldoc = new XmlDocument();
-            xmldoc.Load("H:/MyWorks/BettingAppDirectory11/BetLive/Xml/soccerInPlayLliveOdds" + mockXmlFileExt + ".xml");
+            xmldoc.Load("C:/inetpub/wwwroot/BetWayLive/BetLive/Xml/soccerInPlayLliveOdds" + mockXmlFileExt + ".xml");
             var categoryList = xmldoc.SelectNodes("/scores/category");
             if (categoryList == null) return _gamesforLiveOdds.Values; // if the stream is null return the games the way they are
 

@@ -26,6 +26,7 @@ namespace WebUI.Controllers
         #region urls
         private readonly string[] _urls =
         {
+            "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/england_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/eurocups_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/qatar_shedule?odds=bet365",
             "http://www.goalserve.com/getfeed/d1aa4f5599064db8b343090338221a49/soccernew/malta_shedule?odds=bet365",
@@ -937,7 +938,7 @@ namespace WebUI.Controllers
                                 game.BetServiceMatchNo = Convert.ToInt32(goalServeMatchId);
                                 game.StartTime = Convert.ToDateTime(stDateTime).ToLocalTime();
                                 game.ResultStatus = 1;
-                                game.MatchOdds.ForEach(g => g.BetServiceMatchNo = game.BetServiceMatchNo);
+                               // game.MatchOdds.ForEach(g => g.BetServiceMatchNo = game.BetServiceMatchNo);
                                 BetDatabase.Matches.AddOrUpdate(game);
                                 await BetDatabase.SaveChangesAsync();
                             }
