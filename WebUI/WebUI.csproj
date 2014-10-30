@@ -51,6 +51,14 @@
       <Private>True</Private>
       <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
@@ -164,12 +172,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -216,7 +218,7 @@
     <Compile Include="Controllers\FixtureViewModel.cs" />
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LiveController.cs" />
+    <Compile Include="Controllers\Live1Controller.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\ManualResultController.cs" />
     <Compile Include="Controllers\MatchController.cs" />

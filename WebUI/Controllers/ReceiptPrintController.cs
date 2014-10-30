@@ -39,6 +39,7 @@ namespace WebUI.Controllers
         // [Authorize]
         public async Task<IHttpActionResult> ReceiveReceipt([FromBody]Receipt1 receipts)
         {
+           
             // IEnumerable<string> headerValues =RequestContext.Principal.Identity request.Headers.GetValues("MyCustomID");
             //var id = headerValues.FirstOrDefault();
            // var identity = (ClaimsIdentity)User.Identity;
@@ -50,7 +51,7 @@ namespace WebUI.Controllers
             ////var branchId = Convert.ToInt32(account.AdminE);
             ////var branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
             var receiptid = bcg.GenerateRandomString(16);
-            ////return Ok(new { message = "Success", receiptFromServer = receipts/*, ReceiptNumber = receiptid*/ });
+           return Ok(new { message = "Success", receiptFromServer = receipts/*, ReceiptNumber = receiptid*/ });
             var userName = "TellerTest";
             if (!string.IsNullOrEmpty(User.Identity.Name))
             {
@@ -59,29 +60,50 @@ namespace WebUI.Controllers
 
             //var account = await BetDatabase.Accounts.SingleOrDefaultAsync(x => x.UserId == User.Identity.Name);
             var account = await BetDatabase.Accounts.SingleOrDefaultAsync(x => x.UserId == userName);
-
-            // Account account=new Account();
+            if (account == null)
+            {
+                account = new Account { 
+                 DateE=DateTime.Now,
+                  UserId=userName,
+                
+                };
+                BetDatabase.Accounts.Add(account);
+                BetDatabase.SaveChanges();
+            }
             var branchId = 1;// Convert.ToInt32(account.AdminE);
             Branch branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
-
-
+            var betStake = receipts.TotalStake.ToString(CultureInfo.InvariantCulture);
+            var ttodd = receipts.TotalOdd;
+            const float bettingLimit = 5000000;
+            var cost = Convert.ToDouble(betStake);
             var receipt = new Receipt
             {
                 UserId  ="TellerTest",//User.Identity.Name,
                 BranchId =1 ,//Convert.ToInt16(account.AdminE),
-                ReceiptStatus = 0,
+               // ReceiptStatus = 0,
                 SetNo = 2014927,
+                 TotalOdds = Convert.ToDouble(ttodd),
+                 ReceiptStatus = 1,
+                 SetSize = receipts.ReceiptSize,
+                 Stake = cost,
+                 WonSize = 0,
+                 SubmitedSize = 0,
+                 ReceiptDate = DateTime.Now,
+                  Serial = Int2Guid(receiptid),
                 // ReceiptId = Convert.ToInt32(receiptid)
             }; //Start New Reciept
 
-            var betStake = receipts.TotalStake.ToString(CultureInfo.InvariantCulture);
+           
             string response;
+           
+           
+            account.DateE = DateTime.Now;
             BetDatabase.Receipts.Add(receipt);
             await BetDatabase.SaveChangesAsync();
 
-            var ttodd = receipts.TotalOdd;
-            const float bettingLimit = 8000000;
-            var cost = Convert.ToDouble(betStake);
+            //////var ttodd = receipts.TotalOdd;
+            //////const float bettingLimit = 8000000;
+            //////var cost = Convert.ToDouble(betStake);
             if ((cost >= 1000) && (cost <= bettingLimit))//betting limit
             {
 
@@ -119,15 +141,15 @@ namespace WebUI.Controllers
                 }
                 // Requires Quick Attention
 
-                receipt.TotalOdds = Convert.ToDouble(ttodd);
-                receipt.ReceiptStatus = 1;
-                receipt.SetSize = receipts.ReceiptSize;
-                receipt.Stake = cost;
-                receipt.WonSize = 0;
-                receipt.SubmitedSize = 0;
-                receipt.ReceiptDate = DateTime.Now;
-                receipt.Serial = Int2Guid(receiptid);
-                account.DateE = DateTime.Now;
+                //////receipt.TotalOdds = Convert.ToDouble(ttodd);
+                //////receipt.ReceiptStatus = 1;
+                //////receipt.SetSize = receipts.ReceiptSize;
+                //////receipt.Stake = cost;
+                //////receipt.WonSize = 0;
+                //////receipt.SubmitedSize = 0;
+                //////receipt.ReceiptDate = DateTime.Now;
+                //////receipt.Serial = Int2Guid(receiptid);
+                //////account.DateE = DateTime.Now;
                 // receipt.RecieptID = 34;                    
                 BetDatabase.Entry(receipt).State = EntityState.Modified;
                 var statement = new Statement
@@ -135,7 +157,7 @@ namespace WebUI.Controllers
                     Account = receipt.UserId,
                     Amount = receipt.Stake,
                     Controller = receipt.UserId,
-                    StatetmentDate = DateTime.Now,
+                    StatetmentDate = DateTime.Now, 
                     BalBefore = account.AmountE,
                     BalAfter = account.AmountE + receipt.Stake,
                     Comment = "Bet Transaction for Ticket No" + receiptid

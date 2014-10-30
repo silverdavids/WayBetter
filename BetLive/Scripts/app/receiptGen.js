@@ -22,7 +22,7 @@ function ReceiptGen() {
         } else {
             $("td.match-code", $bet).text(bet.matchCode);
         }
-        $("td.match-code", $bet).text(bet.matchCode);
+       // $("td.match-code", $bet).text(bet.matchCode);
         $bet.data("betId", bet.betId);
         $("#rcpTbetList").append($bet);
 
