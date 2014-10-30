@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using DocumentFormat.OpenXml.Presentation;
 using WebUI.App_Start;
 using WebUI.DataAccessLayer;
 using WebUI.Helpers;
@@ -52,7 +53,7 @@ namespace WebUI.Controllers
             ////var branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
             var receiptid = bcg.GenerateRandomString(16);
            return Ok(new { message = "Success", receiptFromServer = receipts/*, ReceiptNumber = receiptid*/ });
-            var userName = "TellerTest";
+            var userName = receipts.UserName;
             if (!string.IsNullOrEmpty(User.Identity.Name))
             {
                 userName = User.Identity.Name;
@@ -112,22 +113,23 @@ namespace WebUI.Controllers
                     try
                     {
                         var tempMatchId = Convert.ToInt32(betData.MatchId);
-                        var matchid = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo;
+                        var matchid = BetDatabase.LiveMatches.Single(x => x.LiveMatchNo == tempMatchId).BetServiceMatchNo;
                         Match match = BetDatabase.Matches.Single(h => h.BetServiceMatchNo == matchid);
                         DateTime _matchTime = match.StartTime;
                         DateTime timenow = DateTime.Now;
-                        if (_matchTime < timenow)
-                        {
-                            response = ("The Match " + tempMatchId + " Has Started");
-                            var message = response;
-                            return Ok(message);
-                        }
+                        //if (_matchTime < timenow)
+                        //{
+                        //    response = ("The Match " + tempMatchId + " Has Started");
+                        //    var message = response;
+                        //    return Ok(message);
+                        //}
                         var bm = new Bet
                         {
                             BetOptionId = Int32.Parse(betData.OptionId),
                             RecieptId = receipt.ReceiptId,
-                            MatchId = tempMatchId,// MatchId = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo,
+                            MatchId =Convert.ToInt32(matchid),// MatchId = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo,
                             BetOdd = Convert.ToDecimal(betData.Odd),
+                           // ExtraValue = GetExtraValue(betData.ExtraValue),
                         };
                         BetDatabase.Bets.Add(bm);
                         BetDatabase.SaveChanges();
@@ -265,6 +267,15 @@ namespace WebUI.Controllers
             return serialGuid;
         }
 
+        public Decimal GetExtraValue(string ev)
+        {
+            decimal extraValue = 0;
+            if (decimal.TryParse(ev, out extraValue))
+            {
+                extraValue=Convert.ToDecimal(ev);
+            }
+            return extraValue;
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -287,6 +298,7 @@ namespace WebUI.Controllers
             set { _betData = value; }
         }
         public long MultipleBetAmount { get; set; }
+        public string UserName { get; set; }
 
 
     }

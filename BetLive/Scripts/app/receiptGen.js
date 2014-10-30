@@ -17,14 +17,10 @@ function ReceiptGen() {
     this.addBetElement = function (bet) {
         var $bet = $("#rcpTbet-template .bet>tr.receipt").clone();
 
-        if (bet["liveScores"] != null) {
-            $("td.match-code", $bet).text(bet.shortCode);
-        } else {
-            $("td.match-code", $bet).text(bet.matchCode);
-        }
+        
        // $("td.match-code", $bet).text(bet.matchCode);
-        $bet.data("betId", bet.betId);
-        $("#rcpTbetList").append($bet);
+     //   $bet.data("betId", bet.betId);
+  
 
         $("td", $bet).each(function () {
             var $input = $(this),
@@ -36,11 +32,15 @@ function ReceiptGen() {
                     $input.text(bet[fieldName] + "-     " + bet["handCapGoalString"]);
                 } else if (fieldName == "teamVersus" && bet.liveScores!="") {
                     $input.text(bet[fieldName] + "( " + "Live " + bet["startTime"] + " : " + bet["liveScores"] + ")");
-                }else {
-                    $input.text(bet[fieldName]);
+                    $("td.match-code", $bet).text(bet.shortCode);
+                   
+                } else if (fieldName == "optionName") {
+                    $input.text(bet[fieldName] + "-" + bet["extraValue"]);
+                }else{
+                $input.text(bet[fieldName]);
                 }
             }
-            
+            $("#rcpTbetList").append($bet);
         });
 
     };

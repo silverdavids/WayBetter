@@ -472,8 +472,9 @@ $(function () {
                  shortCode = $.trim($shortCode.text()),
                 optionName = $that.data("option-name"),
                 liveScores = $that.parent().siblings("td.live-scores").text(),
-                extraValue = $that.parent().siblings("td span.extra-value").text(),
+                extraValue = $that.parent().siblings("td >span.extra-value").text(),
                 bet = new Bet(matchCode);
+            alert(extraValue);
             // $that.tooltip({ placement: 'top', title:''+ matchCode + " " + optionName +''});
             // console.log(handCapGoalString);
             bet.shortCode = shortCode;

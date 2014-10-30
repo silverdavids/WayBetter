@@ -8,6 +8,7 @@ function Receipt() {
     this.TotalStake = 0;
     this.betData = new Array();
     this.MultipleBetAmount = 0;
+    this.UserName = null;
 }
 
 function BetData() {
@@ -39,6 +40,11 @@ function SendReceipt() {
         receipt.TotalOdd = betList.getTotalBettedOdd();
         receipt.TotalStake = betList.getTotalBettedAmount();
         receipt.MultipleBetAmount = Bet.multipleBetAmount;
+        var authData = {};
+        authData = JSON.parse(localStorage.getItem("ls.authorizationData"));
+        receipt.UserName = authData.userName;
+        alert( receipt.UserName);
+        //receipt.UserName = "";
         for (var i in bets) {
             var _betData = new BetData(),
                 _bet = bets[i];
@@ -71,10 +77,10 @@ function SendReceipt() {
                 //console.log("got it " + authData.token);
                 if (authData) {
                     //config.headers.Authorization = 'Bearer ' + authData.token;
-                    jqXHR.setRequestHeader('Authorization', 'Bearer ' + authData.token)
-                    jqXHR.setRequestHeader('UN', authData.userName)
+                    jqXHR.setRequestHeader('Authorization', 'Bearer ' + authData.token);
+                    jqXHR.setRequestHeader('UN', authData.userName);
                     console.log(authData.token);
-
+           
                     //$.extend(settings, { headers: { 'Authorization': 'Bearer ' + authData.token } })
                 }
             }

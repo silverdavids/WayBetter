@@ -322,6 +322,10 @@
     <Compile Include="Migrations\201410172202302_MatchOddError.Designer.cs">
       <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410282222519_betwaylive.cs" />
+    <Compile Include="Migrations\201410282222519_betwaylive.Designer.cs">
+      <DependentUpon>201410282222519_betwaylive.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201410290332063_Included_liveMatchesTable.cs" />
     <Compile Include="Migrations\201410290332063_Included_liveMatchesTable.Designer.cs">
       <DependentUpon>201410290332063_Included_liveMatchesTable.cs</DependentUpon>
@@ -1789,6 +1793,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410172202302_MatchOddError.resx">
       <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410282222519_betwaylive.resx">
+      <DependentUpon>201410282222519_betwaylive.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410290332063_Included_liveMatchesTable.resx">
       <DependentUpon>201410290332063_Included_liveMatchesTable.cs</DependentUpon>

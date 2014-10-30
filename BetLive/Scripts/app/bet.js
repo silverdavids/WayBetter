@@ -183,7 +183,7 @@ function BetList(bets) {
     
     this.getBonus = function () {
         var _bonus = 0,
-            _bonusPercentage = 0.05;//Bet.localTax;
+            _bonusPercentage = 0.5;//Bet.localTax;
         if (Bet.singles == true) {
             _bonus = (this.getTotalPayout() /*- this.getTotalBettedAmount()*/) * _bonusPercentage;
         } else {
