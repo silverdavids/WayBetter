@@ -310,53 +310,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Infrastructure\XmlHelper.cs" />
-    <Compile Include="Migrations\201410141731072_InitialCreate.cs" />
-    <Compile Include="Migrations\201410141731072_InitialCreate.Designer.cs">
-      <DependentUpon>201410141731072_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410161711350_BetOptionpatch.cs" />
-    <Compile Include="Migrations\201410161711350_BetOptionpatch.Designer.cs">
-      <DependentUpon>201410161711350_BetOptionpatch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410172202302_MatchOddError.cs" />
-    <Compile Include="Migrations\201410172202302_MatchOddError.Designer.cs">
-      <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410282222519_betwaylive.cs" />
-    <Compile Include="Migrations\201410282222519_betwaylive.Designer.cs">
-      <DependentUpon>201410282222519_betwaylive.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410290332063_Included_liveMatchesTable.cs" />
-    <Compile Include="Migrations\201410290332063_Included_liveMatchesTable.Designer.cs">
-      <DependentUpon>201410290332063_Included_liveMatchesTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410290809130_Included_liveMatchesTable1.cs" />
-    <Compile Include="Migrations\201410290809130_Included_liveMatchesTable1.Designer.cs">
-      <DependentUpon>201410290809130_Included_liveMatchesTable1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410291030422_Included_liveMatchesTable2.cs" />
-    <Compile Include="Migrations\201410291030422_Included_liveMatchesTable2.Designer.cs">
-      <DependentUpon>201410291030422_Included_liveMatchesTable2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410291051352_Included_liveMatchesTable3.cs" />
-    <Compile Include="Migrations\201410291051352_Included_liveMatchesTable3.Designer.cs">
-      <DependentUpon>201410291051352_Included_liveMatchesTable3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410291117080_Included_liveMatchesTable5.cs" />
-    <Compile Include="Migrations\201410291117080_Included_liveMatchesTable5.Designer.cs">
-      <DependentUpon>201410291117080_Included_liveMatchesTable5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410291138427_Included_liveMatchesTable6.cs" />
-    <Compile Include="Migrations\201410291138427_Included_liveMatchesTable6.Designer.cs">
-      <DependentUpon>201410291138427_Included_liveMatchesTable6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410291155424_Included_liveMatchesTable7.cs" />
-    <Compile Include="Migrations\201410291155424_Included_liveMatchesTable7.Designer.cs">
-      <DependentUpon>201410291155424_Included_liveMatchesTable7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201410292029194_Added_SetDate_Field_ToLiveMatch_Entity.cs" />
-    <Compile Include="Migrations\201410292029194_Added_SetDate_Field_ToLiveMatch_Entity.Designer.cs">
-      <DependentUpon>201410292029194_Added_SetDate_Field_ToLiveMatch_Entity.cs</DependentUpon>
+    <Compile Include="Migrations\201410310406234_initial_create.cs" />
+    <Compile Include="Migrations\201410310406234_initial_create.Designer.cs">
+      <DependentUpon>201410310406234_initial_create.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1785,41 +1741,8 @@
     <Folder Include="Content\Files\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201410141731072_InitialCreate.resx">
-      <DependentUpon>201410141731072_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410161711350_BetOptionpatch.resx">
-      <DependentUpon>201410161711350_BetOptionpatch.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410172202302_MatchOddError.resx">
-      <DependentUpon>201410172202302_MatchOddError.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410282222519_betwaylive.resx">
-      <DependentUpon>201410282222519_betwaylive.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410290332063_Included_liveMatchesTable.resx">
-      <DependentUpon>201410290332063_Included_liveMatchesTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410290809130_Included_liveMatchesTable1.resx">
-      <DependentUpon>201410290809130_Included_liveMatchesTable1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410291030422_Included_liveMatchesTable2.resx">
-      <DependentUpon>201410291030422_Included_liveMatchesTable2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410291051352_Included_liveMatchesTable3.resx">
-      <DependentUpon>201410291051352_Included_liveMatchesTable3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410291117080_Included_liveMatchesTable5.resx">
-      <DependentUpon>201410291117080_Included_liveMatchesTable5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410291138427_Included_liveMatchesTable6.resx">
-      <DependentUpon>201410291138427_Included_liveMatchesTable6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410291155424_Included_liveMatchesTable7.resx">
-      <DependentUpon>201410291155424_Included_liveMatchesTable7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410292029194_Added_SetDate_Field_ToLiveMatch_Entity.resx">
-      <DependentUpon>201410292029194_Added_SetDate_Field_ToLiveMatch_Entity.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201410310406234_initial_create.resx">
+      <DependentUpon>201410310406234_initial_create.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

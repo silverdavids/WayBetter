@@ -14,7 +14,7 @@ namespace Domain.Models.ViewModels
       
        [Key]
        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-       public int LiveMatchNo { get; set; }
+       public string LiveMatchNo { get; set; }
          
         // this property references the generated BetServiceNo from matches but it  generated as ShortMatchCodes for the live bets
         //so instead of the BetServiceNo for the lives ,we use the shorts

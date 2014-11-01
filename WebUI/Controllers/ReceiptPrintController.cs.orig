@@ -52,8 +52,13 @@ namespace WebUI.Controllers
             ////var branchId = Convert.ToInt32(account.AdminE);
             ////var branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
             var receiptid = bcg.GenerateRandomString(16);
+<<<<<<< HEAD
            return Ok(new { message = "Success", receiptFromServer = receipts/*, ReceiptNumber = receiptid*/ });
+            var userName = "TellerTest";
+=======
+            ////return Ok(new { message = "Success", receiptFromServer = receipts/*, ReceiptNumber = receiptid*/ });
             var userName = receipts.UserName;
+>>>>>>> e9f6fd8f38e1d7297e4e5dc6f628ef7d6a14d2b4
             if (!string.IsNullOrEmpty(User.Identity.Name))
             {
                 userName = User.Identity.Name;
@@ -113,15 +118,7 @@ namespace WebUI.Controllers
                     try
                     {
                         var tempMatchId = Convert.ToInt32(betData.MatchId);
-                        var matchid = 0 ;
-                        //Check if the match is a live game
-                        if (betData.LiveScores != null)
-                        {
-                            matchid = (int)BetDatabase.LiveMatches.Single(x => x.LiveMatchNo.Equals(tempMatchId)).BetServiceMatchNo;
-                        }
-                        else {
-                            matchid = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo;                        
-                        }
+                        var matchid = BetDatabase.LiveMatches.Single(x => x.LiveMatchNo == tempMatchId).BetServiceMatchNo;
                         Match match = BetDatabase.Matches.Single(h => h.BetServiceMatchNo == matchid);
                         DateTime _matchTime = match.StartTime;
                         DateTime timenow = DateTime.Now;

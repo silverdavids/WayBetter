@@ -13,6 +13,7 @@ namespace BetLive.App_Start
 {
     public class StartupBetLive
     {
+       
         public void Configuration(IAppBuilder app) 
         {
           

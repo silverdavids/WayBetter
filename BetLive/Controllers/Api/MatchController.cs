@@ -35,7 +35,11 @@ namespace BetLive.Controllers.Api
             var games = await db.Matches.Include(m => m.HomeTeam).Include(m => m.AwayTeam).ToListAsync();
             //var games = await BetDatabase.ShortMatchCodes.Include(s => s.Match).OrderBy(x => x.ShortCode).ToListAsync();
             //var startTime = DateTime.Now;
-
+            if (games == null || games.Count() == 0)
+            {
+                return new List<GameViewModel>();
+            }
+           
             var filteredgames = games.Select(g => new GameViewModel
             {
                 AwayScore = g.AwayScore,

@@ -1,8 +1,9 @@
 namespace WebUI.Migrations
 {
+    using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class initial_create : DbMigration
     {
         public override void Up()
         {
@@ -51,14 +52,21 @@ namespace WebUI.Migrations
                     {
                         BranchId = c.Int(nullable: false, identity: true),
                         BranchName = c.String(),
+                        BranchCode = c.String(),
                         Location = c.String(),
-                        ManagerId = c.Int(),
+                        DateCreated = c.DateTime(nullable: false),
+                        MaxCash = c.Decimal(nullable: false, storeType: "money"),
+                        MinStake = c.Decimal(storeType: "money"),
+                        ManagerId = c.String(),
                         Balance = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        BranchTypeId = c.Int(nullable: false),
+                        BranchTypeId = c.Int(),
+                        CompanyId = c.Int(),
                     })
                 .PrimaryKey(t => t.BranchId)
-                .ForeignKey("dbo.BranchTypes", t => t.BranchTypeId, cascadeDelete: true)
-                .Index(t => t.BranchTypeId);
+                .ForeignKey("dbo.BranchTypes", t => t.BranchTypeId)
+                .ForeignKey("dbo.Companies", t => t.CompanyId)
+                .Index(t => t.BranchTypeId)
+                .Index(t => t.CompanyId);
             
             CreateTable(
                 "dbo.BranchTypes",
@@ -70,14 +78,36 @@ namespace WebUI.Migrations
                 .PrimaryKey(t => t.BranchTypeId);
             
             CreateTable(
-                "dbo.Terminals",
+                "dbo.Companies",
                 c => new
                     {
-                        TerminalId = c.Int(nullable: false, identity: true),
-                        TerminalName = c.String(),
-                        BranchId = c.Int(nullable: false),
+                        CompanyId = c.Int(nullable: false, identity: true),
+                        CompanyName = c.String(nullable: false),
+                        CompanyLocation = c.String(nullable: false),
                     })
-                .PrimaryKey(t => t.TerminalId)
+                .PrimaryKey(t => t.CompanyId);
+            
+            CreateTable(
+                "dbo.Employees",
+                c => new
+                    {
+                        PersonId = c.Int(nullable: false, identity: true),
+                        HireDate = c.DateTime(nullable: false),
+                        BranchId = c.Int(nullable: false),
+                        FirstName = c.String(nullable: false, maxLength: 50),
+                        MiddleName = c.String(),
+                        Surname = c.String(nullable: false, maxLength: 50),
+                        Gender = c.Int(nullable: false),
+                        Email = c.String(),
+                        DateOfBirth = c.DateTime(nullable: false),
+                        AddressLine1 = c.String(),
+                        AddressLine2 = c.String(),
+                        City = c.String(),
+                        PhoneNo = c.String(),
+                        Mobile = c.String(),
+                        Photo = c.String(),
+                    })
+                .PrimaryKey(t => t.PersonId)
                 .ForeignKey("dbo.Branches", t => t.BranchId, cascadeDelete: true)
                 .Index(t => t.BranchId);
             
@@ -86,16 +116,36 @@ namespace WebUI.Migrations
                 c => new
                     {
                         ShiftId = c.Int(nullable: false, identity: true),
-                        StartDate = c.DateTime(nullable: false),
-                        OpeningCash = c.Decimal(precision: 18, scale: 2),
-                        ClosingCash = c.Decimal(precision: 18, scale: 2),
-                        UserId = c.String(),
-                        AssignedBy = c.String(),
-                        TerminalId = c.Int(nullable: false),
+                        StartTime = c.DateTime(nullable: false),
+                        EndTime = c.DateTime(nullable: false),
+                        AssignedBy = c.Int(nullable: false),
+                        IsClosed = c.Boolean(),
+                        StartCash = c.Decimal(nullable: false, storeType: "money"),
+                        CashIn = c.Decimal(nullable: false, storeType: "money"),
+                        CashOut = c.Decimal(nullable: false, storeType: "money"),
+                        PersonId = c.Int(nullable: false),
+                        TerminalId = c.Int(),
                     })
                 .PrimaryKey(t => t.ShiftId)
-                .ForeignKey("dbo.Terminals", t => t.TerminalId, cascadeDelete: true)
+                .ForeignKey("dbo.Employees", t => t.PersonId, cascadeDelete: true)
+                .ForeignKey("dbo.Terminals", t => t.TerminalId)
+                .Index(t => t.PersonId)
                 .Index(t => t.TerminalId);
+            
+            CreateTable(
+                "dbo.Terminals",
+                c => new
+                    {
+                        TerminalId = c.Int(nullable: false, identity: true),
+                        TerminalName = c.String(),
+                        IpAddress = c.String(),
+                        DateCreated = c.DateTime(nullable: false),
+                        isActive = c.Boolean(nullable: false),
+                        BranchId = c.Int(),
+                    })
+                .PrimaryKey(t => t.TerminalId)
+                .ForeignKey("dbo.Branches", t => t.BranchId)
+                .Index(t => t.BranchId);
             
             CreateTable(
                 "dbo.Bets",
@@ -158,8 +208,8 @@ namespace WebUI.Migrations
                         ResultStatus = c.Int(),
                     })
                 .PrimaryKey(t => t.BetServiceMatchNo)
-                .ForeignKey("dbo.Teams", t => t.AwayTeamId)
-                .ForeignKey("dbo.Teams", t => t.HomeTeamId)
+                .ForeignKey("dbo.Teams", t => t.AwayTeamId, cascadeDelete: false)
+                .ForeignKey("dbo.Teams", t => t.HomeTeamId, cascadeDelete: false)
                 .Index(t => t.AwayTeamId)
                 .Index(t => t.HomeTeamId);
             
@@ -256,16 +306,6 @@ namespace WebUI.Migrations
                 .Index(t => t.RecieptId);
             
             CreateTable(
-                "dbo.Companies",
-                c => new
-                    {
-                        CompanyId = c.Int(nullable: false, identity: true),
-                        CompanyName = c.String(nullable: false),
-                        CompanyLocation = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.CompanyId);
-            
-            CreateTable(
                 "dbo.Documents",
                 c => new
                     {
@@ -277,6 +317,18 @@ namespace WebUI.Migrations
                         ModifiedBy = c.String(nullable: false, maxLength: 20),
                     })
                 .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.LiveMatches",
+                c => new
+                    {
+                        LiveMatchNo = c.String(nullable: false, maxLength: 128),
+                        BetServiceMatchNo = c.Int(nullable: false),
+                        SetDate = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.LiveMatchNo)
+                .ForeignKey("dbo.Matches", t => t.BetServiceMatchNo, cascadeDelete: true)
+                .Index(t => t.BetServiceMatchNo);
             
             CreateTable(
                 "dbo.ReceiptStatus",
@@ -415,6 +467,7 @@ namespace WebUI.Migrations
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Receipts", "ReceiptStatus_StatusId", "dbo.ReceiptStatus");
+            DropForeignKey("dbo.LiveMatches", "BetServiceMatchNo", "dbo.Matches");
             DropForeignKey("dbo.CancelReciepts", "RecieptId", "dbo.Receipts");
             DropForeignKey("dbo.Receipts", "UserId", "dbo.Accounts");
             DropForeignKey("dbo.Bets", "RecieptId", "dbo.Receipts");
@@ -434,6 +487,9 @@ namespace WebUI.Migrations
             DropForeignKey("dbo.Receipts", "BranchId", "dbo.Branches");
             DropForeignKey("dbo.Shifts", "TerminalId", "dbo.Terminals");
             DropForeignKey("dbo.Terminals", "BranchId", "dbo.Branches");
+            DropForeignKey("dbo.Shifts", "PersonId", "dbo.Employees");
+            DropForeignKey("dbo.Employees", "BranchId", "dbo.Branches");
+            DropForeignKey("dbo.Branches", "CompanyId", "dbo.Companies");
             DropForeignKey("dbo.Branches", "BranchTypeId", "dbo.BranchTypes");
             DropIndex("dbo.SeasonLeagues", new[] { "League_LeagueId" });
             DropIndex("dbo.SeasonLeagues", new[] { "Season_StartYear", "Season_EndYear" });
@@ -443,6 +499,7 @@ namespace WebUI.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.LiveMatches", new[] { "BetServiceMatchNo" });
             DropIndex("dbo.CancelReciepts", new[] { "RecieptId" });
             DropIndex("dbo.ShortMatchCodes", new[] { "MatchNo" });
             DropIndex("dbo.MatchOdds", new[] { "BetOptionId" });
@@ -456,8 +513,11 @@ namespace WebUI.Migrations
             DropIndex("dbo.Bets", new[] { "BetOptionId" });
             DropIndex("dbo.Bets", new[] { "RecieptId" });
             DropIndex("dbo.Bets", new[] { "MatchId" });
-            DropIndex("dbo.Shifts", new[] { "TerminalId" });
             DropIndex("dbo.Terminals", new[] { "BranchId" });
+            DropIndex("dbo.Shifts", new[] { "TerminalId" });
+            DropIndex("dbo.Shifts", new[] { "PersonId" });
+            DropIndex("dbo.Employees", new[] { "BranchId" });
+            DropIndex("dbo.Branches", new[] { "CompanyId" });
             DropIndex("dbo.Branches", new[] { "BranchTypeId" });
             DropIndex("dbo.Receipts", new[] { "ReceiptStatus_StatusId" });
             DropIndex("dbo.Receipts", new[] { "BranchId" });
@@ -471,8 +531,8 @@ namespace WebUI.Migrations
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Results");
             DropTable("dbo.ReceiptStatus");
+            DropTable("dbo.LiveMatches");
             DropTable("dbo.Documents");
-            DropTable("dbo.Companies");
             DropTable("dbo.CancelReciepts");
             DropTable("dbo.ShortMatchCodes");
             DropTable("dbo.MatchOdds");
@@ -484,8 +544,10 @@ namespace WebUI.Migrations
             DropTable("dbo.BetCategories");
             DropTable("dbo.BetOptions");
             DropTable("dbo.Bets");
-            DropTable("dbo.Shifts");
             DropTable("dbo.Terminals");
+            DropTable("dbo.Shifts");
+            DropTable("dbo.Employees");
+            DropTable("dbo.Companies");
             DropTable("dbo.BranchTypes");
             DropTable("dbo.Branches");
             DropTable("dbo.Receipts");

@@ -6,14 +6,14 @@ namespace WebUI.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class Included_liveMatchesTable1 : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
+    public sealed partial class initial_create : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Included_liveMatchesTable1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial_create));
         
         string IMigrationMetadata.Id
         {
-            get { return "201410290809130_Included_liveMatchesTable1"; }
+            get { return "201410310406234_initial_create"; }
         }
         
         string IMigrationMetadata.Source
