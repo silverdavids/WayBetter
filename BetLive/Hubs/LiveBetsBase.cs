@@ -26,7 +26,7 @@ namespace BetLive.Hubs
         private readonly static Lazy<LiveBetsBase> _instance = new Lazy<LiveBetsBase>(() => new LiveBetsBase(GlobalHost.ConnectionManager.GetHubContext<LiveGameHub>().Clients));
         #region Variables Decalaration
         private readonly IList<LiveBetSource> _liveBetUrls;
-        private readonly TimeSpan _updateInterval = TimeSpan.FromSeconds(1);
+        private readonly TimeSpan _updateInterval = TimeSpan.FromSeconds(2);
         private readonly ConcurrentDictionary<string, Game> _gamesforLiveScore = new ConcurrentDictionary<string, Game>();
         private readonly ConcurrentDictionary<string, Game> _gamesforLiveOdds = new ConcurrentDictionary<string, Game>();
         private readonly ConcurrentDictionary<string, Game>_gamesWithLiveScoresAndOdds = new ConcurrentDictionary<string, Game>();
@@ -117,8 +117,8 @@ namespace BetLive.Hubs
                 mockXmlFileExt=1;
             }
            // mockXmlFileExt = 1;
-            var scores =/* await  GetGamesScores();*/await myController.GetGamesScoresFromXml(mockXmlFileExt);
-            var odds =/*await GetGamesOdds();  */ await myController.GetGamesOddsFromXml(mockXmlFileExt);
+            var scores = await  GetGamesScores();/*await myController.GetGamesScoresFromXml(mockXmlFileExt);*/
+            var odds =await GetGamesOdds();  /* await myController.GetGamesOddsFromXml(mockXmlFileExt);*/
             var allGames =  (from gamescore in scores
                             join gameodds in odds
                             on gamescore.MatchNo equals gameodds.MatchNo
@@ -261,7 +261,7 @@ namespace BetLive.Hubs
                             if (TryUpdateGame(game))
                             {
                                 //broadcast on the UI
-                                // BroadcastLiveGame(game);
+                                 BroadcastLiveGame(game);
                             }
                         }
                         _updatingGame = false;
@@ -682,12 +682,12 @@ namespace BetLive.Hubs
 
         private void BroadcastLiveGame(Game game)
         {
-            var hubContext = GlobalHost.ConnectionManager.GetHubContext<LiveGameHub>();
-            if (hubContext != null)
-            {
+           // var hubContext = GlobalHost.ConnectionManager.GetHubContext<LiveGameHub>();
+            //if (Clients != null)
+            //{
 
-                hubContext.Clients.All.updateGame(game);
-            }
+                Clients.All.updateGame(game);
+            //}
 
         }
 
