@@ -7,12 +7,15 @@
  * # authService
  * Service in the bettingApp.
  */
-
+//var $authServiceData = $authServiceData || {};
+//$authServiceData.settings = {};
+//$authServiceData.settings.baseUrl = "/";
 bettingApp.service('authService',['$http','$q','localStorageService', function authService($http,$q,localStorageService) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     //var serviceBase = 'http://localhost:54482/';
     // var serviceBase = 'http://localhost/testlive.betway.ug/';
-    var serviceBase = 'http://localhost:54482/';
+   // var serviceBase = 'http://localhost:54482/';
+    var serviceBase = 'http://localhost:54482/'; $authServiceData.settings.baseUrl
         var authServiceFactory = {};
 
         var _authentication = {

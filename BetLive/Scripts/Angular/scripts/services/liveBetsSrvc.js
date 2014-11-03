@@ -1,14 +1,21 @@
 ﻿'use strict';
+//var $liveBetsSrvcData = $liveBetsSrvcData || {};
+//$liveBetsSrvcData.settings = {};
+//$liveBetsSrvcData.settings.baseUrl = "/";
+//$liveBetsSrvcData.settings.Name = null;
 
 bettingApp.factory('liveBetsSrvc', [ '$rootScope', function ( $rootScope) {
     //var ticker = $.connection.liveBetHub;
     // this works as our proxy
     var ticker = null,
-        connection=null,connIsStarted=false;
+        connection = null, connIsStarted = false,
+        hubName = $liveBetsSrvcData.settings.Name,
+        hubBaseUrl = $liveBetsSrvcData.settings.baseUrl;
+
     function init() {
         console.log("Connecting to the hub");
-         connection = $.hubConnection();
-         ticker = connection.createHubProxy('liveBetHubAng');
+        connection = $.hubConnection(hubBaseUrl);
+         ticker = connection.createHubProxy(hubName);
         //var that = ticker;
         //listen to game updates from the server
        ticker.on('updateGame', function (game) {

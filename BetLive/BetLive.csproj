@@ -37,6 +37,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IncludeIisSettings>true</IncludeIisSettings>
+    <IncludeAppPool>true</IncludeAppPool>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -735,6 +737,7 @@
     <Content Include="Scripts\Angular\scripts\services\liveBetsSrvc.js" />
     <Content Include="Scripts\Angular\scripts\services\matchservice.js" />
     <Content Include="Scripts\Angular\scripts\services\myNewService.js" />
+    <Content Include="Scripts\Angular\scripts\services\receiptSrvc.js" />
     <Content Include="Scripts\Angular\styles\main.css" />
     <Content Include="Scripts\Angular\vender\angular-local-storage.min.js" />
     <Content Include="Scripts\Angular\vender\bootstrap.js" />
@@ -832,6 +835,7 @@
     <Content Include="Content\DataTables-1.10.2\css\dataTables.jqueryui.scss" />
     <Content Include="Content\DataTables-1.10.2\css\dataTables.responsive.scss" />
     <None Include="Properties\PublishProfiles\DavidLive.pubxml" />
+    <None Include="Properties\PublishProfiles\FifthDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\FirtstLiveDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\FourthDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\SecondDeploy.pubxml" />
@@ -858,7 +862,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Management\home.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -955,6 +961,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

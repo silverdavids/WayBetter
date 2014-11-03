@@ -1,6 +1,9 @@
 ﻿/**
  * Created by kazibwesempa on 9/12/2014.
  */
+var $receiptSenderData = $receiptSenderData || {};
+$receiptSenderData.settings = {};
+$receiptSenderData.settings.baseUrl = "/";
 function Receipt() {
 
     this.ReceiptSize = 0;
@@ -62,8 +65,8 @@ function SendReceipt() {
         }
         if (betList.getBets().length > 0) console.log(receipt);
 
-        var url = "http://localhost:49193/api/ReceiptPrint/ReceiveReceipt";
-
+      //  var url = "http://localhost:49193/api/ReceiptPrint/ReceiveReceipt";
+        var url = $receiptSenderData.settings.baseUrl;
         $.ajax({
             url: url,
             type: "POST",

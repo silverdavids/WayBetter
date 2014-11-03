@@ -68,9 +68,34 @@ bettingApp.config(function ($routeProvider) {
 bettingApp.run(['authService',function(authService){
     authService.fillAuthData();
 }]);
-$betaData.settings.baseUrl = 'http://localhost:54482/api/';
+//$betaData.settings.baseUrl = 'http://localhost:54482/api/';
 //$betaData.settings.baseUrl = 'http://localhost/testlive.betway.ug/api/';
 bettingApp.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
 });
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!CAUTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//The folowing lines of code settings are supposed to be in the data sevice file 
+// but is renderered later than this filein which their initialization occurs
+//so they are not binded so i decided to put them here as a fix
+//_________________________________________________________________________________
+var $betaData = $betaData || {};
+$betaData.settings = {};
+$betaData.settings.baseUrl = "/";
+$betaData.settings.errorLine = "<br />";
+//__________________________________________________________________________________
+var $authServiceData = $authServiceData || {};
+$authServiceData.settings = {};
+$authServiceData.settings.baseUrl = "/";
+//__________________________________________________________________________________
+var $liveBetsSrvcData = $liveBetsSrvcData || {};
+$liveBetsSrvcData.settings = {};
+$liveBetsSrvcData.settings.baseUrl = "/";
+$liveBetsSrvcData.settings.Name = null;
+//__________________________________________________________________________________
 
+//Initialize the base urls for all services
+$betaData.settings.baseUrl = 'http://localhost:54482/api/';
+$receiptSenderData.settings.baseUrl = 'http://localhost:54482/api/';
+$authServiceData.settings.baseUrl = 'http://localhost:54482/';
+$liveBetsSrvcData.settings.baseUrl = 'http://localhost:54482';
+$liveBetsSrvcData.settings.Name = 'liveBetHubAng';

@@ -109,7 +109,7 @@ namespace BetLive.Hubs
         public async Task GetchAllGamesFromServiceProvider()
         {
             if (mockXmlFileExt < 13)//7
-            {
+            { 
                 ++mockXmlFileExt;
             }
             else if (mockXmlFileExt == 13)
@@ -117,8 +117,8 @@ namespace BetLive.Hubs
                 mockXmlFileExt=1;
             }
            // mockXmlFileExt = 1;
-            var scores = await  GetGamesScores();/*await myController.GetGamesScoresFromXml(mockXmlFileExt);*/
-            var odds =await GetGamesOdds();  /* await myController.GetGamesOddsFromXml(mockXmlFileExt);*/
+            var scores =/* await  GetGamesScores();*/await myController.GetGamesScoresFromXml(mockXmlFileExt);
+            var odds =/* await GetGamesOdds();*/  await myController.GetGamesOddsFromXml(mockXmlFileExt);
             var allGames =  (from gamescore in scores
                             join gameodds in odds
                             on gamescore.MatchNo equals gameodds.MatchNo
@@ -752,7 +752,7 @@ namespace BetLive.Hubs
                 //StreamReader strReader = new StreamReader(Server.MapPath("~/Xml/england_shedule.xml"));
                 // var stream= await strReader.ReadToEndAsync();
 
-                xmldoc.Load("H:/MyWorks/BettingAppDirectory11/BetLive/Xml/soccerInPlayScores" + mockXmlFileExt.ToString() + ".xml");
+                xmldoc.Load(System.Web.Hosting.HostingEnvironment.MapPath("~/Xml/soccerInPlayScores" + mockXmlFileExt.ToString() + ".xml"));
             }
             catch (Exception e)
             {
@@ -820,7 +820,7 @@ namespace BetLive.Hubs
 
 
             var xmldoc = new XmlDocument();
-            xmldoc.Load("H:/MyWorks/BettingAppDirectory11/BetLive/Xml/soccerInPlayLliveOdds" + mockXmlFileExt + ".xml");
+            xmldoc.Load(System.Web.Hosting.HostingEnvironment.MapPath("~/Xml/soccerInPlayLliveOdds" + mockXmlFileExt + ".xml"));
             var categoryList = xmldoc.SelectNodes("/scores/category");
             if (categoryList == null) return _gamesforLiveOdds.Values; // if the stream is null return the games the way they are
 

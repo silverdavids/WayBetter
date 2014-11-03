@@ -11,10 +11,10 @@
 
 
 
-var $betaData = $betaData || {};
-$betaData.settings = {};
-$betaData.settings.baseUrl = "/";
-$betaData.settings.errorLine = "<br />";
+//var $betaData = $betaData || {};
+//$betaData.settings = {};
+//$betaData.settings.baseUrl = "/";
+//$betaData.settings.errorLine = "<br />";
 
 $betaData.module = angular.module('betaDataModule', []);
 $betaData.module.factory('dataService', ['$http', '$q', function($http, $q) {
