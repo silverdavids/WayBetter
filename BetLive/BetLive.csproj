@@ -834,14 +834,8 @@
     <Content Include="Xml\soccerInPlayScores9.xml" />
     <Content Include="Content\DataTables-1.10.2\css\dataTables.jqueryui.scss" />
     <Content Include="Content\DataTables-1.10.2\css\dataTables.responsive.scss" />
-    <None Include="Properties\PublishProfiles\DavidLive.pubxml" />
-    <None Include="Properties\PublishProfiles\FifthDeploy.pubxml" />
-    <None Include="Properties\PublishProfiles\FirtstLiveDeploy.pubxml" />
-    <None Include="Properties\PublishProfiles\FourthDeploy.pubxml" />
-    <None Include="Properties\PublishProfiles\SecondDeploy.pubxml" />
-    <None Include="Properties\PublishProfiles\ThirdDeploy.pubxml" />
-    <None Include="Properties\PublishProfiles\ThirdPublish.pubxml" />
     <Content Include="Scripts\DataTables-1.10.2\datagrid_data1.json" />
+    <None Include="Properties\PublishProfiles\FirstDeploy.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
