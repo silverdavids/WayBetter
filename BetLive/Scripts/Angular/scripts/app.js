@@ -94,8 +94,16 @@ $liveBetsSrvcData.settings.Name = null;
 //__________________________________________________________________________________
 
 //Initialize the base urls for all services
-$betaData.settings.baseUrl = 'http://localhost:54482/api/';
-$receiptSenderData.settings.baseUrl = 'http://localhost:54482/api/';
-$authServiceData.settings.baseUrl = 'http://localhost:54482/';
-$liveBetsSrvcData.settings.baseUrl = 'http://localhost:54482';
+//$betaData.settings.baseUrl = 'http://localhost:54482/api/';
+//$receiptSenderData.settings.baseUrl = 'http://localhost:54482/api/';
+//$authServiceData.settings.baseUrl = 'http://localhost:54482/';
+//$liveBetsSrvcData.settings.baseUrl = 'http://localhost:54482';
+//$liveBetsSrvcData.settings.Name = 'liveBetHubAng';
+
+//____________________________________________________________________________________
+$betaData.settings.baseUrl = 'http://localhost/livebet/api/';
+$receiptSenderData.settings.baseUrl = 'http://localhost/livebet/api/';
+$authServiceData.settings.baseUrl = 'http://localhost/livebet/';
+$liveBetsSrvcData.settings.baseUrl = 'http://localhost/livebet';
 $liveBetsSrvcData.settings.Name = 'liveBetHubAng';
+
