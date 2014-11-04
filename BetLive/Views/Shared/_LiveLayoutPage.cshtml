@@ -7,6 +7,7 @@
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/FontAwesome")
     @Scripts.Render("~/bundles/modernizr")
+ 
     <link href="~/Content/css/Custom.css" rel="stylesheet" />
     @*<link href="~/Content/DataTables-1.10.2/css/dataTables.bootstrap.css" rel="stylesheet" />*@
     <style type="text/css">
@@ -27,7 +28,7 @@
             text-shadow: 0 0 5px #00c6ff;
         }
 
-        ul {
+        ul.nav {
             /*width: 800px;*/
             margin: 0 auto;
             padding: 0px;
@@ -35,7 +36,7 @@
             text-align: center;
         }
 
-            ul li {
+            ul.nav li {
                 display: inline;
                 font-size: 1.5em;
                 text-align: center;
@@ -91,6 +92,8 @@
                     background-color: #fff;
                 }
     </style>
+    <link href="@Url.Content("~/Content/receipt.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/printReceipt.css")" rel="stylesheet" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top bet-way-header" style="background-color:#0D1F35 !important;">
@@ -180,5 +183,11 @@
         });
     </script>
     @RenderSection("scripts", required: false)
+    <script src="@Url.Content("~/Scripts/app/autoNumeric.js")"></script>
+    <script src="@Url.Content("~/Scripts/app/bet.js")"></script>
+    <script src="@Url.Content("~/Scripts/app/receipt.js")"></script>
+    <script src="@Url.Content("~/Scripts/app/receiptSender.js")"></script>
+    <script src="@Url.Content("~/Scripts/app/printExt.js")"></script>
+    <script src="@Url.Content("~/Scripts/app/receiptGen.js")"></script>
 </body>
 </html>

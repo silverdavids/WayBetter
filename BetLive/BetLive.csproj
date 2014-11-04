@@ -916,6 +916,7 @@
     <Content Include="Views\Live\Games.cshtml" />
     <Content Include="Views\Live\Index.cshtml" />
     <Content Include="Views\Shared\_LiveLayoutPage.cshtml" />
+    <Content Include="Views\Live\IndexBasic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

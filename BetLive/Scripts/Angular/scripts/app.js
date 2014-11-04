@@ -91,19 +91,19 @@ var $liveBetsSrvcData = $liveBetsSrvcData || {};
 $liveBetsSrvcData.settings = {};
 $liveBetsSrvcData.settings.baseUrl = "/";
 $liveBetsSrvcData.settings.Name = null;
-//__________________________________________________________________________________
+//___________________________STAGING SERVER____________________________________
 
 //Initialize the base urls for all services
-//$betaData.settings.baseUrl = 'http://localhost:54482/api/';
-//$receiptSenderData.settings.baseUrl = 'http://localhost:54482/api/';
-//$authServiceData.settings.baseUrl = 'http://localhost:54482/';
-//$liveBetsSrvcData.settings.baseUrl = 'http://localhost:54482';
-//$liveBetsSrvcData.settings.Name = 'liveBetHubAng';
-
-//____________________________________________________________________________________
-$betaData.settings.baseUrl = 'http://localhost/livebet/api/';
-$receiptSenderData.settings.baseUrl = 'http://localhost/livebet/api/';
-$authServiceData.settings.baseUrl = 'http://localhost/livebet/';
-$liveBetsSrvcData.settings.baseUrl = 'http://localhost/livebet';
+$betaData.settings.baseUrl = 'http://localhost:54482/api/';
+$receiptSenderData.settings.baseUrl = 'http://localhost:49193/api/';
+$authServiceData.settings.baseUrl = 'http://localhost:54482/';
+$liveBetsSrvcData.settings.baseUrl = 'http://localhost:54482';
 $liveBetsSrvcData.settings.Name = 'liveBetHubAng';
+
+//________________________DEPLOYMENT__SERVER_______________________________________
+//$betaData.settings.baseUrl = 'http://localhost/livebet/api/';
+//$receiptSenderData.settings.baseUrl = 'http://localhost/livebet/api/';
+//$authServiceData.settings.baseUrl = 'http://localhost/livebet/';
+//$liveBetsSrvcData.settings.baseUrl = 'http://localhost/livebet';
+//$liveBetsSrvcData.settings.Name = 'liveBetHubAng';
 

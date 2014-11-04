@@ -335,7 +335,8 @@ function BettingApp() {
     function addBetElement(bet) {
         var $bet = $("#bet-template .bet").clone();
 
-        $("span.match-code", $bet).text(bet.matchCode);
+        $("span.match-code", $bet).text(bet.shortCode);
+        alert(bet.shortCode)
         $bet.data("betId", bet.betId);
         $("#betList").append($bet);
         $("button.delete", $bet).on("click", function () {
@@ -360,7 +361,11 @@ function BettingApp() {
 
                 $input.text(bet[fieldName] + "-" + bet["handCapGoalString"]);
 
-            } else {
+            } else  if (fieldName.toString() == "matchId".toString()) {
+                    alert(bet.shortCode)
+                    $input.text(bet["shortCode"]);
+            }
+            else{
 
                 $input.text(bet[fieldName]);
             }
@@ -472,7 +477,7 @@ $(function () {
                  shortCode = $.trim($shortCode.text()),
                 optionName = $that.data("option-name"),
                 liveScores = $that.parent().siblings("td.live-scores").text(),
-                extraValue = $that.parent().siblings("td >span.extra-value").text(),
+                extraValue = $that.parent().siblings("td#" + matchCode).data("extra-value"),
                 bet = new Bet(matchCode);
             alert(extraValue);
             // $that.tooltip({ placement: 'top', title:''+ matchCode + " " + optionName +''});
@@ -547,7 +552,7 @@ $(function () {
                 matchCode = $.trim($matchCode.text()),
                 optionName = $that.data("option-name"),
                 liveScores = $that.parent().siblings("td.live-scores").text(),
-                extraValue = $that.parent().siblings("td span.extra-value").text(),
+                extraValue = $that.parent().siblings("td> span.extra-value").text(),
                 bet = new Bet(matchCode);
             // $that.tooltip({ placement: 'top', title:''+ matchCode + " " + optionName +''});
             // console.log(handCapGoalString);

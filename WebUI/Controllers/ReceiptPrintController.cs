@@ -52,7 +52,7 @@ namespace WebUI.Controllers
             ////var branchId = Convert.ToInt32(account.AdminE);
             ////var branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
             var receiptid = bcg.GenerateRandomString(16);
-           return Ok(new { message = "Success", receiptFromServer = receipts/*, ReceiptNumber = receiptid*/ });
+          // return Ok(new { message = "Success", receiptFromServer = receipts/*, ReceiptNumber = receiptid*/ });
             var userName = receipts.UserName;
             if (!string.IsNullOrEmpty(User.Identity.Name))
             {

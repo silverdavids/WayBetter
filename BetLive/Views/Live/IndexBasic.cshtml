@@ -4,18 +4,17 @@
 }
 <style>
     .table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
-        border-top: 0; 
+        border-top: 0;
     }
-    
 </style>
 
 <div>
     <div class="row">
         <div class="col-lg-12"><h2 class="heading">Live </h2></div>
-        <div class="col-lg-9">
-            
+        <div class="col-lg-12">
+
             <div id="gameTable">
-                <table class="table table-condensed table-striped table-responsive oddstable" id="MatchTable">
+                <table class="table table-condensed table-striped table-responsive" id="MatchTable">
                     <thead>
                         <tr><th colspan="5"></th><th colspan="3" class="text-center">Full&nbsp;Time</th><th colspan="3" class="text-center">Under/Over</th><th colspan="3" class="text-center">Rest&nbsp;Of&nbsp;Match</th><th colspan="3" class="text-center">Next&nbsp;Goal</th></tr>
                         <tr style="background-color:#0D1F35 !important; color: #ffffff;">
@@ -44,14 +43,10 @@
                 </table>
             </div>
         </div>
-        <div class="col-lg-3  pull-right">
-           <!-- <div class="alert alert-info text-center">
-                <span class="text-info"><i class="fa fa-info"></i> Receipt Section</span>-->
-                @{
-                    
-                    @Html.Partial("Receipt");
-                }
-           <!-- </div>-->
+        <div clas="  pull-right">
+            <div class="alert alert-info text-center">
+                <span class="text-info"><i class="fa fa-info"></i> Receipt Section</span>
+            </div>
         </div>
     </div>
 </div>
@@ -123,15 +118,15 @@
                                     HomeWins: "N/A"
                                 };
                             }
-                            if (game.DoubleChance == null) {
-                                game.DoubleChance = {
-                                    HomeWinsOrDraw : "N/A",
-                                    HomeWinsOrAwayWins: "N/A",
-                                    AwayWinsOrDraw: "N/A"
+                            if (game.RestofMatch == null) {
+                                game.RestofMatch = {
+                                    AwayWins: "N/A",
+                                    Draw: "N/A",
+                                    HomeWins: "N/A"
                                 };
                             }
                             if (game.NextGoal == null) {
-                                game.NextGoalOdds = {
+                                game.NextGoal = {
                                     AwayScores: "N/A",
                                     Draw: "N/A",
                                     HomeScores: "N/A"
@@ -145,54 +140,49 @@
                                     ExtraValue: "N/A"
                                 };
                             }
-                            var rowTemplate = ' <tr  data-symbol="' + game.MatchNo + '" id="' + game.MatchNo + '"> ' +
-
-                                ' <td data-field="shortCode" class="short-code"> '+ game.ShortCode +' </td> ' +
-                                ' <td data-field="matchId" class="match-code hidden">'+game.MatchNo +'</td> ' +
-                                ' <td data-field="startTime" class="start-time">'+ game.Minutes +'</td> ' +
-                                ' <td data-field="startDate" class="start-date hidden"> '+ game.StartDate+'</td> ' +
-                                ' <td data-field="teamVersus" class="team-versus hidden">'+ game.LocalTeam +'  vs  '+ game.AwayTeam+'</td> ' +
-                                ' <td>'+ game.LocalTeam +'</td> ' +
-                                ' <td data-field="liveScores" class="live-scores">'+ game.LocalTeamScore +' - '+ game.AwayTeamScore +'</td> ' +
-                                ' <td>'+ game.AwayTeam +'</td> ' +
-                                ' <td style="padding-bottom: 0px;"> ' +
-                                     ' <input type="button" class="btn btn-sm btn-default FT-1 odd" value="'+ game.FullTimeOdds.HomeWins +'" data-odd-type="Live" data-option-id="80" data-option-name=1" data-bet-category="FT1X2" /> ' + 
-                                    
-                            '  </td> ' +
-                             ' <td> ' +
-                                 ' <input type="button" class="btn btn-sm btn-default FT-X odd" value="'+ game.FullTimeOdds.Draw +'" data-odd-type="Live" data-option-id="81" data-option-name="X" data-bet-category="FT1X2" /> ' +
-                            '  </td> ' +
-                             ' <td> ' +
-                                 ' <input type="button" class="btn btn-sm btn-default FT-2 odd" value="'+ game.FullTimeOdds.AwayWins +'" data-odd-type="Live" data-option-id="83" data-option-name="2" data-bet-category="FT1X2" /> ' +
-                            '  </td> ' +
-                             ' <td> ' +
-                                 ' <input type="button" class="btn btn-sm btn-default odd" value="'+ game.UnderOverOdds.Under +'" data-odd-type="Live" data-option-id="78" data-option-name="U" data-bet-category="U/O" /> ' +
-                            '  </td> ' +
-                            '<td id="' + game.MatchNo + '" data-extra-value="' + game.UnderOverOdds.ExtraValue + '"  style="padding-top: 14px;">' +
-                                '  <span class="extra-value" style="color:#E9860D;">' + game.UnderOverOdds.ExtraValue + '</span>' +
+                            var rowTemplate = '<tr id="' + game.MatchNo + '">' +
+                                '<td>' + game.ShortCode + '</td>' +
+                                '<td>' + game.Minutes + '</td>' +
+                                '<td>' + game.LocalTeam + '</td>' +
+                                '<td>' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
+                                '<td>' + game.AwayTeam + '</td>' +
+                                '<td style="padding-bottom: 0px;">' +
+                                '<input type="button" class="btn btn-sm btn-default FT-1" value="' + game.FullTimeOdds.HomeWins + '"/>' +
                                 '</td>' +
-                             ' <td> ' +
-                                 ' <input type="button" class="btn btn-sm btn-default odd" value="'+ game.UnderOverOdds.Over +'" data-odd-type="Live" data-option-id="79" data-option-name="O" data-bet-category="U/O" /> ' +
-                            '  </td> ' +
-                             ' <td style="padding-bottom: 0px;"> ' +
-                                 ' <input type="button" class="btn btn-sm btn-default FT-1 odd" value="'+game.DoubleChance.HomeWinsOrDraw+'" data-odd-type="Live" data-option-id="74" data-option-name="1X" data-bet-category="Double Chance" /> ' +
-                            '  </td> ' +
-                             ' <td> ' +
-                                 ' <input type="button" class="btn btn-sm btn-default FT-X odd" value="'+game.DoubleChance.HomeWinsOrAwayWins+'" data-odd-type="Live" data-option-id="71" data-option-name="12" data-bet-category="Double Chance" /> ' +
-                            '  </td> ' +
-                             ' <td> ' +
-                                 ' <input type="button" class="btn btn-sm btn-default FT-2 odd" value="'+game.DoubleChance.AwayWinsOrDraw+'" data-odd-type="Live" data-option-id="77" data-option-name="X2" data-bet-category="Double Chance" /> ' +
-                            '  </td> ' +
-                             ' <td style="padding-bottom: 0px;"> ' +
-                                 ' <input type="button" class="btn btn-sm btn-default FT-1 odd" value="'+game.NextGoalOdds.HomeScores+'" data-odd-type="Live" data-option-id="71" data-option-name="H-GOAL" data-bet-category="FT1X2-NG" /> ' +
-                            '  </td> ' +
-                             ' <td> ' +
-                                 ' <input type="button" class="btn btn-sm btn-default FT-X odd" value="'+game.NextGoalOdds.Draw+'" data-odd-type="Live" data-option-id="72" data-option-name="NG" data-bet-category="FT1X2-NG" /> ' +
-                            '  </td> ' +
-                             ' <td> ' +
-                                 ' <input type="button" class="btn btn-sm btn-default FT-2 odd" value="'+game.NextGoalOdds.AwayScores+'" data-odd-type="Live" data-option-id="73" data-option-name="A-GOAL" data-bet-category="FT1X2-NG" /> ' +
-                            '  </td> ' +
-                        ' </tr> ' ;
+                                '<td>' +
+                                '<input type="button" class="btn btn-sm btn-default FT-X" value="' + game.FullTimeOdds.Draw + '"/>' +
+                                '</td>' +
+                                '<td>' +
+                                '<input type="button" class="btn btn-sm btn-default FT-2" value="' + game.FullTimeOdds.AwayWins + '"/>' +
+                                '</td>' +
+                                '<td>' +
+                                '<input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Under + '"/>' +
+                                '</td>' +
+                                '<td style="padding-top: 14px;">' +
+                                '  <span style="color:#E9860D;">' + game.UnderOverOdds.ExtraValue + '</span>' +
+                                '</td>' +
+                                '<td>' +
+                                '<input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Over + '"/>' +
+                                '</td>' +
+                                '<td style="padding-bottom: 0px;">' +
+                                '<input type="button" class="btn btn-sm btn-default FT-1" value="' + game.RestofMatch.HomeWins + '"/>' +
+                                '</td>' +
+                                '<td>' +
+                                '<input type="button" class="btn btn-sm btn-default FT-X" value="' + game.RestofMatch.Draw + '"/>' +
+                                '</td>' +
+                                '<td>' +
+                                '<input type="button" class="btn btn-sm btn-default FT-2" value="' + game.RestofMatch.AwayWins + '"/>' +
+                                '</td>' +
+                                '<td style="padding-bottom: 0px;">' +
+                                '<input type="button" class="btn btn-sm btn-default FT-1" value="' + game.NextGoal.HomeScores + '"/>' +
+                                '</td>' +
+                                '<td>' +
+                                '<input type="button" class="btn btn-sm btn-default FT-X" value="' + game.NextGoal.Draw + '"/>' +
+                                '</td>' +
+                                '<td>' +
+                                '<input type="button" class="btn btn-sm btn-default FT-2" value="' + game.NextGoal.AwayScores + '"/>' +
+                                '</td>' +
+                                '</tr>';
                             $gamesTableBody.append(rowTemplate);
                         });
                     });
@@ -200,8 +190,8 @@
 
                 // Add a client-side hub method that the server will call
                 ticker.client.updateGame = function (game) {
-                   // console.clear();
-                   // console.log(game);
+                    console.clear();
+                    console.log(game);
                     if (game.FullTimeOdds == null) {
                         game.FullTimeOdds = {
                             AwayWins: "N/A",
@@ -209,15 +199,15 @@
                             HomeWins: "N/A"
                         };
                     }
-                    if (game.DoubleChance == null) {
-                        game.DoubleChance = {
-                            AwayWinsOrDraw: "N/A",
-                            HomeWinsOrAwayWins: "N/A",
-                            HomeWinsOrDraw: "N/A"
-                        };  
+                    if (game.RestofMatch == null) {
+                        game.RestofMatch = {
+                            AwayWins: "N/A",
+                            Draw: "N/A",
+                            HomeWins: "N/A"
+                        };
                     }
                     if (game.NextGoal == null) {
-                        game.NextGoalOdds = {
+                        game.NextGoal = {
                             AwayScores: "N/A",
                             Draw: "N/A",
                             HomeScores: "N/A"
@@ -231,65 +221,60 @@
                             ExtraValue: "N/A"
                         };
                     }
-                    var rowTemplate = ' <tr  data-symbol="' + game.MatchNo + '" id="' + game.MatchNo + '"> ' +
-
-                                ' <td data-field="shortCode" class="short-code"> '+ game.ShortCode +' </td> ' +
-                                ' <td data-field="matchId" class="match-code hidden">'+game.MatchNo +'</td> ' +
-                                ' <td data-field="startTime" class="start-time">'+ game.Minutes +'</td> ' +
-                                ' <td data-field="startDate" class="start-date hidden"> '+ game.StartDate+'</td> ' +
-                                ' <td data-field="teamVersus" class="team-versus hidden">'+ game.LocalTeam +'  vs  '+ game.AwayTeam+'</td> ' +
-                                ' <td>'+ game.LocalTeam +'</td> ' +
-                                ' <td data-field="liveScores" class="live-scores">'+ game.LocalTeamScore +' - '+ game.AwayTeamScore +'</td> ' +
-                                ' <td>'+ game.AwayTeam +'</td> ' +
-                                ' <td style="padding-bottom: 0px;"> ' +
-                                     ' <input type="button" class="btn btn-sm btn-default FT-1 odd" value="'+ game.FullTimeOdds.HomeWins +'" data-odd-type="Live" data-option-id="80" data-option-name=1" data-bet-category="FT1X2" /> ' +
-                                    
-                    '  </td> ' +
-                     ' <td> ' +
-                         ' <input type="button" class="btn btn-sm btn-default FT-X odd" value="'+ game.FullTimeOdds.Draw +'" data-odd-type="Live" data-option-id="81" data-option-name="X" data-bet-category="FT1X2" /> ' +
-                    '  </td> ' +
-                     ' <td> ' +
-                         ' <input type="button" class="btn btn-sm btn-default FT-2 odd" value="'+ game.FullTimeOdds.AwayWins +'" data-odd-type="Live" data-option-id="83" data-option-name="2" data-bet-category="FT1X2" /> ' +
-                    '  </td> ' +
-                     ' <td> ' +
-                         ' <input type="button" class="btn btn-sm btn-default odd" value="'+ game.UnderOverOdds.Under +'" data-odd-type="Live" data-option-id="78" data-option-name="U" data-bet-category="U/O" /> ' +
-                    '  </td> ' +
-                     '<td id="' + game.MatchNo + '" data-extra-value="' + game.UnderOverOdds.ExtraValue + '"  style="padding-top: 14px;">' +
-                                '  <span class="extra-value" style="color:#E9860D;">' + game.UnderOverOdds.ExtraValue + '</span>' +
-                                '</td>' +
-                     ' <td> ' +
-                         ' <input type="button" class="btn btn-sm btn-default odd" value="'+ game.UnderOverOdds.Over +'" data-odd-type="Live" data-option-id="79" data-option-name="O" data-bet-category="U/O" /> ' +
-                    '  </td> ' +
-                     ' <td style="padding-bottom: 0px;"> ' +
-                         ' <input type="button" class="btn btn-sm btn-default FT-1 odd" value="'+game.DoubleChance.HomeWinsOrDraw+'" data-odd-type="Live" data-option-id="74" data-option-name="1X" data-bet-category="Double Chance" /> ' +
-                    '  </td> ' +
-                     ' <td> ' +
-                         ' <input type="button" class="btn btn-sm btn-default FT-X odd" value="'+game.DoubleChance.HomeWinsOrAwayWins+'" data-odd-type="Live" data-option-id="71" data-option-name="12" data-bet-category="Double Chance" /> ' +
-                    '  </td> ' +
-                     ' <td> ' +
-                         ' <input type="button" class="btn btn-sm btn-default FT-2 odd" value="'+game.DoubleChance.AwayWinsOrDraw+'" data-odd-type="Live" data-option-id="77" data-option-name="X2" data-bet-category="Double Chance" /> ' +
-                    '  </td> ' +
-                     ' <td style="padding-bottom: 0px;"> ' +
-                         ' <input type="button" class="btn btn-sm btn-default FT-1 odd" value="'+game.NextGoalOdds.HomeScores+'" data-odd-type="Live" data-option-id="71" data-option-name="H-GOAL" data-bet-category="FT1X2-NG" /> ' +
-                    '  </td> ' +
-                     ' <td> ' +
-                         ' <input type="button" class="btn btn-sm btn-default FT-X odd" value="'+game.NextGoalOdds.Draw+'" data-odd-type="Live" data-option-id="72" data-option-name="NG" data-bet-category="FT1X2-NG" /> ' +
-                    '  </td> ' +
-                     ' <td> ' +
-                         ' <input type="button" class="btn btn-sm btn-default FT-2 odd" value="'+game.NextGoalOdds.AwayScores+'" data-odd-type="Live" data-option-id="73" data-option-name="A-GOAL" data-bet-category="FT1X2-NG" /> ' +
-                    '  </td> ' +
-                ' </tr> ';
+                    var rowTemplate = '<tr id="' + game.MatchNo + '">' +
+                        '<td>' + game.ShortCode + '</td>' +
+                        '<td>' + game.Minutes + '</td>' +
+                        '<td>' + game.LocalTeam + '</td>' +
+                        '<td>' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
+                        '<td>' + game.AwayTeam + '</td>' +
+                        '<td style="padding-bottom: 0px;">' +
+                        '<input type="button" class="btn btn-sm btn-default FT-1" value="' + game.FullTimeOdds.HomeWins + '"/>' +
+                        '</td>' +
+                        '<td>' +
+                        '<input type="button" class="btn btn-sm btn-default FT-X" value="' + game.FullTimeOdds.Draw + '"/>' +
+                        '</td>' +
+                        '<td>' +
+                        '<input type="button" class="btn btn-sm btn-default FT-2" value="' + game.FullTimeOdds.AwayWins + '"/>' +
+                        '</td>' +
+                        '<td>' +
+                        '<input type="button" class="btn btn-sm btn-default under" value="' + game.UnderOverOdds.Under + '"/>' +
+                        '</td>' +
+                        '<td style="padding-top: 14px;">' +
+                        '  <span style="color:#E9860D;">' + game.UnderOverOdds.ExtraValue + '</span>' +
+                        '</td>' +
+                        '<td>' +
+                        '<input type="button" class="btn btn-sm btn-default over" value="' + game.UnderOverOdds.Over + '"/>' +
+                        '</td>' +
+                        '<td style="padding-bottom: 0px;">' +
+                        '<input type="button" class="btn btn-sm btn-default RM-1" value="' + game.RestofMatch.HomeWins + '"/>' +
+                        '</td>' +
+                        '<td>' +
+                        '<input type="button" class="btn btn-sm btn-default RM-X" value="' + game.RestofMatch.Draw + '"/>' +
+                        '</td>' +
+                        '<td>' +
+                        '<input type="button" class="btn btn-sm btn-default RM-2" value="' + game.RestofMatch.AwayWins + '"/>' +
+                        '</td>' +
+                        '<td style="padding-bottom: 0px;">' +
+                        '<input type="button" class="btn btn-sm btn-default NG-1" value="' + game.NextGoal.HomeScores + '"/>' +
+                        '</td>' +
+                        '<td>' +
+                        '<input type="button" class="btn btn-sm btn-default NG-X" value="' + game.NextGoal.Draw + '"/>' +
+                        '</td>' +
+                        '<td>' +
+                        '<input type="button" class="btn btn-sm btn-default NG-2" value="' + game.NextGoal.AwayScores + '"/>' +
+                        '</td>' +
+                        '</tr>';
                     var FT1 = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.FT-1').attr("value");
                     var FTX = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.FT-X').attr("value");
                     var FT2 = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.FT-2').attr("value");
-                    
+
                     var under = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.under').attr("value");
                     var over = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.over').attr("value");
-                    
+
                     var RM1 = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.RM-1').attr("value");
                     var RMX = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.RM-X').attr("value");
                     var RM2 = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.RM-2').attr("value");
-                    
+
                     var NG1 = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.NG-1').attr("value");
                     var NGX = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.NG-X').attr("value");
                     var NG2 = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.NG-2').attr("value");
@@ -326,7 +311,7 @@
                         $('#' + game.MatchNo + ' > td > input.FT-2').addTemporaryClass("up", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
                     }
-                    
+
                     // under/over
                     if (parseInt(under) > parseInt(game.UnderOverOdds.Under)) {
                         $('#' + game.MatchNo + ' > td > input.under').addTemporaryClass("down", 3000);
@@ -344,57 +329,57 @@
                         $('#' + game.MatchNo + ' > td > input.over').addTemporaryClass("up", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
                     }
-                    
+
                     // rest of match
-                    if (parseInt(RM1) > parseInt(game.DoubleChance.HomeWinsOrDraw)) {
+                    if (parseInt(RM1) > parseInt(game.RestofMatch.HomeWins)) {
                         $('#' + game.MatchNo + ' > td > input.RM-1').addTemporaryClass("down", 3000);
 
                     }
-                    if (parseInt(RM1) < parseInt(game.DoubleChance.HomeWinsOrDraw)) {
+                    if (parseInt(RM1) < parseInt(game.RestofMatch.HomeWins)) {
                         $('#' + game.MatchNo + ' > td > input.RM-1').addTemporaryClass("up", 3000);
                     }
-                    if (parseInt(RMX) > parseInt(game.DoubleChance.HomeWinsOrAwayWins)) {
+                    if (parseInt(RMX) > parseInt(game.RestofMatch.Draw)) {
                         $('#' + game.MatchNo + ' > td > input.RM-X').addTemporaryClass("down", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
 
                     }
-                    if (parseInt(RMX) < parseInt(game.DoubleChance.HomeWinsOrAwayWins)) {
+                    if (parseInt(RMX) < parseInt(game.RestofMatch.Draw)) {
                         $('#' + game.MatchNo + ' > td > input.RM-X').addTemporaryClass("up", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
                     }
-                    if (parseInt(RM2) > parseInt(game.DoubleChance.AwayWinsOrDraw)) {
+                    if (parseInt(RM2) > parseInt(game.RestofMatch.AwayWins)) {
                         $('#' + game.MatchNo + ' > td > input.RM-2').addTemporaryClass("down", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
 
                     }
-                    if (parseInt(RM2) < parseInt(game.DoubleChance.AwayWinsOrDraw)) {
+                    if (parseInt(RM2) < parseInt(game.RestofMatch.AwayWins)) {
                         $('#' + game.MatchNo + ' > td > input.RM-2').addTemporaryClass("up", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
                     }
-                    
+
                     // next goal
-                    if (parseInt(NG1) > parseInt(game.NextGoalOdds.HomeScores)) {
+                    if (parseInt(NG1) > parseInt(game.NextGoal.HomeScores)) {
                         $('#' + game.MatchNo + ' > td > input.NG-1').addTemporaryClass("down", 3000);
 
                     }
-                    if (parseInt(NG1) < parseInt(game.NextGoalOdds.HomeScores)) {
+                    if (parseInt(NG1) < parseInt(game.NextGoal.HomeScores)) {
                         $('#' + game.MatchNo + ' > td > input.NG-1').addTemporaryClass("up", 3000);
                     }
-                    if (parseInt(NGX) > parseInt(game.NextGoalOdds.Draw)) {
+                    if (parseInt(NGX) > parseInt(game.NextGoal.Draw)) {
                         $('#' + game.MatchNo + ' > td > input.NG-X').addTemporaryClass("down", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
 
                     }
-                    if (parseInt(NGX) < parseInt(game.NextGoalOdds.Draw)) {
+                    if (parseInt(NGX) < parseInt(game.NextGoal.Draw)) {
                         $('#' + game.MatchNo + ' > td > input.NG-X').addTemporaryClass("up", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
                     }
-                    if (parseInt(NG2) > parseInt(game.NextGoalOdds.AwayScores)) {
+                    if (parseInt(NG2) > parseInt(game.NextGoal.AwayScores)) {
                         $('#' + game.MatchNo + ' > td > input.NG-2').addTemporaryClass("down", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
 
                     }
-                    if (parseInt(NG2) < parseInt(game.NextGoalOdds.AwayScores)) {
+                    if (parseInt(NG2) < parseInt(game.NextGoal.AwayScores)) {
                         $('#' + game.MatchNo + ' > td > input.NG-2').addTemporaryClass("up", 3000);
                         console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
                     }
