@@ -568,7 +568,7 @@
                                 <td>
                                     <input type="button" class="btn btn-sm btn-default odd" value="{{ game.UnderOverOdds.Under }}" data-odd-type="Live" data-option-id="78" data-option-name="U" data-bet-category="U/O" />
                                 </td>
-                                <td style="padding-top: 14px;">
+                                <td id="{{game.MatchNo}}" data-extra-value="{{ game.UnderOverOdds.ExtraValue}}" style="padding-top: 14px;">
                                     <span style="color:#E9860D;" class="extra-value" data-field="extraValue">{{ game.UnderOverOdds.ExtraValue }}</span>
                                 </td>
                                 <td>
