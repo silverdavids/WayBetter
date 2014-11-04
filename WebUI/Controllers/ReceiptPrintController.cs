@@ -52,7 +52,7 @@ namespace WebUI.Controllers
             ////var branchId = Convert.ToInt32(account.AdminE);
             ////var branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
             var receiptid = bcg.GenerateRandomString(16);
-           return Ok(new { message = "Success", receiptFromServer = receipts/*, ReceiptNumber = receiptid*/ });
+          // return Ok(new { message = "Success", receiptFromServer = receipts/*, ReceiptNumber = receiptid*/ });
             var userName = receipts.UserName;
             if (!string.IsNullOrEmpty(User.Identity.Name))
             {
@@ -112,15 +112,17 @@ namespace WebUI.Controllers
                 {
                     try
                     {
-                        var tempMatchId = Convert.ToInt32(betData.MatchId);
+                        //var tempMatchId = Convert.ToInt32(betData.MatchId);
                         var matchid = 0 ;
                         //Check if the match is a live game
                         if (betData.LiveScores != null)
                         {
-                            matchid = (int)BetDatabase.LiveMatches.Single(x => x.LiveMatchNo.Equals(tempMatchId)).BetServiceMatchNo;
+                            var tempMatchIdLive = betData.MatchId;
+                            matchid = (int)BetDatabase.LiveMatches.Single(x => x.LiveMatchNo.Equals(tempMatchIdLive)).BetServiceMatchNo;
                         }
                         else {
-                            matchid = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo;                        
+                            var tempMatchIdNormals = Convert.ToInt32(betData.MatchId);
+                            matchid = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchIdNormals).MatchNo;                        
                         }
                         Match match = BetDatabase.Matches.Single(h => h.BetServiceMatchNo == matchid);
                         DateTime _matchTime = match.StartTime;

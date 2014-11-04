@@ -335,7 +335,8 @@ function BettingApp() {
     function addBetElement(bet) {
         var $bet = $("#bet-template .bet").clone();
 
-        $("span.match-code", $bet).text(bet.matchCode);
+        $("span.match-code", $bet).text(bet.shortCode);
+        alert(bet.shortCode)
         $bet.data("betId", bet.betId);
         $("#betList").append($bet);
         $("button.delete", $bet).on("click", function () {
@@ -360,7 +361,11 @@ function BettingApp() {
 
                 $input.text(bet[fieldName] + "-" + bet["handCapGoalString"]);
 
-            } else {
+            } else  if (fieldName.toString() == "matchId".toString()) {
+                    alert(bet.shortCode)
+                    $input.text(bet["shortCode"]);
+            }
+            else{
 
                 $input.text(bet[fieldName]);
             }
@@ -391,7 +396,7 @@ function BettingApp() {
 
 $(function () {
 
-    setTimeout(function () {
+    //setTimeout(function () {
         console.log("initialising  receipt scripts");
     //please avoid using the "this" as this in other languages like C# and Java means
     // the object you are inside of but here in javascripts it can mean  different things as follows
@@ -414,7 +419,9 @@ $(function () {
 
     var thisApp = this.app = new BettingApp();
     //this.renderTable = new RenderTables(this.app.getBetList());
-    //this.renderTable.startRenderingTables();
+        //this.renderTable.startRenderingTables();
+    this.renderLiveData = new RenderLiveData(this.app.getBetList());
+   
     this.app.start(maximumNumBets, minStake, setMaxPayoutPossible, tax);
     //var thisApp = this.app;
 
@@ -472,7 +479,7 @@ $(function () {
                  shortCode = $.trim($shortCode.text()),
                 optionName = $that.data("option-name"),
                 liveScores = $that.parent().siblings("td.live-scores").text(),
-                extraValue = $that.parent().siblings("td >span.extra-value").text(),
+                extraValue = $that.parent().siblings("td#" + matchCode).data("extra-value"),
                 bet = new Bet(matchCode);
             alert(extraValue);
             // $that.tooltip({ placement: 'top', title:''+ matchCode + " " + optionName +''});
@@ -547,7 +554,7 @@ $(function () {
                 matchCode = $.trim($matchCode.text()),
                 optionName = $that.data("option-name"),
                 liveScores = $that.parent().siblings("td.live-scores").text(),
-                extraValue = $that.parent().siblings("td span.extra-value").text(),
+                extraValue = $that.parent().siblings("td> span.extra-value").text(),
                 bet = new Bet(matchCode);
             // $that.tooltip({ placement: 'top', title:''+ matchCode + " " + optionName +''});
             // console.log(handCapGoalString);
@@ -628,5 +635,5 @@ $(function () {
         thisApp.mockBets(bet);
     }
    // $("#app").offcanvas('show')
-    }, 12000);
+   // }, 12000);
 });

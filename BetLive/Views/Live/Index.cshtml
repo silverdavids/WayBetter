@@ -12,12 +12,12 @@
 <div>
     <div class="row">
         <div class="col-lg-12"><h2 class="heading">Live </h2></div>
-        <div class="col-lg-12">
+        <div class="col-lg-9">
             
             <div id="gameTable">
-                <table class="table table-condensed table-striped table-responsive" id="MatchTable">
+                <table class="table table-condensed table-striped table-responsive oddstable" id="MatchTable">
                     <thead>
-                        <tr><th colspan="5"></th><th colspan="3" class="text-center">Full&nbsp;Time</th><th colspan="3" class="text-center">Under/Over</th><th colspan="3" class="text-center">Rest&nbsp;Of&nbsp;Match</th><th colspan="3" class="text-center">Next&nbsp;Goal</th></tr>
+                        <tr><th colspan="5"></th><th colspan="3" class="text-center">Full&nbsp;Time</th><th colspan="3" class="text-center">Under/Over</th><th colspan="3" class="text-center">Double&nbsp;Chance&nbsp;</th><th colspan="3" class="text-center">Next&nbsp;Goal</th></tr>
                         <tr style="background-color:#0D1F35 !important; color: #ffffff;">
                             <th>Match No</th>
                             <th>Min</th>
@@ -27,12 +27,12 @@
                             <th class="text-center">1</th>
                             <th class="text-center">X</th>
                             <th class="text-center">2</th>
-                            <th class="text-center"><i class="fa fa-sort-down"></i></th>
-                            <th class="text-center"></th>
-                            <th class="text-center"><i class="fa fa-sort-up"></i></th>
-                            <th class="text-center">1</th>
-                            <th class="text-center">X</th>
-                            <th class="text-center">2</th>
+                            <th class="text-center"><i class="fa fa-sort-down"></i>Under</th>
+                            <th class="text-center">E-V</th>
+                            <th class="text-center"><i class="fa fa-sort-up "></i>Over</th>
+                            <th class="text-center">1X</th>
+                            <th class="text-center">12</th>
+                            <th class="text-center">X2</th>
                             <th class="text-center">1</th>
                             <th class="text-center">X</th>
                             <th class="text-center">2</th>
@@ -44,10 +44,14 @@
                 </table>
             </div>
         </div>
-        <div clas="  pull-right">
-            <div class="alert alert-info text-center">
-                <span class="text-info"><i class="fa fa-info"></i> Receipt Section</span>
-            </div>
+        <div class="col-lg-3  pull-right">
+           <!-- <div class="alert alert-info text-center">
+                <span class="text-info"><i class="fa fa-info"></i> Receipt Section</span>-->
+                @{
+                    
+                    @Html.Partial("Receipt");
+                }
+           <!-- </div>-->
         </div>
     </div>
 </div>
@@ -92,303 +96,9 @@
                 };
             }
 
-            $(function () {
-
-                var ticker = $.connection.liveBetHubAng,
-                    $gameTable = $('#MatchTable'),
-                    $gamesTableBody = $gameTable.find('#tbody');
-
-
-
-                function init() {
-                    ticker.server.testString().done(function (string) {
-                        console.log(string);
-                    });
-
-                    // get all livescores
-                    ticker.server.getAllGames().done(function (games) {
-                        $gamesTableBody.empty();
-                        console.log(games);
-                        $.each(games, function () {
-
-                            var game = this;
-                            if (game.FullTimeOdds == null) {
-                                game.FullTimeOdds = {
-                                    AwayWins: "N/A",
-                                    Draw: "N/A",
-                                    HomeWins: "N/A"
-                                };
-                            }
-                            if (game.RestofMatch == null) {
-                                game.RestofMatch = {
-                                    AwayWins: "N/A",
-                                    Draw: "N/A",
-                                    HomeWins: "N/A"
-                                };
-                            }
-                            if (game.NextGoal == null) {
-                                game.NextGoal = {
-                                    AwayScores: "N/A",
-                                    Draw: "N/A",
-                                    HomeScores: "N/A"
-                                };
-                            }
-
-                            if (game.UnderOverOdds == null) {
-                                game.UnderOverOdds = {
-                                    Under: "N/A",
-                                    Over: "N/A",
-                                    ExtraValue: "N/A"
-                                };
-                            }
-                            var rowTemplate = '<tr id="' + game.MatchNo + '">' +
-                                '<td>' + game.ShortCode + '</td>' +
-                                '<td>' + game.Minutes + '</td>' +
-                                '<td>' + game.LocalTeam + '</td>' +
-                                '<td>' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
-                                '<td>' + game.AwayTeam + '</td>' +
-                                '<td style="padding-bottom: 0px;">' +
-                                '<input type="button" class="btn btn-sm btn-default FT-1" value="' + game.FullTimeOdds.HomeWins + '"/>' +
-                                '</td>' +
-                                '<td>' +
-                                '<input type="button" class="btn btn-sm btn-default FT-X" value="' + game.FullTimeOdds.Draw + '"/>' +
-                                '</td>' +
-                                '<td>' +
-                                '<input type="button" class="btn btn-sm btn-default FT-2" value="' + game.FullTimeOdds.AwayWins + '"/>' +
-                                '</td>' +
-                                '<td>' +
-                                '<input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Under + '"/>' +
-                                '</td>' +
-                                '<td style="padding-top: 14px;">' +
-                                '  <span style="color:#E9860D;">' + game.UnderOverOdds.ExtraValue + '</span>' +
-                                '</td>' +
-                                '<td>' +
-                                '<input type="button" class="btn btn-sm btn-default" value="' + game.UnderOverOdds.Over + '"/>' +
-                                '</td>' +
-                                '<td style="padding-bottom: 0px;">' +
-                                '<input type="button" class="btn btn-sm btn-default FT-1" value="' + game.RestofMatch.HomeWins + '"/>' +
-                                '</td>' +
-                                '<td>' +
-                                '<input type="button" class="btn btn-sm btn-default FT-X" value="' + game.RestofMatch.Draw + '"/>' +
-                                '</td>' +
-                                '<td>' +
-                                '<input type="button" class="btn btn-sm btn-default FT-2" value="' + game.RestofMatch.AwayWins + '"/>' +
-                                '</td>' +
-                                '<td style="padding-bottom: 0px;">' +
-                                '<input type="button" class="btn btn-sm btn-default FT-1" value="' + game.NextGoal.HomeScores + '"/>' +
-                                '</td>' +
-                                '<td>' +
-                                '<input type="button" class="btn btn-sm btn-default FT-X" value="' + game.NextGoal.Draw + '"/>' +
-                                '</td>' +
-                                '<td>' +
-                                '<input type="button" class="btn btn-sm btn-default FT-2" value="' + game.NextGoal.AwayScores + '"/>' +
-                                '</td>' +
-                                '</tr>';
-                            $gamesTableBody.append(rowTemplate);
-                        });
-                    });
-                }
-
-                // Add a client-side hub method that the server will call
-                ticker.client.updateGame = function (game) {
-                    console.clear();
-                    console.log(game);
-                    if (game.FullTimeOdds == null) {
-                        game.FullTimeOdds = {
-                            AwayWins: "N/A",
-                            Draw: "N/A",
-                            HomeWins: "N/A"
-                        };
-                    }
-                    if (game.RestofMatch == null) {
-                        game.RestofMatch = {
-                            AwayWins: "N/A",
-                            Draw: "N/A",
-                            HomeWins: "N/A"
-                        };
-                    }
-                    if (game.NextGoal == null) {
-                        game.NextGoal = {
-                            AwayScores: "N/A",
-                            Draw: "N/A",
-                            HomeScores: "N/A"
-                        };
-                    }
-
-                    if (game.UnderOverOdds == null) {
-                        game.UnderOverOdds = {
-                            Under: "N/A",
-                            Over: "N/A",
-                            ExtraValue: "N/A"
-                        };
-                    }
-                    var rowTemplate = '<tr id="' + game.MatchNo + '">' +
-                        '<td>' + game.ShortCode + '</td>' +
-                        '<td>' + game.Minutes + '</td>' +
-                        '<td>' + game.LocalTeam + '</td>' +
-                        '<td>' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
-                        '<td>' + game.AwayTeam + '</td>' +
-                        '<td style="padding-bottom: 0px;">' +
-                        '<input type="button" class="btn btn-sm btn-default FT-1" value="' + game.FullTimeOdds.HomeWins + '"/>' +
-                        '</td>' +
-                        '<td>' +
-                        '<input type="button" class="btn btn-sm btn-default FT-X" value="' + game.FullTimeOdds.Draw + '"/>' +
-                        '</td>' +
-                        '<td>' +
-                        '<input type="button" class="btn btn-sm btn-default FT-2" value="' + game.FullTimeOdds.AwayWins + '"/>' +
-                        '</td>' +
-                        '<td>' +
-                        '<input type="button" class="btn btn-sm btn-default under" value="' + game.UnderOverOdds.Under + '"/>' +
-                        '</td>' +
-                        '<td style="padding-top: 14px;">' +
-                        '  <span style="color:#E9860D;">' + game.UnderOverOdds.ExtraValue + '</span>' +
-                        '</td>' +
-                        '<td>' +
-                        '<input type="button" class="btn btn-sm btn-default over" value="' + game.UnderOverOdds.Over + '"/>' +
-                        '</td>' +
-                        '<td style="padding-bottom: 0px;">' +
-                        '<input type="button" class="btn btn-sm btn-default RM-1" value="' + game.RestofMatch.HomeWins + '"/>' +
-                        '</td>' +
-                        '<td>' +
-                        '<input type="button" class="btn btn-sm btn-default RM-X" value="' + game.RestofMatch.Draw + '"/>' +
-                        '</td>' +
-                        '<td>' +
-                        '<input type="button" class="btn btn-sm btn-default RM-2" value="' + game.RestofMatch.AwayWins + '"/>' +
-                        '</td>' +
-                        '<td style="padding-bottom: 0px;">' +
-                        '<input type="button" class="btn btn-sm btn-default NG-1" value="' + game.NextGoal.HomeScores + '"/>' +
-                        '</td>' +
-                        '<td>' +
-                        '<input type="button" class="btn btn-sm btn-default NG-X" value="' + game.NextGoal.Draw + '"/>' +
-                        '</td>' +
-                        '<td>' +
-                        '<input type="button" class="btn btn-sm btn-default NG-2" value="' + game.NextGoal.AwayScores + '"/>' +
-                        '</td>' +
-                        '</tr>';
-                    var FT1 = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.FT-1').attr("value");
-                    var FTX = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.FT-X').attr("value");
-                    var FT2 = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.FT-2').attr("value");
-                    
-                    var under = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.under').attr("value");
-                    var over = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.over').attr("value");
-                    
-                    var RM1 = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.RM-1').attr("value");
-                    var RMX = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.RM-X').attr("value");
-                    var RM2 = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.RM-2').attr("value");
-                    
-                    var NG1 = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.NG-1').attr("value");
-                    var NGX = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.NG-X').attr("value");
-                    var NG2 = $gamesTableBody.find('#' + game.MatchNo + ' > td > input.NG-2').attr("value");
-
-                    // full time
-                    if ($gamesTableBody.find('tr[id=' + game.MatchNo + ']').length > 0) {
-                        $gamesTableBody.find('tr[id=' + game.MatchNo + ']')
-                            .replaceWith(rowTemplate);
-                    } else {
-                        $gamesTableBody.append(rowTemplate);
-                    }
-                    if (parseInt(FT1) > parseInt(game.FullTimeOdds.HomeWins)) {
-                        $('#' + game.MatchNo + ' > td > input.FT-1').addTemporaryClass("down", 3000);
-
-                    }
-                    if (parseInt(FT1) < parseInt(game.FullTimeOdds.HomeWins)) {
-                        $('#' + game.MatchNo + ' > td > input.FT-1').addTemporaryClass("up", 3000);
-                    }
-                    if (parseInt(FTX) > parseInt(game.FullTimeOdds.Draw)) {
-                        $('#' + game.MatchNo + ' > td > input.FT-X').addTemporaryClass("down", 3000);
-                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
-
-                    }
-                    if (parseInt(FTX) < parseInt(game.FullTimeOdds.Draw)) {
-                        $('#' + game.MatchNo + ' > td > input.FT-X').addTemporaryClass("up", 3000);
-                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
-                    }
-                    if (parseInt(FT2) > parseInt(game.FullTimeOdds.AwayWins)) {
-                        $('#' + game.MatchNo + ' > td > input.FT-2').addTemporaryClass("down", 3000);
-                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
-
-                    }
-                    if (parseInt(FT2) < parseInt(game.FullTimeOdds.AwayWins)) {
-                        $('#' + game.MatchNo + ' > td > input.FT-2').addTemporaryClass("up", 3000);
-                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
-                    }
-                    
-                    // under/over
-                    if (parseInt(under) > parseInt(game.UnderOverOdds.Under)) {
-                        $('#' + game.MatchNo + ' > td > input.under').addTemporaryClass("down", 3000);
-
-                    }
-                    if (parseInt(under) < parseInt(game.UnderOverOdds.Under)) {
-                        $('#' + game.MatchNo + ' > td > input.under').addTemporaryClass("up", 3000);
-                    }
-                    if (parseInt(over) > parseInt(game.UnderOverOdds.Over)) {
-                        $('#' + game.MatchNo + ' > td > input.over').addTemporaryClass("down", 3000);
-                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
-
-                    }
-                    if (parseInt(over) < parseInt(game.UnderOverOdds.Over)) {
-                        $('#' + game.MatchNo + ' > td > input.over').addTemporaryClass("up", 3000);
-                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
-                    }
-                    
-                    // rest of match
-                    if (parseInt(RM1) > parseInt(game.RestofMatch.HomeWins)) {
-                        $('#' + game.MatchNo + ' > td > input.RM-1').addTemporaryClass("down", 3000);
-
-                    }
-                    if (parseInt(RM1) < parseInt(game.RestofMatch.HomeWins)) {
-                        $('#' + game.MatchNo + ' > td > input.RM-1').addTemporaryClass("up", 3000);
-                    }
-                    if (parseInt(RMX) > parseInt(game.RestofMatch.Draw)) {
-                        $('#' + game.MatchNo + ' > td > input.RM-X').addTemporaryClass("down", 3000);
-                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
-
-                    }
-                    if (parseInt(RMX) < parseInt(game.RestofMatch.Draw)) {
-                        $('#' + game.MatchNo + ' > td > input.RM-X').addTemporaryClass("up", 3000);
-                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
-                    }
-                    if (parseInt(RM2) > parseInt(game.RestofMatch.AwayWins)) {
-                        $('#' + game.MatchNo + ' > td > input.RM-2').addTemporaryClass("down", 3000);
-                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
-
-                    }
-                    if (parseInt(RM2) < parseInt(game.RestofMatch.AwayWins)) {
-                        $('#' + game.MatchNo + ' > td > input.RM-2').addTemporaryClass("up", 3000);
-                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
-                    }
-                    
-                    // next goal
-                    if (parseInt(NG1) > parseInt(game.NextGoal.HomeScores)) {
-                        $('#' + game.MatchNo + ' > td > input.NG-1').addTemporaryClass("down", 3000);
-
-                    }
-                    if (parseInt(NG1) < parseInt(game.NextGoal.HomeScores)) {
-                        $('#' + game.MatchNo + ' > td > input.NG-1').addTemporaryClass("up", 3000);
-                    }
-                    if (parseInt(NGX) > parseInt(game.NextGoal.Draw)) {
-                        $('#' + game.MatchNo + ' > td > input.NG-X').addTemporaryClass("down", 3000);
-                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
-
-                    }
-                    if (parseInt(NGX) < parseInt(game.NextGoal.Draw)) {
-                        $('#' + game.MatchNo + ' > td > input.NG-X').addTemporaryClass("up", 3000);
-                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
-                    }
-                    if (parseInt(NG2) > parseInt(game.NextGoal.AwayScores)) {
-                        $('#' + game.MatchNo + ' > td > input.NG-2').addTemporaryClass("down", 3000);
-                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
-
-                    }
-                    if (parseInt(NG2) < parseInt(game.NextGoal.AwayScores)) {
-                        $('#' + game.MatchNo + ' > td > input.NG-2').addTemporaryClass("up", 3000);
-                        console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
-                    }
-                };
-                // Start the connection
-                $.connection.hub.start().done(init);
-
-            });
+           
         })
 
-    </script>}
+    </script>
+    <script src="~/Scripts/app/renderLiveData.js"></script>
+    }
