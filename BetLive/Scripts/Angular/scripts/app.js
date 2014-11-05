@@ -86,12 +86,12 @@ $betaData.settings.errorLine = "<br />";
 var $authServiceData = $authServiceData || {};
 $authServiceData.settings = {};
 $authServiceData.settings.baseUrl = "/";
-//__________________________________________________________________________________
+//__________________________GLOBALS DECLARATION______________________________________
 var $liveBetsSrvcData = $liveBetsSrvcData || {};
 $liveBetsSrvcData.settings = {};
 $liveBetsSrvcData.settings.baseUrl = "/";
 $liveBetsSrvcData.settings.Name = null;
-//___________________________STAGING SERVER____________________________________
+//___________________________DEVELOPMENT SERVER____________________________________
 
 //Initialize the base urls for all services
 $betaData.settings.baseUrl = 'http://localhost:54482/api/';
@@ -99,11 +99,19 @@ $receiptSenderData.settings.baseUrl = 'http://localhost:49193/api/';
 $authServiceData.settings.baseUrl = 'http://localhost:54482/';
 $liveBetsSrvcData.settings.baseUrl = 'http://localhost:54482';
 $liveBetsSrvcData.settings.Name = 'liveBetHubAng';
+//___________________________STAGING SERVER____________________________________
 
-//________________________DEPLOYMENT__SERVER_______________________________________
-//$betaData.settings.baseUrl = 'http://localhost/livebet/api/';
-//$receiptSenderData.settings.baseUrl = 'http://localhost/livebet/api/';
-//$authServiceData.settings.baseUrl = 'http://localhost/livebet/';
-//$liveBetsSrvcData.settings.baseUrl = 'http://localhost/livebet';
+////Initialize the base urls for all services
+//$betaData.settings.baseUrl = 'http://localhost/betlive/api/';
+//$receiptSenderData.settings.baseUrl = 'http://localhost/betlive/api/';
+//$authServiceData.settings.baseUrl = 'http://localhost/betlive/';
+//$liveBetsSrvcData.settings.baseUrl = 'http://localhost/betlive';
+//$liveBetsSrvcData.settings.Name = 'liveBetHubAng';
+
+////________________________DEPLOYMENT__SERVER_______________________________________
+//$betaData.settings.baseUrl = 'http://testlive.betway.ug/api/';
+//$receiptSenderData.settings.baseUrl = 'http://testlive.betway.ug/api/';
+//$authServiceData.settings.baseUrl = 'http://testlive.betway.ug/';
+//$liveBetsSrvcData.settings.baseUrl = 'http://testlive.betway.ug';
 //$liveBetsSrvcData.settings.Name = 'liveBetHubAng';
 

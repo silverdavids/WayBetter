@@ -396,7 +396,7 @@ function BettingApp() {
 
 $(function () {
 
-    setTimeout(function () {
+    //setTimeout(function () {
         console.log("initialising  receipt scripts");
     //please avoid using the "this" as this in other languages like C# and Java means
     // the object you are inside of but here in javascripts it can mean  different things as follows
@@ -419,7 +419,9 @@ $(function () {
 
     var thisApp = this.app = new BettingApp();
     //this.renderTable = new RenderTables(this.app.getBetList());
-    //this.renderTable.startRenderingTables();
+        //this.renderTable.startRenderingTables();
+    this.renderLiveData = new RenderLiveData(this.app.getBetList());
+   
     this.app.start(maximumNumBets, minStake, setMaxPayoutPossible, tax);
     //var thisApp = this.app;
 
@@ -633,5 +635,5 @@ $(function () {
         thisApp.mockBets(bet);
     }
    // $("#app").offcanvas('show')
-    }, 12000);
+   // }, 12000);
 });

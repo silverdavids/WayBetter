@@ -765,6 +765,7 @@
     <Content Include="Scripts\app\receipt.js" />
     <Content Include="Scripts\app\receiptGen.js" />
     <Content Include="Scripts\app\receiptSender.js" />
+    <Content Include="Scripts\app\renderLiveData.js" />
     <Content Include="Scripts\app\renderTables.js" />
     <Content Include="Scripts\app\renderTables1.js" />
     <Content Include="Scripts\app\test.html" />

@@ -92,7 +92,9 @@
                 };
             }
 
-            $(function () {
+            $(function (betListReff) {
+                var self = this;
+                var _betListReff = betListReff;
 
                 var ticker = $.connection.liveBetHub,
                     $gameTable = $('#MatchTable'),
