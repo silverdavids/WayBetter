@@ -26,9 +26,11 @@ body {
 }
 .up {
     color:  #5cb85c !important;
+    background-color:#ff0000!important;
 }
 .down {
      color: #ff0000 !important;
+     background-color:#00ff21!important;
 }
 
 .bet-way-header {

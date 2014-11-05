@@ -65,17 +65,29 @@
     <script src="~/signalr/hubs"></script>
     <!--SignalR script to update the chat page and send messages.-->
     <script>
+        //$(document).ready(function () {
+
+        //    var table = $('#MatchTable').dataTable({
+        //        "paging": false,
+        //        "ordering": false,
+        //        "info": false,
+        //        "filter": true
+        //    });
+        //    new $.fn.dataTable.FixedHeader(table, { "offsetTop": 70 });
+        //});
         (function ($) {
 
             $.fn.extend({
 
                 addTemporaryClass: function (className, duration) {
+                    
                     var elements = this;
                     setTimeout(function () {
                         elements.removeClass(className);
                     }, duration);
 
                     return this.each(function () {
+                       // console.log("adding temporary class");
                         $(this).addClass(className);
                     });
                 }

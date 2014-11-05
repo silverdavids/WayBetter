@@ -336,7 +336,7 @@ function BettingApp() {
         var $bet = $("#bet-template .bet").clone();
 
         $("span.match-code", $bet).text(bet.shortCode);
-        alert(bet.shortCode)
+       // alert(bet.shortCode)
         $bet.data("betId", bet.betId);
         $("#betList").append($bet);
         $("button.delete", $bet).on("click", function () {
@@ -362,7 +362,7 @@ function BettingApp() {
                 $input.text(bet[fieldName] + "-" + bet["handCapGoalString"]);
 
             } else  if (fieldName.toString() == "matchId".toString()) {
-                    alert(bet.shortCode)
+                   // alert(bet.shortCode)
                     $input.text(bet["shortCode"]);
             }
             else{
@@ -420,7 +420,7 @@ $(function () {
     var thisApp = this.app = new BettingApp();
     //this.renderTable = new RenderTables(this.app.getBetList());
         //this.renderTable.startRenderingTables();
-    this.renderLiveData = new RenderLiveData(this.app.getBetList());
+    this.renderLiveData = new RenderLiveData(thisApp);
    
     this.app.start(maximumNumBets, minStake, setMaxPayoutPossible, tax);
     //var thisApp = this.app;
@@ -481,7 +481,7 @@ $(function () {
                 liveScores = $that.parent().siblings("td.live-scores").text(),
                 extraValue = $that.parent().siblings("td#" + matchCode).data("extra-value"),
                 bet = new Bet(matchCode);
-            alert(extraValue);
+           // alert(extraValue);
             // $that.tooltip({ placement: 'top', title:''+ matchCode + " " + optionName +''});
             // console.log(handCapGoalString);
             bet.shortCode = shortCode;
