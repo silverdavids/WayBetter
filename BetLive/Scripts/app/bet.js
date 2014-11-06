@@ -86,6 +86,25 @@ function BetList(bets) {
         };
        return betMatchId;
     };
+    this.getBetByMatchIdAndOptionId = function (matchId/*, optionId*/) {
+       // console.log("hit");
+       // console.log(matchId +"   "+ optionId);
+
+
+        var betToReturn = null;
+        for (var i in bets) {
+
+            if (bets[i].matchId === matchId /*&& bets[i].optionId === optionId*/) {
+               // alert(" " + bets[i].matchId + "Froma Ui " + matchId + "in bet");
+                betToReturn = bets[i];
+                //console.log("hit" + betToReturn);
+                //this.removeBet(bets[i].betId);
+                break;
+            }
+
+        };
+        return betToReturn;
+    };
     this.getBetByOptionNameAndMatchId = function (matchId, optionName) {
 
         var found = false;

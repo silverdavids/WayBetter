@@ -8,6 +8,7 @@ function BettingApp() {
     var autoNumericInitializer = new AutoNumericInitializer();
     var maximumNumBet = 0;
     var minStake = 0;
+    var self = this;
     //var tax = 0;
     
     var setMaxPayoutPossible = 0;
@@ -231,7 +232,7 @@ function BettingApp() {
         console.log(betList.getBets());
     }
 
-    function removeBet(betId, $bet) {
+    self.removeBet= function(betId, $bet) {
 
         if (betId) {
             betList.removeBet(betId);
@@ -337,10 +338,10 @@ function BettingApp() {
 
         $("span.match-code", $bet).text(bet.shortCode);
        // alert(bet.shortCode)
-        $bet.data("betId", bet.betId);
+        $bet.attr("id", bet.matchId);
         $("#betList").append($bet);
         $("button.delete", $bet).on("click", function () {
-            removeBet(bet.betId, $bet);
+            self.removeBet(bet.betId, $bet);
             var $oddsTable = $("table.oddstable");
             $(".odd", $oddsTable).each(function () {             
 
@@ -366,6 +367,70 @@ function BettingApp() {
                     $input.text(bet["shortCode"]);
             }
             else{
+
+                $input.text(bet[fieldName]);
+            }
+
+            //console.log(fieldName);
+            //console.log(bet["handCapGoalString"]);
+
+        });
+        $("input", $bet).each(function () {
+            var $input = $(this),
+                fieldName = $input.data("field");
+            $input.val(bet[fieldName]);
+        });
+        $("input", $bet).on("change", function () {
+            onChangeBetAmount(bet.betId, $(this));
+        }).on("focus", function () {
+            if (parseInt($(this).val()) == 0) {
+                $(this).val("");
+            }
+        });//.maskMoney({thousands:'',decimal:'.',precision:0,allowNegatives:false});
+        $("input", $bet).autoNumeric('init', { mDec: '0' });
+        updateSummaryFields();
+
+    };
+    this.replaceBetElement = function (bet, $betLiRef) {
+        var $bet = $("#bet-template .bet").clone();
+
+        $("span.match-code", $bet).text(bet.shortCode);
+        // alert(bet.shortCode)
+        $bet.attr("id", bet.matchId);
+       
+        //var $betList=$("#betList");
+        $betLiRef.replaceWith($bet);
+        $bet.addClass("replaced-bet ");
+        setTimeout(function () {
+            $bet.removeClass("replaced-bet");
+        }, 3000)
+        $("button.delete", $bet).on("click", function () {
+            self.removeBet(bet.betId, $bet);
+            var $oddsTable = $("table.oddstable");
+            $(".odd", $oddsTable).each(function () {
+
+                var $me = $(this).parent().siblings("td.match-code");
+                if ($.trim($me.text()) === $("span.match-code", $bet).text()) {
+
+                    $(this).removeClass("selected_option");
+                    $(this).attr("disabled", false);
+                    $(this).parent("td").removeClass("selected_option");
+                }
+            });
+        });
+
+        $("span", $bet).each(function () {
+            var $input = $(this),
+                fieldName = $input.data("field");
+            if (fieldName.toString() == "teamVersus".toString() && bet.betCategory == "Handicap") {
+
+                $input.text(bet[fieldName] + "-" + bet["handCapGoalString"]);
+
+            } else if (fieldName.toString() == "matchId".toString()) {
+                // alert(bet.shortCode)
+                $input.text(bet["shortCode"]);
+            }
+            else {
 
                 $input.text(bet[fieldName]);
             }

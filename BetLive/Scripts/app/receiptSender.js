@@ -64,9 +64,10 @@ function SendReceipt() {
 
         }
         if (betList.getBets().length > 0) console.log(receipt);
-
+        alert( "receipt sender")
       //  var url = "http://localhost:49193/api/ReceiptPrint/ReceiveReceipt";
         var url = $receiptSenderData.settings.baseUrl + "ReceiptPrint/ReceiveReceipt";
+        alert(url)
         $.ajax({
             url: url,
             type: "POST",

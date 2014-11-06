@@ -143,6 +143,10 @@ border-radius: 4px;
     display:block;
 }
 
+.replaced-bet {
+    background-color:#00ff21;
+    display:block;
+}
 .event.received {
     background-color:#4B946A;
     display:none;

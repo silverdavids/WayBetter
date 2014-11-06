@@ -93,15 +93,15 @@ $liveBetsSrvcData.settings.baseUrl = "/";
 $liveBetsSrvcData.settings.Name = null;
 //___________________________DEVELOPMENT SERVER____________________________________
 
-//Initialize the base urls for all services
-$betaData.settings.baseUrl = 'http://localhost:54482/api/';
-$receiptSenderData.settings.baseUrl = 'http://localhost:49193/api/';
-$authServiceData.settings.baseUrl = 'http://localhost:54482/';
-$liveBetsSrvcData.settings.baseUrl = 'http://localhost:54482';
-$liveBetsSrvcData.settings.Name = 'liveBetHubAng';
-//___________________________STAGING SERVER____________________________________
-
 ////Initialize the base urls for all services
+//$betaData.settings.baseUrl = 'http://localhost:54482/api/';
+//$receiptSenderData.settings.baseUrl = 'http://localhost:49193/api/';
+//$authServiceData.settings.baseUrl = 'http://localhost:54482/';
+//$liveBetsSrvcData.settings.baseUrl = 'http://localhost:54482';
+//$liveBetsSrvcData.settings.Name = 'liveBetHubAng';
+////___________________________STAGING SERVER____________________________________
+
+//////Initialize the base urls for all services
 //$betaData.settings.baseUrl = 'http://localhost/betlive/api/';
 //$receiptSenderData.settings.baseUrl = 'http://localhost/betlive/api/';
 //$authServiceData.settings.baseUrl = 'http://localhost/betlive/';
@@ -109,9 +109,9 @@ $liveBetsSrvcData.settings.Name = 'liveBetHubAng';
 //$liveBetsSrvcData.settings.Name = 'liveBetHubAng';
 
 ////________________________DEPLOYMENT__SERVER_______________________________________
-//$betaData.settings.baseUrl = 'http://testlive.betway.ug/api/';
-//$receiptSenderData.settings.baseUrl = 'http://testlive.betway.ug/api/';
-//$authServiceData.settings.baseUrl = 'http://testlive.betway.ug/';
-//$liveBetsSrvcData.settings.baseUrl = 'http://testlive.betway.ug';
-//$liveBetsSrvcData.settings.Name = 'liveBetHubAng';
+$betaData.settings.baseUrl = 'http://testlive.betway.ug/api/';
+$receiptSenderData.settings.baseUrl = 'http://testlive.betway.ug/api/';
+$authServiceData.settings.baseUrl = 'http://testlive.betway.ug/';
+$liveBetsSrvcData.settings.baseUrl = 'http://testlive.betway.ug';
+$liveBetsSrvcData.settings.Name = 'liveBetHubAng';
 

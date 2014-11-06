@@ -117,8 +117,8 @@ namespace BetLive.Hubs
                 mockXmlFileExt=1;
             }
            // mockXmlFileExt = 1;
-            var scores =/* await  GetGamesScores();*/await myController.GetGamesScoresFromXml(mockXmlFileExt);
-            var odds =/*await GetGamesOdds();  */ await myController.GetGamesOddsFromXml(mockXmlFileExt);
+            var scores =await  GetGamesScores();/*await myController.GetGamesScoresFromXml(mockXmlFileExt);*/
+            var odds =await GetGamesOdds();  /* await myController.GetGamesOddsFromXml(mockXmlFileExt);*/
             var allGames =  (from gamescore in scores
                             join gameodds in odds
                             on gamescore.MatchNo equals gameodds.MatchNo

@@ -11,7 +11,9 @@ function RenderLiveData(receiptApp) {
         $gamesTableBody = null;
     var FT1 = null, FTX = null, FT2 = null, under = null, over = null, RM1 = null, RMX = null, RM2 = null, NG1 = null, NGX = null, NG2 = null;
     var $FT1 = null, $FTX = null, $FT2 = null, $under = null, $over = null, $RM1 = null, $RMX = null, $RM2 = null, $NG1 = null, $NGX = null, $NG2 = null;
-    var $row = null;
+    var $row = null,
+        gameToCheckOnReceipt = new Bet(0),
+        gameToCompareWithFromServer = null;
 
 
 
@@ -44,7 +46,12 @@ function RenderLiveData(receiptApp) {
         // console.log(game);
         $gameTable = $('#MatchTable'),
        $gamesTableBody = $gameTable.find('#tbody');
-       var game= self.validateNullGames(game);
+        var game = self.validateNullGames(game);
+        // save the game temporarily to validate it if already on the receipt
+        gameToCompareWithFromServer = game;
+        gameToCheckOnReceipt = _betListReff.getBetByMatchIdAndOptionId($.trim(gameToCompareWithFromServer.MatchNo));
+        console.log(_betListReff.getBets())
+       //console.log(gameToCheckOnReceipt);
        self.contructRowTemplate(game);
        self.checkForChangeInOdd(game/*, $gamesTableBody, rowTemplate*/);
 
@@ -194,32 +201,34 @@ function RenderLiveData(receiptApp) {
         if ($row) {
             if ($row.length > 0) {
                 $row.replaceWith(rowTemplate);
-                console.log("Replaced Row");
+               // console.log("Replaced Row");
             } else {
                 $gamesTableBody.append(rowTemplate);
-                console.log("Added New Row");
+               // console.log("Added New Row");
             }
         }
     };
     self.addTemporaryClassOnChange = function ($input,oldOddValue,newOddValue) {
-        var optionName = $input.data("option-id");
+        var optionId = $input.data("option-id");
         //console.log(optionName);
         if ($.isNumeric(newOddValue)) {
             if (parseFloat(oldOddValue) > parseFloat(newOddValue)) {
                 $input.addTemporaryClass("down", 3000);
                 // console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
-               // self.validateReceipt(gameToCheckOnReceipt);
-                console.log("odd dropped");
+                self.validateReceipt(true, newOddValue, optionId);
+               // console.log("odd dropped");
             }
 
             if (parseFloat(oldOddValue) < parseFloat(newOddValue)) {
                 $input.addTemporaryClass("up", 3000);
                 // console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
-                console.log("odd increased");
+                self.validateReceipt(true, newOddValue, optionId);
+               // console.log("odd increased");
             }
            // console.log(" numeric")
         }
         else {
+            self.validateReceipt(false,newOddValue, optionId);
             $input.attr('disabled', "disabled");
            // console.log("not numeric")
         }
@@ -241,29 +250,60 @@ function RenderLiveData(receiptApp) {
         }
         return classString.toString();
     };
-    self.validateReceipt = function (gameToCheckOnReceipt) {
-        var matchNoOnReceipt = _betListReff.checkRemoveBetByMatchId(gameToCheckOnReceipt.MatchNo, optionId);
-        if (matchNoOnReceipt === gameToCheckOnReceipt.MatchNo) {
-            var $betList = $("#betList");
-            console.log("found match on receipt");
-           
-        
-        }
+    self.validateReceipt = function (isAReplacement,newOdd,optionId) {
+        //gameToCheckOnReceipt is declared at the top of the function and
+        //initilized iun updateGame()
+     var   _gameToCheckOnReceipt = gameToCheckOnReceipt;
+     var _gameToCompareWithFromServer = gameToCompareWithFromServer;
+     if (_gameToCheckOnReceipt)
+     {
+         //console.log(_gameToCheckOnReceipt);
+        // console.log(_gameToCheckOnReceipt.matchId);
+               var matchNoOnReceipt = _gameToCheckOnReceipt.matchId;
+               var matchNoOnFromServer = gameToCompareWithFromServer.MatchNo;
+      
+               if (matchNoOnReceipt === matchNoOnFromServer) {
+                   if (_gameToCheckOnReceipt.optionId===optionId) {
+                    var $betList = $("#betList");
+                   // var $bet = $('#' + matchNoOnReceipt, $betList).clone();
+                   var $bet = $betList.find('li[id=' + matchNoOnReceipt + ']')
+                   //.replaceWith(rowTemplate);
+                   // console.log($bet);
+                   console.log("found match on receipt");
+                   if (isAReplacement) {
+                       //ToDo update the bet on the receipt
+                       var newBet = _gameToCheckOnReceipt;
+                       newBet.odd = newOdd
+                       _receiptApp.replaceBetElement(newBet, $bet);
+                       console.log(newBet);
+                       console.log("replaced bet");
+                      
+                   } else {  
+                       // remove the Bet from the receipt
+                       _receiptApp.removeBet(_gameToCheckOnReceipt.betId, $bet);
+                       console.log("removed bet");
+                   }
+                   
+                   console.log(_betListReff.getBets());
+                   
+                   }
+                  
+                }
 
-       
+       }
 
-        removeBet(bet.betId, $bet);
-        var $oddsTable = $("table.oddstable");
-        $(".odd", $oddsTable).each(function () {
+       // removeBet(bet.betId, $bet);
+        //var $oddsTable = $("table.oddstable");
+        //$(".odd", $oddsTable).each(function () {
 
-            var $me = $(this).parent().siblings("td.match-code");
-            if ($.trim($me.text()) === $("span.match-code", $bet).text()) {
+        //    var $me = $(this).parent().siblings("td.match-code");
+        //    if ($.trim($me.text()) === $("span.match-code", $bet).text()) {
 
-                $(this).removeClass("selected_option");
-                $(this).attr("disabled", false);
-                $(this).parent("td").removeClass("selected_option");
-            }
-        });
+        //        $(this).removeClass("selected_option");
+        //        $(this).attr("disabled", false);
+        //        $(this).parent("td").removeClass("selected_option");
+        //    }
+        //});
 
     }
 };
