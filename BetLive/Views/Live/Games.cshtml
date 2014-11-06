@@ -173,72 +173,11 @@
                         console.log(string);
                     });
 
-                    // get all livescores
-                    ticker.server.getAllGames().done(function (games) {
-                        $gamesTableBody.empty();
-                        console.log("Looping..")
-                        //console.log(games);
-                        $.each(games, function () {
-
-                            var game = this;
-                            if (game.FullTimeOdds == null) {
-                                game.FullTimeOdds = {
-                                    AwayWins: "N/A",
-                                    Draw: "N/A",
-                                    HomeWins: "N/A"
-                                };
-                            }
-                            if (game.DoubleChance == null) {
-                                game.DoubleChance = {
-                                    HomeOrAway: "N/A",
-                                    AwayOrDraw: "N/A",
-                                    HomeOrDraw: "N/A"
-                                };
-                            }
-                            if (game.NextGoal == null) {
-                                game.NextGoal = {
-                                    AwayScores: "N/A",
-                                    Draw: "N/A",
-                                    HomeScores: "N/A"
-                                };
-                            }
-
-                            if (game.UnderOverOdds == null) {
-                                game.UnderOverOdds = {
-                                    Under: "N/A",
-                                    Over: "N/A",
-                                    ExtraValue: "N/A"
-                                };
-                            }
-                            var rowTemplate = '<tr id="' + game.MatchNo + '">' +
-                                '<td class="text-center">' + game.ShortCode + '</td>' +
-                                '<td style="color:#F1C40F;">' + game.Minutes + '</td>' +
-                                '<td>' + game.LocalTeam + '</td>' +
-                                '<td class="text-center" style="color:#ff0000;">' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +
-                                '<td>' + game.AwayTeam + '</td>' +
-                                '<td class="FT-1  td-border" style="padding-bottom: 0px;">' + game.FullTimeOdds.HomeWins + '</td>' +
-                                '<td class="FT-X">' + game.FullTimeOdds.Draw + '</td>' +
-                                '<td class="FT-2">' + game.FullTimeOdds.AwayWins + '</td>' +
-                                '<td class="under  td-border">' + game.UnderOverOdds.Under + '</td>' +
-                                '<td class="text-center">' +
-                                '  <span style="color:#F1C40F;">' + game.UnderOverOdds.ExtraValue + '</span>' +
-                                '</td>' +
-                                '<td class="over">' + game.UnderOverOdds.Over + '</td>' +
-                                '<td class="DC-1X  td-border" style="padding-bottom: 0px;">' + game.DoubleChance.HomeOrDraw + '</td>' +
-                                '<td class="DC-X2">' + game.DoubleChance.AwayOrDraw + '</td>' +
-                                '<td class="DC-12">' + game.DoubleChance.HomeOrAway + '</td>' +
-                                '<td class="NG-1  td-border" style="padding-bottom: 0px;">' + game.NextGoal.HomeScores + '</td>' +
-                                '<td class="NG-X">' + game.NextGoal.Draw + '</td>' +
-                                '<td class="NG-2">' + game.NextGoal.AwayScores + '</td>' +
-                                '</tr>';
-                            $gamesTableBody.append(rowTemplate);
-                        });
-                    });
                 }
 
                 // Add a client-side hub method that the server will call
                 ticker.client.updateGame = function (game) {
-                    //console.clear();
+                    console.clear();
                     console.log("Test");
                     console.log(game);
 
@@ -251,9 +190,9 @@
                     }
                     if (game.DoubleChance == null) {
                         game.DoubleChance = {
-                            HomeOrAway: "N/A",
-                            AwayOrDraw: "N/A",
-                            HomeOrDraw: "N/A"
+                            HomeWinsOrDraw: "N/A",
+                            AwayWinsOrDraw: "N/A",
+                            HomeWinsOrAwayWins: "N/A"
                         };
                     }
                     if (game.NextGoal == null) {
@@ -285,9 +224,9 @@
                         '  <span style="color:#F1C40F;">' + game.UnderOverOdds.ExtraValue + '</span>' +
                         '</td>' +
                         '<td class="over">' + game.UnderOverOdds.Over + '</td>' +
-                        '<td class="DC-1X  td-border" style="padding-bottom: 0px;">' + game.DoubleChance.HomeOrDraw + '</td>' +
-                        '<td class="DC-X2">' + game.DoubleChance.AwayOrDraw + '</td>' +
-                        '<td class="DC-12">' + game.DoubleChance.HomeOrAway + '</td>' +
+                        '<td class="DC-1X  td-border" style="padding-bottom: 0px;">' + game.DoubleChance.HomeWinsOrDraw + '</td>' +
+                        '<td class="DC-X2">' + game.DoubleChance.AwayWinsOrDraw + '</td>' +
+                        '<td class="DC-12">' + game.DoubleChance.HomeWinsOrAwayWins + '</td>' +
                         '<td class="NG-1  td-border" style="padding-bottom: 0px;">' + game.NextGoal.HomeScores + '</td>' +
                         '<td class="NG-X">' + game.NextGoal.Draw + '</td>' +
                         '<td class="NG-2">' + game.NextGoal.AwayScores + '</td>' +
@@ -308,12 +247,23 @@
                     var NGX = $gamesTableBody.find('#' + game.MatchNo + ' > td.NG-X').html();
                     var NG2 = $gamesTableBody.find('#' + game.MatchNo + ' > td.NG-2').html();
 
-                    // full time
-                    if ($gamesTableBody.find('tr[id=' + game.MatchNo + ']').length > 0) {
-                        $gamesTableBody.find('tr[id=' + game.MatchNo + ']')
-                            .replaceWith(rowTemplate);
+                    
+                    //half time
+                    if (game.Minutes == "45'") {
+                        if (game != undefined && game != null) {
+                            $gamesTableBody.find('.dataTables_empty').remove();
+                        }
+
+                        if ($gamesTableBody.find('tr[id=' + game.MatchNo + ']').length > 0) {
+                            $gamesTableBody.find('tr[id=' + game.MatchNo + ']')
+                                .replaceWith(rowTemplate);
+                        } else {
+                            $gamesTableBody.append(rowTemplate);
+                        }
                     } else {
-                        $gamesTableBody.append(rowTemplate);
+                        // if not halftime
+                        $gamesTableBody.find('tr[id=' + game.MatchNo + ']').remove();
+
                     }
 
                     if (parseInt(FT1) > parseInt(game.FullTimeOdds.HomeWins)) {
@@ -354,28 +304,28 @@
                     }
 
                     // double chance
-                    if (parseInt(DC1) > parseInt(game.DoubleChance.HomeOrDraw)) {
+                    if (parseInt(DC1) > parseInt(game.DoubleChance.HomeWinsOrDraw)) {
                         $('#' + game.MatchNo + ' > td.DC-1X').addTemporaryClass("dropped", 3000);
                         console.log(DC1 + ' ' + ' down');
                     }
-                    if (parseInt(DC1) < parseInt(game.DoubleChance.HomeOrDraw)) {
+                    if (parseInt(DC1) < parseInt(game.DoubleChance.HomeWinsOrDraw)) {
                         $('#' + game.MatchNo + ' > td.DC-1X').addTemporaryClass("raised", 3000);
                         console.log(DC1 + ' ' + ' up');
                     }
-                    if (parseInt(DCX) > parseInt(game.DoubleChance.AwayOrDraw)) {
+                    if (parseInt(DCX) > parseInt(game.DoubleChance.AwayWinsOrDraw)) {
                         $('#' + game.MatchNo + ' > td.DC-X2').addTemporaryClass("dropped", 3000);
                         console.log(DCX + ' ' + ' down');
 
                     }
-                    if (parseInt(DCX) < parseInt(game.DoubleChance.AwayOrDraw)) {
+                    if (parseInt(DCX) < parseInt(game.DoubleChance.AwayWinsOrDraw)) {
                         $('#' + game.MatchNo + ' > td.DC-X2').addTemporaryClass("raised", 3000);
                         console.log(DCX + ' ' + ' up');
                     }
-                    if (parseInt(DC2) > parseInt(game.DoubleChance.HomeOrAway)) {
+                    if (parseInt(DC2) > parseInt(game.DoubleChance.HomeWinsOrAwayWins)) {
                         $('#' + game.MatchNo + ' > td.DC-12').addTemporaryClass("dropped", 3000);
                         console.log(DC2 + ' ' + ' down');
                     }
-                    if (parseInt(DC2) < parseInt(game.DoubleChance.HomeOrAway)) {
+                    if (parseInt(DC2) < parseInt(game.DoubleChance.HomeWinsOrAwayWins)) {
                         $('#' + game.MatchNo + ' > td.DC-12').addTemporaryClass("raised", 3000);
                         console.log(DC2 + ' ' + ' up');
                     }
@@ -404,24 +354,25 @@
                     }
                 };
 
-                ticker.client.getUpdatedGames = function (games) {
-                    $('#MatchTable tbody tr').each(function () {
-                        var gameToRemoveId = $(this).attr('id');
-                        var count = 0;
-                        $(games).each(function () {
-                            var NeWgame = this;
-                            if (gameToRemoveId == NeWgame.MatchNo) {
-                                count += 1;
-                            }
+                //ticker.client.getUpdatedGames = function (games) {
+                   
+                //    $('#MatchTable tbody tr').each(function () {
+                //        var gameToRemoveId = $(this).attr('id');
+                //        var count = 0;
+                //        $(games).each(function () {
+                //            var NeWgame = this;
+                //            if (gameToRemoveId == NeWgame.MatchNo) {
+                //                count += 1;
+                //            }
 
 
-                        })
+                //        })
 
-                        if (count <= 0) {
-                            $gamesTableBody.find('#' + gameToRemoveId + '').remove();
-                        }
-                    });
-                }
+                //        if (count <= 0) {
+                //            $gamesTableBody.find('#' + gameToRemoveId + '').remove();
+                //        }
+                //    });
+                //}
                 // Start the connection
                 $.connection.hub.start().done(init);
 

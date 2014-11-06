@@ -9,7 +9,7 @@ namespace WebUI.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(WebUI.DataAccessLayer.ApplicationDbContext context)

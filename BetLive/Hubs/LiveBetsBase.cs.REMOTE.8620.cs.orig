@@ -29,7 +29,7 @@ namespace BetLive.Hubs
         private readonly TimeSpan _updateInterval = TimeSpan.FromSeconds(2);
         private readonly ConcurrentDictionary<string, Game> _gamesforLiveScore = new ConcurrentDictionary<string, Game>();
         private readonly ConcurrentDictionary<string, Game> _gamesforLiveOdds = new ConcurrentDictionary<string, Game>();
-        private readonly ConcurrentDictionary<string, Game> _gamesWithLiveScoresAndOdds = new ConcurrentDictionary<string, Game>();
+        private readonly ConcurrentDictionary<string, Game>_gamesWithLiveScoresAndOdds = new ConcurrentDictionary<string, Game>();
         private readonly IList<Game> gameToSave;
 
         public IDictionary<string, SavedMatch> _shortMatchCodes;
@@ -60,7 +60,7 @@ namespace BetLive.Hubs
         private LiveBetsBase(IHubConnectionContext<dynamic> clients)
         {
             Clients = clients;
-            _shortMatchCodes = new Dictionary<string, SavedMatch>();
+             _shortMatchCodes = new Dictionary<string, SavedMatch>();
             gameToSave = new List<Game>();
             //the controller below is for testing please comment it initailisation to save server resources
             myController = new MyController();
@@ -89,7 +89,7 @@ namespace BetLive.Hubs
             };
 
             GetchAllGamesFromServiceProvider().Wait();
-            //_timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
+            _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
         }
 
         public IHubConnectionContext<dynamic> Clients { get; set; }
@@ -100,6 +100,7 @@ namespace BetLive.Hubs
 
         public async Task<IEnumerable<Game>> GetAllGames()
         {
+
             return _gamesWithLiveScoresAndOdds.Values;
         }
         #region GetAllGames
@@ -113,20 +114,12 @@ namespace BetLive.Hubs
             }
             else if (mockXmlFileExt == 13)
             {
-                mockXmlFileExt = 1;
+                mockXmlFileExt=1;
             }
-<<<<<<< HEAD
-            // mockXmlFileExt = 1;
-            var scores = await GetGamesScores();/*await myController.GetGamesScoresFromXml(mockXmlFileExt);*/
-            var odds = await GetGamesOdds();  /* await myController.GetGamesOddsFromXml(mockXmlFileExt);*/
-            var allGames = (from gamescore in scores
-                           // where gamescore.Minutes == "45" // filters out games at 45min
-=======
            // mockXmlFileExt = 1;
-            var scores =await  GetGamesScores();/*await myController.GetGamesScoresFromXml(mockXmlFileExt);*/
-            var odds =await GetGamesOdds();  /* await myController.GetGamesOddsFromXml(mockXmlFileExt);*/
+            var scores =/* await  GetGamesScores();*/await myController.GetGamesScoresFromXml(mockXmlFileExt);
+            var odds =/*await GetGamesOdds();  */ await myController.GetGamesOddsFromXml(mockXmlFileExt);
             var allGames =  (from gamescore in scores
->>>>>>> f188024b5288318b5d1d8cb4188d0392fbef2a36
                             join gameodds in odds
                             on gamescore.MatchNo equals gameodds.MatchNo
                             select new Game
@@ -149,16 +142,16 @@ namespace BetLive.Hubs
                                 DoubleChance = gameodds.DoubleChance
                             }).ToList();
 
-            allGames.ForEach(game => _gamesWithLiveScoresAndOdds.TryAdd(game.MatchNo, game));
+            allGames.ForEach(game=>_gamesWithLiveScoresAndOdds.TryAdd(game.MatchNo,game));
             allGames.Clear();
             if (isServiceRestarted)
             {
                 isServiceRestarted = false;
                 doUpdateGames();
             }
+           
 
-
-            _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);          
+            // _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);          
             // return allGames;
         }
 
@@ -202,7 +195,7 @@ namespace BetLive.Hubs
         #endregion
 
 
-
+         
         #region getAllNormalGames
         public async Task<List<GameViewModel>> getAllNormalGames()
         {
@@ -215,15 +208,15 @@ namespace BetLive.Hubs
             return new List<GameViewModel>();
         }
         #endregion
-
+     
         #region UpdateGames
         private async void UpdateGames(object state)
         {
             _gamesWithLiveScoresAndOdds.Clear();
-            await GetchAllGamesFromServiceProvider();
+           await GetchAllGamesFromServiceProvider();
             try
             {
-
+              
                 lock (_updateGameLock)
                 {
                     if (!_updatingGame)
@@ -268,7 +261,7 @@ namespace BetLive.Hubs
                             if (TryUpdateGame(game))
                             {
                                 //broadcast on the UI
-                                BroadcastLiveGame(game);
+                                 BroadcastLiveGame(game);
                             }
                         }
                         _updatingGame = false;
@@ -327,8 +320,8 @@ namespace BetLive.Hubs
                     if (match.Attributes != null)
                     {
                         testGame.MatchNo = match.Attributes["id"].InnerText;
-                        testGame.Minutes = match.Attributes["minute"].InnerText.Substring(0, 2) + "'";
-                        // testGame.StartDate = DateTime.Now.Date.ToString();
+                        testGame.Minutes = match.Attributes["minute"].InnerText;
+                       // testGame.StartDate = DateTime.Now.Date.ToString();
                     }
 
                     foreach (XmlNode team in teams)
@@ -411,7 +404,7 @@ namespace BetLive.Hubs
                         testGame.League = match.Attributes["league"] != null || match.Attributes["league"].InnerText == ""
                                    ? match.Attributes["league"].InnerText
                                    : "FailedLeague";
-
+                       
                         var odds = match.LastChild;
                         foreach (XmlNode odd in odds)
                         {
@@ -529,27 +522,26 @@ namespace BetLive.Hubs
         /// </summary>
         /// <param name="game"></param>
         /// <returns></returns>
-        private bool TryUpdateGame(Game game)
+        private  bool  TryUpdateGame(Game game)
         {
-            // return true;
-            // check  whether To save this game the db or not
-            var matchInList = isMatchAlreadySavedToDb(game.MatchNo);
+           // return true;
+           // check  whether To save this game the db or not
+            var matchInList =isMatchAlreadySavedToDb(game.MatchNo);
             if (matchInList.IsAlreadysaved)
             {
-                return true;
+             return true;            
             }
 
             //Todo: update the records in the DB
-            #region trySaveMatchesToDb
+  #region trySaveMatchesToDb
             LiveMatch liveMatchToSave;
-            // List<LiveMatches> liveMatchesList=new List<LiveMatches>();
+           // List<LiveMatches> liveMatchesList=new List<LiveMatches>();
             Match match;
-
-            // List<Match> matches=new List<Match>();
-            // foreach (var game in allGames)
-            // {
-            try
-            {
+           
+           // List<Match> matches=new List<Match>();
+           // foreach (var game in allGames)
+           // {
+            try {
 
                 Country country;
                 int _HomeTeamId = 0;
@@ -559,7 +551,7 @@ namespace BetLive.Hubs
                 if (league != null)
                 {
                     country = BetDatabase.Countries.SingleOrDefault(c => c.CountryId == league.CountryId);
-
+                    
                     if (country == null)
                     {
                         country = new Country
@@ -568,14 +560,13 @@ namespace BetLive.Hubs
                         };
                         BetDatabase.Countries.AddOrUpdate(c => c.CountryName, country);
                         BetDatabase.SaveChanges();
-
+                        
                     }
                     _countryId = country.CountryId;
                 }
-                else
-                {
+                else {
                     country = BetDatabase.Countries.SingleOrDefault(c => c.CountryName == "Unknown");
-
+                 
                     if (country == null)
                     {
                         country = new Country
@@ -583,7 +574,7 @@ namespace BetLive.Hubs
                             CountryName = "Unknown"
                         };
                         BetDatabase.Countries.AddOrUpdate(c => c.CountryName, country);
-                        BetDatabase.SaveChanges();
+                        BetDatabase.SaveChanges();                       
                     }
                     _countryId = country.CountryId;
                     BetDatabase.Leagues.AddOrUpdate(l => l.LeagueName, new League
@@ -591,11 +582,11 @@ namespace BetLive.Hubs
                         LeagueName = game.League,
                         CountryId = _countryId,
                     });
-                    BetDatabase.SaveChanges();
-
-
+                    BetDatabase.SaveChanges();           
+                
+                
                 }
-
+               
                 Team _homeTeam;
                 if (game.LocalTeam != null)
                 {
@@ -615,7 +606,7 @@ namespace BetLive.Hubs
                     _awayTeam = new Team
                     {
                         TeamName = game.AwayTeam,
-                        CountryId = _countryId
+                       CountryId = _countryId
                     };
                     BetDatabase.Teams.AddOrUpdate(t => t.TeamName, _awayTeam);
                     BetDatabase.SaveChanges();
@@ -630,52 +621,49 @@ namespace BetLive.Hubs
                      //ShortMatchCode = new ShortMatchCode(),// Convert.ToInt32(game.ShortCode),
                      League = game.League,
                      RegistrationDate = DateTime.Now,
-                     ResultStatus = 0,
+                     ResultStatus=0,
                      GameStatus = double.Parse(formatMinutes(game.Minutes)) > 0 ? "Started" : "Not Started",
 
                  };
 
-                // matches.Add(match);
+               // matches.Add(match);
                 liveMatchToSave = new LiveMatch
                 {
                     LiveMatchNo = game.MatchNo,
                     BetServiceMatchNo = game.ShortCode,
                     SetDate = DateTime.Now
                 };
-                // liveMatchesList.Add(liveMatchToSave);
+               // liveMatchesList.Add(liveMatchToSave);
                 //we could have used AddOrUpdate btu since we always check if match already exits in memory,its useless, unless need be later
 
-            #endregion
-                // matches.ForEach(m => BetDatabase.Matches.Add(m));
-                try
-                {
+  #endregion
+               // matches.ForEach(m => BetDatabase.Matches.Add(m));
+                try {
                     BetDatabase.Matches.AddOrUpdate(match);
                     BetDatabase.SaveChanges();
 
                     BetDatabase.LiveMatches.AddOrUpdate(liveMatchToSave);
                     BetDatabase.SaveChanges();
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex){
                     matchInList.IsAlreadysaved = false;
-                    return false;
+                    return false;                
                 }
-
+                
                 //save the live macthes MatchNo int the LiveMatches table
-
-
-
-                // }
-                ////_games.Clear();
-                //_games.TryAdd(game.MatchNo, game);
+               
+               
+              
+           // }
+            ////_games.Clear();
+            //_games.TryAdd(game.MatchNo, game);
                 //update the matchcode list if save is successfull
-                matchInList.IsAlreadysaved = true;
-                return true;
-            }
-            catch (Exception ex)
-            {
+                 matchInList.IsAlreadysaved = true;
+                 return true;
+                }
+            catch(Exception ex){
                 //update the matchcode list if save is successfull
-                matchInList.IsAlreadysaved = false;
+                matchInList.IsAlreadysaved = false ;
                 return false;
             }
 
@@ -688,17 +676,17 @@ namespace BetLive.Hubs
             char[] del = { ':' };
             var stdate = minutes.Split(del);
             var stDateTime = stdate[0] + "." + stdate[1];
-            return stDateTime;
+                    return stDateTime;       
         }
 
 
         private void BroadcastLiveGame(Game game)
         {
-            // var hubContext = GlobalHost.ConnectionManager.GetHubContext<LiveGameHub>();
+           // var hubContext = GlobalHost.ConnectionManager.GetHubContext<LiveGameHub>();
             //if (Clients != null)
             //{
 
-            Clients.All.updateGame(game);
+                Clients.All.updateGame(game);
             //}
 
         }
@@ -744,7 +732,7 @@ namespace BetLive.Hubs
         }
         #endregion
 
-
+      
     }
 
 
