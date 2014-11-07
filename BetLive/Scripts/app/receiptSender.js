@@ -45,7 +45,7 @@ function SendReceipt() {
         receipt.MultipleBetAmount = Bet.multipleBetAmount;
         var authData = {};
         authData = JSON.parse(localStorage.getItem("ls.authorizationData"));
-        receipt.UserName = authData.userName;
+        receipt.UserName = "Teller Test";//authData.userName;
         alert( receipt.UserName);
         //receipt.UserName = "";
         for (var i in bets) {
@@ -65,8 +65,9 @@ function SendReceipt() {
         }
         if (betList.getBets().length > 0) console.log(receipt);
         alert( "receipt sender")
-      //  var url = "http://localhost:49193/api/ReceiptPrint/ReceiveReceipt";
-        var url = $receiptSenderData.settings.baseUrl + "ReceiptPrint/ReceiveReceipt";
+        //  var url = "http://localhost:49193/api/ReceiptPrint/ReceiveReceipt";
+          var url = "http://testlive.betway.ug/api/ReceiptPrint/ReceiveReceipt";
+        //var url = $receiptSenderData.settings.baseUrl + "ReceiptPrint/ReceiveReceipt";
         alert(url)
         $.ajax({
             url: url,

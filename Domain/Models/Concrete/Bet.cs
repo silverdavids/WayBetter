@@ -25,7 +25,7 @@ namespace Domain.Models.Concrete
         [ForeignKey("BetOption")]
         public int BetOptionId { get; set; }
         public decimal BetOdd { get; set; }
-      //  public decimal ExtraValue{ get; set; }
+        public decimal ExtraValue{ get; set; }
         public Match Match { get; set; }
         public Receipt Receipt { get; set; }
 

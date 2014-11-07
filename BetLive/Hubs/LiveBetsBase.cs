@@ -116,8 +116,8 @@ namespace BetLive.Hubs
                 mockXmlFileExt = 1;
             }
 
-            var scores =/*await  GetGamesScores();*/await myController.GetGamesScoresFromXml(mockXmlFileExt);
-            var odds =/*await GetGamesOdds();  */ await myController.GetGamesOddsFromXml(mockXmlFileExt);
+            var scores =await  GetGamesScores();/*await myController.GetGamesScoresFromXml(mockXmlFileExt);*/
+            var odds =await GetGamesOdds();   /*await myController.GetGamesOddsFromXml(mockXmlFileExt);*/
             var allGames =  (from gamescore in scores
 
                             join gameodds in odds
@@ -320,7 +320,7 @@ namespace BetLive.Hubs
                     if (match.Attributes != null)
                     {
                         testGame.MatchNo = match.Attributes["id"].InnerText;
-                        testGame.Minutes = match.Attributes["minute"].InnerText.Substring(0, 2) + "'";
+                        testGame.Minutes = match.Attributes["minute"].InnerText;//.Substring(0, 2) + "'";
                         // testGame.StartDate = DateTime.Now.Date.ToString();
                     }
 

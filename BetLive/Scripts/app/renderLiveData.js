@@ -131,13 +131,13 @@ function RenderLiveData(receiptApp) {
         ' <input type="button" class="btn btn-sm btn-default DC-2 odd" value="' + game.DoubleChance.AwayWinsOrDraw + '" data-odd-type="Live" data-option-id="77" data-option-name="X2" data-bet-category="Double Chance" /> ' +
    '  </td> ' +
     ' <td style="padding-bottom: 0px;"> ' +
-        ' <input type="button" class="btn btn-sm btn-default NG-1 odd" value="' + game.NextGoal.HomeScores + '" data-odd-type="Live" data-option-id="71" data-option-name="H-GOAL" data-bet-category="FT1X2-NG" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default NG-1 odd" value="' + game.NextGoal.HomeScores + '" data-odd-type="Live" data-option-id="71" data-option-name="1" data-bet-category="FT-NextGoal" /> ' +
    '  </td> ' +
     ' <td> ' +
-        ' <input type="button" class="btn btn-sm btn-default NG-X odd" value="' + game.NextGoal.Draw + '" data-odd-type="Live" data-option-id="72" data-option-name="NG" data-bet-category="FT1X2-NG" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default NG-X odd" value="' + game.NextGoal.Draw + '" data-odd-type="Live" data-option-id="72" data-option-name="No Goal" data-bet-category="FT-NextGoal" /> ' +
    '  </td> ' +
     ' <td> ' +
-        ' <input type="button" class="btn btn-sm btn-default NG-2 odd" value="' + game.NextGoal.AwayScores + '" data-odd-type="Live" data-option-id="73" data-option-name="A-GOAL" data-bet-category="FT1X2-NG" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default NG-2 odd" value="' + game.NextGoal.AwayScores + '" data-odd-type="Live" data-option-id="73" data-option-name="2" data-bet-category="FT-NextGoal" /> ' +
    '  </td> ' +
 ' </tr> ';
         //return rowTemplate;
@@ -183,16 +183,16 @@ function RenderLiveData(receiptApp) {
         self.addTemporaryClassOnChange($FTX, FTX, game.FullTimeOdds.Draw);
         self.addTemporaryClassOnChange($FT2, FT2, game.FullTimeOdds.HomeWins);
         //over/under
-        self.addTemporaryClassOnChange($over, over, game.FullTimeOdds.Over);
-        self.addTemporaryClassOnChange($under, under, game.FullTimeOdds.Under);
+        self.addTemporaryClassOnChange($over, over, game.UnderOverOdds.Over);
+        self.addTemporaryClassOnChange($under, under, game.UnderOverOdds.Under);
         //DOUBLE CHANCE
-        self.addTemporaryClassOnChange($RM1, RM1, game.FullTimeOdds.HomeWins);
-        self.addTemporaryClassOnChange($RMX, RMX, game.FullTimeOdds.HomeWins);
-        self.addTemporaryClassOnChange($RM2, RM2, game.FullTimeOdds.HomeWins);
+        self.addTemporaryClassOnChange($RM1, RM1, game.DoubleChance.HomeWinsOrDraw);
+        self.addTemporaryClassOnChange($RMX, RMX, game.DoubleChance.HomeWinsOrAwayWins);
+        self.addTemporaryClassOnChange($RM2, RM2, game.DoubleChance.AwayWinsOrDraw);
         //NO GOAL
-        self.addTemporaryClassOnChange($NG1, NG1, game.FullTimeOdds.HomeWins);
-        self.addTemporaryClassOnChange($NGX, NGX, game.FullTimeOdds.HomeWins);
-        self.addTemporaryClassOnChange($NG2, NG2, game.FullTimeOdds.HomeWins);    
+        self.addTemporaryClassOnChange($NG1, NG1, game.NextGoal.HomeScores);
+        self.addTemporaryClassOnChange($NGX, NGX, game.NextGoal.Draw);
+        self.addTemporaryClassOnChange($NG2, NG2, game.NextGoal.AwayScores);
 
         self.appendOrAddTableRows($row/*, rowTemplate*/);
     };
@@ -263,10 +263,10 @@ function RenderLiveData(receiptApp) {
                var matchNoOnFromServer = gameToCompareWithFromServer.MatchNo;
       
                if (matchNoOnReceipt === matchNoOnFromServer) {
-                   if (_gameToCheckOnReceipt.optionId===optionId) {
+                   if (parseInt(_gameToCheckOnReceipt.optionId) == parseInt(optionId)) {
                     var $betList = $("#betList");
                    // var $bet = $('#' + matchNoOnReceipt, $betList).clone();
-                   var $bet = $betList.find('li[id=' + matchNoOnReceipt + ']')
+                    var $bet = $betList.find('li[id=' + matchNoOnReceipt + ']');
                    //.replaceWith(rowTemplate);
                    // console.log($bet);
                    console.log("found match on receipt");

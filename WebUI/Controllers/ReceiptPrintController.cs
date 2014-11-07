@@ -139,7 +139,7 @@ namespace WebUI.Controllers
                             RecieptId = receipt.ReceiptId,
                             MatchId =Convert.ToInt32(matchid),// MatchId = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo,
                             BetOdd = Convert.ToDecimal(betData.Odd),
-                           // ExtraValue = GetExtraValue(betData.ExtraValue),
+                            ExtraValue = GetExtraValue(betData.ExtraValue),
                         };
                         BetDatabase.Bets.Add(bm);
                         BetDatabase.SaveChanges();
