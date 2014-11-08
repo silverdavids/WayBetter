@@ -229,7 +229,7 @@
             <span class="tax pull-right"></span>
         </div>
         <div id="bonusSummary" class="bonus-summary info ">
-            <span class="bonus-text">Bonus(+5%) </span>
+            <span class="bonus-text">Bonus(+10%) </span>
             <span class="bonus pull-right"></span>
         </div>
 
@@ -305,11 +305,11 @@
                 </div>
                 <div>
                     <label for="rcpTbranch">Branch:</label>
-                    <span id="rcpTbranch">Kawempe</span>
+                    <span id="rcpTbranch"></span>
                 </div>
                 <div>
                     <label for="rcpTteller">Teller:</label>
-                    <span id="rcpTteller">Stephen</span>
+                    <span id="rcpTteller"></span>
                 </div>
             </div>
             <div id="rcpTbetdetails">
@@ -338,18 +338,16 @@
                         <label for="rcpTtotaltax"> Tax(-15%):</label><span id="rcpTtotaltax" class="total-tax pull-right"></span>
                     </div>
                     <div>
-                        <label for="rcpTbonus"> Bonus(+15%):</label><span id="rcpTbonus" class="total-bonus pull-right"></span>
+                        <label for="rcpTbonus"> Bonus(+10%):</label><span id="rcpTbonus" class="total-bonus pull-right"></span>
                     </div>
                     <div>
                         <label for="rcpTmaxPayout" style=" font-weight:bolder;"> Net Pay:</label> <span id="rcpTmaxPayout" class="total-pay pull-right" style=" font-weight:bolder;border-bottom: 1px solid black;border-top: 1px solid black">12356</span>
                     </div>
-                    <div>
-                        <label for="rc" style=" font-weight:bolder;"> Net Pay:</label> <span id="rcpTmaxPayout" class="total-pay pull-right" style=" font-weight:bolder;border-bottom: 1px solid black;border-top: 1px solid black">12356</span>
-                    </div>
+                    
                     <div>
                         <span class=" " style="display:block;margin-right:auto; font-weight:bold;font-size:small ">
                             ALL BETS ARE SUBJECT TO BETWAY SPORTS RULES
-                        </span>
+                    </span>
                     </div>
                 </div>
 
@@ -369,37 +367,23 @@
         <table id="rcpTbet-template" class="table ">
             <tbody class="bet">
                 <tr class="bet-content dashed-first receipt" style="font-size:0.35em">
-                    <td rowspan="3" class="match-code " data-field="matchId" style="vertical-align:top;border-bottom:1px dashed black;">1234</td>
+                    <td rowspan="3" class="match-code " data-field="matchId" style="vertical-align:top;border-bottom:1px dashed black;"></td>
                     
-                    <td colspan="3" class="match-name " data-field="teamVersus">Arsenal vs Manchester United</td>
+                    <td colspan="3" class="match-name " data-field="teamVersus"></td>
                 </tr>
                 <tr class="match-time receipt" style="font-size:0.270em">
-                    <td class="date" data-field="startTime">
-
-                        <!--<span class="match-matchTime" data-field="startTime">17:00</span>-->
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="date" data-field="startTime" colspan="4" ></td> 
                 </tr>
                 <tr class="match-summary dashed-last receipt" style="border-bottom:1px dashed black; font-size:0.32em;">
-                    <td class="fixture hidden" data-field="betCategory">Double Chance Under over</td>
-                    <td></td>
-                    <td class="fixtureOption " data-field="optionName"></td>
+                    <td class="fixture" data-field="betCategory" colspan="2"></td>                   
+                    <td class="fixtureOption" data-field="optionName"></td>
                     <td class="bet-amount hidden" id="rcpTamountBet" data-field="betAmount"></td>
-                    <td class="betted-odd " data-field="odd">1.23</td>
-
+                    <td class="betted-odd " data-field="odd"></td>
                 </tr>
                 
             </tbody>
         </table>
         </div>
-
-
-
-
-
-
         <footer></footer>
     </div>
 

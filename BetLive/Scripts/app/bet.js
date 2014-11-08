@@ -20,7 +20,8 @@ function Bet(matchId) {
     this.handCapGoalString = null;
     this.liveScores = null;
     this.extraValue = null;
-    this.shortCode = 0;;
+    this.shortCode = 0;
+    this.betMinute = null;
     //this.betTotal=0;
     //this.maxPayout=0;
 };
@@ -97,7 +98,7 @@ function BetList(bets) {
             if (bets[i].matchId === matchId /*&& bets[i].optionId === optionId*/) {
                // alert(" " + bets[i].matchId + "Froma Ui " + matchId + "in bet");
                 betToReturn = bets[i];
-                //console.log("hit" + betToReturn);
+                // console.log("hit" + betToReturn);
                 //this.removeBet(bets[i].betId);
                 break;
             }
@@ -202,7 +203,7 @@ function BetList(bets) {
     
     this.getBonus = function () {
         var _bonus = 0,
-            _bonusPercentage = 0.5;//Bet.localTax;
+            _bonusPercentage = 0.10;//Bet.localTax;
         if (Bet.singles == true) {
             _bonus = (this.getTotalPayout() /*- this.getTotalBettedAmount()*/) * _bonusPercentage;
         } else {

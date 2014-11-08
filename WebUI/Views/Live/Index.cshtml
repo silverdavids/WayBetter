@@ -7,13 +7,19 @@
         border-top: 0; 
     }
     
+    .FixedHeader_Cloned {
+    }
+        .heading {
+        margin-top: 45px;
+    }
+
 </style>
 
 <div>
-    <div class="row">
+    <div class="row fixed-table">
         <div class="col-lg-12"><h2 class="heading">Live </h2></div>
         <div class="col-lg-8">
-            
+
             <div id="gameTable">
                 <table class="table table-condensed table-striped table-responsive oddstable" id="MatchTable">
                     <thead>
@@ -61,6 +67,16 @@
     <script src="~/signalr/hubs"></script>
     <!--SignalR script to update the chat page and send messages.-->
     <script>
+        $(document).ready(function () {
+
+            var table = $('#MatchTable').dataTable({
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "filter": false
+            });
+            new $.fn.dataTable.FixedHeader(table, { "offsetTop": 60 });
+        });
         (function ($) {
 
             $.fn.extend({

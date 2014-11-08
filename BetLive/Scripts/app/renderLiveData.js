@@ -25,8 +25,8 @@ function RenderLiveData(receiptApp) {
         // get all livescores
         ticker.server.getAllGames().done(function (games) {
             $gameTable = $('#MatchTable'),
-            $gamesTableBody = $gameTable.find('#tbody');
-            $gamesTableBody.empty();
+            $gamesTableBody = $gamesTableBody||$gameTable.find('#tbody');
+            //$gamesTableBody.empty();
             console.log(games);
             var count = 0;
             $.each(games, function () {
@@ -50,7 +50,7 @@ function RenderLiveData(receiptApp) {
         // save the game temporarily to validate it if already on the receipt
         gameToCompareWithFromServer = game;
         gameToCheckOnReceipt = _betListReff.getBetByMatchIdAndOptionId($.trim(gameToCompareWithFromServer.MatchNo));
-        console.log(_betListReff.getBets())
+        //console.log(_betListReff.getBets())
        //console.log(gameToCheckOnReceipt);
        self.contructRowTemplate(game);
        self.checkForChangeInOdd(game/*, $gamesTableBody, rowTemplate*/);
@@ -96,21 +96,21 @@ function RenderLiveData(receiptApp) {
 
        ' <td data-field="shortCode" class="short-code"> ' + game.ShortCode + ' </td> ' +
        ' <td data-field="matchId" class="match-code hidden">' + game.MatchNo + '</td> ' +
-       ' <td data-field="startTime" class="start-time">' + game.Minutes + '</td> ' +
+       ' <td data-field="betMinute" class="bet-minute">' + game.Minutes + '</td> ' +
+       ' <td data-field="startTime" class="start-time hidden">' + game.StartTime + '</td> ' +
        ' <td data-field="startDate" class="start-date hidden"> ' + game.StartDate + '</td> ' +
        ' <td data-field="teamVersus" class="team-versus hidden">' + game.LocalTeam + '  vs  ' + game.AwayTeam + '</td> ' +
        ' <td>' + game.LocalTeam + '</td> ' +
        ' <td data-field="liveScores" class="live-scores">' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td> ' +
        ' <td>' + game.AwayTeam + '</td> ' +
        ' <td style="padding-bottom: 0px;"> ' +
-            ' <input type="button" class="btn btn-sm btn-default FT-1 odd" value="' + game.FullTimeOdds.HomeWins + '" data-odd-type="Live" data-option-id="80" data-option-name=1" data-bet-category="FT1X2" /> ' +
-
+            ' <input type="button" class="btn btn-sm btn-default FT1 odd" value="' + game.FullTimeOdds.HomeWins + '" data-odd-type="Live" data-option-id="80" data-option-name="1" data-bet-category="FT1X2" /> ' +
+       ' </td> ' +
+    ' <td> ' +
+        ' <input type="button" class="btn btn-sm btn-default FTX odd" value="' + game.FullTimeOdds.Draw + '" data-odd-type="Live" data-option-id="81" data-option-name="X" data-bet-category="FT1X2" /> ' +
    '  </td> ' +
     ' <td> ' +
-        ' <input type="button" class="btn btn-sm btn-default FT-X odd" value="' + game.FullTimeOdds.Draw + '" data-odd-type="Live" data-option-id="81" data-option-name="X" data-bet-category="FT1X2" /> ' +
-   '  </td> ' +
-    ' <td> ' +
-        ' <input type="button" class="btn btn-sm btn-default FT-2 odd" value="' + game.FullTimeOdds.AwayWins + '" data-odd-type="Live" data-option-id="83" data-option-name="2" data-bet-category="FT1X2" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default FT2 odd" value="' + game.FullTimeOdds.AwayWins + '" data-odd-type="Live" data-option-id="83" data-option-name="2" data-bet-category="FT1X2" /> ' +
    '  </td> ' +
     ' <td> ' +
         ' <input type="button" class="btn btn-sm btn-default under odd" value="' + game.UnderOverOdds.Under + '" data-odd-type="Live" data-option-id="78" data-option-name="U" data-bet-category="U/O" /> ' +
@@ -122,22 +122,22 @@ function RenderLiveData(receiptApp) {
         ' <input type="button" class="btn btn-sm btn-default over odd" value="' + game.UnderOverOdds.Over + '" data-odd-type="Live" data-option-id="79" data-option-name="O" data-bet-category="U/O" /> ' +
    '  </td> ' +
     ' <td style="padding-bottom: 0px;"> ' +
-        ' <input type="button" class="btn btn-sm btn-default DC-1 odd" value="' + game.DoubleChance.HomeWinsOrDraw + '" data-odd-type="Live" data-option-id="74" data-option-name="1X" data-bet-category="Double Chance" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default DC1 odd" value="' + game.DoubleChance.HomeWinsOrDraw + '" data-odd-type="Live" data-option-id="75" data-option-name="1X" data-bet-category="Double Chance" /> ' +
    '  </td> ' +
     ' <td> ' +
-        ' <input type="button" class="btn btn-sm btn-default DC-X odd" value="' + game.DoubleChance.HomeWinsOrAwayWins + '" data-odd-type="Live" data-option-id="71" data-option-name="12" data-bet-category="Double Chance" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default DCX odd" value="' + game.DoubleChance.HomeWinsOrAwayWins + '" data-odd-type="Live" data-option-id="76" data-option-name="12" data-bet-category="Double Chance" /> ' +
    '  </td> ' +
     ' <td> ' +
-        ' <input type="button" class="btn btn-sm btn-default DC-2 odd" value="' + game.DoubleChance.AwayWinsOrDraw + '" data-odd-type="Live" data-option-id="77" data-option-name="X2" data-bet-category="Double Chance" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default DC2 odd" value="' + game.DoubleChance.AwayWinsOrDraw + '" data-odd-type="Live" data-option-id="77" data-option-name="X2" data-bet-category="Double Chance" /> ' +
    '  </td> ' +
     ' <td style="padding-bottom: 0px;"> ' +
-        ' <input type="button" class="btn btn-sm btn-default NG-1 odd" value="' + game.NextGoal.HomeScores + '" data-odd-type="Live" data-option-id="71" data-option-name="1" data-bet-category="FT-NextGoal" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default NG1 odd" value="' + game.NextGoal.HomeScores + '" data-odd-type="Live" data-option-id="71" data-option-name="1" data-bet-category="FT-NextGoal" /> ' +
    '  </td> ' +
     ' <td> ' +
-        ' <input type="button" class="btn btn-sm btn-default NG-X odd" value="' + game.NextGoal.Draw + '" data-odd-type="Live" data-option-id="72" data-option-name="No Goal" data-bet-category="FT-NextGoal" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default NGX odd" value="' + game.NextGoal.Draw + '" data-odd-type="Live" data-option-id="72" data-option-name="No Goal" data-bet-category="FT-NextGoal" /> ' +
    '  </td> ' +
     ' <td> ' +
-        ' <input type="button" class="btn btn-sm btn-default NG-2 odd" value="' + game.NextGoal.AwayScores + '" data-odd-type="Live" data-option-id="73" data-option-name="2" data-bet-category="FT-NextGoal" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default NG2 odd" value="' + game.NextGoal.AwayScores + '" data-odd-type="Live" data-option-id="73" data-option-name="2" data-bet-category="FT-NextGoal" /> ' +
    '  </td> ' +
 ' </tr> ';
         //return rowTemplate;
@@ -150,17 +150,17 @@ function RenderLiveData(receiptApp) {
         //possible reuse of these variables initialisations can boost performance for large datasets
         //var FT1 = null, FTX = null, FT2 = null, under = null, over = null, RM1 = null, RMX = null, RM2 = null, NG1 = null, NGX = null, NG2 = null;
         //var $FT1 = null, $FTX = null, $FT2 = null, $under = null, $over = null, $RM1 = null, $RMX = null, $RM2 = null, $NG1 = null, $NGX = null, $NG2 = null;
-        $FT1 = $(" td > input.FT-1", $row);
-        $FTX = $(" td > input.FT-X", $row);
-        $FT2 = $(" td > input.FT-2", $row);
+        $FT1 = $(" td > input.FT1", $row);
+        $FTX = $(" td > input.FTX", $row);
+        $FT2 = $(" td > input.FT2", $row);
         $under = $(" td > input.under", $row);
         $over = $(" td > input.over", $row);
-        $RM1 = $(" td > input.DC-1", $row);
-        $RMX = $(" td > input.DC-X", $row);
-        $RM2 = $(" td > input.DC-2", $row);
-        $NG1 = $(" td > input.NG-1", $row);
-        $NGX = $(" td > input.NG-X", $row);
-        $NG2 = $(" td > input.NG-2", $row);
+        $RM1 = $(" td > input.DC1", $row);
+        $RMX = $(" td > input.DCX", $row);
+        $RM2 = $(" td > input.DC2", $row);
+        $NG1 = $(" td > input.NG1", $row);
+        $NGX = $(" td > input.NGX", $row);
+        $NG2 = $(" td > input.NG2", $row);
 
         FT1 = $FT1.attr("value");       
         FTX = $FTX.attr("value");
@@ -260,22 +260,19 @@ function RenderLiveData(receiptApp) {
          //console.log(_gameToCheckOnReceipt);
         // console.log(_gameToCheckOnReceipt.matchId);
                var matchNoOnReceipt = _gameToCheckOnReceipt.matchId;
-               var matchNoOnFromServer = gameToCompareWithFromServer.MatchNo;
+               var matchNoOnFromServer = _gameToCompareWithFromServer.MatchNo;
       
                if (matchNoOnReceipt === matchNoOnFromServer) {
                    if (parseInt(_gameToCheckOnReceipt.optionId) == parseInt(optionId)) {
-                    var $betList = $("#betList");
-                   // var $bet = $('#' + matchNoOnReceipt, $betList).clone();
+                    var $betList = $("#betList");                  
                     var $bet = $betList.find('li[id=' + matchNoOnReceipt + ']');
-                   //.replaceWith(rowTemplate);
-                   // console.log($bet);
-                   console.log("found match on receipt");
+                   //console.log("found match on receipt");
                    if (isAReplacement) {
                        //ToDo update the bet on the receipt
                        var newBet = _gameToCheckOnReceipt;
                        newBet.odd = newOdd
                        _receiptApp.replaceBetElement(newBet, $bet);
-                       console.log(newBet);
+                       //console.log(newBet);
                        console.log("replaced bet");
                       
                    } else {  

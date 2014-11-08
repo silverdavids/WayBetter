@@ -27,19 +27,27 @@ function ReceiptGen() {
                 fieldName = $input.data("field");
             if (fieldName == "startTime") {
                 $input.text(bet["startDate"] + " - " + bet[fieldName]);
-            } else {
-                if (fieldName == "teamVersus" && bet.betCategory == "Handicap") {
+            }
+            else if (fieldName == "teamVersus" && bet.betCategory == "Handicap") {
                     $input.text(bet[fieldName] + "-     " + bet["handCapGoalString"]);
-                } else if (fieldName == "teamVersus" && bet.liveScores!="") {
-                    $input.text(bet[fieldName] + "( " + "Live " + bet["startTime"] + " : " + bet["liveScores"] + ")");
+            }
+            else if (fieldName == "teamVersus" && bet.liveScores!="") {
+                    $input.text(bet[fieldName] + " ( " + "Live " + bet["betMinute"] + " : " + bet["liveScores"] + ")");
                     $("td.match-code", $bet).text(bet.shortCode);
                    
-                } else if (fieldName == "optionName") {
-                    $input.text(bet[fieldName] + "-" + bet["extraValue"]);
-                }else{
+            }
+            else if (fieldName == "optionName") {
+                    if (bet["optionName"] == "U" || bet["optionName"] == "O") {
+                        $input.text(bet[fieldName] + "-" + bet["extraValue"]);
+                    } else {
+                        $input.text(bet[fieldName]);
+                    }
+                   
+                }
+            else{
                 $input.text(bet[fieldName]);
                 }
-            }
+            
             $("#rcpTbetList").append($bet);
         });
 

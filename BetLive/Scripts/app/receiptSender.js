@@ -46,7 +46,7 @@ function SendReceipt() {
         var authData = {};
         authData = JSON.parse(localStorage.getItem("ls.authorizationData"));
         receipt.UserName = "Teller Test";//authData.userName;
-        alert( receipt.UserName);
+       // alert( receipt.UserName);
         //receipt.UserName = "";
         for (var i in bets) {
             var _betData = new BetData(),
@@ -57,18 +57,18 @@ function SendReceipt() {
             _betData.Odd = _bet.odd;
             _betData.BetAmount = _bet.betAmount
             _betData.LiveScores = _bet.liveScores;
-            _betData.StartTime = _bet.startTime;
+            _betData.StartTime = _bet.startMinute;//this is supposed to be starttime, but for now, its this untill we chabge the model at server to include both
             _betData.ExtraValue = _bet.extraValue;
             _betData.ShortCode = _bet.shortCode;
             receipt.betData.push(_betData);
 
         }
         if (betList.getBets().length > 0) console.log(receipt);
-        alert( "receipt sender")
-        //  var url = "http://localhost:49193/api/ReceiptPrint/ReceiveReceipt";
+       // alert( "receipt sender")
+        // var url = "http://localhost:49193/api/ReceiptPrint/ReceiveReceipt";
           var url = "http://testlive.betway.ug/api/ReceiptPrint/ReceiveReceipt";
         //var url = $receiptSenderData.settings.baseUrl + "ReceiptPrint/ReceiveReceipt";
-        alert(url)
+       // alert(url)
         $.ajax({
             url: url,
             type: "POST",
@@ -93,7 +93,7 @@ function SendReceipt() {
 
         }).done(function (response) {
             var Message = response.message;
-            alert(response);
+           // alert(response);
             console.log(response);
             if (Message == "Success") {
                 console.log(response.receiptFromServer)
@@ -104,7 +104,8 @@ function SendReceipt() {
                 $("#rcpTbranch").text(response.BranchName);
                 $("#rcpTteller").text(response.TellerName);
                 $("#rcpTbarCode img").attr({
-                    src: "http://localhost:49193/Content/Barcodes/" + response.Serial + ".png",
+                    // src: "http://localhost:49193/Content/Barcodes/" + response.Serial + ".png",
+                    src: "testlive.betway.ug/Content/Barcodes/" + response.Serial + ".png",
                     alt: response.Serial//.toString()
                 });
                 // ReceiptNumber

@@ -75,7 +75,7 @@ namespace WebUI.Controllers
             Branch branch = await BetDatabase.Branches.SingleOrDefaultAsync(x => x.BranchId == branchId);
             var betStake = receipts.TotalStake.ToString(CultureInfo.InvariantCulture);
             var ttodd = receipts.TotalOdd;
-            const float bettingLimit = 5000000;
+            const float bettingLimit = 200000000;
             var cost = Convert.ToDouble(betStake);
             var receipt = new Receipt
             {
@@ -105,7 +105,7 @@ namespace WebUI.Controllers
             //////var ttodd = receipts.TotalOdd;
             //////const float bettingLimit = 8000000;
             //////var cost = Convert.ToDouble(betStake);
-            if ((cost >= 1000) && (cost <= bettingLimit))//betting limit
+            if ((cost >= 3000) && (cost <= bettingLimit))//betting limit
             {
 
                 foreach (var betData in receipts.BetData)
@@ -195,10 +195,10 @@ namespace WebUI.Controllers
                 }
                 response = ("Success");
             }
-            else if (cost < 1000)
+            else if (cost < 3000)
             {
                 receipt.ReceiptId = 0;
-                response = ("Minimum betting stake is UGX 1000. Please enter amount more than UGX 1000.");
+                response = ("Minimum betting stake is UGX 3000. Please enter amount more than UGX 1000.");
             }
             else
             {
@@ -323,7 +323,6 @@ namespace WebUI.Controllers
         public string StartTime { get; set; }
         public string ExtraValue { get; set; }
         public string ShortCode { get; set; }
-        //public string LiveScores{get;set;}
-        //public string ExtraValue { get; set; }
+      
     }
 }

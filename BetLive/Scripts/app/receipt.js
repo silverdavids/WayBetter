@@ -399,8 +399,9 @@ function BettingApp() {
         $bet.attr("id", bet.matchId);
        
         //var $betList=$("#betList");
-        $betLiRef.replaceWith($bet);
         $bet.addClass("replaced-bet ");
+        $betLiRef.replaceWith($bet);
+       
         setTimeout(function () {
             $bet.removeClass("replaced-bet");
         }, 3000)
@@ -460,7 +461,7 @@ function BettingApp() {
 };
 
 $(function () {
-
+   
     //setTimeout(function () {
         console.log("initialising  receipt scripts");
     //please avoid using the "this" as this in other languages like C# and Java means
@@ -484,8 +485,14 @@ $(function () {
 
     var thisApp = this.app = new BettingApp();
     //this.renderTable = new RenderTables(this.app.getBetList());
-        //this.renderTable.startRenderingTables();
-    this.renderLiveData = new RenderLiveData(thisApp);
+    //this.renderTable.startRenderingTables();
+    if (isDisplayPage) {
+        $("ul#showControls").addClass("hidden");
+        this.renderLivedispalyDataApp = new RenderLivedispalyData();
+    } else {
+        this.renderLiveData = new RenderLiveData(thisApp);
+    }
+  
    
     this.app.start(maximumNumBets, minStake, setMaxPayoutPossible, tax);
     //var thisApp = this.app;
@@ -504,9 +511,11 @@ $(function () {
             $matchCode = $that.parent().siblings("td.match-code"),
             matchCode = $.trim($matchCode.text()),
             optionName = $that.data("option-name"),
+            betCategory = $that.data("bet-category"),
+            shortCode = $that.parent().siblings("td.short-code").text(),
             bet = new Bet(matchCode);
         //attach tooltips
-        makeToolTip($that, { matchCode: matchCode, optionName: optionName });
+        makeToolTip($that, { shortCode: shortCode, betCategory: betCategory, matchCode: matchCode, optionName: optionName });
 
     });
 
@@ -525,7 +534,7 @@ $(function () {
             $("table", $categories2).addClass("hidden");
         }
     });
-
+    
     $('table.oddstable').delegate('.odd', 'click', function () {
 
        // alert("fired click");
@@ -693,7 +702,7 @@ $(function () {
     }
 
     function makeToolTip($input, objArgs) {
-        $input.tooltip({ placement: 'top', title: '' + objArgs.matchCode + "-" + objArgs.optionName + '' });
+        $input.tooltip({ placement: 'top', title:'' + objArgs.shortCode + '-' + objArgs.betCategory  + ":" + objArgs.optionName + '' });
     }
     function makeBet(bet) {
 

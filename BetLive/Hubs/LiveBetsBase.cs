@@ -89,7 +89,7 @@ namespace BetLive.Hubs
             };
 
             GetchAllGamesFromServiceProvider().Wait();
-            _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
+          _timer = new Timer(UpdateGames, null, _updateInterval, _updateInterval);
         }
 
         public IHubConnectionContext<dynamic> Clients { get; set; }
@@ -115,9 +115,12 @@ namespace BetLive.Hubs
             {
                 mockXmlFileExt = 1;
             }
-
-            var scores =await  GetGamesScores();/*await myController.GetGamesScoresFromXml(mockXmlFileExt);*/
-            var odds =await GetGamesOdds();   /*await myController.GetGamesOddsFromXml(mockXmlFileExt);*/
+            ////______________MOCK DATA______________________________________________________________________
+            var scores = await myController.GetGamesScoresFromXml(mockXmlFileExt);
+            var odds = await myController.GetGamesOddsFromXml(mockXmlFileExt);
+            //////______________LIVE DATA______________________________________________________________________
+            ////var scores = await GetGamesScores();
+            ////var odds = await GetGamesOdds();  
             var allGames =  (from gamescore in scores
 
                             join gameodds in odds
