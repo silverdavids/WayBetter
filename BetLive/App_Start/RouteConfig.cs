@@ -17,7 +17,7 @@ namespace BetLive
                 name: "DefaultWithControllerAndActionMethod",
                 url: "{controller}/{action}/{id}",
                 //defaults: new { controller = "MyMatches", action = "Index", id = UrlParameter.Optional }
-                defaults: new { controller = "Live", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "MyMatches", action = "Index", id = UrlParameter.Optional }
             );
             routes.MapRoute(
                name: "Default",

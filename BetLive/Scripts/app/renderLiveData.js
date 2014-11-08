@@ -181,7 +181,7 @@ function RenderLiveData(receiptApp) {
         // full time        
         self.addTemporaryClassOnChange($FT1, FT1, game.FullTimeOdds.HomeWins);
         self.addTemporaryClassOnChange($FTX, FTX, game.FullTimeOdds.Draw);
-        self.addTemporaryClassOnChange($FT2, FT2, game.FullTimeOdds.HomeWins);
+        self.addTemporaryClassOnChange($FT2, FT2, game.FullTimeOdds.AwayWins);
         //over/under
         self.addTemporaryClassOnChange($over, over, game.UnderOverOdds.Over);
         self.addTemporaryClassOnChange($under, under, game.UnderOverOdds.Under);

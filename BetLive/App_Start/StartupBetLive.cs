@@ -31,7 +31,7 @@ namespace BetLive.App_Start
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(2),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
                 Provider =new SimpleAuthorizationServerProvider()
             };
             //TokenGeneration

@@ -19,6 +19,7 @@ using System.Security.Claims;
 
 namespace WebUI.Controllers
 {
+    [Authorize]
     public class ReceiptPrintController : ApiController
     {
 
@@ -37,7 +38,7 @@ namespace WebUI.Controllers
         //    BetDatabase = _db.getDbContext();
 
         //}
-        // [Authorize]
+         [Authorize]
         public async Task<IHttpActionResult> ReceiveReceipt([FromBody]Receipt1 receipts)
         {
            
