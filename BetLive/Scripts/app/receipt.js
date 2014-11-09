@@ -71,13 +71,36 @@ function BettingApp() {
     };
 
     function manageLogins($controlButtons) {
-        if ($.trim($("p#userName").text()) == "" || $.trim($("p#userName").text()) == 'Anonymous') {
-            $(".print-receipt", $controlButtons).val("Login In To Bet ")
-           // alert("user nane is null");
+        $("#logOut").on('click', function () {
+            var ls = localStorage.getItem("ls.authorizationData");
+            if (ls.length > 2) {
+                localStorage.removeItem("ls.authorizationData");
+                window.location.href = "../#/login";
+               // alert(ls.length);
+            }
+
+
+        });
+        if (localStorage.getItem("ls.authorizationData")) {
+            if (localStorage.getItem("ls.authorizationData").length > 2) {
+
+                $(".print-receipt", $controlButtons).val("Print Receipt");
+                // alert("user nane is null");
+            } else {
+                $(".print-receipt", $controlButtons).val("Login In To Bet ");
+                // alert("user name  is  not null " + $.trim($("p#userName").text()));
+            }
+
         } else {
-            $(".print-receipt", $controlButtons).val("Print Receipt");
-           // alert("user name  is  not null " + $.trim($("p#userName").text()));
+            $(".print-receipt", $controlButtons).val("Login In To Bet ");
         }
+        //if ($.trim($("p#userName").text()) == "" || $.trim($("p#userName").text()) == 'Anonymous') {
+        //    $(".print-receipt", $controlButtons).val("Login In To Bet ")
+        //   // alert("user nane is null");
+        //} else {
+        //    $(".print-receipt", $controlButtons).val("Print Receipt");
+        //   // alert("user name  is  not null " + $.trim($("p#userName").text()));
+        //}
     }
     function bindControlButtons(betList) {
         var $controlButtons = $("#controlButtons");
@@ -108,40 +131,52 @@ function BettingApp() {
              windowToPrint.print();
              windowToPrint.close();*/
             //check if the receipt contains atleast a game
+            if (localStorage.getItem("ls.authorizationData")) {
+                if (localStorage.getItem("ls.authorizationData").length > 2) {
+                    var _validateReceipt = validateReceipt(betList, betList.getTotalBettedAmount());
+                    if (_validateReceipt.isValid) {
 
+                        //logToConsole(betList.getBets());
+                        var sendReceipt = new SendReceipt();
+
+                        sendReceipt.postReceipt(betList).done(function (response) {
+                            //the code for printing recept is in the receipt sender
+                            autoNumericInitializer.initAutoNumberOnField($("#tellerBalance"), response.Balance, 0, ' Teller Balance is Ugx');
+                            // $("#tellerBalance").text("Teller Balance is Ugx " + response.Balance);
+                            clearReceiptAfterPrint();
+                            var $oddsTable = $("table.oddstable");
+                            $(".odd", $oddsTable).each(function () {
+                                $(this).removeClass("selected_option");
+
+                                $(this).attr("disabled", false);
+                                $(this).parent("td").removeClass("selected_option");
+
+                            });
+                        }).fail(function (error) {
+                            //$("#tellerBalance").text("Teller Balance is Ugx " + response.Balance);
+                            alert(error);
+                        });
+
+                        return false;
+                    } else {
+                        printErrorDetails(_validateReceipt.errMessageArr);
+                    }
+
+                } else {
+                    alert("Session Has expired please click Ok to login")
+                    window.location.href = "../#/login";
+
+                }
+            } else {
+                alert("You are not logged in");
+            }
+           
 
 
 
            // $("#loginForm").modal();
 
-            var _validateReceipt = validateReceipt(betList, betList.getTotalBettedAmount());
-            if (_validateReceipt.isValid) {
-
-                //logToConsole(betList.getBets());
-                var sendReceipt = new SendReceipt();
-
-                sendReceipt.postReceipt(betList).done(function(response){
-                    //the code for printing recept is in the receipt sender
-                    autoNumericInitializer.initAutoNumberOnField($("#tellerBalance"), response.Balance, 0, ' Teller Balance is Ugx');
-                   // $("#tellerBalance").text("Teller Balance is Ugx " + response.Balance);
-                    clearReceiptAfterPrint();
-                    var $oddsTable = $("table.oddstable");
-                    $(".odd", $oddsTable).each(function () {
-                        $(this).removeClass("selected_option");
-                       
-                        $(this).attr("disabled", false);
-                        $(this).parent("td").removeClass("selected_option");
-
-                    });
-                }).fail(function (error) {
-                    //$("#tellerBalance").text("Teller Balance is Ugx " + response.Balance);
-                    alert(error);
-                });
-                
-                return false;
-            } else {
-                printErrorDetails(_validateReceipt.errMessageArr);
-            }
+           
 
         });
     };
@@ -456,7 +491,14 @@ function BettingApp() {
         updateSummaryFields();
 
     };
+    this.startSession = function (sessionlimit) {
+        setTimeout(function () {
+            alert("Your session has expired you are being redirected to the login page");
+            localStorage.removeItem("ls.authorizationData");
+            window.location.href = "../#/login";
+        }, sessionlimit);
 
+    }
 
 };
 
@@ -491,6 +533,8 @@ $(function () {
         this.renderLivedispalyDataApp = new RenderLivedispalyData();
     } else {
         this.renderLiveData = new RenderLiveData(thisApp);
+        var _sessionLimit = 300000;
+        thisApp.startSession(_sessionLimit);
     }
   
    

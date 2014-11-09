@@ -7,13 +7,13 @@ namespace WebUI.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class InitialMigration : IMigrationMetadata
+    public sealed partial class Added_BetMinute_To_Bets_table : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Added_BetMinute_To_Bets_table));
         
         string IMigrationMetadata.Id
         {
-            get { return "201411021445583_InitialMigration"; }
+            get { return "201411082258159_Added_BetMinute_To_Bets_table"; }
         }
         
         string IMigrationMetadata.Source

@@ -111,12 +111,21 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav" id="showControls">
-                    <li class="btn  btn-warning "><a href="../Live/Index">Teller </a></li>
+                    <li class="btn  btn-xs "><a href="../Live/Index">Teller </a></li>
                     <li></li>
-                    <li class="btn  btn-warning "><a href="../Live/Games">Display </a></li>
-                    <li>@{@Html.Partial("_LoginPartial")}</li>
+                    <li class="btn  btn-xs "><a href="../Live/Games">Display </a></li>
+                    <li class="hidden">@{@Html.Partial("_LoginPartial")}</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="clock">
+                            <ul>
+                                <li><input type="button" class="btn btn-xs btn-default" id="logOut" value="logout"/></li>
+                                <li class="clock" id="tellerBalance">
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                     <li>
                         <div class="clock">
                             <div id="Date"></div>

@@ -28,6 +28,7 @@ function BetData() {
     this.StartTime = null;
     this.ExtraValue = null;
     this.ShortCode = 0;
+    this.BetMinute = null;
 
 };
 
@@ -45,8 +46,8 @@ function SendReceipt() {
         receipt.MultipleBetAmount = Bet.multipleBetAmount;
         var authData = {};
         authData = JSON.parse(localStorage.getItem("ls.authorizationData"));
-        receipt.UserName = "Teller Test";//authData.userName;
-       // alert( receipt.UserName);
+        receipt.UserName = /*"Teller Test";*/authData.userName;
+        alert( receipt.UserName);
         //receipt.UserName = "";
         for (var i in bets) {
             var _betData = new BetData(),
@@ -60,12 +61,17 @@ function SendReceipt() {
             _betData.StartTime = _bet.startMinute;//this is supposed to be starttime, but for now, its this untill we chabge the model at server to include both
             _betData.ExtraValue = _bet.extraValue;
             _betData.ShortCode = _bet.shortCode;
+            _betData.BetMinute = _bet.betMinute;
             receipt.betData.push(_betData);
 
         }
         if (betList.getBets().length > 0) console.log(receipt);
        // alert( "receipt sender")
-        // var url = "http://localhost:49193/api/ReceiptPrint/ReceiveReceipt";
+        //_____________________________ in betlive____________________________________
+       // var url = "http://localhost:54482/api/ReceiptPrint/ReceiveReceipt";
+        //_______________________in WebUI___________________________________________
+        //var url = "http://localhost:49193/api/ReceiptPrint/ReceiveReceipt";
+        //________________________________Deployment________________________________
           var url = "http://testlive.betway.ug/api/ReceiptPrint/ReceiveReceipt";
         //var url = $receiptSenderData.settings.baseUrl + "ReceiptPrint/ReceiveReceipt";
        // alert(url)
@@ -83,7 +89,7 @@ function SendReceipt() {
                 if (authData) {
                     //config.headers.Authorization = 'Bearer ' + authData.token;
                     jqXHR.setRequestHeader('Authorization', 'Bearer ' + authData.token);
-                    jqXHR.setRequestHeader('UN', authData.userName);
+                    jqXHR.setRequestHeader('username', authData.userName);
                     console.log(authData.token);
            
                     //$.extend(settings, { headers: { 'Authorization': 'Bearer ' + authData.token } })
@@ -104,13 +110,13 @@ function SendReceipt() {
                 $("#rcpTbranch").text(response.BranchName);
                 $("#rcpTteller").text(response.TellerName);
                 $("#rcpTbarCode img").attr({
-                    // src: "http://localhost:49193/Content/Barcodes/" + response.Serial + ".png",
+                    //src: "http://localhost:54482/Content/Barcodes/" + response.Serial + ".png",
                     src: "testlive.betway.ug/Content/Barcodes/" + response.Serial + ".png",
                     alt: response.Serial//.toString()
                 });
                 // ReceiptNumber
 
-                $("#tellerBalance").text("Teller Balance is Ugx " + response.Balance);
+                $("#tellerBalance").text("Teller Balance is Ugx:   " + response.Balance);
                 var $receiptDiv = $("#rcpTreceiptTemplate");
                 var receiptGen = new ReceiptGen();
                 receiptGen.clearReceipt();

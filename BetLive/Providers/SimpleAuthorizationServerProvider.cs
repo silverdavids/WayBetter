@@ -23,7 +23,7 @@ public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvide
         {
  
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
- 
+          
             using (AuthRepository _repo = new AuthRepository())
             {
                 IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
@@ -37,7 +37,7 @@ public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvide
  
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim("sub", context.UserName));
-            identity.AddClaim(new Claim("role", "user"));
+            identity.AddClaim(new Claim("role", "Teller"));
  
             context.Validated(identity);
  

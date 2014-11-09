@@ -12,7 +12,7 @@
     //    //matches.match=new Array();
     //    // matches.matches.push()
 
-    //}, function (err) {
+    //}, function (err) { 
     //    $scope.message = err.error_description;
     //});
 
@@ -127,6 +127,7 @@
         };
         $scope.oddCategoryRows = new Array();
         $scope.matches = new Array();
+        //populate general match fields
         angular.forEach(results, function (data, i) {
             var mRow = new $scope.matchRow();
             mRow.matchDistinct.MatchNo = data.MatchNo;
@@ -151,6 +152,7 @@
         }
 
         });
+        //populate the odds for each category fo r each match
         $scope.ft1X2Odds = getGameOddsByCategory("1X2");//FT1X2
         $scope.ftUOOdds = getGameOddsByCategory("Under/Over");
         $scope.ht1X2Odds = getGameOddsByCategory("1st Period Winner");//HT !X2
@@ -161,7 +163,7 @@
         $scope.firstTeamToScoreOdds = getGameOddsByCategory("First Team To Score");
         $scope.drawNoBetOdds = getGameOddsByCategory("Draw No Bet");
        
-
+        // Finally for ewach match , search for its odds in aech category by option type and flatten it out
         angular.forEach($scope.matches, function (item, key) {
             var oddCategoryRow = new $scope.oddCategoryRow();
             oddCategoryRow.match = item.matchDistinct;

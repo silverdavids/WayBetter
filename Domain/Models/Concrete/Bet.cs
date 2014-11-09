@@ -26,6 +26,7 @@ namespace Domain.Models.Concrete
         public int BetOptionId { get; set; }
         public decimal BetOdd { get; set; }
         public decimal ExtraValue{ get; set; }
+        public string BetMinute { get; set; }
         public Match Match { get; set; }
         public Receipt Receipt { get; set; }
 

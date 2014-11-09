@@ -310,9 +310,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Infrastructure\XmlHelper.cs" />
-    <Compile Include="Migrations\201411021445583_InitialMigration.cs" />
-    <Compile Include="Migrations\201411021445583_InitialMigration.Designer.cs">
-      <DependentUpon>201411021445583_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201411082258159_Added_BetMinute_To_Bets_table.cs" />
+    <Compile Include="Migrations\201411082258159_Added_BetMinute_To_Bets_table.Designer.cs">
+      <DependentUpon>201411082258159_Added_BetMinute_To_Bets_table.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1656,6 +1656,7 @@
     <Content Include="Scripts\master\typeaheadjs.1.5.1.js" />
     <Content Include="Scripts\master\wizard.js" />
     <Content Include="Scripts\master\wizard.min.js" />
+    <Content Include="Scripts\matchApp\matchDistinct.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.7.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -1835,12 +1836,12 @@
     <Folder Include="Content\Files\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201411021445583_InitialMigration.resx">
-      <DependentUpon>201411021445583_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <EmbeddedResource Include="Migrations\201411082258159_Added_BetMinute_To_Bets_table.resx">
+      <DependentUpon>201411082258159_Added_BetMinute_To_Bets_table.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

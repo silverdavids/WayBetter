@@ -64,11 +64,15 @@ bettingApp.controller('loginCtrl', ['$scope', '$location', 'authService', functi
 
         authService.login($scope.loginData).then(function (response) {
 
-            $location.path('/matches');
+            //$location.path('/matches');
+
+            window.location.href="../Live/Index";
+            $scope.message="You are being redirected to the matches page..."
 
         },
             function (err) {
-                $scope.message = err.error_description;
+               // console.log(err);
+                $scope.message = "invalid user name or password"//err.error_description;
             });
     };
 

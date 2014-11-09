@@ -34,5 +34,9 @@ namespace BetLive.Controllers.UI
         {    
             return this.View();
         }
+        public ActionResult login()
+        {
+            return this.View();
+        }
     }
 }
