@@ -40,5 +40,6 @@ namespace Domain.Models.Concrete
         public ICollection<Bet> Bets { get; set; }
         public virtual ICollection<MatchOdd> MatchOdds { get; set; }
         public virtual ShortMatchCode ShortMatchCode { get; set; }
+        public virtual ICollection<LiveResult> LiveResults { get; set; }
     }
 }

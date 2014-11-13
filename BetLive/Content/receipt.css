@@ -20,7 +20,7 @@ button{
     top: 145px;
     right: 4%;*/
     margin:0px;
-    min-width: 30em;
+    min-width: 9em;
     background-color: #ffffff;
     max-height: 600px;
     overflow-y: auto;
@@ -80,7 +80,7 @@ button{
     padding: 0.25em;
     margin: 0.25em;
     margin-left: -35px;
-    background-color:beige;
+   
     border-radius: 4px;
     box-shadow: 2px 2px 3px  rgba(0,0,0,0.6);
     /*width:95%;*/
@@ -91,6 +91,9 @@ button{
     -o-transition:all 0.25s ease-out;
     transition:all 0.25s ease-out;
 }
+    #betList .bet-not-changed,#multiple-bet-template .bet-not-changed {
+         background-color:beige;
+    }
 
 .info{
 
@@ -154,13 +157,13 @@ border-radius: 4px;
 
 @keyframes fade {
     from { opacity: 1.0; }
-    50% { opacity: 0.2; }
+    50% { opacity: 0.7; }
     to { opacity: 1.0; }
 }
 
 @-webkit-keyframes fade {
     from { opacity: 1.0; }
-    50% { opacity: 0.2; }
+    50% { opacity: 0.7; }
     to { opacity: 1.0; }
 }
 
@@ -184,3 +187,30 @@ position:relative;
    li .bet{
         width:98%;
     }
+
+
+
+      .down {
+       background-color:rgb(255, 0, 0);
+       }
+       .replaced-bet-down {
+            background-color:red;
+            animation:fade 5000ms infinite;
+            -webkit-animation:fade 5000ms infinite;
+       }
+        .replaced-bet-up {
+            background-color:limegreen;
+            animation:fade 5000ms infinite;
+            -webkit-animation:fade 5000ms infinite;
+       }
+.up-background {
+    background-position:0 0;
+    background-repeat:no-repeat;
+    background: url('Images/arrow_up.png');
+}
+
+.down-background {
+      background-position:0 0;
+        background-repeat:no-repeat;
+    background: url('Images/arrow_down.png');
+}

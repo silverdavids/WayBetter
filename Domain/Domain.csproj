@@ -66,6 +66,7 @@
     <Compile Include="Models\Concrete\Company.cs" />
     <Compile Include="Models\Concrete\Document.cs" />
     <Compile Include="Models\Concrete\Employee.cs" />
+    <Compile Include="Models\Concrete\LiveResult.cs" />
     <Compile Include="Models\Concrete\Match.cs" />
     <Compile Include="Models\Concrete\Bet.cs" />
     <Compile Include="Models\Concrete\League.cs" />

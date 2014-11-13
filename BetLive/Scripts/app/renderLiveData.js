@@ -94,7 +94,8 @@ function RenderLiveData(receiptApp) {
     self.contructRowTemplate = function (game) {
          rowTemplate = ' <tr  data-symbol="' + game.MatchNo + '" id="' + game.MatchNo + '"> ' +
 
-       ' <td data-field="shortCode" class="short-code"> ' + game.ShortCode + ' </td> ' +
+       ' <td data-field="shortCode" class="short-code hidden"> ' + game.ShortCode + ' </td> ' +
+       ' <td data-field="dailyShortCode" class="daily-short-code"> ' + game.DailyShortCode + ' </td> ' +
        ' <td data-field="matchId" class="match-code hidden">' + game.MatchNo + '</td> ' +
        ' <td data-field="betMinute" class="bet-minute">' + game.Minutes + '</td> ' +
        ' <td data-field="startTime" class="start-time hidden">' + game.StartTime + '</td> ' +
@@ -104,31 +105,31 @@ function RenderLiveData(receiptApp) {
        ' <td data-field="liveScores" class="live-scores">' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td> ' +
        ' <td>' + game.AwayTeam + '</td> ' +
        ' <td style="padding-bottom: 0px;"> ' +
-            ' <input type="button" class="btn btn-sm btn-default FT1 odd" value="' + game.FullTimeOdds.HomeWins + '" data-odd-type="Live" data-option-id="80" data-option-name="1" data-bet-category="FT1X2" /> ' +
+            ' <input type="button" class="btn btn-sm btn-default FT1 odd" value="' + game.FullTimeOdds.HomeWins + '" data-odd-type="Live" data-option-id="74" data-option-name="1" data-bet-category="FT1X2" /> ' +
        ' </td> ' +
     ' <td> ' +
-        ' <input type="button" class="btn btn-sm btn-default FTX odd" value="' + game.FullTimeOdds.Draw + '" data-odd-type="Live" data-option-id="81" data-option-name="X" data-bet-category="FT1X2" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default FTX odd" value="' + game.FullTimeOdds.Draw + '" data-odd-type="Live" data-option-id="77" data-option-name="X" data-bet-category="FT1X2" /> ' +
    '  </td> ' +
     ' <td> ' +
-        ' <input type="button" class="btn btn-sm btn-default FT2 odd" value="' + game.FullTimeOdds.AwayWins + '" data-odd-type="Live" data-option-id="83" data-option-name="2" data-bet-category="FT1X2" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default FT2 odd" value="' + game.FullTimeOdds.AwayWins + '" data-odd-type="Live" data-option-id="78" data-option-name="2" data-bet-category="FT1X2" /> ' +
    '  </td> ' +
     ' <td> ' +
-        ' <input type="button" class="btn btn-sm btn-default under odd" value="' + game.UnderOverOdds.Under + '" data-odd-type="Live" data-option-id="78" data-option-name="U" data-bet-category="U/O" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default under odd" value="' + game.UnderOverOdds.Under + '" data-odd-type="Live" data-option-id="79" data-option-name="U" data-bet-category="U/O" /> ' +
    '  </td> ' +
    '<td id="' + game.MatchNo + '" data-extra-value="' + game.UnderOverOdds.ExtraValue + '"  style="padding-top: 14px;">' +
        '  <span class="extra-value" style="color:#E9860D;">' + game.UnderOverOdds.ExtraValue + '</span>' +
        '</td>' +
     ' <td> ' +
-        ' <input type="button" class="btn btn-sm btn-default over odd" value="' + game.UnderOverOdds.Over + '" data-odd-type="Live" data-option-id="79" data-option-name="O" data-bet-category="U/O" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default over odd" value="' + game.UnderOverOdds.Over + '" data-odd-type="Live" data-option-id="80" data-option-name="O" data-bet-category="U/O" /> ' +
    '  </td> ' +
     ' <td style="padding-bottom: 0px;"> ' +
-        ' <input type="button" class="btn btn-sm btn-default DC1 odd" value="' + game.DoubleChance.HomeWinsOrDraw + '" data-odd-type="Live" data-option-id="75" data-option-name="1X" data-bet-category="Double Chance" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default DC1 odd" value="' + game.DoubleChance.HomeWinsOrDraw + '" data-odd-type="Live" data-option-id="85" data-option-name="1X" data-bet-category="Double Chance" /> ' +
    '  </td> ' +
     ' <td> ' +
-        ' <input type="button" class="btn btn-sm btn-default DCX odd" value="' + game.DoubleChance.HomeWinsOrAwayWins + '" data-odd-type="Live" data-option-id="76" data-option-name="12" data-bet-category="Double Chance" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default DCX odd" value="' + game.DoubleChance.HomeWinsOrAwayWins + '" data-odd-type="Live" data-option-id="86" data-option-name="12" data-bet-category="Double Chance" /> ' +
    '  </td> ' +
     ' <td> ' +
-        ' <input type="button" class="btn btn-sm btn-default DC2 odd" value="' + game.DoubleChance.AwayWinsOrDraw + '" data-odd-type="Live" data-option-id="77" data-option-name="X2" data-bet-category="Double Chance" /> ' +
+        ' <input type="button" class="btn btn-sm btn-default DC2 odd" value="' + game.DoubleChance.AwayWinsOrDraw + '" data-odd-type="Live" data-option-id="87" data-option-name="X2" data-bet-category="Double Chance" /> ' +
    '  </td> ' +
     ' <td style="padding-bottom: 0px;"> ' +
         ' <input type="button" class="btn btn-sm btn-default NG1 odd" value="' + game.NextGoal.HomeScores + '" data-odd-type="Live" data-option-id="71" data-option-name="1" data-bet-category="FT-NextGoal" /> ' +
@@ -210,20 +211,21 @@ function RenderLiveData(receiptApp) {
     };
     self.addTemporaryClassOnChange = function ($input,oldOddValue,newOddValue) {
         var optionId = $input.data("option-id");
-        //console.log(optionName);
+       // console.log(optionId);
         if ($.isNumeric(newOddValue)) {
             if (parseFloat(oldOddValue) > parseFloat(newOddValue)) {
                 $input.addTemporaryClass("down", 3000);
+                $input.css('background-color', "lightgreen");
                 // console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' down');
-                self.validateReceipt(true, newOddValue, optionId);
-               // console.log("odd dropped");
+                self.validateReceipt(true,false ,newOddValue, optionId);
+                console.log("odd dropped");
             }
 
             if (parseFloat(oldOddValue) < parseFloat(newOddValue)) {
                 $input.addTemporaryClass("up", 3000);
                 // console.log(FT1 + ' ' + FTX + ' ' + FT2 + ' up');
-                self.validateReceipt(true, newOddValue, optionId);
-               // console.log("odd increased");
+                self.validateReceipt(true, true, newOddValue, optionId);
+                console.log("odd increased");
             }
            // console.log(" numeric")
         }
@@ -250,7 +252,7 @@ function RenderLiveData(receiptApp) {
         }
         return classString.toString();
     };
-    self.validateReceipt = function (isAReplacement,newOdd,optionId) {
+    self.validateReceipt = function (isAReplacement,isOddUp,newOdd,optionId) {
         //gameToCheckOnReceipt is declared at the top of the function and
         //initilized iun updateGame()
      var   _gameToCheckOnReceipt = gameToCheckOnReceipt;
@@ -270,8 +272,9 @@ function RenderLiveData(receiptApp) {
                    if (isAReplacement) {
                        //ToDo update the bet on the receipt
                        var newBet = _gameToCheckOnReceipt;
-                       newBet.odd = newOdd
-                       _receiptApp.replaceBetElement(newBet, $bet);
+                       newBet.odd = newOdd;
+                       newBet.betMinute = _gameToCompareWithFromServer.Minutes;
+                       _receiptApp.replaceBetElement(newBet, $bet,isOddUp);
                        //console.log(newBet);
                        console.log("replaced bet");
                       

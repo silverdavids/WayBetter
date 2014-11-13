@@ -401,6 +401,10 @@ function BettingApp() {
                    // alert(bet.shortCode)
                     $input.text(bet["shortCode"]);
             }
+            else if (fieldName.toString() == "dailyShortMatchCode".toString()) {
+                // alert(bet.shortCode)
+                $input.text(bet["dailyShortMatchCode"]);
+            }
             else{
 
                 $input.text(bet[fieldName]);
@@ -426,7 +430,7 @@ function BettingApp() {
         updateSummaryFields();
 
     };
-    this.replaceBetElement = function (bet, $betLiRef) {
+    this.replaceBetElement = function (bet, $betLiRef,isOddUp) {
         var $bet = $("#bet-template .bet").clone();
 
         $("span.match-code", $bet).text(bet.shortCode);
@@ -434,11 +438,32 @@ function BettingApp() {
         $bet.attr("id", bet.matchId);
        
         //var $betList=$("#betList");
-        $bet.addClass("replaced-bet ");
+        
+        if (isOddUp) {
+           // $("span.betted-odd i",$bet).addClass("up-background");
+            $bet.removeClass("bet-not-changed");
+            $bet.addClass("replaced-bet-up");
+        } else {
+            //$("span.betted-odd i",$bet).addClass("down-background")
+            $bet.removeClass("bet-not-changed");
+            $bet.addClass("replaced-bet-down");
+        }
+       // $bet.css('background-color', "lightgreen");
         $betLiRef.replaceWith($bet);
        
         setTimeout(function () {
-            $bet.removeClass("replaced-bet");
+
+            if (isOddUp) {
+               // $("span.betted-odd i",$bet).removeClass("up-background")
+                $bet.addClass("bet-not-changed");               
+                $bet.removeClass("replaced-bet-up");
+            } else {
+               // $("span.betted-odd i", $bet).removeClass("down-background")
+                $bet.addClass("bet-not-changed");
+                $bet.removeClass("replaced-bet-down");
+            }
+           
+            //$bet.css('background-color', "beige");
         }, 3000)
         $("button.delete", $bet).on("click", function () {
             self.removeBet(bet.betId, $bet);
@@ -502,7 +527,11 @@ function BettingApp() {
 
 };
 
+$(document).on('offline online', function (event) {
+    alert('You are ' + event.type + '!');
+});
 $(function () {
+   
    
     //setTimeout(function () {
         console.log("initialising  receipt scripts");
@@ -533,7 +562,7 @@ $(function () {
         this.renderLivedispalyDataApp = new RenderLivedispalyData();
     } else {
         this.renderLiveData = new RenderLiveData(thisApp);
-        var _sessionLimit = 300000;
+        var _sessionLimit = 30000000;
         thisApp.startSession(_sessionLimit);
     }
   
@@ -594,7 +623,9 @@ $(function () {
                 $matchCode = $that.parent().siblings("td.match-code"),
                 matchCode = $.trim($matchCode.text()),
                  $shortCode = $that.parent().siblings("td.short-code"),
+                  $dailyShortCode = $that.parent().siblings("td.daily-short-code"),
                  shortCode = $.trim($shortCode.text()),
+                   dailyShortCode = $.trim($dailyShortCode.text()),
                 optionName = $that.data("option-name"),
                 liveScores = $that.parent().siblings("td.live-scores").text(),
                 extraValue = $that.parent().siblings("td#" + matchCode).data("extra-value"),
@@ -603,6 +634,7 @@ $(function () {
             // $that.tooltip({ placement: 'top', title:''+ matchCode + " " + optionName +''});
             // console.log(handCapGoalString);
             bet.shortCode = shortCode;
+            bet.dailyShortCode = dailyShortCode;
             bet.handCapGoalString = handCapGoalString;
             bet.odd = chosenOdd;
             bet.optionId = optionId;
@@ -664,7 +696,6 @@ $(function () {
                matchCode1 = $.trim($matchCode.text());
         var     optionId1 = $that.data("option-id");
         if (checkRemoveBetByMatchId(matchCode1, optionId1) == matchCode1) {
-
             var chosenOdd = $that.val(),
                 optionId = $that.data("option-id"),
                 handCapGoalString = $that.data("hc-homegoal") + ":" + $that.data("hc-awaygoal"),

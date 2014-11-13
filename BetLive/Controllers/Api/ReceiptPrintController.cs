@@ -321,6 +321,7 @@ namespace BetLive.Controllers.Api
         public string StartTime { get; set; }
         public string ExtraValue { get; set; }
         public string ShortCode { get; set; }
+        public string DailyShortCode { get; set; }
         public string BetMinute { get; set; }
 
     }

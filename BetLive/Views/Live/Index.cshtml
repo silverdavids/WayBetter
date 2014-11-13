@@ -39,7 +39,7 @@
 
                             <tr><th colspan="5"></th><th colspan="3" class="text-center">Full&nbsp;Time</th><th colspan="3" class="text-center">Under/Over</th><th colspan="3" class="text-center">Double&nbsp;Chance&nbsp;</th><th colspan="3" class="text-center">Next&nbsp;Goal</th></tr>
                             <tr style="background-color:#0D1F35 !important; color: #ffffff;">
-                                <th>Match No</th>
+                                <th>Match No</th>                               
                                 <th>Min</th>
                                 <th>Home</th>
                                 <th>Score</th>
@@ -108,7 +108,8 @@
                     }, duration);
 
                     return this.each(function () {
-                       // console.log("adding temporary class");
+                        // console.log("adding temporary class");
+                        $(this).css('background-color', "lightgreen");
                         $(this).addClass(className);
                     });
                 }

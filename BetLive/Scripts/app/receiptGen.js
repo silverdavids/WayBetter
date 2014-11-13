@@ -33,7 +33,8 @@ function ReceiptGen() {
             }
             else if (fieldName == "teamVersus" && bet.liveScores!="") {
                     $input.text(bet[fieldName] + " ( " + "Live " + bet["betMinute"] + " : " + bet["liveScores"] + ")");
-                    $("td.match-code", $bet).text(bet.shortCode);
+                $("td.match-code", $bet).text(bet.shortCode);
+                $("td.daily-short-code", $bet).text(bet.dailyShortCode);
                    
             }
             else if (fieldName == "optionName") {

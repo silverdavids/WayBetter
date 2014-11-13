@@ -21,6 +21,7 @@ function Bet(matchId) {
     this.liveScores = null;
     this.extraValue = null;
     this.shortCode = 0;
+    this.dailyShortCode = 0;
     this.betMinute = null;
     //this.betTotal=0;
     //this.maxPayout=0;

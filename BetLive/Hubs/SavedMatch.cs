@@ -8,6 +8,7 @@ namespace BetLive.Hubs
    public class SavedMatch
     {
        public int ShortMatchCode { get; set; }
+       public int DailyShortCode { get; set; }
        public bool IsAlreadysaved { get; set; }
     }
 }

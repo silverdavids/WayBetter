@@ -29,6 +29,7 @@ function BetData() {
     this.ExtraValue = null;
     this.ShortCode = 0;
     this.BetMinute = null;
+    this.DailyShortCode = 0;
 
 };
 
@@ -62,17 +63,18 @@ function SendReceipt() {
             _betData.ExtraValue = _bet.extraValue;
             _betData.ShortCode = _bet.shortCode;
             _betData.BetMinute = _bet.betMinute;
+            _betData.DailyShortCode = _bet.dailyShortCode;
             receipt.betData.push(_betData);
 
         }
         if (betList.getBets().length > 0) console.log(receipt);
        // alert( "receipt sender")
         //_____________________________ in betlive____________________________________
-       // var url = "http://localhost:54482/api/ReceiptPrint/ReceiveReceipt";
+        //var url = "http://localhost:54482/api/ReceiptPrint/ReceiveReceipt";
         //_______________________in WebUI___________________________________________
         //var url = "http://localhost:49193/api/ReceiptPrint/ReceiveReceipt";
         //________________________________Deployment________________________________
-          var url = "http://testlive.betway.ug/api/ReceiptPrint/ReceiveReceipt";
+          var url = "http://test.betway.ug/api/ReceiptPrint/ReceiveReceipt";
         //var url = $receiptSenderData.settings.baseUrl + "ReceiptPrint/ReceiveReceipt";
        // alert(url)
         $.ajax({
@@ -111,7 +113,7 @@ function SendReceipt() {
                 $("#rcpTteller").text(response.TellerName);
                 $("#rcpTbarCode img").attr({
                     //src: "http://localhost:54482/Content/Barcodes/" + response.Serial + ".png",
-                    src: "testlive.betway.ug/Content/Barcodes/" + response.Serial + ".png",
+                    src: "test.betway.ug/Content/Barcodes/" + response.Serial + ".png",
                     alt: response.Serial//.toString()
                 });
                 // ReceiptNumber

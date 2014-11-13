@@ -1,5 +1,6 @@
 ﻿<div id="app">
    <style >
+    
 
        table {
        
@@ -193,7 +194,7 @@
         <div id="selection-summary" class="info">
             <span class="number-of-selections">0   </span>
             <span class="bet-amount">Ugx 0</span>
-            <span class="total-odds">2.85</span>
+            <span class="total-odds">0.00</span>
         </div>
 
         <ul id="betList">
@@ -201,7 +202,7 @@
         </ul>
         <ul id="multiple-bet-template">
 
-            <li class="bet">
+            <li class="bet bet-not-changed">
 
                 <div class="multiple-bet">
                     <span class="currency badge btn-default" data-field="betCurrency">&#8721;</span>
@@ -267,14 +268,16 @@
     <div id="templates" class="hidden">
         <ul id="bet-template">
 
-            <li id="" class="bet">
-                <span class="match-code" data-field="matchId"></span>
-                <span class="match-name " data-field="teamVersus"></span>
+            <li id="" class="bet bet-not-changed">
+                <span class="match-code hidden" data-field="matchId"></span>
+                <span class="daily-short-code" data-field="dailyShortCode"></span>
+                <span class="match-name" data-field="teamVersus"></span>
                 <div class="match-summary">
-                    <span class="fixture  " data-field="betCategory"></span>
+                    <span class="fixture" data-field="betCategory"></span>
                     <span class="fixtureOption badge btn-success" data-field="optionName"></span>
-                    <input data-a-sep="," type="text" id="amountBet" class="money hidden" data-field="betAmount" placeholder="amount" disabled/>
-                    <span class="betted-odd badge btn-info" data-field="odd"></span>                   
+                    <input data-a-sep="," type="text" id="amountBet" class="money hidden" data-field="betAmount" placeholder="amount" disabled />
+                    <span class="betted-odd badge btn-info" data-field="odd"><i></i></span>
+                    <span class="bett-minute badge btn-info" data-field="betMinute"></span>
                 </div>
                 <button class="delete">X</button>
             </li>
@@ -367,7 +370,8 @@
         <table id="rcpTbet-template" class="table ">
             <tbody class="bet">
                 <tr class="bet-content dashed-first receipt" style="font-size:0.35em">
-                    <td rowspan="3" class="match-code " data-field="matchId" style="vertical-align:top;border-bottom:1px dashed black;"></td>
+                    <td rowspan="3" class="match-code hidden" data-field="matchId" style="vertical-align:top;border-bottom:1px dashed black;"></td>
+                    <td rowspan="3" class="daily-short-code " data-field="dailyShortCode" style="vertical-align:top;border-bottom:1px dashed black;"></td>
                     
                     <td colspan="3" class="match-name " data-field="teamVersus"></td>
                 </tr>

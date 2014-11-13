@@ -17,10 +17,18 @@
         public string FTX { get; set; }
         public string FTX2 { get; set; }
 
-        public string FTU25 { get; set; }
-        public string FTO25 { get; set; }
+        public string FTU05 { get; set; }
+        public string FTO05 { get; set; }
         public string FTU15 { get; set; }
         public string FTO15 { get; set; }
+        public string FTU25 { get; set; }
+        public string FTO25 { get; set; }
+        public string FTU35 { get; set; }
+        public string FTO35 { get; set; }
+        public string FTU45 { get; set; }
+        public string FTO45 { get; set; }
+        public string FTU55 { get; set; }
+        public string FTO55 { get; set; }
 
 
 

@@ -314,6 +314,14 @@
     <Compile Include="Migrations\201411082258159_Added_BetMinute_To_Bets_table.Designer.cs">
       <DependentUpon>201411082258159_Added_BetMinute_To_Bets_table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411132015203_Added_LiveMatchResultsTable.cs" />
+    <Compile Include="Migrations\201411132015203_Added_LiveMatchResultsTable.Designer.cs">
+      <DependentUpon>201411132015203_Added_LiveMatchResultsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411140548524_chnaged_setdate_tostring_in_live_matches.cs" />
+    <Compile Include="Migrations\201411140548524_chnaged_setdate_tostring_in_live_matches.Designer.cs">
+      <DependentUpon>201411140548524_chnaged_setdate_tostring_in_live_matches.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -1841,6 +1849,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201411082258159_Added_BetMinute_To_Bets_table.resx">
       <DependentUpon>201411082258159_Added_BetMinute_To_Bets_table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411132015203_Added_LiveMatchResultsTable.resx">
+      <DependentUpon>201411132015203_Added_LiveMatchResultsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411140548524_chnaged_setdate_tostring_in_live_matches.resx">
+      <DependentUpon>201411140548524_chnaged_setdate_tostring_in_live_matches.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

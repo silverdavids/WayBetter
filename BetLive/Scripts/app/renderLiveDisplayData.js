@@ -89,7 +89,8 @@ function RenderLivedispalyData() {
     };
     self.contructRowTemplate = function (game) {
         rowTemplate = '<tr id="' + game.MatchNo + '">' +
-                        '<td class="text-center">' + game.ShortCode + '</td>' +
+                        '<td class="text-center hidden">' + game.ShortCode + '</td>' +
+                         '<td class="text-center">' + game.DailyShortCode + '</td>' +
                         '<td style="color:#F1C40F;">' + game.Minutes + '</td>' +
                         '<td>' + game.LocalTeam + '</td>' +
                         '<td class="text-center" style="color:#ff0000;">' + game.LocalTeamScore + ' - ' + game.AwayTeamScore + '</td>' +

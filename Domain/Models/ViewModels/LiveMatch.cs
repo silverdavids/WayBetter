@@ -14,8 +14,8 @@ namespace Domain.Models.ViewModels
       
        [Key]
        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-       public string LiveMatchNo { get; set; }
-         
+       public string LiveMatchNo { get; set; }//this is incremental for the entire life time of the app, but there is need for a permutative numbering algorithm
+       public int DailyShortCode { get; set; }  //this is reverted back to one every day
         // this property references the generated BetServiceNo from matches but it  generated as ShortMatchCodes for the live bets
         //so instead of the BetServiceNo for the lives ,we use the shorts
          [ForeignKey("Match")]
@@ -23,7 +23,7 @@ namespace Domain.Models.ViewModels
         [Required]
         public virtual Match Match { get; set; }
        //For the mean time we shall increment these numbers daily by date 
-        public DateTime SetDate { get; set; }
+        public string SetDate { get; set; }
        
        
     }

@@ -17,6 +17,7 @@ namespace WebUI.DataAccessLayer
             return new ApplicationDbContext();
         }
 
+        public DbSet<LiveResult> LiveResults { get; set; }
         public DbSet<LiveMatch> LiveMatches { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Account> Accounts { get; set; }

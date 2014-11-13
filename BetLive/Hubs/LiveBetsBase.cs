@@ -47,8 +47,10 @@ namespace BetLive.Hubs
         private MyController myController;
         private MatchController myApiController;
         private static int shortMatchCode = 0;
+        private static int _dailyShortMatchCode=0;
         public static int mockXmlFileExt = 0;
         public int maxShortCodeInDb;
+      
 
         //*********************CAUTION*******************PLEASE DONT CHANGE THIS VARIABLE*********************************//
         //this variable is application wide referenced to check if the service has been restarted so as to validate live games 
@@ -107,18 +109,18 @@ namespace BetLive.Hubs
         //{
         public async Task GetchAllGamesFromServiceProvider()
         {
-            if (mockXmlFileExt < 13)//7
+            if (mockXmlFileExt < 7)//7
             { 
                 ++mockXmlFileExt;
             }
-            else if (mockXmlFileExt == 13)
+            else if (mockXmlFileExt == 7)
             {
                 mockXmlFileExt = 1;
             }
             ////////______________MOCK DATA______________________________________________________________________
-            ////var scores = await myController.GetGamesScoresFromXml(mockXmlFileExt);
-            ////var odds = await myController.GetGamesOddsFromXml(mockXmlFileExt);
-            //////______________LIVE DATA______________________________________________________________________
+            //var scores = await myController.GetGamesScoresFromXml(mockXmlFileExt);
+            //var odds = await myController.GetGamesOddsFromXml(mockXmlFileExt);
+            //////______________LIVE DATA_________________________________________________________________________
             var scores = await GetGamesScores();
             var odds = await GetGamesOdds();  
             var allGames =  (from gamescore in scores
@@ -126,8 +128,9 @@ namespace BetLive.Hubs
                             join gameodds in odds
                             on gamescore.MatchNo equals gameodds.MatchNo
                             select new Game
-                            {
+                            {                               
                                 ShortCode = generateOrGetShortMatchCode(gamescore.MatchNo),
+                                DailyShortCode = _dailyShortMatchCode,
                                 MatchNo = gamescore.MatchNo,
                                 Minutes = gamescore.Minutes,
                                 StartTime = gameodds.StartTime,
@@ -165,19 +168,32 @@ namespace BetLive.Hubs
             var stDateTime = stdate[1] + "-" + stdate[0] + "-" + stdate[2]
                              + " " + startTime + ":00";
             return Convert.ToDateTime(stDateTime).ToLocalTime();
+            
         }
+        //private string getFormattedDtring( DateTime time)
+        //{
+        //    char[] del = { '/' };
+        //    var stdate = time.Split(del);
+        //    var stDateTime = stdate[1] + "-" + stdate[0] + "-" + stdate[2]
+        //                     + " " + startTime + ":00";
+        //    return Convert.ToDateTime(stDateTime).ToLocalTime();
+
+        //}
 
         private int generateOrGetShortMatchCode(string matchCode)
         {
             if (_shortMatchCodes.ContainsKey(matchCode))
             {
-
-                return _shortMatchCodes[matchCode].ShortMatchCode;
+                var _savedMatchObject=_shortMatchCodes[matchCode];
+                _dailyShortMatchCode = _savedMatchObject.DailyShortCode;
+                return _savedMatchObject.ShortMatchCode;
             }
-            var _shortMatchCode = ++shortMatchCode;
+           var _shortMatchCode = ++shortMatchCode;
+           //  _dailyShortMatchCode = ++_dailyShortMatchCode;
             var _savedMatch = new SavedMatch
             {
                 ShortMatchCode = _shortMatchCode,
+                DailyShortCode= ++_dailyShortMatchCode,
                 IsAlreadysaved = false
             };
 
@@ -532,6 +548,12 @@ namespace BetLive.Hubs
             var matchInList = isMatchAlreadySavedToDb(game.MatchNo);
             if (matchInList.IsAlreadysaved)
             {
+                if (game != null)
+                {
+                    saveLiveGameResults(game);
+
+
+                }
                 return true;
             }
 
@@ -636,7 +658,8 @@ namespace BetLive.Hubs
                 {
                     LiveMatchNo = game.MatchNo,
                     BetServiceMatchNo = game.ShortCode,
-                    SetDate = DateTime.Now
+                    DailyShortCode=game.DailyShortCode,
+                    SetDate = DateTime.Now.Date.ToString()
                 };
                 // liveMatchesList.Add(liveMatchToSave);
                 //we could have used AddOrUpdate btu since we always check if match already exits in memory,its useless, unless need be later
@@ -650,6 +673,7 @@ namespace BetLive.Hubs
 
                     BetDatabase.LiveMatches.AddOrUpdate(liveMatchToSave);
                     BetDatabase.SaveChanges();
+                    saveLiveGameResults(game);
                 }
                 catch (Exception ex)
                 {
@@ -678,6 +702,33 @@ namespace BetLive.Hubs
             //if youve got this far, dont broadcast the match
             return false;
         }
+        /// <summary>
+        /// Saves the Live Results per two seconds iterations
+        /// </summary>
+        /// <param name="game"></param>
+        private void saveLiveGameResults(Game game)
+        {
+            LiveResult _liveResult = new LiveResult
+            {
+                BetServiceMatchNo = game.ShortCode,
+                ResultMinute = game.Minutes,
+                HomeScore = game.LocalTeamScore,
+                AwayScore = game.AwayTeamScore,
+                TimeUpdated = DateTime.Now,
+
+            };
+
+            try
+            {
+                BetDatabase.LiveResults.AddOrUpdate(lmr => lmr.LiveResultId, _liveResult);
+                BetDatabase.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
+                    
+        }
 
         private string formatMinutes(string minutes)
         {
@@ -702,15 +753,21 @@ namespace BetLive.Hubs
         #region Support Methods
         private void setInitialStaticCodeFromDb()
         {
-            maxShortCodeInDb = (int)(from lm in BetDatabase.LiveMatches select lm.BetServiceMatchNo).Max();
-            if (maxShortCodeInDb != 0)
-            {
-                shortMatchCode = maxShortCodeInDb;
-            }
-            else
-            {
-                shortMatchCode = 0;
-            }
+           var topTwo=(from bd in BetDatabase.LiveMatches
+                       select bd
+                      ).Take(2).ToList();
+           if (topTwo != null && topTwo.Count > 0) {
+               maxShortCodeInDb = (int)(from lm in BetDatabase.LiveMatches select lm.BetServiceMatchNo).Max();
+               if (maxShortCodeInDb != 0)
+               {
+                   shortMatchCode = maxShortCodeInDb;
+               }
+               else
+               {
+                   shortMatchCode = 0;
+               }
+           }
+          
         }
 
 
@@ -721,20 +778,52 @@ namespace BetLive.Hubs
 
             lock (_getExistingGamesLock)
             {
-                var savedLiveMatches = BetDatabase.LiveMatches.Where(lm => EntityFunctions.DiffDays(lm.SetDate, DateTime.Now) == 0).ToList();
+                var dt=DateTime.Now.Date.ToString();
+                var savedLiveMatches = (from db in BetDatabase.LiveMatches
+                                        where db.SetDate == dt
+                                        select db).ToList();// BetDatabase.LiveMatches.Where(lm => EntityFunctions.DiffDays(lm.SetDate, DateTime.Now) == 0).ToList();
                 if (savedLiveMatches != null && savedLiveMatches.Count > 0)
                 {
 
                     setInitialStaticCodeFromDb();
+                    var initialDailyShortMatchCode = (from db in BetDatabase.LiveMatches
+                                                      where db.BetServiceMatchNo == maxShortCodeInDb
+                                                      select db.DailyShortCode).SingleOrDefault();//BetDatabase.LiveMatches.SingleOrDefault(s=>s.DailyShortCode==maxShortCodeInDb).DailyShortCode;
+                    if (initialDailyShortMatchCode != 0)
+                    {
+                        _dailyShortMatchCode = initialDailyShortMatchCode;
+
+                    }
+                    else
+                    {
+                        _dailyShortMatchCode = 0;
+                    }
                     foreach (var liveMatch in savedLiveMatches)
                     {
                         var savedMatch = new SavedMatch
                         {
                             ShortMatchCode = (int)liveMatch.BetServiceMatchNo,
+                            DailyShortCode = liveMatch.DailyShortCode,
                             IsAlreadysaved = true,
                         };
                         _shortMatchCodes.Add(liveMatch.LiveMatchNo.ToString(), savedMatch);
                     }
+                }
+                else
+                {
+                    setInitialStaticCodeFromDb();
+                //    setInitialStaticCodeFromDb();
+                //    var initialDailyShortMatchCode = BetDatabase.LiveMatches.SingleOrDefault(slm => slm.BetServiceMatchNo.Equals(maxShortCodeInDb)).DailyShortCode;
+                //    if (initialDailyShortMatchCode != 0)
+                //    {
+                //        _dailyShortMatchCode = initialDailyShortMatchCode;
+
+                //    }
+                //    else
+                //    {
+                //        _dailyShortMatchCode = 0;
+                //    }
+
                 }
             }
         }
@@ -932,7 +1021,7 @@ namespace BetLive.Hubs
         public void setInitialGamesFromDb()
         {
             IDictionary<string, SavedMatch> _shortMatchCodes = new Dictionary<string, SavedMatch>();
-            var savedLiveMatches = BetDatabase.LiveMatches.Where(lm => lm.SetDate == DateTime.Now);
+            var savedLiveMatches = BetDatabase.LiveMatches.Where(lm => lm.SetDate == DateTime.Now.Date.ToString());
             if (savedLiveMatches != null)
             {
                 foreach (var liveMatch in savedLiveMatches)
@@ -961,6 +1050,7 @@ namespace BetLive.Hubs
     public class Game
     {
         public int ShortCode { get; set; }
+        public int DailyShortCode { get; set; }
         public string MatchNo { get; set; }
         public string League { set; get; }
         public string StartTime { get; set; }
