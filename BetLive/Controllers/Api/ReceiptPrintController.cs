@@ -14,6 +14,7 @@ using Domain.Models.Concrete;
 using System.Globalization;
 using System.Drawing.Imaging;
 using System.Security.Claims;
+using BetLive.Infrastructure;
 
 
 namespace BetLive.Controllers.Api
@@ -24,11 +25,14 @@ namespace BetLive.Controllers.Api
         private ApplicationDbContext BetDatabase;//=new ApplicationDbContext();
         private CustomController cc;
         private ApplicationUserManager _userManager;
+        private TimeFormmater _timeFormmater;
         //private readonly ApplicationDbContext db = new ApplicationDbContext();
         public ReceiptPrintController()
         {
+            _timeFormmater = new TimeFormmater();
             cc = new CustomController();
             BetDatabase = cc.BetDatabase;
+       
             // _userManager = this.RequestContext.Principal.Identity//cc.UserManager;
 
         }
@@ -137,7 +141,7 @@ namespace BetLive.Controllers.Api
                             MatchId = Convert.ToInt32(matchid),// MatchId = BetDatabase.ShortMatchCodes.Single(x => x.ShortCode == tempMatchId).MatchNo,
                             BetOdd = Convert.ToDecimal(betData.Odd),
                             ExtraValue = GetExtraValue(betData.ExtraValue),
-                            BetMinute=betData.BetMinute
+                            BetMinute = _timeFormmater.formatMinutes(betData.BetMinute)
                         };
                         BetDatabase.Bets.Add(bm);
                         BetDatabase.SaveChanges();

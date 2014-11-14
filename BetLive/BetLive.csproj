@@ -267,6 +267,7 @@
     <Compile Include="Hubs\LiveBetHub.cs" />
     <Compile Include="Hubs\LiveBetsBase.cs" />
     <Compile Include="Hubs\SavedMatch.cs" />
+    <Compile Include="Infrastructure\TimeFormmater.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
