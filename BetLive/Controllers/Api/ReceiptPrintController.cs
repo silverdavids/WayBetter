@@ -197,10 +197,10 @@ namespace BetLive.Controllers.Api
                 }
                 response = ("Success");
             }
-            else if (cost < 3000)
+            else if (cost < 2000)
             {
                 receipt.ReceiptId = 0;
-                response = ("Minimum betting stake is UGX 3000. Please enter amount more than UGX 1000.");
+                response = ("Minimum betting stake is UGX 3000. Please enter amount more than UGX 2000.");
             }
             else
             {

@@ -48,6 +48,7 @@ namespace BetLive.Hubs
         private MatchController myApiController;
         private static int shortMatchCode = 0;
         private static int _dailyShortMatchCode=0;
+        private static int _dailyShortMatchCodeTemp = 0;
         public static int mockXmlFileExt = 0;
         public int maxShortCodeInDb;
       
@@ -109,20 +110,20 @@ namespace BetLive.Hubs
         //{
         public async Task GetchAllGamesFromServiceProvider()
         {
-            if (mockXmlFileExt < 7)//7
+            if (mockXmlFileExt < 9)//7
             { 
                 ++mockXmlFileExt;
             }
-            else if (mockXmlFileExt == 7)
+            else if (mockXmlFileExt == 9)
             {
                 mockXmlFileExt = 1;
             }
             ////////______________MOCK DATA______________________________________________________________________
-            //var scores = await myController.GetGamesScoresFromXml(mockXmlFileExt);
-            //var odds = await myController.GetGamesOddsFromXml(mockXmlFileExt);
+            var scores = await myController.GetGamesScoresFromXml(mockXmlFileExt);
+            var odds = await myController.GetGamesOddsFromXml(mockXmlFileExt);
             //////______________LIVE DATA_________________________________________________________________________
-            var scores = await GetGamesScores();
-            var odds = await GetGamesOdds();  
+            //var scores = await GetGamesScores();
+            //var odds = await GetGamesOdds();  
             var allGames =  (from gamescore in scores
 
                             join gameodds in odds
@@ -130,7 +131,7 @@ namespace BetLive.Hubs
                             select new Game
                             {                               
                                 ShortCode = generateOrGetShortMatchCode(gamescore.MatchNo),
-                                DailyShortCode = _dailyShortMatchCode,
+                                DailyShortCode = _dailyShortMatchCodeTemp,
                                 MatchNo = gamescore.MatchNo,
                                 Minutes = gamescore.Minutes,
                                 StartTime = gameodds.StartTime,
@@ -185,15 +186,17 @@ namespace BetLive.Hubs
             if (_shortMatchCodes.ContainsKey(matchCode))
             {
                 var _savedMatchObject=_shortMatchCodes[matchCode];
-                _dailyShortMatchCode = _savedMatchObject.DailyShortCode;
+                _dailyShortMatchCodeTemp = _savedMatchObject.DailyShortCode;
                 return _savedMatchObject.ShortMatchCode;
             }
+            
            var _shortMatchCode = ++shortMatchCode;
-           //  _dailyShortMatchCode = ++_dailyShortMatchCode;
+           var  dailyShortMatchCodetoSave = ++_dailyShortMatchCode;
+           _dailyShortMatchCodeTemp = dailyShortMatchCodetoSave;
             var _savedMatch = new SavedMatch
             {
                 ShortMatchCode = _shortMatchCode,
-                DailyShortCode= ++_dailyShortMatchCode,
+                DailyShortCode = dailyShortMatchCodetoSave,
                 IsAlreadysaved = false
             };
 

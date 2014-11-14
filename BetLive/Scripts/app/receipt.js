@@ -25,7 +25,7 @@ function BettingApp() {
        // bet = _tax || 0.15;
        // Bet.localTax = _tax||0.15;
         maximumNumBet = _maximumNumBet || 12;
-        minStake = _minStake || 3000;
+        minStake = _minStake || 2000;
         Bet.setMaxPayoutPossible = _setMaxPayoutPossible || 50000000;
         updateSummaryFields();
        

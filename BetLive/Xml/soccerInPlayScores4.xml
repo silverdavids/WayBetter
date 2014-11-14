@@ -1,23 +1,82 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<scores sport="soccer" updated="635496047999471127">
-  <match id="26552435" minute="45:00" v="0" stop="False">
-    <localteam name="Herediano" score="0" />
-    <awayteam name="Perez Zeledon" score="0" />
+﻿<scores sport="soccer" updated="635515473648148816">
+  <match id="26607168" minute="06:52" v="0" stop="False">
+    <localteam name="Jordan" score="0"/>
+    <awayteam name="South Korea" score="0"/>
   </match>
-  <match id="26552496" minute="44:47" v="0" stop="False">
-    <localteam name="Tigres" score="0" />
-    <awayteam name="Toluca" score="0" />
+  <match id="26607133" minute="78:34" v="0" stop="False">
+    <localteam name="Eintracht Braunschweig II" score="1"/>
+    <awayteam name="Wolfsburg II" score="1"/>
   </match>
-  <match id="26552434" minute="64:47" v="0" stop="False">
-    <localteam name="Real Salt Lake" score="1" />
-    <awayteam name="Chivas USA" score="0" />
+  <match id="26607107" minute="72:51" v="0" stop="False">
+    <localteam name="Borussia M&amp;apos;gladbach" score="0"/>
+    <awayteam name="Kaiserslautern" score="1"/>
   </match>
-  <match id="26552414" minute="00:00" v="0" stop="True">
-    <localteam name="Real Espana" score="2" />
-    <awayteam name="Pachuca" score="2" />
+  <match id="26607736" minute="81:17" v="0" stop="False">
+    <localteam name="SV Kapfenberg" score="1"/>
+    <awayteam name="NK Domzale" score="0"/>
   </match>
-  <match id="26552410" minute="90:00" v="20" stop="False">
-    <localteam name="Chapecoense" score="0" />
-    <awayteam name="Sao Paulo" score="0" />
+  <match id="26607075" minute="47:23" v="0" stop="False">
+    <localteam name="FC Ingolstadt" score="0"/>
+    <awayteam name="SV Grodig" score="0"/>
+  </match>
+  <match id="26607076" minute="45:00" v="0" stop="False">
+    <localteam name="FSV Frankfurt" score="2"/>
+    <awayteam name="Saarbrucken" score="1"/>
+  </match>
+  <match id="26607087" minute="73:24" v="0" stop="False">
+    <localteam name="Mlada Boleslav U21" score="2"/>
+    <awayteam name="Banik Ostrava U21" score="2"/>
+  </match>
+  <match id="26607009" minute="00:00" v="0" stop="False">
+    <localteam name="United Arab Emirates" score=""/>
+    <awayteam name="Oman" score=""/>
+  </match>
+  <match id="26607229" minute="35:42" v="0" stop="False">
+    <localteam name="Shbab Alkhaleel" score="0"/>
+    <awayteam name="Shabab Doora" score="0"/>
+  </match>
+  <match id="26607198" minute="77:04" v="0" stop="False">
+    <localteam name="Bnei Yehuda Tel Aviv" score="1"/>
+    <awayteam name="Hapoel Rishon Lezion" score="0"/>
+  </match>
+  <match id="26607199" minute="79:27" v="0" stop="False">
+    <localteam name="Hapoel Kfar Saba" score="4"/>
+    <awayteam name="Hapoel Afula" score="1"/>
+  </match>
+  <match id="26607254" minute="73:48" v="0" stop="False">
+    <localteam name="FK Tosno" score="3"/>
+    <awayteam name="FK Yenisey" score="1"/>
+  </match>
+  <match id="26607255" minute="34:45" v="0" stop="False">
+    <localteam name="Khimik Dzerzhinsk" score="0"/>
+    <awayteam name="SKA Energia Khabarovsk" score="0"/>
+  </match>
+  <match id="26607256" minute="79:43" v="0" stop="True">
+    <localteam name="Sibir Novosibirsk" score="2"/>
+    <awayteam name="Gazovik Orenburg" score="1"/>
+  </match>
+  <match id="26607539" minute="76:23" v="0" stop="False">
+    <localteam name="FK Tyumen" score="0"/>
+    <awayteam name="Dinamo St Petersburg" score="0"/>
+  </match>
+  <match id="26607140" minute="45:00" v="0" stop="False">
+    <localteam name="Atletico de Kolkata" score="0"/>
+    <awayteam name="Chennaiyin FC" score="0"/>
+  </match>
+  <match id="26607261" minute="76:55" v="0" stop="False">
+    <localteam name="Maribor B" score="4"/>
+    <awayteam name="NK Fuzinar" score="1"/>
+  </match>
+  <match id="26607105" minute="74:35" v="0" stop="False">
+    <localteam name="Ukraine U19" score="3"/>
+    <awayteam name="Bulgaria U19" score="1"/>
+  </match>
+  <match id="26607111" minute="79:18" v="0" stop="False">
+    <localteam name="Cyprus U21" score="1"/>
+    <awayteam name="Sweden U21" score="1"/>
+  </match>
+  <match id="26607119" minute="60:49" v="0" stop="False">
+    <localteam name="Tunisia U23" score="1"/>
+    <awayteam name="Qatar U23" score="1"/>
   </match>
 </scores>
